@@ -16,24 +16,24 @@ def extract_gemini_qa(html_path):
     soup = BeautifulSoup(content, 'html.parser')
     text = soup.get_text(separator='\n', strip=True)
 
-    # Pattern to match baseline questions and answers
-    # Format: baseline-XXX<tab or space>Question text
-    pattern = r'(baseline-\d+)\s+(.+?)(?=baseline-\d+|$)'
-
     # Clean text - remove special unicode
     text = text.encode('ascii', 'ignore').decode('ascii')
 
     qa_pairs = []
 
-    # Find all baseline markers and extract Q&A
+    # Find all question markers and extract Q&A
+    # Pattern matches baseline-XXX, core-XXX, or inspection-XXX followed by question
     lines = text.split('\n')
     current_id = None
     current_question = None
     current_answer_lines = []
 
+    # Pattern to match question IDs (baseline, core, inspection)
+    id_pattern = r'^(baseline-\d+|core-\d+|inspection-\d+)[\s\t]+(.+)$'
+
     for i, line in enumerate(lines):
-        # Check if line starts with baseline-XXX
-        match = re.match(r'^(baseline-\d+)\s+(.+)$', line.strip())
+        # Check if line starts with a question ID
+        match = re.match(id_pattern, line.strip())
         if match:
             # Save previous Q&A if exists
             if current_id and current_question:
@@ -81,9 +81,12 @@ def extract_claude_qa(html_path):
     current_question = None
     current_answer_lines = []
 
+    # Pattern to match question IDs (baseline, core, inspection)
+    id_pattern = r'^(baseline-\d+|core-\d+|inspection-\d+)[\s\t]+(.+)$'
+
     for line in lines:
-        # Check if line starts with baseline-XXX
-        match = re.match(r'^(baseline-\d+)\s+(.+)$', line.strip())
+        # Check if line starts with a question ID
+        match = re.match(id_pattern, line.strip())
         if match:
             # Save previous Q&A if exists
             if current_id and current_question:

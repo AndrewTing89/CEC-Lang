@@ -106,9 +106,8 @@ California uses CEC (based on NEC with California amendments marked [CEC]). CEC 
 1. **ALWAYS call tools** - Never answer from memory for code facts
 2. **CEC first** - Use cec_* tools for California questions
 3. **Exception check** - Always call cec_exception_search after finding base rules
-4. **NEC comparison** - Always include NEC 2023 reference at end
-5. **No mental math** - Use python_calculator for all arithmetic
-6. **Cite sources** - Every value needs a section/table citation
+4. **No mental math** - Use python_calculator for all arithmetic
+5. **Cite sources** - Every value needs a section/table citation
 
 ---
 
@@ -234,7 +233,6 @@ For California Questions:
 2. cec_exception_search → exceptions (MANDATORY)
 3. cec_lookup_* → table values
 4. python_calculator → calculations
-5. compare_with_nec OR NEC lookup → comparison
 
 ---
 
@@ -270,12 +268,7 @@ When tool returns cross_references or applicable_notes mentioning other sections
 [All calculations with intermediate steps]
 [All citations: CEC 2022 Section X.X, Table X.X]
 
----
-## NEC 2023 Reference
-[If different: "NEC 2023 specifies [X] instead of [Y]"]
-[If same: "No difference from NEC 2023"]
-
-✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)
+✓ Source: CEC 2022
 ```
 
 ---
@@ -300,11 +293,7 @@ SEARCH PLAN:
 ✓ **EGC**: 6 AWG copper (CEC Table 250.122 for 200A)
 ✓ **GEC**: 4 AWG copper (CEC Table 250.66 for 3/0 service conductor)
 
----
-## NEC 2023 Reference
-No difference from NEC 2023.
-
-✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)
+✓ Source: CEC 2022
 
 ---
 
@@ -329,11 +318,7 @@ SEARCH PLAN:
    - Panel capacity for EV loads
 3. **Article 625**: Dedicated branch circuits, GFCI protection, weatherproof enclosures
 
----
-## NEC 2023 Reference
-NEC 625 covers installation only. California MANDATES EV infrastructure (Title 24); NEC does not.
-
-✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)
+✓ Source: CEC 2022
 
 ---
 
@@ -350,13 +335,9 @@ SEARCH PLAN: cec_search("medium voltage Table 311.60", limit=15)
 
 CEC has **18** medium voltage tables in the 311.60(C) series:
 - Tables 311.60(C)(67) through 311.60(C)(86)
-- These provide ampacity for MV cables (2001-35kV) not found in NEC
+- These provide ampacity for MV cables (2001-35kV)
 
----
-## NEC 2023 Reference
-These 18 tables are California-only. NEC does not include 311.60(C)(67)-(86).
-
-✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)
+✓ Source: CEC 2022
 
 ---
 
@@ -375,11 +356,7 @@ NOTE: Question specifies "Column B thermoset" - must use Column B value
 12 AWG flexible cord, **Column B (thermoset)**: **25 amperes**
 Per CEC 2022 Table 400.5(A)(1)
 
----
-## NEC 2023 Reference
-No difference from NEC 2023 Table 400.5(A)(1).
-
-✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)
+✓ Source: CEC 2022
 
 ---
 
@@ -408,11 +385,7 @@ Adjusted = 50A × 0.88 × 0.70 = 30.8A
 
 **Final Answer: 30.8 amperes**
 
----
-## NEC 2023 Reference
-No difference from NEC 2023.
-
-✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)
+✓ Source: CEC 2022
 
 ---
 
@@ -436,11 +409,7 @@ Per CEC Table 220.12:
 10,000 sq ft × 0.25 VA/sq ft = 2,500 VA (2.5 kVA)
 ```
 
----
-## NEC 2023 Reference
-No difference from NEC 2023 Table 220.12.
-
-✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)
+✓ Source: CEC 2022
 
 ---
 
@@ -548,7 +517,8 @@ class CECAgent:
         else:
             return f"Error: Tool '{tool_name}' not found"
 
-    def _verify_required_tools(self, question: str, all_tool_calls: List) -> tuple:
+    def _verify_required_tools(self, question: str, all_tool_calls: List,
+                               force_nec_comparison: bool = False) -> tuple:
         """
         Check if required tools were called - simplified enforcement.
 
@@ -589,6 +559,12 @@ class CECAgent:
 
         if not has_exception:
             return (False, "exception")
+
+        # Check for NEC comparison if user requested it via checkbox
+        if force_nec_comparison:
+            has_nec_comparison = "compare_with_nec" in tools_called
+            if not has_nec_comparison:
+                return (False, "nec_comparison")
 
         return (True, None)
 
@@ -684,7 +660,8 @@ class CECAgent:
         """
         return self.llm_with_tools.invoke(messages)
 
-    def _run_agent_loop(self, question: str, max_iterations: int = 15) -> dict:
+    def _run_agent_loop(self, question: str, max_iterations: int = 15,
+                        force_nec_comparison: bool = False) -> dict:
         """
         Custom iteration loop with enforcement checks.
 
@@ -806,7 +783,7 @@ class CECAgent:
 
             # No tool calls - model wants to give final answer
             # LAYER 3: Verify required tools were called before allowing answer
-            is_complete, missing_type = self._verify_required_tools(question, all_tool_calls)
+            is_complete, missing_type = self._verify_required_tools(question, all_tool_calls, force_nec_comparison)
 
             if not is_complete:
                 if self.verbose:
@@ -832,6 +809,12 @@ class CECAgent:
                                "- Search exceptions for the PRIMARY rule you found\n"
                                "- Search for any sections mentioned in footnotes/cross-references\n\n"
                                "Call cec_exception_search NOW with appropriate base_rule and context."
+                    ))
+                elif missing_type == "nec_comparison":
+                    messages.append(HumanMessage(
+                        content="INCOMPLETE: User requested NEC comparison. "
+                               "Call compare_with_nec with the relevant CEC section "
+                               "to show how California code differs from NEC 2023."
                     ))
                 continue
 
@@ -861,7 +844,7 @@ class CECAgent:
             "trace": trace
         }
 
-    def ask(self, question: str) -> Dict[str, Any]:
+    def ask(self, question: str, force_nec_comparison: bool = False) -> Dict[str, Any]:
         """
         Ask the agent a question using custom iteration loop with enforcement.
 
@@ -869,18 +852,24 @@ class CECAgent:
         1. At least one search/lookup tool is called
         2. Exception search is called
         3. Model cannot return answer until requirements are met
+        4. If force_nec_comparison=True, compare_with_nec must be called
 
         Args:
             question: User's question about electrical codes
+            force_nec_comparison: If True, require NEC comparison in response
 
         Returns:
             Dict with answer, tool_calls, and metadata
         """
         start_time = datetime.now()
 
+        # If NEC comparison requested, append instruction to question
+        if force_nec_comparison:
+            question = question + "\n\n[INSTRUCTION: Include NEC 2023 comparison. Call compare_with_nec tool.]"
+
         try:
             # Run custom agent loop with enforcement
-            result = self._run_agent_loop(question)
+            result = self._run_agent_loop(question, force_nec_comparison=force_nec_comparison)
 
             answer = result.get("answer", "No response generated")
             tool_calls = result.get("tool_calls", [])

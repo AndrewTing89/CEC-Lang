@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-12-08T18:09:27.077451",
+  "models": [
+    "Gemini 2.5 Pro",
+    "Claude Sonnet 4.5"
+  ],
+  "summaries": {
+    "Gemini 2.5 Pro": {
+      "total_questions": 28,
+      "questions_matched": 28,
+      "total_accuracy": 108,
+      "total_completeness": 138,
+      "total_score": 246,
+      "max_possible": 280,
+      "avg_accuracy": 3.86,
+      "avg_completeness": 4.93,
+      "avg_total": 8.79,
+      "percentage": 87.9
+    },
+    "Claude Sonnet 4.5": {
+      "total_questions": 28,
+      "questions_matched": 28,
+      "total_accuracy": 111,
+      "total_completeness": 138,
+      "total_score": 249,
+      "max_possible": 280,
+      "avg_accuracy": 3.96,
+      "avg_completeness": 4.93,
+      "avg_total": 8.89,
+      "percentage": 88.9
+    }
+  }
+}

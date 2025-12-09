@@ -1,0 +1,350 @@
+================================================================================
+NEC BASELINE LLM EVALUATION REPORT
+================================================================================
+Generated: 2025-12-08 18:09:27
+
+SUMMARY COMPARISON
+--------------------------------------------------------------------------------
+Model                       Accuracy   Complete      Total    Percent
+--------------------------------------------------------------------------------
+Gemini 2.5 Pro                  3.86       4.93       8.79      87.9%
+Claude Sonnet 4.5               3.96       4.93       8.89      88.9%
+--------------------------------------------------------------------------------
+
+SCORE INTERPRETATION
+----------------------------------------
+Accuracy (0-5): How correct is the answer?
+Completeness (0-5): How thorough is the answer?
+Total (0-10): Combined score
+Percentage: Total / Max possible * 100
+
+================================================================================
+SCORES BY QUESTION TIER
+================================================================================
+
+BASELINE QUESTIONS
+------------------------------------------------------------
+  Gemini 2.5 Pro: 9.62/10 avg (8 questions)
+  Claude Sonnet 4.5: 9.50/10 avg (8 questions)
+
+CORE QUESTIONS
+------------------------------------------------------------
+  Gemini 2.5 Pro: 9.00/10 avg (12 questions)
+  Claude Sonnet 4.5: 9.00/10 avg (12 questions)
+
+INSPECTION QUESTIONS
+------------------------------------------------------------
+  Gemini 2.5 Pro: 7.62/10 avg (8 questions)
+  Claude Sonnet 4.5: 8.12/10 avg (8 questions)
+
+================================================================================
+DETAILED QUESTION-BY-QUESTION COMPARISON
+================================================================================
+
+baseline-001
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 4/5 - Answer length: 803 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 4/5 - Answer length: 811 chars
+    Total: 9/10
+
+baseline-002
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 4/5 - Answer length: 992 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 4/5 - Answer length: 765 chars
+    Total: 9/10
+
+baseline-003
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 80% key term match
+    Completeness: 5/5 - Answer length: 1611 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 67% key term match
+    Completeness: 5/5 - Answer length: 1188 chars
+    Total: 10/10
+
+baseline-004
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 82% key term match
+    Completeness: 5/5 - Answer length: 1774 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 91% key term match
+    Completeness: 5/5 - Answer length: 1250 chars
+    Total: 10/10
+
+baseline-005
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 75% key term match
+    Completeness: 5/5 - Answer length: 1972 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 5/5 - Answer length: 1195 chars
+    Total: 10/10
+
+baseline-006
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 5/5 - Answer length: 1069 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 50% key term match
+    Completeness: 5/5 - Answer length: 1240 chars
+    Total: 9/10
+
+baseline-007
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 5/5 - Answer length: 1285 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 100% key term match
+    Completeness: 5/5 - Answer length: 1231 chars
+    Total: 10/10
+
+baseline-008
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 82% key term match
+    Completeness: 5/5 - Answer length: 1380 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 45% key term match
+    Completeness: 5/5 - Answer length: 1345 chars
+    Total: 9/10
+
+core-001
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 78% key term match
+    Completeness: 5/5 - Answer length: 4077 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 67% key term match
+    Completeness: 5/5 - Answer length: 2096 chars
+    Total: 9/10
+
+core-002
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 65% key term match
+    Completeness: 5/5 - Answer length: 3130 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 61% key term match
+    Completeness: 5/5 - Answer length: 3206 chars
+    Total: 9/10
+
+core-003
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 54% key term match
+    Completeness: 5/5 - Answer length: 2718 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 58% key term match
+    Completeness: 5/5 - Answer length: 3305 chars
+    Total: 9/10
+
+core-004
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 72% key term match
+    Completeness: 5/5 - Answer length: 2333 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 56% key term match
+    Completeness: 5/5 - Answer length: 3570 chars
+    Total: 9/10
+
+core-005
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 66% key term match
+    Completeness: 5/5 - Answer length: 2139 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 79% key term match
+    Completeness: 5/5 - Answer length: 3571 chars
+    Total: 9/10
+
+core-006
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 63% key term match
+    Completeness: 5/5 - Answer length: 1729 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 74% key term match
+    Completeness: 5/5 - Answer length: 4438 chars
+    Total: 9/10
+
+core-007
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 76% key term match
+    Completeness: 5/5 - Answer length: 2956 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 73% key term match
+    Completeness: 5/5 - Answer length: 5915 chars
+    Total: 9/10
+
+core-008
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 3/5 - Rule-based: 58% key term match
+    Completeness: 5/5 - Answer length: 2782 chars
+    Total: 8/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 67% key term match
+    Completeness: 5/5 - Answer length: 8174 chars
+    Total: 9/10
+
+core-009
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 84% key term match
+    Completeness: 5/5 - Answer length: 2435 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 88% key term match
+    Completeness: 5/5 - Answer length: 7278 chars
+    Total: 10/10
+
+core-010
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 3/5 - Rule-based: 40% key term match
+    Completeness: 5/5 - Answer length: 1978 chars
+    Total: 8/10
+  Claude Sonnet 4.5:
+    Accuracy: 3/5 - Rule-based: 52% key term match
+    Completeness: 5/5 - Answer length: 5164 chars
+    Total: 8/10
+
+core-011
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 53% key term match
+    Completeness: 5/5 - Answer length: 2525 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 61% key term match
+    Completeness: 5/5 - Answer length: 11131 chars
+    Total: 9/10
+
+core-012
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 69% key term match
+    Completeness: 5/5 - Answer length: 3113 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 69% key term match
+    Completeness: 5/5 - Answer length: 13570 chars
+    Total: 9/10
+
+inspection-001
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 2/5 - Rule-based: 27% key term match
+    Completeness: 5/5 - Answer length: 2752 chars
+    Total: 7/10
+  Claude Sonnet 4.5:
+    Accuracy: 3/5 - Rule-based: 48% key term match
+    Completeness: 5/5 - Answer length: 8415 chars
+    Total: 8/10
+
+inspection-002
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 5/5 - Rule-based: 80% key term match
+    Completeness: 5/5 - Answer length: 2571 chars
+    Total: 10/10
+  Claude Sonnet 4.5:
+    Accuracy: 5/5 - Rule-based: 80% key term match
+    Completeness: 5/5 - Answer length: 10925 chars
+    Total: 10/10
+
+inspection-003
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 62% key term match
+    Completeness: 5/5 - Answer length: 2709 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 73% key term match
+    Completeness: 5/5 - Answer length: 13725 chars
+    Total: 9/10
+
+inspection-004
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 4/5 - Rule-based: 76% key term match
+    Completeness: 5/5 - Answer length: 2659 chars
+    Total: 9/10
+  Claude Sonnet 4.5:
+    Accuracy: 4/5 - Rule-based: 76% key term match
+    Completeness: 5/5 - Answer length: 16707 chars
+    Total: 9/10
+
+inspection-005
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 1/5 - Rule-based: 2% key term match
+    Completeness: 5/5 - Answer length: 1535 chars
+    Total: 6/10
+  Claude Sonnet 4.5:
+    Accuracy: 2/5 - Rule-based: 25% key term match
+    Completeness: 5/5 - Answer length: 8653 chars
+    Total: 7/10
+
+inspection-006
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 2/5 - Rule-based: 20% key term match
+    Completeness: 5/5 - Answer length: 1942 chars
+    Total: 7/10
+  Claude Sonnet 4.5:
+    Accuracy: 2/5 - Rule-based: 29% key term match
+    Completeness: 5/5 - Answer length: 9397 chars
+    Total: 7/10
+
+inspection-007
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 2/5 - Rule-based: 29% key term match
+    Completeness: 5/5 - Answer length: 2497 chars
+    Total: 7/10
+  Claude Sonnet 4.5:
+    Accuracy: 3/5 - Rule-based: 46% key term match
+    Completeness: 5/5 - Answer length: 11676 chars
+    Total: 8/10
+
+inspection-008
+------------------------------------------------------------
+  Gemini 2.5 Pro:
+    Accuracy: 1/5 - Rule-based: 16% key term match
+    Completeness: 5/5 - Answer length: 2219 chars
+    Total: 6/10
+  Claude Sonnet 4.5:
+    Accuracy: 2/5 - Rule-based: 28% key term match
+    Completeness: 5/5 - Answer length: 12581 chars
+    Total: 7/10

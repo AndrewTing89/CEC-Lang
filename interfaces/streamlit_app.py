@@ -50,6 +50,9 @@ if "agent" not in st.session_state:
 if "show_tool_calls" not in st.session_state:
     st.session_state.show_tool_calls = False
 
+if "force_nec_comparison" not in st.session_state:
+    st.session_state.force_nec_comparison = False
+
 
 @st.cache_resource
 def get_agent():
@@ -71,6 +74,12 @@ with st.sidebar:
         "Show tool calls",
         value=st.session_state.show_tool_calls,
         help="Display which tools the agent called"
+    )
+
+    st.session_state.force_nec_comparison = st.checkbox(
+        "Include NEC comparison",
+        value=st.session_state.force_nec_comparison,
+        help="Compare California code with national NEC 2023 (adds ~5s)"
     )
 
     st.markdown("---")
@@ -142,7 +151,7 @@ if "pending_question" in st.session_state:
     with st.chat_message("assistant"):
         with st.spinner("Searching electrical codes..."):
             if agent:
-                result = agent.ask(question)
+                result = agent.ask(question, force_nec_comparison=st.session_state.force_nec_comparison)
                 answer = result["answer"]
                 tool_calls = result.get("tool_calls", [])
             else:
@@ -177,7 +186,7 @@ if prompt := st.chat_input("Ask about CEC/NEC electrical codes..."):
     with st.chat_message("assistant"):
         with st.spinner("Searching electrical codes..."):
             if agent:
-                result = agent.ask(prompt)
+                result = agent.ask(prompt, force_nec_comparison=st.session_state.force_nec_comparison)
                 answer = result["answer"]
                 tool_calls = result.get("tool_calls", [])
             else:

@@ -27,7 +27,14 @@
       "Bash(git init:*)",
       "Bash(git add:*)",
       "Bash(findstr:*)",
-      "Bash(chcp 65001)"
+      "Bash(chcp 65001)",
+      "Bash(pip install:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: CEC Lang - California Electrical Code Agent\n\nFeatures:\n- LangChain-based agent with Groq API (Qwen3 32B)\n- Hybrid search (OpenSearch + Google embeddings)\n- Deterministic table lookups for CEC/NEC\n- Custom enforcement loop (anti-hallucination, exception search)\n- Streamlit web interface\n- Evaluation framework with 30 questions (100% pass rate)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git branch:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
