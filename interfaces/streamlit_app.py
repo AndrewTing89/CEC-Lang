@@ -1,6 +1,6 @@
 """
 CEC Lang Streamlit Interface
-California Electrical Code Assistant powered by LangChain + Groq
+California Electrical Code Assistant powered by LangChain + Google Gemini
 """
 import streamlit as st
 import sys
@@ -88,7 +88,7 @@ with st.sidebar:
     st.markdown("""
     **CEC Lang** is a California Electrical Code assistant powered by:
     - **LangChain** for agent orchestration
-    - **Groq API** with Llama 3.3 70B
+    - **Google Gemini 2.5 Pro** for reasoning
     - **LangSmith** for tracing
 
     **Primary Source:** CEC 2022 (California)

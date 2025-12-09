@@ -1,7 +1,7 @@
 """
 CEC Lang Agent - LangChain-based California Electrical Code Assistant
-Uses Groq API with Llama 3.3 70B for reasoning
-Includes fallback to smaller models on rate limits/failures
+Uses Google Gemini 2.5 Pro for reasoning
+Includes retry with backoff on rate limits/failures
 """
 import os
 import time
@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # LangChain imports
-from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, ToolMessage
 
 # Local imports
@@ -46,7 +46,7 @@ def retry_with_backoff(max_retries: int = 5, initial_wait: float = 30.0, max_wai
                     error_str = str(e).lower()
 
                     # Rate limit or token limit - wait and retry
-                    if any(x in error_str for x in ["rate_limit", "429", "rate limit", "tokens", "413"]):
+                    if any(x in error_str for x in ["rate_limit", "429", "rate limit", "tokens", "413", "quota", "resourceexhausted", "resource_exhausted"]):
                         # Exponential backoff: 30s, 60s, 120s, 120s, 120s
                         wait_time = min(initial_wait * (2 ** attempt), max_wait)
                         if self.verbose:
@@ -424,12 +424,12 @@ Per CEC Table 220.12:
 class CECAgent:
     """
     LangGraph-based California Electrical Code Agent
-    Uses Groq API with Qwen 3 32B (better tool calling than Llama 3.3)
+    Uses Google Gemini 2.5 Pro for multi-step reasoning
     """
 
     def __init__(
         self,
-        model_name: str = "qwen/qwen3-32b",
+        model_name: str = "gemini-2.5-pro",
         temperature: float = 0.0,
         verbose: bool = True
     ):
@@ -446,16 +446,16 @@ class CECAgent:
         self.verbose = verbose
 
         # Get API key
-        self.groq_api_key = os.getenv("GROQ_API_KEY")
-        if not self.groq_api_key:
-            raise ValueError("GROQ_API_KEY environment variable not set")
+        self.google_api_key = os.getenv("GOOGLE_API_KEY")
+        if not self.google_api_key:
+            raise ValueError("GOOGLE_API_KEY environment variable not set")
 
         # Initialize LLM
-        self.llm = ChatGroq(
+        self.llm = ChatGoogleGenerativeAI(
             model=model_name,
             temperature=temperature,
-            groq_api_key=self.groq_api_key,
-            max_tokens=8192
+            google_api_key=self.google_api_key,
+            max_output_tokens=8192
         )
 
         # Get tools
