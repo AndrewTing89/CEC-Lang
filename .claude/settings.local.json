@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(if exist \"run 4\" rd /s /q \"run 4\")",
+      "Bash(timeout:*)",
+      "Bash(ping:*)",
+      "Bash(del evaltest_2_questions.json)",
+      "Bash(rd /s /q evaltest_2)",
+      "Bash(del update_run3_results.py)",
+      "Bash(ls:*)",
+      "Bash(dir /s /b \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\data\")",
+      "Bash(dir:*)",
+      "Bash(python run_evaluation.py:*)",
+      "Bash(python create_cec_judge_report.py:*)",
+      "Bash(python create_core_judge_report.py:*)",
+      "Bash(python3:*)",
+      "Bash(copy \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 4\\create_core_judge_report.py\" \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 5\\create_core_judge_report.py\")",
+      "Bash(xcopy \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 4\\create_core_judge_report.py\" \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 5\"\" /Y && xcopy \"C:UsersAndrews Razer LaptopDesktopCEC Langevalrun 4create_cec_judge_report.py\" \"C:UsersAndrews Razer LaptopDesktopCEC Langevalrun 5\"\" /Y)",
+      "WebSearch",
+      "Bash(python run_multi_evaluation.py:*)",
+      "Bash(copy \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 7\\create_cec_judge_report.py\" \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 9\"\" && copy \"C:UsersAndrews Razer LaptopDesktopCEC Langevalrun 7create_core_judge_report.py\" \"C:UsersAndrews Razer LaptopDesktopCEC Langevalrun 9\"\")",
+      "Bash(python:*)",
+      "mcp__ide__executeCode",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(findstr:*)",
+      "Bash(chcp 65001)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

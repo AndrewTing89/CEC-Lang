@@ -1,0 +1,1156 @@
+{
+  "metadata": {
+    "date": "2025-12-07",
+    "model": "qwen/qwen3-32b",
+    "total_questions": 30,
+    "runs_per_question": 3,
+    "aggregation_method": "majority_voting"
+  },
+  "results": [
+    {
+      "id": "cec-001",
+      "tier": "california_specific",
+      "category": "panelboard_requirements",
+      "ca_specific": true,
+      "question": "What are the panelboard space requirements for single-family dwellings in California? What appliances must have reserved circuit breaker spaces?",
+      "expected_answer": "CEC 408.2 requires panelboards in single-family dwellings to have reserved spaces for branch circuits for: (1) heat pump water heaters, (2) heat pump space heaters, (3) electric cooktops, (4) electric clothes dryers, and (5) electric vehicle charging equipment. This is a California-specific requirement for electrification readiness.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "N/A - CEC only requirement",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Panelboard Space Requirements for Single-Family Dwellings (CEC 2022)\n\n### **Reserved Circuit Breaker Spaces**\nPer **CEC 2022 Section 408.2(A)**, single-family residential panelboards **must reserve circuit breaker spaces** for the following appliances:\n1. **Heat pump water heaters**  \n2. **Heat pump space heaters**  \n3. **Electric cooktops**  \n4. **Electric clothes dryers**  \n\nThese requirements are mandated by the **California Energy Code Section 150.0(n), (t), (u), and (v)** to ensure future-ready electrical infrastructure for electrification and energy efficiency.\n\n---\n\n### **Exception Search Results**\nAfter searching for exceptions to **CEC 2022 Section 408.2**, the following exceptions were found, but **none directly modify the reserved space requirements** for single-family dwellings:\n- **426.14**, **424.10**, **422.23**, and **425.10** relate to \"special permission\" for non-standard installations of heating, deicing, and industrial equipment. These exceptions apply to **equipment installation methods**, not panelboard space requirements.\n\n---\n\n### **Key Details**\n- **Appliance-Specific Mandates**:  \n  - **Heat pump water heaters** and **space heaters** are explicitly required due to California's push for decarbonization (Title 24, Part 6).  \n  - **Electric cooktops** and **dryers** must have reserved spaces even if not installed at the time of construction.  \n- **Panelboard Rating**: Panelboards must be rated **not less than the calculated feeder load** (per Article 220).  \n\n---\n\n### **NEC 2023 Reference**\n- **No equivalent requirement** in NEC 2023. California’s mandate for reserved spaces for heat pump appliances and electric cooking/drying is **unique to CEC** and Title 24.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Panelboard Space Requirements for Single-Family Dwellings (CEC 2022)\n\n### **Reserved Circuit Breaker Spaces**\nPer **CEC 2022 Section 408.2(A)**, single-family residential panelboards **must reserve circuit breaker spaces** for the following appliances:\n1. **Heat pump water heaters**  \n2. **Heat pump space heaters**  \n3. **Electric cooktops**  \n4. **Electric clothes dryers**  \n\nThese requirements are mandated by the **California Energy Code Section 150.0(n), (t), (u), and (v)** to ensure futur",
+        "## Panelboard Space Requirements for Single-Family Dwellings (CEC 2022)  \n\n### **Reserved Circuit Breaker Spaces**  \nPer **CEC 2022 Section 408.2(A)**, single-family residential panelboards **must reserve circuit breaker spaces** for:  \n1. **Heat pump water heaters**  \n2. **Heat pump space heaters**  \n3. **Electric cooktops**  \n4. **Electric clothes dryers**  \n\nThis requirement is mandated by the **California Energy Code Section 150.0(n), (t), (u), and (v)** to ensure future-ready electrical inf",
+        "## Panelboard Space Requirements for Single-Family Dwellings (CEC 2022)  \n\n### Reserved Circuit Breaker Spaces  \nPer **CEC 408.2(A)**, single-family panelboards **must reserve spaces** for:  \n1. **Heat pump water heaters**  \n2. **Heat pump space heaters**  \n3. **Electric cooktops**  \n4. **Electric clothes dryers**  \n\nThese requirements are **mandated by California Energy Code Section 150.0(n), (t), (u), and (v)** to ensure future-ready electrical infrastructure for electrification.  \n\n---\n\n### E"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "408.38",
+        "408.2",
+        "425.10",
+        "150.0",
+        "422.23",
+        "424.10",
+        "408.36",
+        "408.54",
+        "426.14"
+      ],
+      "avg_duration_seconds": 11.1,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-002",
+      "tier": "california_specific",
+      "category": "ev_charging",
+      "ca_specific": true,
+      "question": "What are California's electrical requirements for EV charging infrastructure in new residential construction?",
+      "expected_answer": "California requires EV-ready infrastructure in new construction including dedicated 40-amp minimum circuits, conduit to parking spaces, and panel capacity for EV loads. CEC 408.2 requires panelboard spaces for EV charging equipment. Title 24 also mandates EV charging readiness.",
+      "cec_reference": "CEC 408.2, Title 24",
+      "nec_reference": "NEC 625 (general installation only)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## California EV Charging Requirements (CEC 2022)  \n\n### 1. **Mandatory EV Infrastructure (CALGreen)**  \n- **Reserved Circuit Space**: Panelboards must include reserved circuit breaker space for EV charging (CEC 408.2).  \n- **CALGreen Mandates**:  \n  - **EV-Ready Circuits**: New residential construction must include **40-amp minimum circuits** for EV charging.  \n  - **Conduit to Parking**: Conduit must be installed from the electrical panel to designated EV parking spaces.  \n  - **Panel Capacity**: Electrical panels must have sufficient capacity to accommodate EV loads.  \n\n---\n\n### 2. **Electrical System Requirements**  \n- **Individual Branch Circuits** (625.40):  \n  - Each EV outlet must be on a **dedicated branch circuit** with **no other outlets**.  \n  - **Exception**: Backfeeding prevention required (625.46) – systems must prevent energy backfeed to the grid when utility power is lost.  \n- **Overcurrent Protection** (625.41):  \n  - Overcurrent devices must be sized at **125% of the continuous load**.  \n- **Ground-Fault Protection** (625.56):  \n  - All EV receptacles require **GFCI protection** for personnel safety.  \n- **Receptacle Enclosures** (625.56):  \n  - Outdoor/wet location receptacles must have **weatherproof enclosures** (extra-duty rated).  \n\n---\n\n### 3. **Equipment and Installation**  \n- **Cord Lengths** (625.17):  \n  - Portable EVSE cords ≤ **12 inches** (if interrupting device is in the enclosure) or ≤ **15 feet** (if at the plug).  \n  - Total cord length (including output) ≤ **25 feet** unless using a listed cable management system.  \n- **Ventilation** (625.52):  \n  - Mechanical ventilation required if equipment is listed for indoor charging with ventilation needs.  \n  - Ventilation must be **interlocked with the charging circuit**.  \n- **Connection Methods** (625.44):  \n  - Portable EVSE: 15/20A, 125V or 250V receptacles.  \n  - Fastened-in-place: Up to 50A, 250V receptacles.  \n\n---\n\n### 4. **Safety and Compliance**  \n- **No Backfeeding** (625.46):  \n  - Systems must prevent energy backfeed to the grid when utility power is lost.  \n- **Personnel Protection** (625.22):  \n  - Listed personnel protection systems required for equipment ≥60V DC.  \n- **Labeling** (625.52):  \n  - Equipment requiring ventilation must be clearly marked.  \n\n---\n\n### 5. **Exceptions and Special Conditions**  \n- **Rating Adjustments** (625.42):  \n  - Adjustable settings on fixed equipment permitted **only with restricted access** (locked doors, tool-required covers, or password-protected software).  \n  - Service/feeder sizing must match adjusted current settings.  \n\n---\n\n## NEC 2023 Reference  \n- **Similar Requirements**: NEC 625 covers EV installation basics (GFCI, dedicated circuits).  \n- **California-Specific Mandates**:  \n  - **CALGreen** requirements (EV-ready circuits, conduit, panel capacity) are **exclusive to California** and not in NEC.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## California EV Charging Requirements (CEC 2022)  \n\n### 1. **Mandatory EV Infrastructure (CALGreen)**  \n- **Reserved Circuit Space**: Panelboards must include reserved circuit breaker space for EV charging (CEC 408.2).  \n- **CALGreen Mandates**:  \n  - **EV-Ready Circuits**: New residential construction must include **40-amp minimum circuits** for EV charging.  \n  - **Conduit to Parking**: Conduit must be installed from the electrical panel to designated EV parking spaces.  \n  - **Panel Capacity",
+        "## California EV Charging Requirements (CEC 2022)  \n\n### 1. **CALGreen Compliance Mandate**  \nNew residential construction must comply with **CALGreen Chapter 4, Division 4.1** and **Chapter 5, Division 5.1** in addition to CEC Article 625.  \n*(CEC 625.1)*  \n\n### 2. **Dedicated Branch Circuits**  \n- Each EV charging outlet must be supplied by an **individual branch circuit** with **no other outlets**.  \n- **Exception**: Multiple feeders/branch circuits are permitted if equipment is **identified ",
+        "## California EV Charging Requirements (CEC 2022)  \n\n### 1. **Mandatory EV Infrastructure**  \nPer **CEC 2022 Section 625.1.1** and **CALGreen Chapter 4/5**:  \n- All new residential construction must include **EV charging infrastructure**.  \n- **CALGreen mandates**:  \n  - **Dedicated 40-amp minimum circuits** for EV charging.  \n  - **Conduit to parking spaces** for future EVSE installation.  \n  - **Panelboard space reserved** for EV circuits (CEC 408.2).  \n\n---\n\n### 2. **Circuit Requirements**  \n"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "625.40",
+        "625.52",
+        "625.22",
+        "625.42",
+        "625.47",
+        "625.41",
+        "210.52",
+        "625.48",
+        "408.2",
+        "625.46",
+        "625.17",
+        "625.44",
+        "625.56",
+        "625.1"
+      ],
+      "avg_duration_seconds": 12.6,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-003",
+      "tier": "california_specific",
+      "category": "solar_pv",
+      "ca_specific": true,
+      "question": "What are the California-specific electrical requirements for solar PV systems on new residential construction?",
+      "expected_answer": "California mandates solar PV on new single-family homes (Title 24 Part 6). Electrical requirements include rapid shutdown per CEC 690.12, arc-fault protection per CEC 690.11, specific grounding requirements per 690.41-47, and multiple disconnecting means requirements.",
+      "cec_reference": "CEC 690, Title 24 Part 6",
+      "nec_reference": "NEC 690 (installation rules only, no mandate)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## California Solar PV Requirements (CEC 2022) with Exceptions\n\n### 1. **Arc-Fault Protection (690.11)**\n- **Mandatory**: All residential PV systems with DC circuits ≥80V must have listed DC arc-fault circuit interrupters.\n- **Exception** (690.11): Systems **not installed on/in buildings** are exempt if:\n  - Installed in **metallic raceways**, metal-clad cables, enclosed metallic trays, or **underground**\n  - Detached structures housing PV equipment are **not considered buildings**\n- **California-specific**: Title 24 requires arc-fault protection for all new residential PV systems regardless of location.\n\n---\n\n### 2. **Ground-Fault Protection (690.41)**\n- **Required**: DC ground-fault protection for PV systems >30V or >8A.\n- **Exception** (690.41): Solidly grounded systems with **≤2 modules in parallel** and **not in buildings** may omit ground-fault protection.\n- **California mandate**: CALGreen requires additional fire mitigation documentation for systems without integrated protection.\n\n---\n\n### 3. **Stand-Alone Systems (690.10)**\n- Must comply with **Article 710** for off-grid systems.\n- **California requirement**: Minimum 1.5kW PV capacity for new homes (Title 24 §150.1).\n\n---\n\n### 4. **Interconnection Compliance (690.59)**\n- Must follow **Article 705** and **Article 712** for utility and storage interconnections.\n- **California-specific**: Net energy metering and EV-ready infrastructure (CALGreen §110.6).\n\n---\n\n### 5. **AC Module Systems (690.6)**\n- AC modules treated as inverter-output circuits.\n- **Exception**: PV source circuit rules **do not apply** to AC modules.\n- **California**: AC modules must still comply with Title 24 labeling and monitoring requirements.\n\n---\n\n## NEC 2023 Reference\n- **Arc-fault protection**: NEC 690.11 (same requirement)\n- **Ground-fault exceptions**: NEC 690.41 (same exceptions)\n- **California mandates**: Title 24 and CALGreen requirements are **exclusive to California**; NEC does not include these.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison), Title 24 Part 6, CALGreen",
+      "all_answers": [
+        "## California Solar PV Requirements (CEC 2022) with Exceptions\n\n### 1. **Arc-Fault Protection (CEC 690.11)**\n- **Mandatory**: All residential PV systems with DC circuits ≥80V must have **listed PV arc-fault circuit interrupters**.\n- **Exceptions**:\n  - **Stand-alone systems** follow 710.15 (no arc-fault requirement).\n  - **Non-building installations**: Systems in **detached structures** (solely for PV equipment) or installed in **metallic raceways/cable trays/underground** are exempt.\n  - **CEC ",
+        "## California Solar PV Requirements (CEC 2022) - Final Answer\n\n### 1. **Arc-Fault Protection (CEC 690.11)**\n- **Mandatory for all residential PV systems** with DC circuits ≥80V\n- Requires **listed PV arc-fault circuit interrupters** to detect and interrupt DC arc faults\n- **Exception** (CEC 690.11): \n  - Systems **not installed on/in buildings** (e.g., detached structures for PV equipment) may omit arc-fault protection if:\n    - Conductors are in metallic raceways, metal-clad cables, enclosed me",
+        "## California Solar PV Requirements (CEC 2022) with Exceptions\n\n### 1. **Arc-Fault Protection (690.11)**\n- **Mandatory**: All residential PV systems with DC circuits ≥80V must have listed DC arc-fault circuit interrupters.\n- **Exception** (690.11): Systems **not installed on/in buildings** are exempt if:\n  - Installed in **metallic raceways**, metal-clad cables, enclosed metallic trays, or **underground**\n  - Detached structures housing PV equipment are **not considered buildings**\n- **Californi"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "710.15",
+        "690.10",
+        "690.41",
+        "408.2",
+        "705.10",
+        "705.12",
+        "690.6",
+        "690.71",
+        "150.1",
+        "110.6",
+        "705.11",
+        "690.11",
+        "690.59"
+      ],
+      "avg_duration_seconds": 11.2,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-004",
+      "tier": "california_specific",
+      "category": "heat_pump",
+      "ca_specific": true,
+      "question": "What circuit requirements does California have for heat pump water heaters in new dwelling units?",
+      "expected_answer": "Per CEC 408.2, panelboards must have a reserved space for a heat pump water heater branch circuit. This is part of California's decarbonization requirements to ensure electrical infrastructure can support heat pump water heaters as replacements for gas water heaters.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "N/A - CEC only",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## California Heat Pump Water Heater Circuit Requirements (CEC 2022)  \n\n### **Single-Family Buildings (1–2 Dwellings)**  \n1. **Panelboard Requirements** (CEC 408.2(A)):  \n   - Panelboards must include **dedicated circuit breaker spaces** for heat pump water heaters as specified in **California Energy Code Section 150.0(n)**.  \n   - *Example*: Reserved 30–50A circuit breaker space for water heater.  \n\n2. **Branch Circuit Requirements** (CEC 422.3(A)):  \n   - **Designated receptacles/branch circuits** must be provided for heat pump water heaters.  \n   - Circuits must be **identified and labeled** per California Energy Code Section 150.0(n).  \n\n---\n\n### **Multifamily Buildings**  \n- **Panelboard Requirements** (CEC 408.2(B)):  \n  - Panelboards must include **circuit breaker spaces** for heat pump water heaters as per **California Energy Code Section 160.9**.  \n\n- **Branch Circuit Requirements** (CEC 422.3(B)):  \n  - **Dedicated circuits** and circuit identifications are required.  \n  - Specific details referenced to **California Energy Code Sections 160.9(b)**.  \n\n---\n\n### **Exceptions and Notes**  \n1. **Temperature Controls** (CEC 422.47):  \n   - Storage-type water heaters (including heat pump models) must have a **temperature-limiting means** in addition to the thermostat.  \n   - *Exceptions*:  \n     - Storage water heaters rated ≥60 kW and suitable for ≥82°C (180°F).  \n     - Instantaneous-type water heaters ≤4 L (1 gal).  \n\n2. **Special Installations** (CEC 422.23):  \n   - Non-standard installation methods require **special permission**.  \n\n3. **Central Heating Equipment** (CEC 422.12):  \n   - Not directly applicable to heat pump water heaters but requires individual branch circuits for central heating systems.  \n\n---\n\n### **Key Notes**  \n- **California Energy Code References**:  \n  - Sections **150.0(n)** and **160.9** (single-family/multifamily) define specific readiness requirements but are **not included in CEC 2022 text**.  \n- **NEC 2023**:  \n  - No equivalent requirement. California mandates heat pump water heater readiness via **Title 24 Energy Code**, not NEC.  \n\n---\n\n## NEC 2023 Reference  \nNo equivalent requirement in NEC 2023. California mandates heat pump water heater readiness via Title 24 Energy Code, not NEC.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## California Circuit Requirements for Heat Pump Water Heaters (CEC 2022)  \n\n### **Key Requirements**  \n1. **Dedicated Circuits**  \n   - **Single-family dwellings**: Must have **designated branch circuits** for heat pump water heaters (CEC 422.3(A), California Energy Code Section 150.0(n)).  \n   - **Multifamily buildings**: Requires **dedicated circuits** per California Energy Code Section 160.9(b) (CEC 422.3(A)(2)).  \n\n2. **Panelboard Spaces**  \n   - Panelboards in single-family units must rese",
+        "## California Heat Pump Water Heater Circuit Requirements (CEC 2022)  \n\n### **Single-Family Buildings (1–2 Dwellings)**  \n1. **Panelboard Requirements** (CEC 408.2(A)):  \n   - Panelboards must include **dedicated circuit breaker spaces** for heat pump water heaters as specified in **California Energy Code Section 150.0(n)**.  \n   - *Example*: Reserved 30–50A circuit breaker space for water heater.  \n\n2. **Branch Circuit Requirements** (CEC 422.3(A)):  \n   - **Designated receptacles/branch circui",
+        "## California Heat Pump Water Heater Circuit Requirements (CEC 2022)  \n\n### **Core Requirements**  \n1. **Dedicated Circuits**  \n   - Single-family: **Designated branch circuits** per **California Energy Code 150.0(n)**.  \n   - Multifamily: Panelboards must reserve spaces per **CEC 408.2(A)**.  \n\n2. **Overcurrent Protection**  \n   - Fixed storage-type heaters (≤ 450 L/120 gal): Conductors and OCPD sized to **125% of heater rating** (CEC 422.13).  \n\n3. **Electrification Readiness**  \n   - **Title "
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "422.47",
+        "408.2",
+        "422.13",
+        "422.23",
+        "150.0",
+        "422.12",
+        "422.11",
+        "422.3",
+        "160.9"
+      ],
+      "avg_duration_seconds": 13.5,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-005",
+      "tier": "california_specific",
+      "category": "electrification",
+      "ca_specific": true,
+      "question": "What is required for electric cooktop readiness in new California homes?",
+      "expected_answer": "CEC 408.2 requires panelboards to have a reserved space for electric cooktop branch circuits. This ensures homes are ready for all-electric cooking appliances as part of California's building electrification requirements.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "N/A - CEC only",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Electric Cooktop Readiness in New California Homes (CEC 2022)  \n\nNew California homes must comply with **dedicated infrastructure requirements** for electric cooktops under the California Energy Code (Title 24) and CEC 2022:  \n\n---\n\n### **Core Requirements**  \n1. **Dedicated Circuits**  \n   - **Single-family homes**: Must include **dedicated circuits** for electric cooktops per **California Energy Code Section 150.0(u)** (CEC 2022 422.3(A)).  \n   - **Multifamily buildings**: Requires **dedicated circuits** per **California Energy Code Section 160.9(b)** (CEC 2022 422.3(B)).  \n\n2. **Panelboard Spaces**  \n   - Panelboards must reserve **circuit breaker spaces** for electric cooktops:  \n     - **Single-family**: As specified in **California Energy Code Section 150.0(u)** (CEC 2022 408.2(A)).  \n     - **Multifamily**: As specified in **California Energy Code Section 160.9(b)** (CEC 2022 408.2(B)).  \n\n3. **Electrification Mandate**  \n   - California mandates **readiness for all-electric appliances** (including cooktops) in new residential construction to align with climate goals (Title 24 Part 6, CALGreen).  \n\n---\n\n### **Exceptions and Special Cases**  \n- **422.33 (Disconnection Requirements)**:  \n  - Cord-and-plug-connected cooktops may use a **receptacle as the disconnecting means**, provided it meets accessibility and rating requirements. This does not negate the need for dedicated circuits.  \n  - Example: A cooktop with a plug-and-receptacle connection must still have a dedicated circuit sized per 422.3.  \n\n- **210.52(C) (Receptacle Placement)**:  \n  - Receptacles behind cooktops are exempt from wall-space requirements (Exception in 210.52(C)(1)). This applies to **installation** but does not affect the **readiness** mandate for dedicated circuits.  \n\n---\n\n### **NEC 2023 Reference**  \nNEC 2023 covers **installation standards** (e.g., branch circuit sizing, receptacle placement) but **does not mandate** dedicated circuits or panelboard spaces for electrification. California’s requirements are **stricter**, enforcing infrastructure for future all-electric adoption.  \n\n---\n\n✓ **Sources**: CEC 2022 (primary), NEC 2023 (comparison)  \n✓ **Exceptions Checked**: 422.3, 408.2 (no overriding exceptions found for readiness mandates).",
+      "all_answers": [
+        "## Electric Cooktop Readiness in New California Homes (CEC 2022)  \n\nNew California homes must comply with **dedicated infrastructure requirements** for electric cooktops under the California Energy Code (Title 24) and CEC 2022:  \n\n---\n\n### **Core Requirements**  \n1. **Dedicated Circuits**  \n   - **Single-family homes**: Must include **dedicated circuits** for electric cooktops per **California Energy Code Section 150.0(u)** (CEC 2022 422.3(A)).  \n   - **Multifamily buildings**: Requires **dedica",
+        "## Electric Cooktop Readiness in New California Homes (CEC 2022)  \n\n### **Key Requirements**  \n1. **Dedicated Circuits**  \n   - **Single-Family Homes**: Must have **dedicated circuits** for electric cooktops per **California Energy Code Section 150.0(u)** (CEC 422.3(A)).  \n   - **Multifamily Homes**: Requires **dedicated circuits** as specified in **California Energy Code Section 160.9(b)** (CEC 422.3(B)).  \n\n2. **Panelboard Spaces**  \n   - **Single-Family**: Panelboards must reserve **circuit b",
+        "## Electric Cooktop Readiness Requirements (CEC 2022) **WITH Exceptions**\n\n### **Primary Rule**  \n**CEC 2022 Section 422.3** mandates electric cooktop readiness in new California homes through:  \n- **Single-family**: California Energy Code Section 150.0(u)  \n- **Multifamily**: California Energy Code Section 160.9(b)  \n\n---\n\n### **Exceptions Found**  \n1. **Non-standard installation methods** (CEC 422.23):  \n   - *Exception*: Appliances installed using methods not covered by the code require **spe"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "210.52",
+        "408.38",
+        "408.2",
+        "408.55",
+        "150.0",
+        "422.23",
+        "424.10",
+        "422.3",
+        "160.9",
+        "422.33"
+      ],
+      "avg_duration_seconds": 10.5,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-006",
+      "tier": "california_specific",
+      "category": "electrification",
+      "ca_specific": true,
+      "question": "What are the panelboard requirements for electric clothes dryer circuits in California new construction?",
+      "expected_answer": "CEC 408.2 requires panelboards to have a reserved space for electric clothes dryer branch circuits in single-family dwellings. This is a California-specific requirement for building electrification.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "N/A - CEC only",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Panelboard Requirements for Electric Clothes Dryers in California (CEC 2022)  \n\n### **Single-Family Buildings**  \n- **Panelboard Spaces**: Panelboards must include **designated circuit breaker spaces** for electric clothes dryers as specified in **California Energy Code Section 150.0(v)** (CEC 408.2(A) and 422.3(A)).  \n- **Dedicated Circuits**: A **dedicated circuit** with proper circuit identification is required for electric clothes dryers (422.3(A)).  \n\n### **Multifamily Buildings**  \n- **Panelboard Spaces**: Panelboards must include **designated spaces** for electric clothes dryers per **California Energy Code Section 160.9(c)** (CEC 408.2(B) and 422.3(B)).  \n- **Dedicated Circuits**: A **dedicated circuit** with circuit identification is required for each dwelling unit’s electric clothes dryer (422.3(B)).  \n\n### **Key Exceptions**  \n1. **Shared Laundry Facilities**: In multifamily buildings, **receptacles for laundry equipment** are not required if on-site laundry facilities serve all occupants (210.52(F) Exception No. 1).  \n   - *Note*: This exception applies to receptacles, not panelboard circuit spaces.  \n\n2. **Special Permission**: Appliances installed with non-standard methods require **special permission** (422.23, 424.10).  \n   - *Note*: Does not override the dedicated circuit/space requirements.  \n\n### **Conclusion**  \nCalifornia mandates **dedicated panelboard spaces and circuits** for electric clothes dryers in both single-family and multifamily buildings. Exceptions exist only for receptacle requirements in multifamily buildings with shared laundry facilities, but **no exceptions remove the panelboard circuit space/circuit requirements**.  \n\n---\n## NEC 2023 Reference  \nNEC 2023 does **not** mandate dedicated panelboard spaces or circuits for electric clothes dryers. California’s requirements are **more stringent** and specific to Title 24 energy code.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Panelboard Requirements for Electric Clothes Dryer Circuits (CEC 2022) **[FINAL]**\n\n### California-Specific Requirements:\n1. **Reserved Circuit Breaker Spaces**  \n   Panelboards in **single-family residential buildings** must include **reserved circuit breaker spaces** for electric clothes dryers as mandated by **California Energy Code Section 150.0(n)**.  \n   - **CEC 2022 Section 408.2(A)**: Panelboards serving individual dwelling units must have spaces for:  \n     - Heat pump water heaters ",
+        "## Panelboard Requirements for Electric Clothes Dryer Circuits (CEC 2022)\n\n### California-Specific Requirements\n1. **Reserved Circuit Breaker Spaces** (CEC 408.2(A)-(B)):\n   - **Single-family buildings**: Panelboards must include **reserved circuit breaker spaces** for electric clothes dryers as specified in **California Energy Code Section 150.0(v)**.\n   - **Multifamily buildings**: Panelboards must include **reserved spaces** for electric clothes dryers per **California Energy Code Section 160",
+        "## Panelboard Requirements for Electric Clothes Dryers in California (CEC 2022)  \n\n### **Single-Family Buildings**  \n- **Panelboard Spaces**: Panelboards must include **designated circuit breaker spaces** for electric clothes dryers as specified in **California Energy Code Section 150.0(v)** (CEC 408.2(A) and 422.3(A)).  \n- **Dedicated Circuits**: A **dedicated circuit** with proper circuit identification is required for electric clothes dryers (422.3(A)).  \n\n### **Multifamily Buildings**  \n- **"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "210.52",
+        "408.2",
+        "408.40",
+        "150.0",
+        "422.23",
+        "424.10",
+        "408.30",
+        "422.3",
+        "160.9",
+        "220.54"
+      ],
+      "avg_duration_seconds": 9.8,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-007",
+      "tier": "california_specific",
+      "category": "overcurrent",
+      "ca_specific": true,
+      "question": "What does CEC Table 240.4(G) specify that is unique to California?",
+      "expected_answer": "CEC Table 240.4(G) is a California-only table that provides additional overcurrent protection requirements. This table does not exist in the base NEC 2023.",
+      "cec_reference": "CEC 240.4(G), Table 240.4(G)",
+      "nec_reference": "N/A - CEC only table",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## CEC Table 240.4(G) - Exception Analysis (CEC 2022)\n\nAfter calling `cec_exception_search(\"440.3\", \"California amendment\")`, **no direct exceptions** to Table 240.4(G) were found. However, the returned exception in **Section 394.12** highlights California's broader approach to enforcing wiring methods referenced in Table 240.4(G):\n\n1. **Knob-and-Tube Wiring Exception**  \n   While not directly related to Table 240.4(G), this exception demonstrates California's **strict enforcement of wiring method compatibility** with overcurrent protection requirements. For example:\n   - Air-conditioning circuits (referenced in Table 240.4(G) row 1) must not use obsolete wiring methods unless grandfathered under 394.12.\n   - This reinforces that **Table 240.4(G) applications must comply with modern wiring standards** (e.g., THHN/THWN conductors) unless specifically exempted.\n\n2. **Implications for Table 240.4(G) Enforcement**  \n   - California inspectors may reject non-compliant conductor types (e.g., knob-and-tube) for specialized circuits listed in Table 240.4(G), even if NEC allows them.\n   - The \"delta\" amendments in **440.3(C)∆** (CALGreen requirements) indirectly interact with this exception by mandating modern, energy-efficient wiring methods for HVAC circuits.\n\n---\n## Final Verification\n- **No direct exceptions** to Table 240.4(G) exist in CEC 2022.\n- The returned exception (394.12) illustrates California's **wiring method enforcement philosophy**, which impacts how Table 240.4(G) is applied in practice.\n- All prior conclusions about Title 24/CALGreen integration remain valid.\n\n✓ Sources: CEC 2022 Table 240.4(G), Section 440.3(C)∆, Section 394.12",
+      "all_answers": [
+        "## CEC Table 240.4(G) California Exceptions (CEC 2022)\n\nAfter calling **cec_exception_search**, the key exception affecting Table 240.4(G) is **CEC 240.21(C)**, which modifies overcurrent protection requirements for transformer secondary conductors. This exception is critical for California because:\n\n1. **Transformer Secondary Conductors** (listed in Table 240.4(G)) are explicitly addressed in **240.21(C)** with California-specific rules:\n   - Protection by primary overcurrent devices (240.21(C)",
+        "## CEC Table 240.4(G) - Exception Analysis (CEC 2022)\n\nAfter calling `cec_exception_search(\"440.3\", \"California amendment\")`, **no direct exceptions** to Table 240.4(G) were found. However, the returned exception in **Section 394.12** highlights California's broader approach to enforcing wiring methods referenced in Table 240.4(G):\n\n1. **Knob-and-Tube Wiring Exception**  \n   While not directly related to Table 240.4(G), this exception demonstrates California's **strict enforcement of wiring meth",
+        "## CEC Table 240.4(G) Unique California Specifications (CEC 2022)\n\n**Final Verification:** After comprehensive searches of CEC 2022, **Table 240.4(G) contains no California-specific amendments** in the 2022 edition. The table strictly mirrors NEC 2023 Table 240.4(G), providing cross-references to NEC articles for overcurrent protection of specialized conductors. \n\n### Key Findings:\n1. **No Direct Amendments:** The \"[CEC] delta\" notation in the table description does not correspond to actual chan"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_table",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "240.4",
+        "250.54",
+        "394.12",
+        "240.21",
+        "440.3",
+        "242.54"
+      ],
+      "avg_duration_seconds": 14.9,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-008",
+      "tier": "california_specific",
+      "category": "surge_protection",
+      "ca_specific": true,
+      "question": "What does CEC Table 242.3 specify for California installations?",
+      "expected_answer": "CEC Table 242.3 is a California-only table related to surge protection requirements. This table does not exist in the base NEC 2023.",
+      "cec_reference": "CEC 242.3, Table 242.3",
+      "nec_reference": "N/A - CEC only table",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## CEC Table 242.3 Specifications (CEC 2022)\n\n**Purpose**: Cross-reference table for Article 242 (Overvoltage Protection) directing users to other NEC articles containing overvoltage protection requirements for specific equipment types. This is a **California-specific NEW table** (N marker) not found in NEC.\n\n**Equipment and Corresponding Articles**:\n- Class I locations → Article 501 (Hazardous Locations)\n- Class II locations → Article 502 (Hazardous Locations)\n- Community antenna TV/radio systems → Article 820\n- Critical operations power systems → Article 708\n- Elevators/dumbwaiters → Article 620\n- Emergency systems → Article 700\n- Equipment >1000V → Article 490\n- Fire pumps → Article 695\n- Industrial machinery → Article 670\n- Information technology equipment → Article 645\n- Modular data centers → Article 646\n- Outdoor overhead >1000V → Article 399\n- Radio/TV equipment → Article 810\n- Receptacles/cord connectors → Article 406\n- Wind electric systems → Article 694\n\n**Code Reference**:  \nCEC 2022 Section 242.3 explicitly requires equipment to be protected against overvoltage per the referenced articles in Table 242.3.\n\n**Exceptions**:  \nNo direct exceptions apply to Table 242.3 itself. The only exception found (Section 370.23) relates to **overcurrent protection for cablebus**, which is unrelated to Table 242.3's overvoltage protection scope.\n\n---\n## NEC 2023 Reference\nThis table is **unique to CEC 2022** and does not exist in NEC 2023. California added this cross-reference table to clarify overvoltage protection requirements for specific equipment types.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## CEC Table 242.3 Specifications (CEC 2022)\n\n**Purpose**: Cross-reference table for Article 242 (Overvoltage Protection) directing users to other NEC articles containing overvoltage protection requirements for specific equipment types. This is a **California-specific NEW table** (N marker) not found in NEC.\n\n**Equipment and Corresponding Articles**:\n- Class I locations → Article 501 (Hazardous Locations)\n- Class II locations → Article 502 (Hazardous Locations)\n- Community antenna TV/radio syste",
+        "## CEC Table 242.3 Exceptions Check (CEC 2022)\n\n**Exceptions Found**:  \n1. **Section 250.134** – Grounding methods for fixed equipment (permits separate equipment grounding conductors)  \n2. **Section 250.110** – Grounding requirements for fixed equipment (exceptions for insulated frames, distribution apparatus, and double-insulated equipment)  \n\n**Key Findings**:  \n- **No direct exceptions** apply to **Table 242.3** itself.  \n- The exceptions relate to **grounding/bonding** (Sections 250.134 and",
+        "## CEC Table 242.3 (CEC 2022) - Final Answer\n\n**Purpose**: Cross-reference table directing users to specific NEC articles for overvoltage protection requirements based on equipment type. This is a **California-specific addition** (marked \"N\") not found in the base NEC.\n\n**Key Entries**:\n- **Class I locations** → Article 501  \n- **Emergency systems** → Article 700  \n- **Fire pumps** → Article 695  \n- **Information technology equipment** → Article 645  \n- **Wind electric systems** → Article 694  \n"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_table",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.134",
+        "250.110",
+        "242.3",
+        "370.23"
+      ],
+      "avg_duration_seconds": 10.9,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-009",
+      "tier": "california_specific",
+      "category": "motor_control",
+      "ca_specific": true,
+      "question": "What does CEC Table 430.72(B) specify for motor control circuit overcurrent protection?",
+      "expected_answer": "CEC Table 430.72(B) specifies maximum ratings of overcurrent protective devices for motor control circuits based on conductor size and configuration. It includes columns for separate protection, conductors within enclosure, and conductors extending beyond enclosure for both copper and aluminum conductors.",
+      "cec_reference": "CEC 430.72(B), Table 430.72(B)",
+      "nec_reference": "N/A - CEC only table",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## CEC Table 430.72(B) - Motor Control Circuit Overcurrent Protection (CEC 2022)\n\n**Specifies maximum overcurrent protective device ratings (in amperes) for motor control circuits based on conductor size and installation configuration.**\n\n### Conductor Sizes and Ratings:\n| Conductor Size | Column A (Copper) | Column A (Aluminum) | Column B (Copper) | Column B (Aluminum) | Column C (Copper) | Column C (Aluminum) |\n|----------------|-------------------|---------------------|-------------------|---------------------|-------------------|---------------------|\n| 18 AWG         | 7A                | —                   | 25A               | —                   | 7A                | —                   |\n| 16 AWG         | 10A               | —                   | 40A               | —                   | 10A               | —                   |\n| 14 AWG         | (Note 1)          | —                   | 100A              | —                   | 45A               | —                   |\n| 12 AWG         | (Note 1)          | (Note 1)            | 120A              | 100A                | 60A               | 45A                 |\n| 10 AWG         | (Note 1)          | (Note 1)            | 160A              | 140A                | 90A               | 75A                 |\n| >10 AWG        | (Note 1)          | (Note 1)            | (Note 2)          | (Note 2)            | (Note 3)          | (Note 3)            |\n\n---\n\n### Notes:\n1. **(Note 1):** See 310.15 for applicable ampacity adjustments.\n2. **(Note 2):** 400% of values in **Table 310.19** for 60°C conductors.\n3. **(Note 3):** 300% of values in **Table 310.16** for 60°C conductors.\n\n---\n\n### Key Exceptions:\n1. **Critical Motor Circuits** (430.225):  \n   - Overload protection can be replaced with a supervised alarm if motor failure would create a greater hazard (e.g., fire pumps).\n\n2. **Combined Overcurrent Protection** (430.55):  \n   - Overload and fault-current protection can be combined in a single device if it meets 430.32 requirements.\n\n3. **Control Circuit Protection** (430.72 Exceptions):  \n   - **Exception 1**: Control circuits posing a hazard if interrupted (e.g., fire pumps) only require short-circuit/ground-fault protection, not separate overload protection.\n   - **Exception 2**: Transformers in control circuits <50 VA may use primary-side protection without separate overcurrent devices.\n\n4. **Transformer Protection** (430.72(C)):  \n   - Control circuit transformers <2A primary current can use primary overcurrent devices rated ≤500% of primary current.\n\n---\n\n### Supporting Code References:\n- **CEC 430.71** confirms general motor control circuit requirements.\n- **CEC 430.74** adds safety rules for grounded control circuits.\n- **CEC 430.39** allows motor controllers to serve as overload protection under specific conditions.\n\n---\n\n## NEC 2023 Reference\nNo difference from NEC 2023. Table 430.72(B) and exceptions are identical in CEC 2022 and NEC 2023.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## CEC Table 430.72(B) - Motor Control Circuit Overcurrent Protection (CEC 2022)\n\n**Specifies maximum overcurrent protective device ratings** for motor control circuits based on conductor size and installation configuration:\n\n| Conductor Size | Column A (Copper) | Column A (Aluminum) | Column B (Copper) | Column B (Aluminum) | Column C (Copper) | Column C (Aluminum) |\n|----------------|------------------|---------------------|-------------------|---------------------|-------------------|--------",
+        "## CEC Table 430.72(B) - Motor Control Circuit Overcurrent Protection (CEC 2022)\n\n**Specifies maximum overcurrent protective device ratings (in amperes) for motor control circuits based on control circuit conductor size and material.**\n\n### Key Values:\n| Conductor Size | Column A (Copper) | Column A (Aluminum) | Column B (Copper) | Column B (Aluminum) | Column C (Copper) | Column C (Aluminum) |\n|----------------|-------------------|---------------------|---------------------|--------------------",
+        "## CEC Table 430.72(B) - Motor Control Circuit Overcurrent Protection (CEC 2022)\n\n**Specifies maximum overcurrent protective device ratings (in amperes) for motor control circuits based on conductor size and installation configuration.**\n\n### Conductor Sizes and Ratings:\n| Conductor Size | Column A (Copper) | Column A (Aluminum) | Column B (Copper) | Column B (Aluminum) | Column C (Copper) | Column C (Aluminum) |\n|----------------|-------------------|---------------------|-------------------|---"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_table",
+        "cec_search"
+      ],
+      "nec_tools_used": [
+        "compare_with_nec"
+      ],
+      "citations": [
+        "430.55",
+        "430.32",
+        "310.15",
+        "430.87",
+        "430.84",
+        "430.39",
+        "430.72",
+        "310.17",
+        "430.74",
+        "430.225",
+        "310.19",
+        "430.71",
+        "430.75",
+        "310.16"
+      ],
+      "avg_duration_seconds": 14.5,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-010",
+      "tier": "california_specific",
+      "category": "medium_voltage",
+      "ca_specific": true,
+      "question": "What medium voltage cable tables does California have that are not in the NEC?",
+      "expected_answer": "CEC has 18 medium voltage tables in the 311.60(C) series (Tables 311.60(C)(67) through 311.60(C)(86)) that are California-only. These provide ampacity information for medium voltage cables not found in the base NEC.",
+      "cec_reference": "CEC 311.60(C), Tables 311.60(C)(67-86)",
+      "nec_reference": "N/A - CEC only tables",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Medium Voltage Cable Tables in CEC 2022 (Not in NEC)\n\nCalifornia's CEC 2022 includes **18 specialized medium voltage (MV) cable ampacity tables** (311.60(C)(67) through 311.60(C)(86)) that are **not present in the NEC**. These tables address unique installation scenarios for MV cables (2001–35,000 volts) and include configurations not covered in national code.\n\n---\n\n### **California-Only Medium Voltage Tables**\n**Tables 311.60(C)(67)–(86):**  \nThese tables provide ampacities for MV cables in specific installation methods:\n1. **Triplexed cables in air** (C67/C68)  \n2. **Isolated cables in air** (C69/C70)  \n3. **Three-conductor cables in air** (C71/C72)  \n4. **Triplexed cables in conduit** (C73/C74)  \n5. **Three-conductor cables in conduit** (C75/C76)  \n6. **Underground electrical duct (three-conductor)** (C77/C78)  \n7. **Directly buried single conductors** (C81/C82)  \n8. **Directly buried three-conductor cables** (C83/C84)  \n9. **Triplexed directly buried cables** (C85/C86)  \n\n---\n\n### **Key Exceptions and Installation Requirements**\n1. **Ampacity Selection (311.60(A)(2)):**  \n   - If multiple ampacities apply, use the **lowest value**.  \n   - Exception: Higher ampacity can be used for short segments (≤ 10 ft or 10% of total circuit length).  \n\n2. **Shielding Requirements (311.44):**  \n   - MV cables above 2000V must be **shielded** and grounded.  \n   - Exceptions allow nonshielded cables up to 2400V in industrial settings with qualified personnel.  \n\n3. **Direct-Burial (311.36):**  \n   - MV cables must be **shielded** for direct burial.  \n   - Exception: Nonshielded cables with metallic sheathing are permitted up to 2400V.  \n\n4. **Cable Tray Installations (311.32):**  \n   - MV cables in trays must comply with **392.80(B)** for ampacity adjustments.  \n\n---\n\n### **NEC 2023 Reference**\nThe NEC does not include Tables 311.60(C)(67)–(86). Its MV ampacity guidance is limited to general cases in **NEC 311.60**, without the detailed installation-specific adjustments found in California code.\n\n---\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Medium Voltage Cable Tables in CEC 2022 (Not in NEC)\n\nCalifornia's CEC 2022 includes **18 specialized medium voltage (MV) cable ampacity tables** (311.60(C)(67) through 311.60(C)(86)) that are **not present in the NEC**. These tables address unique installation scenarios for MV cables (2001–35,000 volts) and include configurations not covered in national code.\n\n---\n\n### **California-Only Medium Voltage Tables**\n**Tables 311.60(C)(67)–(86):**  \nThese tables provide ampacities for MV cables in ",
+        "## Medium Voltage Cable Tables in CEC 2022\n\nCalifornia's CEC 2022 includes **18 medium voltage cable tables** not found in the NEC, located in **Section 311.60(C)(67) through 311.60(C)(86)**. These tables provide ampacities for **2001V–35,000V cables** in configurations like:\n\n- **Triplexed** (air, conduit)\n- **Three-conductor** (air, conduit)\n- **Underground ducts**\n- **Direct burial**\n- **Shielded/nonshielded** variants (copper/aluminum)\n\n---\n\n### Key Exceptions Affecting Application\n1. **Nons",
+        "## Medium Voltage Cable Tables in CEC 2022 (California-Specific)\n\nCalifornia's CEC 2022 includes **18 specialized medium voltage (MV) cable ampacity tables** (311.60(C)(67)–311.60(C)(86)) not found in the NEC. These tables address unique MV cable applications in configurations like cable trays, direct burial, and isolated conduit.\n\n---\n\n### **Key Exceptions Affecting MV Cable Tables**\n1. **Cable Tray Installations** (Section 311.32):  \n   - MV cables in cable trays must comply with **392.80(B)**"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "300.50",
+        "392.80",
+        "311.36",
+        "311.32",
+        "311.44",
+        "311.60",
+        "311.10"
+      ],
+      "avg_duration_seconds": 11.8,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-011",
+      "tier": "delta_table",
+      "category": "conductor_ampacity",
+      "ca_specific": false,
+      "question": "What is the ampacity of 4/0 AWG copper conductor at 75C according to California electrical code?",
+      "expected_answer": "230 amperes per CEC 2022 Table 310.16 [California Amendment]",
+      "cec_reference": "CEC Table 310.16",
+      "nec_reference": "NEC Table 310.16",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Ampacity of 4/0 AWG Copper Conductor (CEC 2022)\n\nThe ampacity of **4/0 AWG copper conductor at 75°C** is **230 amperes** per **CEC Table 310.16**. \n\nAfter reviewing exceptions via **cec_exception_search(310.16)**, no California-specific exceptions modify this base ampacity value for 4/0 AWG copper conductors in standard applications. The returned exceptions primarily address:\n- Parallel conductor installations (310.10(G))\n- Environmental conditions (dry/wet locations, sunlight exposure)\n- Direct-burial requirements\n- Corrosive environments\n\nThese exceptions do not override the base ampacity value from Table 310.16 for standard installations.\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023 Table 310.16 for this conductor size and temperature rating.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)\n\n---\n### Important Notes:\n1. **Ambient Temperature**: This value assumes 30°C ambient temperature (see footnote [1]). For different temperatures, apply correction factors from **CEC 310.15(B)**.\n2. **Bundling**: If more than 3 current-carrying conductors are bundled, apply derating per **CEC 310.15(C)(1)**.\n3. **Overcurrent Protection**: Maximum overcurrent protection limitations are governed by **CEC 240.4(D)**.\n\nNo California-specific exceptions apply to this basic ampacity lookup.",
+      "all_answers": [
+        "## Ampacity of 4/0 AWG Copper Conductor (CEC 2022)\n\nThe ampacity of **4/0 AWG copper conductor at 75°C** is **230 amperes** per **CEC Table 310.16**. \n\nAfter reviewing exceptions via **cec_exception_search(310.16)**, no California-specific exceptions modify this base ampacity value for 4/0 AWG copper conductors in standard applications. The returned exceptions primarily address:\n- Parallel conductor installations (310.10(G))\n- Environmental conditions (dry/wet locations, sunlight exposure)\n- Dir",
+        "## Ampacity of 4/0 AWG Copper Conductor (CEC 2022)\n\nThe ampacity of **4/0 AWG copper conductor at 75°C** is **230 amperes** per **CEC Table 310.16**. \n\n### Exception Analysis:\n- **CEC 310.12** (Single-phase dwelling services) allows reduced ampacity (83% of service rating) for dwelling services, but this applies only to **dwelling services/feeders** (not general conductors).\n- No other exceptions in the search results modify the base ampacity of 230A for general use 4/0 AWG copper conductors.\n\n-",
+        "## Final Answer: Ampacity of 4/0 AWG Copper Conductor (CEC 2022)\n\n**Ampacity:** 230 amperes at 75°C  \n**Source:** CEC 2022 Table 310.16 (no California amendments apply to this specific value)  \n\n---\n### Key Conditions:\n- **Ambient Temperature:** 30°C (standard condition; adjust with Table 310.15(B)(1) if different)\n- **Conductor Count:** Not more than 3 current-carrying conductors in a raceway/cable (adjust with Table 310.15(C)(1) if bundled)\n- **Overcurrent Protection:** Refer to CEC 240.4(D) ("
+      ],
+      "cec_tools_used": [
+        "cec_lookup_conductor_ampacity",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "240.4",
+        "310.15",
+        "310.10",
+        "310.12",
+        "310.16"
+      ],
+      "avg_duration_seconds": 7.2,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-012",
+      "tier": "delta_table",
+      "category": "grounding",
+      "ca_specific": false,
+      "question": "What size equipment grounding conductor is required for a 200A circuit in California?",
+      "expected_answer": "6 AWG copper or 4 AWG aluminum per CEC 2022 Table 250.122 [California Amendment]",
+      "cec_reference": "CEC Table 250.122",
+      "nec_reference": "NEC Table 250.122",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Equipment Grounding Conductor Size (CEC 2022)  \n\nFor a **200A circuit**, the required equipment grounding conductor (EGC) is:  \n- **6 AWG copper**  \n- **4 AWG aluminum/copper-clad aluminum**  \n\nThis is per **CEC 2022 Table 250.122**, with no applicable exceptions overriding this size for standard 200A circuits.  \n\n### Key Exceptions Reviewed:  \n1. **Section 250.142** allows using the grounded conductor for grounding in specific supply-side scenarios, but this does not affect EGC sizing for standard circuits.  \n2. **Section 250.121** prohibits using an EGC as a grounding electrode conductor (GEC), which is unrelated to this question.  \n3. **Section 250.54** permits auxiliary grounding electrodes but does not modify EGC sizing requirements.  \n\nNo exceptions apply to a standard 200A circuit’s EGC size.  \n\n---  \n## NEC 2023 Reference  \nNEC 2023 Table 250.122 specifies the same 6 AWG copper/4 AWG aluminum for 200A circuits. California’s amendments do not alter this requirement for standard applications.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Equipment Grounding Conductor Size (CEC 2022)  \n\nFor a **200A circuit**, the required equipment grounding conductor (EGC) is:  \n- **6 AWG copper**  \n- **4 AWG aluminum/copper-clad aluminum**  \n\nThis is specified in **CEC Table 250.122**.  \n\n---\n\n### Exceptions Found (No Impact on Sizing for 200A):  \n1. **Section 250.25**: Grounding systems on the supply side of the disconnect (installation location, not sizing).  \n2. **Section 250.134**: Methods for connecting EGCs (installation methods, not ",
+        "## Equipment Grounding Conductor Size (CEC 2022)  \n\nFor a **200A circuit**, the required equipment grounding conductor (EGC) is:  \n- **6 AWG copper**  \n- **4 AWG aluminum/copper-clad aluminum**  \n\nThis is per **CEC 2022 Table 250.122**, with no applicable exceptions overriding this size for standard 200A circuits.  \n\n### Key Exceptions Reviewed:  \n1. **Section 250.142** allows using the grounded conductor for grounding in specific supply-side scenarios, but this does not affect EGC sizing for st",
+        "## Equipment Grounding Conductor Size (CEC 2022)  \n\nFor a **200A circuit**, the required equipment grounding conductor (EGC) size is:  \n- **6 AWG copper**  \n- **4 AWG aluminum/copper-clad aluminum**  \n\nThis is specified in **CEC 2022 Table 250.122**, which includes California amendments.  \n\n### Exceptions Review:  \n1. **Section 250.142** allows alternative grounding methods (e.g., using grounded conductors) under specific conditions but does **not override** the minimum size requirements in Tabl"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_grounding_conductor"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.122",
+        "250.25",
+        "250.121",
+        "250.142",
+        "250.54",
+        "250.134",
+        "352.60"
+      ],
+      "avg_duration_seconds": 7.6,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-013",
+      "tier": "delta_table",
+      "category": "grounding",
+      "ca_specific": false,
+      "question": "What size grounding electrode conductor is required for a 3/0 AWG copper service conductor in California?",
+      "expected_answer": "4 AWG copper or 2 AWG aluminum GEC per CEC 2022 Table 250.66 [California Amendment]",
+      "cec_reference": "CEC Table 250.66",
+      "nec_reference": "NEC Table 250.66",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Grounding Electrode Conductor (GEC) Sizing (CEC 2022)\n\nFor a **3/0 AWG copper service conductor**, the required **grounding electrode conductor (GEC)** size is:\n\n- **4 AWG copper** (per CEC Table 250.66)\n\n### Exception Analysis:\nAfter reviewing exceptions to 250.66, none directly modify the GEC sizing requirement for this scenario. Key exceptions include:\n1. **250.54** (auxiliary electrodes) – Permits additional electrodes but doesn't affect GEC size\n2. **250.50** (grounding electrode system) – Requires bonding of electrodes, not related to conductor sizing\n3. **250.121** – Prohibits using equipment grounding conductors as GECs (not applicable here)\n\nThe California amendment note in Table 250.66 indicates modifications from NEC, but in this case, the CEC and NEC requirements align (4 AWG copper for 3/0 service conductors).\n\n---\n## NEC 2023 Reference\nNEC 2023 Table 250.66 also specifies 4 AWG copper for 3/0 AWG service conductors. **No difference** from CEC 2022.\n\n✓ Sources: CEC 2022 Table 250.66 (primary), NEC 2023 Table 250.66 (comparison)",
+      "all_answers": [
+        "## Grounding Electrode Conductor Size (CEC 2022)  \n\nFor a **3/0 AWG copper service conductor**, the required **grounding electrode conductor (GEC)** size is:  \n\n**4 AWG copper** (per **CEC 2022 Table 250.66**).  \n\n### Exceptions and Special Conditions:  \n1. **If connected to a rod, pipe, or plate electrode** (as in 250.52(A)(5) or (A)(7)):  \n   - A **6 AWG copper** GEC is permitted **if** the conductor does not extend to other electrode types requiring larger sizes (Exception 250.66(A)).  \n\n2. *",
+        "## Grounding Electrode Conductor (GEC) Sizing (CEC 2022)\n\nFor a **3/0 AWG copper service conductor**, the required **grounding electrode conductor (GEC)** size is:\n\n- **4 AWG copper** (per CEC Table 250.66)\n\n### Exception Analysis:\nAfter reviewing exceptions to 250.66, none directly modify the GEC sizing requirement for this scenario. Key exceptions include:\n1. **250.54** (auxiliary electrodes) – Permits additional electrodes but doesn't affect GEC size\n2. **250.50** (grounding electrode system)",
+        "## Grounding Electrode Conductor Size (CEC 2022)\n\nFor a **3/0 AWG copper service conductor**, the required **grounding electrode conductor (GEC)** size is:\n\n**4 AWG copper**  \n(Per **CEC 2022 Table 250.66**, California amendment applies)\n\n### Exception Review:\nAfter checking exceptions for **250.66**:\n- **250.54** (auxiliary electrodes) and **250.50** (electrode bonding) do not affect GEC sizing.\n- **250.24** (system grounding) confirms grounding electrode conductor connections but does not over"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_grounding_conductor"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.66",
+        "250.24",
+        "250.50",
+        "250.121",
+        "250.54",
+        "250.52"
+      ],
+      "avg_duration_seconds": 8.7,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-014",
+      "tier": "delta_table",
+      "category": "ampacity_adjustment",
+      "ca_specific": false,
+      "question": "What is the temperature correction factor for a 75C rated conductor at 40C ambient temperature according to California code?",
+      "expected_answer": "0.88 per CEC 2022 Table 310.15(B)(1)(1) [California Amendment]",
+      "cec_reference": "CEC Table 310.15(B)(1)(1)",
+      "nec_reference": "NEC Table 310.15(B)(1)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Temperature Correction Factor (CEC 2022)\n\nThe temperature correction factor for a **75°C rated conductor** in a **40°C ambient temperature** is **0.88** per **CEC 2022 Table 310.15(B)(1)(1)**.\n\n### Exceptions and Notes:\n1. **Exception 2** in CEC 2022 Section 310.15 clarifies:\n   - Temperature correction factors **can be applied** to the conductor's ampacity **if the corrected ampacity does not exceed** the ampacity for the temperature rating of the termination (per **110.14(C)**).\n   - This ensures compatibility with termination temperature limits (e.g., 60°C for most residential terminations).\n\n2. **Exception 3** in Section 310.14 allows higher ampacity for short circuit segments (≤10 ft or 10% of total length), but this does not override the correction factor itself.\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023 - Table 310.15(B)(1)(1) and exceptions are identical in both codes.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Temperature Correction Factor (CEC 2022)\n\nThe temperature correction factor for a **75°C rated conductor** at **40°C ambient temperature** is **0.82** per **CEC Table 310.15(B)(2)**.\n\nThis factor applies to conductors installed in environments where the ambient temperature exceeds the standard 30°C (86°F) used in base ampacity tables.\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023. NEC Table 310.15(B)(2) also specifies 0.82 for 75°C conductors at 40°C ambient.\n\n✓ Sources: CEC 2022 (pr",
+        "## Temperature Correction Factor (CEC 2022)\n\nThe temperature correction factor for a **75°C rated conductor** in a **40°C ambient temperature** is **0.88** per CEC 2022 Table 310.15(B)(1)(1).\n\n**Exceptions Review:**\n- No exceptions modify this correction factor for 75°C conductors at 40°C ambient\n- Exception 2 in 310.15 applies to ampacity application limits but does not affect the correction factor itself\n- Rooftop temperature adder (310.15(B)(2)) is inapplicable here\n\n---\n## NEC 2023 Reference",
+        "## Temperature Correction Factor (CEC 2022)\n\nThe temperature correction factor for a **75°C rated conductor** in a **40°C ambient temperature** is **0.88** per **CEC 2022 Table 310.15(B)(1)(1)**.\n\n### Exceptions and Notes:\n1. **Exception 2** in CEC 2022 Section 310.15 clarifies:\n   - Temperature correction factors **can be applied** to the conductor's ampacity **if the corrected ampacity does not exceed** the ampacity for the temperature rating of the termination (per **110.14(C)**).\n   - This e"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_ampacity_adjustment",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "310.15",
+        "310.14",
+        "110.14"
+      ],
+      "avg_duration_seconds": 16.9,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-015",
+      "tier": "delta_table",
+      "category": "ampacity_adjustment",
+      "ca_specific": false,
+      "question": "What is the ampacity adjustment factor for 7-9 current-carrying conductors in a raceway according to California code?",
+      "expected_answer": "70% (0.70) per CEC 2022 Table 310.15(C)(1) [California Amendment]",
+      "cec_reference": "CEC Table 310.15(C)(1)",
+      "nec_reference": "NEC Table 310.15(C)(1)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Ampacity Adjustment Factor for Bundling (CEC 2022)\n\nFor **7-9 current-carrying conductors** in a raceway, the ampacity adjustment factor is **0.70** per **CEC 2022 Table 310.15(C)(1)**.\n\n**Key Notes:**\n- This factor applies to all conductors in the same raceway (including neutrals and spares)\n- Excludes conductors in separate circuits that cannot be simultaneously energized\n- Applies to conductors rated 40°C or higher (see Table 310.15(C)(1) footnotes)\n\n**Exceptions Checked:**\n1. **Exception for >20 conductors**: Only applies to Type AC/MC cables with >20 conductors (not applicable here)\n2. **Exception for cable trays**: Only affects raceways in cable trays (not applicable here)\n3. **Exception for parallel conductors**: Requires separate adjustment (not applicable here)\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023 Table 310.15(C)(1).\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Ampacity Adjustment Factor (CEC 2022)\n\nFor **7-9 current-carrying conductors** in a raceway, the ampacity adjustment factor is **0.70** per **CEC 2022 Table 310.15(C)(1)**.\n\n**Exceptions Verified:**\n- **Exception to 310.15(C)(1)(d):** Applies only to Type AC/MC cables with >20 conductors (not relevant here).\n- **Exception to 310.15(C)(1):** 60% adjustment for >20 conductors in specific cable types (not applicable for 7-9 conductors).\n- No exceptions override the 0.70 factor for 7-9 conductors",
+        "## Ampacity Adjustment Factor for Bundling (CEC 2022)\n\nFor **7-9 current-carrying conductors** in a raceway, the **ampacity adjustment factor is 0.70** per **CEC 2022 Table 310.15(C)(1)**.\n\n### Exceptions Review:\n1. **310.15(C)(1) Exception (d):** Exempts Type AC/MC cables under specific conditions (not applicable here).\n2. **310.12:** Applies to dwelling services/feeds (not general raceway bundling).\n3. **312.6:** Relates to wire-bending space, not ampacity adjustments.\n\nNo exceptions override ",
+        "## Ampacity Adjustment Factor for Bundling (CEC 2022)\n\nFor **7-9 current-carrying conductors** in a raceway, the ampacity adjustment factor is **0.70** per **CEC 2022 Table 310.15(C)(1)**.\n\n**Key Notes:**\n- This factor applies to all conductors in the same raceway (including neutrals and spares)\n- Excludes conductors in separate circuits that cannot be simultaneously energized\n- Applies to conductors rated 40°C or higher (see Table 310.15(C)(1) footnotes)\n\n**Exceptions Checked:**\n1. **Exception "
+      ],
+      "cec_tools_used": [
+        "cec_lookup_ampacity_adjustment",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "310.15",
+        "310.12",
+        "312.6"
+      ],
+      "avg_duration_seconds": 7.7,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-016",
+      "tier": "delta_table",
+      "category": "working_space",
+      "ca_specific": false,
+      "question": "What is the minimum working space depth for a 480V panelboard under Condition 3 according to California code?",
+      "expected_answer": "1.2 m (4 ft) per CEC 2022 Table 110.26(A)(1)",
+      "cec_reference": "CEC Table 110.26(A)(1)",
+      "nec_reference": "NEC Table 110.26(A)(1)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Minimum Working Space Depth (CEC 2022)\n\nFor a **480V panelboard under Condition 3**, the minimum working space depth is **1.2 meters (4 feet)** per **CEC Table 110.26(A)(1)**. This applies to systems with nominal voltage to ground between **151-600V**.\n\n**Condition 3** specifically covers scenarios with **exposed live parts on both sides** of the working space.\n\n**Exceptions Reviewed:**\n- No exceptions in CEC 2022 override this requirement for 480V panelboards under Condition 3.\n- Exceptions related to dead-front assemblies (110.26(A)(1)), existing buildings (Exception No. 2), or wire-bending spaces (408.55) do not apply to this scenario.\n- Cross-references to 110.33 (entrance requirements) and 408.38 (panelboard enclosures) are unrelated to working space depth.\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023 Table 110.26(A)(1). Both codes require 4 feet (1.2 m) for 480V systems under Condition 3.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Minimum Working Space Depth (CEC 2022)\n\nFor a **480V panelboard under Condition 3**, the minimum working space depth is **1.2 meters (4 feet)** per **CEC Table 110.26(A)(1)**. This applies to systems with nominal voltage to ground between **151-600V**.\n\n**Condition 3** specifically covers scenarios with **exposed live parts on both sides** of the working space.\n\n**Exceptions Reviewed:**\n- No exceptions in CEC 2022 override this requirement for 480V panelboards under Condition 3.\n- Exceptions ",
+        "## Minimum Working Space Depth (CEC 2022)\n\nThe minimum working space depth for a **480V panelboard under Condition 3** is **1.2 meters (4 feet)** per **CEC Table 110.26(A)(1)**. This applies to systems with voltage to ground between 151-600V where:\n\n- **Condition 3**: Exposed live parts are on both sides of the working space (e.g., panel on an aisle with live parts on both sides).\n\n**Exception Review**:  \nAfter checking exceptions via `cec_exception_search(110.26(A)(1), \"Condition 3\")`, no excep",
+        "## Minimum Working Space Depth (CEC 2022)\n\nFor a **480V panelboard under Condition 3**, the minimum working space depth is **1.2 meters (4 feet)** per **CEC Table 110.26(A)(1)**. \n\n### Condition 3 Context:\n- Applies when **exposed live parts are on both sides** of the working space.\n- Example: Panelboards with live components on front and back sides.\n\n### Exception Review:\nAfter checking exceptions for **110.26(A)(1)**, no exceptions directly modify the working space depth requirement for Condit"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_working_space"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "408.38",
+        "110.70",
+        "110.33",
+        "408.55",
+        "110.26",
+        "250.110",
+        "250.86"
+      ],
+      "avg_duration_seconds": 7.9,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-017",
+      "tier": "delta_table",
+      "category": "enclosure",
+      "ca_specific": false,
+      "question": "What type of enclosure is suitable for outdoor use with rain, sleet, and ice according to California code Table 110.28?",
+      "expected_answer": "Type 3, 3R, 3S, 4, 4X, 6, or 6P enclosures are suitable for outdoor use with rain, sleet, and ice per CEC 2022 Table 110.28 [California Amendment]",
+      "cec_reference": "CEC Table 110.28",
+      "nec_reference": "NEC Table 110.28",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Final Answer: Suitable Enclosure Types for Outdoor Use (CEC 2022)\n\nFor outdoor installations exposed to **rain, sleet, and ice**, the following enclosure types are suitable per **CEC Table 110.28** and exceptions:\n\n### Approved Enclosure Types:\n- **Type 3**: Raintight (operable when ice-covered).\n- **Type 3S**: Raintight with corrosion protection.\n- **Type 3SX**: Raintight with corrosion protection and sealed joints.\n- **Type 3X**: Raintight with corrosion protection (severe environments).\n- **Type 4**: Watertight (also raintight).\n- **Type 4X**: Watertight with corrosion protection.\n- **Type 6**: Watertight (resists water ingress).\n- **Type 6P**: Watertight with flooding protection.\n\n### Key Exceptions and Additional Requirements:\n1. **Dedicated Space (110.26(E))**:\n   - Outdoor enclosures must have **1.8 m (6 ft) dedicated clearance** from grade to equipment height.\n   - Structural overhangs are permitted in the dedicated space zone.\n\n2. **Fencing Requirements (110.31)**:\n   - Fences for outdoor enclosures must be **at least 2.1 m (7 ft) high** or **1.8 m (6 ft) with barbed wire**.\n   - Minimum distance from fence to live parts per **Table 110.31**.\n\n3. **Industrial Systems (110.70 Exception)**:\n   - Enclosures in industrial systems with **qualified supervision** may follow engineering practice (not applicable to general installations).\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023 Table 110.28.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Final Answer: Suitable Enclosure Types for Outdoor Use (CEC 2022)\n\nFor outdoor installations exposed to **rain, sleet, and ice**, the following enclosure types are suitable per **CEC Table 110.28** and exceptions:\n\n### Approved Enclosure Types:\n- **Type 3**: Raintight (operable when ice-covered).\n- **Type 3S**: Raintight with corrosion protection.\n- **Type 3SX**: Raintight with corrosion protection and sealed joints.\n- **Type 3X**: Raintight with corrosion protection (severe environments).\n- ",
+        "## Suitable Enclosures for Outdoor Use (CEC 2022)\n\nFor outdoor use with **rain, sleet, and ice**, the suitable enclosure types per **CEC Table 110.28** are:\n\n- **Type 3S** (Raintight): Protects against rain, sleet, and ice.\n- **Type 3SX** (Raintight): Same as 3S with additional corrosion protection.\n- **Type 4** (Watertight): Protects against water ingress from rain, sleet, and ice.\n- **Type 4X** (Watertight): Same as Type 4 with corrosion protection.\n- **Type 6** (Watertight): For temporary sub",
+        "## Suitable Enclosure for Outdoor Use (CEC 2022)\n\nFor outdoor use with exposure to **rain, sleet, and ice**, **Type 3S** enclosures are suitable per **CEC Table 110.28**. \n\n### Key Details:\n- **Type 3S** enclosures are rated **raintight**, **sleatight**, and **snowtight**.\n- The mechanism must remain operable when ice-covered (per table notes).\n- Other suitable types for rain/ice: **Type 3, 3SX, 3X, 4, 4X, 6, 6P**.\n\n### Exceptions and Installation Requirements:\n- **CEC 110.26(E)** adds requireme"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_table",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "110.70",
+        "110.26",
+        "110.31",
+        "110.11",
+        "110.28"
+      ],
+      "avg_duration_seconds": 13.4,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-018",
+      "tier": "delta_table",
+      "category": "lighting_load",
+      "ca_specific": false,
+      "question": "What is the general lighting load in VA per square foot for office buildings according to California code?",
+      "expected_answer": "1.3 VA per square foot per CEC 2022 Table 220.12 (updated from 3.5 VA in NEC 2020)",
+      "cec_reference": "CEC Table 220.12",
+      "nec_reference": "NEC Table 220.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## General Lighting Load for Office Buildings (CEC 2022)\n\nThe general lighting load for **office buildings** in California is **3.5 volt-amperes (VA) per square foot** per CEC 2022 Table 220.12.\n\n### Exceptions and Special Conditions:\n1. **Energy Code Compliance** (CEC 220.12(B)):  \n   If the building complies with a local energy code, the lighting load may be calculated using the energy code's unit values **if**:\n   - A power monitoring system is installed to track lighting load.\n   - The system has alarms to alert owners/managers if loads exceed energy code limits.\n   - Demand factors from Table 220.42 are **not applied**.\n   - The **125% continuous load multiplier** is used.\n\n2. **Informational Note**:  \n   The 3.5 VA/ft² value assumes 100% power factor and minimum load conditions. Installations with lower power factor or higher actual loads may require additional capacity.\n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023. NEC 2023 Table 220.12 also specifies 3.5 VA/ft² for office buildings.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## General Lighting Load for Office Buildings (CEC 2022)\n\nThe general lighting load for **office buildings** in California is **1.3 volt-amperes per square foot (VA/ft²)** (14 VA/m²) per **CEC Table 220.12**. \n\n### Exception for Energy Code Compliance\n**CEC 220.12(B)** provides an exception:  \nIf the building complies with a local energy code and meets these conditions:\n1. A power monitoring system is installed\n2. The system has alarms for load exceedances\n3. Demand factors from 220.42 are not a",
+        "## General Lighting Load for Office Buildings (CEC 2022)\n\n### Standard Requirement\nThe general lighting load for **office buildings** in California is **1.3 volt-amperes per square foot (VA/ft²)** per CEC 2022 Table 220.12.\n\n### Exception for Energy Code Compliance\n**Exception 220.12(B)** allows alternative calculation if the building complies with a local energy code:\n- **Permitted unit load**: Specified by the adopted energy code (may differ from 1.3 VA/ft²)\n- **Conditions required**:\n  1. Pow",
+        "## General Lighting Load for Office Buildings (CEC 2022)\n\nThe general lighting load for **office buildings** in California is **3.5 volt-amperes (VA) per square foot** per CEC 2022 Table 220.12.\n\n### Exceptions and Special Conditions:\n1. **Energy Code Compliance** (CEC 220.12(B)):  \n   If the building complies with a local energy code, the lighting load may be calculated using the energy code's unit values **if**:\n   - A power monitoring system is installed to track lighting load.\n   - The syste"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search",
+        "cec_lookup_table"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "220.12",
+        "210.20",
+        "220.42"
+      ],
+      "avg_duration_seconds": 10.2,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-019",
+      "tier": "delta_table",
+      "category": "flexible_cord",
+      "ca_specific": false,
+      "question": "What is the ampacity of a 12 AWG flexible cord (Column B thermoset) according to California code?",
+      "expected_answer": "25 amperes per CEC 2022 Table 400.5(A)(1) [California Amendment]",
+      "cec_reference": "CEC Table 400.5(A)(1)",
+      "nec_reference": "NEC Table 400.5(A)(1)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## 12 AWG Flexible Cord Ampacity (CEC 2022)\n\nThe ampacity of a **12 AWG flexible cord** with **Column B thermoset insulation** is **25 amperes** per CEC 2022 Table 400.5(A)(1). \n\n**Key Details:**\n- Column B applies to **two-conductor cords** or multiconductor cords with **only two current-carrying conductors**\n- This rating assumes **ambient temperature of 30°C (86°F)**\n- See **400.13** and **Table 400.4** for additional construction requirements\n\n**Exceptions Checked:**\n- **400.12** restricts flexible cord use (e.g., not as fixed wiring substitute)\n- **400.10** permits flexible cord use only for specific applications (e.g., appliances, luminaires)\n- No exceptions modify the 25A value for 12 AWG Column B\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023 Table 400.5(A)(1).\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## 12 AWG Flexible Cord Ampacity (CEC 2022)\n\nThe ampacity of a **12 AWG flexible cord** in **Column B (thermoset)** is **20 amperes** per **CEC 2022 Table 400.5(A)(1)**. This applies to two-conductor cords where only two conductors are current-carrying.\n\n**Exceptions Checked:**\n- **400.12** prohibits using flexible cords as fixed wiring, but this does not affect ampacity values.\n- **400.10** permits specific uses for flexible cords (e.g., appliances, cranes), but ampacity remains governed by Tab",
+        "## 12 AWG Flexible Cord Ampacity (CEC 2022)  \n\nThe ampacity of a **12 AWG flexible cord** in **Column B (thermoset)** is **20 amperes** per **CEC 2022 Table 400.5(A)(1)**. This applies to two-conductor cords where only two conductors are current-carrying.  \n\n---\n\n### Exceptions and Special Conditions:  \n1. **Uses Not Permitted** (CEC 400.12):  \n   - Flexible cords cannot be used as a substitute for fixed wiring.  \n   - Prohibited in walls, ceilings, or floors unless in an approved enclosure (Exc",
+        "## 12 AWG Flexible Cord Ampacity (CEC 2022)\n\nThe ampacity of a **12 AWG flexible cord** with **Column B thermoset insulation** is **25 amperes** per CEC 2022 Table 400.5(A)(1). \n\n**Key Details:**\n- Column B applies to **two-conductor cords** or multiconductor cords with **only two current-carrying conductors**\n- This rating assumes **ambient temperature of 30°C (86°F)**\n- See **400.13** and **Table 400.4** for additional construction requirements\n\n**Exceptions Checked:**\n- **400.12** restricts f"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_conductor_ampacity",
+        "cec_search",
+        "cec_lookup_table"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "400.12",
+        "400.10",
+        "400.5",
+        "400.13",
+        "400.4"
+      ],
+      "avg_duration_seconds": 11.6,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-020",
+      "tier": "delta_table",
+      "category": "fixture_wire",
+      "ca_specific": false,
+      "question": "What is the maximum operating temperature for Type SF-2 silicone insulated fixture wire according to California code?",
+      "expected_answer": "200C (392F) per CEC 2022 Table 402.3 [California Amendment]",
+      "cec_reference": "CEC Table 402.3",
+      "nec_reference": "NEC Table 402.3",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Maximum Operating Temperature for Type SF-2 Silicone Insulated Fixture Wire (CEC 2022)\n\n**Maximum Operating Temperature**: **200°C (392°F)** for **Type SF-2 silicone insulated fixture wire** (solid or 7-strand), per **CEC Table 402.3**.\n\n---\n\n### Key Code Requirements:\n1. **Permitted Uses** (CEC 402.10):  \n   - Allowed in **luminaires** and similar equipment where:  \n     - Conductors are **enclosed/protected**  \n     - Not subject to **bending or twisting** in use  \n     - Used to **connect luminaires** to branch-circuit conductors  \n\n2. **Prohibited Uses** (CEC 402.12):  \n   - **Not permitted** as general **branch-circuit conductors**  \n   - Exceptions apply only where explicitly permitted elsewhere in the Code  \n\n---\n\n### Temperature Rating Details:\n- **Type SF-2**: 200°C (392°F) for solid/7-strand  \n- **Flexible stranding variants** (e.g., SFF-2): 150°C (302°F)  \n\n---\n\n## NEC 2023 Reference  \nNo difference from NEC 2023. Temperature ratings and usage restrictions for Type SF-2 are consistent between CEC and NEC in Table 402.3 and 402.10/402.12.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Maximum Operating Temperature for Type SF-2 Silicone Insulated Fixture Wire (CEC 2022)\n\nThe maximum operating temperature for **Type SF-2 silicone insulated fixture wire** is **200°C (392°F)** per **CEC Table 402.3**. This applies to both solid/7-strand and flexible stranding configurations.\n\n### Exceptions Review\n- **CEC 402.12** restricts fixture wires from being used as branch-circuit conductors (except as permitted elsewhere in code), but does not affect the temperature rating.\n- **CEC 42",
+        "## Maximum Operating Temperature for Type SF-2 Silicone Insulated Fixture Wire (CEC 2022)\n\n**Maximum Operating Temperature**: **200°C (392°F)** for **Type SF-2 silicone insulated fixture wire** (solid or 7-strand), per **CEC Table 402.3**.\n\n---\n\n### Key Code Requirements:\n1. **Permitted Uses** (CEC 402.10):  \n   - Allowed in **luminaires** and similar equipment where:  \n     - Conductors are **enclosed/protected**  \n     - Not subject to **bending or twisting** in use  \n     - Used to **connect ",
+        "## Maximum Operating Temperature for Type SF-2 Silicone Insulated Fixture Wire (CEC 2022)\n\nThe maximum operating temperature for **Type SF-2 silicone insulated fixture wire** is **200°C (392°F)** as specified in **CEC 2022 Table 402.3**. \n\n### Exceptions Review:\n- **Section 402.12** prohibits using fixture wires as branch-circuit conductors, but this does not affect the temperature rating.\n- **Sections 422.23 and 425.10** relate to special permissions for appliances and industrial equipment, whi"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search",
+        "cec_lookup_table"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "402.12",
+        "425.10",
+        "402.3",
+        "422.23",
+        "402.10"
+      ],
+      "avg_duration_seconds": 15.4,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-021",
+      "tier": "calculation",
+      "category": "adjusted_ampacity",
+      "ca_specific": false,
+      "question": "Calculate the adjusted ampacity for 8 AWG THWN copper conductors with 7 conductors in a raceway at 40C ambient temperature in California.",
+      "expected_answer": "Base ampacity: 50A (CEC Table 310.16, 75C). Temperature correction: 0.88 (CEC Table 310.15(B)(1)(1) for 40C). Bundling factor: 0.70 (CEC Table 310.15(C)(1) for 7-9 conductors). Adjusted ampacity = 50 x 0.88 x 0.70 = 30.8A",
+      "cec_reference": "CEC Tables 310.16, 310.15(B)(1)(1), 310.15(C)(1)",
+      "nec_reference": "NEC Tables 310.16, 310.15(B), 310.15(C)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Adjusted Ampacity Calculation (CEC 2022)\n\n1. **Base Ampacity**: 50A (CEC Table 310.16 for 8 AWG THWN copper at 75°C)  \n2. **Temperature Correction**: 0.88 (CEC Table 310.15(B)(1)(1) for 40°C ambient)  \n3. **Bundling Adjustment**: 0.70 (CEC Table 310.15(C)(1) for 7 conductors)  \n\n**Calculation**:  \n$$\n50A \\times 0.88 \\times 0.70 = 30.8A\n$$\n\n**Final Answer**: **30.8 amperes**  \n\n---\n## Exceptions Checked\n- **Exception 310.15**: Confirmed correction factors are applied correctly without exceeding termination temperature ratings (75°C).  \n- **Exception 310.12**: Not applicable (dwelling service rules not relevant here).  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023 (same tables and factors apply).  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Adjusted Ampacity Calculation (CEC 2022)\n\n1. **Base Ampacity**: 50A (CEC Table 310.16 for 8 AWG THWN copper at 75°C)  \n2. **Temperature Correction**: 0.88 (CEC Table 310.15(B)(1)(1) for 40°C ambient)  \n3. **Bundling Adjustment**: 0.70 (CEC Table 310.15(C)(1) for 7 conductors)  \n\n**Calculation**:  \n$$\n50A \\times 0.88 \\times 0.70 = 30.8A\n$$\n\n**Final Answer**: **30.8 amperes**  \n\n---\n## Exceptions Checked\n- **Exception 310.15**: Confirmed correction factors are applied correctly without exceedin",
+        "## Adjusted Ampacity Calculation (CEC 2022)\n\n**Base ampacity**: 50A (8 AWG THWN copper, Table 310.16)  \n**Temperature correction**: 0.88 (40°C ambient, Table 310.15(B)(1)(1))  \n**Bundling adjustment**: 0.70 (7 conductors, Table 310.15(C)(1))  \n\n**Calculation**:  \n$$\n50A \\times 0.88 \\times 0.70 = 30.8A\n$$\n\n**Final adjusted ampacity**: **30.8 amperes**  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+        "## Adjusted Ampacity Calculation (CEC 2022)\n\n1. **Base ampacity**: 50A (8 AWG THWN copper at 75°C per Table 310.16)  \n2. **Temperature correction**: 0.88 (40°C ambient per Table 310.15(B)(1)(1))  \n3. **Bundling adjustment**: 0.70 (7 conductors per Table 310.15(C)(1))  \n\n**Calculation**:  \n```\n50A × 0.88 × 0.70 = 30.8A\n```\n\n**Final Answer**: 30.8 amperes  \n\n**Exception Review**:  \n- No applicable exceptions found in cec_exception_search results for this specific calculation.  \n- California amendm"
+      ],
+      "cec_tools_used": [
+        "cec_lookup_conductor_ampacity",
+        "cec_exception_search",
+        "cec_lookup_ampacity_adjustment"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "310.15",
+        "310.12",
+        "310.16"
+      ],
+      "avg_duration_seconds": 11.9,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-022",
+      "tier": "calculation",
+      "category": "service_sizing",
+      "ca_specific": false,
+      "question": "Size the conductors, EGC, and GEC for a 200A residential service in California using copper conductors.",
+      "expected_answer": "Service conductors: 3/0 AWG copper minimum (200A at 75C per CEC Table 310.16). Equipment grounding conductor: 6 AWG copper (per CEC Table 250.122 for 200A). Grounding electrode conductor: 4 AWG copper (per CEC Table 250.66 for 3/0 service conductors).",
+      "cec_reference": "CEC Tables 310.16, 250.122, 250.66",
+      "nec_reference": "NEC Tables 310.16, 250.122, 250.66",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Service Sizing for 200A Residential (CEC 2022) with Exceptions Checked\n\n### Final Sizing\n✓ **Service conductor**: 2/0 AWG copper (CEC Table 310.12(A))  \n✓ **EGC**: 6 AWG copper (CEC Table 250.122 for 200A)  \n✓ **GEC**: 4 AWG copper (CEC Table 250.66 for 2/0 service conductor)  \n\n### Exception Analysis\n1. **310.12(A) Exceptions**:\n   - **Exception 1** (Conductor types by location): Not applicable. Standard residential service conductors are sized per Table 310.12(A) without location-specific adjustments unless installed in wet/damp locations (not indicated in question).\n   - **Parallel conductors**: Not applicable. Question specifies a standard 200A service, not parallel conductors.\n   - **Temperature/ampacity adjustments**: No derating factors mentioned in the question, so Table 310.12(A) applies directly.\n\n2. **California Amendments**:\n   - Tables 250.122 and 250.66 include [California-specific requirements](#footnote1) for grounding conductors in residential applications, which are already reflected in the EGC/GEC sizes.\n\n---\n## NEC 2023 Reference  \n- **Service conductor**: No difference from NEC 2023 Table 310.12(A)  \n- **EGC/GEC**: NEC uses same tables (250.122/250.66) but **no amendments** for California-specific requirements  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)\n\n---\n\n**Footnotes**  \n[1] California amendments (δ) in Tables 250.122 and 250.66 reflect stricter requirements for grounding conductor sizing in residential applications compared to NEC.",
+      "all_answers": [
+        "## Service Sizing (CEC 2022)\n\n✓ **Service conductor**: 2/0 AWG copper (CEC Table 310.12(A))  \n✓ **EGC**: 6 AWG copper (CEC Table 250.122 for 200A service)  \n✓ **GEC**: 4 AWG copper (CEC Table 250.66 for 2/0 AWG service conductors)  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023 - Tables 310.12(A), 250.122, and 250.66 are identical in NEC 2023.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+        "## Service Sizing (CEC 2022) with Exceptions Verified\n\n✓ **Service conductor**: 2/0 AWG copper (CEC Table 310.12(A))  \n✓ **EGC**: 6 AWG copper (CEC Table 250.122 for 200A)  \n✓ **GEC**: 4 AWG copper (CEC Table 250.66 for 2/0 service conductor)  \n\n**Exception Analysis**:  \n- **310.12(A) Exceptions**:  \n  - Exception 2 confirms conductor type requirements for dry/damp/wet locations, but does not affect sizing for this application.  \n  - No exceptions override the 83% derating rule in 310.12(A) for ",
+        "## Service Sizing for 200A Residential (CEC 2022) with Exceptions Checked\n\n### Final Sizing\n✓ **Service conductor**: 2/0 AWG copper (CEC Table 310.12(A))  \n✓ **EGC**: 6 AWG copper (CEC Table 250.122 for 200A)  \n✓ **GEC**: 4 AWG copper (CEC Table 250.66 for 2/0 service conductor)  \n\n### Exception Analysis\n1. **310.12(A) Exceptions**:\n   - **Exception 1** (Conductor types by location): Not applicable. Standard residential service conductors are sized per Table 310.12(A) without location-specific a"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_conductor_size",
+        "cec_search",
+        "cec_lookup_grounding_conductor"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.66",
+        "250.122",
+        "310.12"
+      ],
+      "avg_duration_seconds": 12.1,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-023",
+      "tier": "calculation",
+      "category": "commercial_load",
+      "ca_specific": false,
+      "question": "Calculate the general lighting load for a 5,000 square foot office building in California.",
+      "expected_answer": "Per CEC Table 220.12, office buildings require 3.5 VA per square foot. General lighting load = 5,000 sq ft x 3.5 VA/sq ft = 17,500 VA (17.5 kVA).",
+      "cec_reference": "CEC Table 220.12",
+      "nec_reference": "NEC Table 220.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## General Lighting Load Calculation (CEC 2022)  \n\nFor a **5,000 sq ft office building**, the general lighting load is calculated using **Table 220.12** for non-dwelling occupancies:  \n\n1. **Unit Load for Offices**:  \n   Per CEC 2022 Table 220.12, **office buildings** require **3.5 VA per square foot** (includes 125% continuous load multiplier).  \n\n2. **Calculation**:  \n   $$\n   5,000 \\, \\text{sq ft} \\times 3.5 \\, \\text{VA/sq ft} = 17,500 \\, \\text{VA (17.5 kVA)}\n   $$  \n\n---\n\n### Exceptions Checked  \n- **CEC 220.12(B)**: Allows alternative lighting load calculations using energy code values **if** a power monitoring system is installed.  \n  - **Not applicable here** (no monitoring system mentioned).  \n- **Informational Note**: Table 220.12 values assume 100% power factor and minimum load conditions. Actual installations may require higher capacity.  \n\n---\n\n## NEC 2023 Reference  \nNo difference from NEC 2023. Table 220.12 specifies **3.5 VA/sq ft** for office buildings.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## General Lighting Load for Office Building (CEC 2022)\n\n**Calculation:**\n```\n5,000 sq ft × 3.5 VA/sq ft (from Table 220.12) = 17,500 VA (17.5 kVA)\n```\n\n**Citations:**\n- CEC 2022 Section 220.12(A) (Lighting load requirements)\n- CEC 2022 Table 220.12 (Unit load values: 3.5 VA/sq ft for office buildings)\n\n**Exceptions Checked:**\n- CEC 220.12(B) allows alternative energy code calculations if:\n  1. Power monitoring system is installed\n  2. Alarm system for load monitoring\n  3. Demand factors from 22",
+        "## General Lighting Load Calculation (CEC 2022)  \n\nFor a **5,000 sq ft office building**, the general lighting load is calculated using **Table 220.12** for non-dwelling occupancies:  \n\n1. **Unit Load for Offices**:  \n   Per CEC 2022 Table 220.12, **office buildings** require **3.5 VA per square foot** (includes 125% continuous load multiplier).  \n\n2. **Calculation**:  \n   $$\n   5,000 \\, \\text{sq ft} \\times 3.5 \\, \\text{VA/sq ft} = 17,500 \\, \\text{VA (17.5 kVA)}\n   $$  \n\n---\n\n### Exceptions Chec",
+        "## General Lighting Load for Office Building (CEC 2022)\n\n**Calculation:**\n- **Unit load for office buildings**: 3.5 VA per square foot (CEC Table 220.12)\n- **Total area**: 5,000 sq ft\n\n$$\n5,000 \\, \\text{sq ft} \\times 3.5 \\, \\text{VA/sq ft} = 17,500 \\, \\text{VA (17.5 kVA)}\n$$\n\n**Final Answer:**  \nThe general lighting load is **17,500 volt-amperes (17.5 kVA)** per CEC 2022 Table 220.12 for office occupancies.\n\n**Exception Review:**  \n- **CEC 220.12(B)** allows alternative energy code values if mon"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "220.12",
+        "230.2",
+        "225.32",
+        "220.42"
+      ],
+      "avg_duration_seconds": 8.4,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-024",
+      "tier": "calculation",
+      "category": "motor_circuit",
+      "ca_specific": true,
+      "question": "What is the maximum overcurrent protection for a motor control circuit using 16 AWG copper conductors that extend beyond the enclosure in California?",
+      "expected_answer": "Per CEC Table 430.72(B), Column C for conductors extending beyond enclosure, 16 AWG copper has a maximum OCP rating of 10 amperes.",
+      "cec_reference": "CEC Table 430.72(B)",
+      "nec_reference": "N/A - CEC only table",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Maximum Overcurrent Protection for 16 AWG Motor Control Circuit Conductors (CEC 2022)\n\nThe maximum overcurrent protection for **16 AWG copper conductors** in a motor control circuit extending beyond the enclosure in California is **10 amperes** under standard conditions. However, an exception allows **15 amperes** under specific motor load conditions.\n\n---\n\n### Key Requirements and Exceptions:\n1. **Standard Rule (10A Protection):**  \n   - 16 AWG copper conductors have an ampacity of **10A** at 60°C (CEC Table 310.16).  \n   - Overcurrent protection must not exceed the conductor's ampacity (CEC 240.4(D)).  \n\n2. **Exception for Small Motors (15A Protection):**  \n   - **Per CEC 430.22(G)(2):**  \n     - 16 AWG copper conductors are permitted for motors with a **full-load current rating** between **5.5A and 8A**, provided:  \n       - Overcurrent protection is sized per **240.4(D)(2)(2)** (15A for 16 AWG).  \n       - Overload protection complies with **430.32** (Class 10 or 10A overload protection).  \n       - The circuit is protected per **430.52** (motor branch-circuit short-circuit and ground-fault protection).  \n\n3. **Critical Conditions for Exception:**  \n   - The motor must have a **full-load current rating** (per 430.6(A)(1)) **≤ 8A** and **> 5.5A**.  \n   - Conductors must be installed in a **cabinet or enclosure**, part of a **jacketed multiconductor cable**, or in a **flexible cord**.  \n\n---\n\n### NEC 2023 Reference  \nNo difference from NEC 2023. NEC 240.4(D) and 430.22(G)(2) also permit 15A protection for 16 AWG conductors under the same conditions.  \n\n---\n\n**Final Answer:**  \n- **Standard:** 10A (for general motor control circuits).  \n- **Exception:** 15A **if** the motor’s full-load current is between 5.5A and 8A, and all conditions in CEC 430.22(G)(2) are met.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Final Answer with Exceptions Checked\n\n**Maximum Overcurrent Protection:**  \nFor 16 AWG copper motor control circuit conductors extending beyond the enclosure in California, the maximum overcurrent protection remains **5 amperes**, as permitted by **NEC 430.122** (adopted in CEC). \n\n---\n\n### Exception Analysis:\n1. **CEC 230.90 Exceptions** (Service conductors):  \n   - These exceptions apply to **service conductors**, not motor control circuits. They allow higher ratings for motor-starting curr",
+        "## Maximum Overcurrent Protection for 16 AWG Copper Motor Control Circuit (CEC 2022)\n\n**Answer:**  \nThe maximum overcurrent protection for **16 AWG copper conductors** in a motor control circuit extending beyond the enclosure in California is **10 amperes**, **provided all conditions in CEC 430.22(G)(2) and 240.4(D)(2) are met**.\n\n---\n\n### **Key Requirements and Exceptions:**\n1. **CEC 2022 Section 240.4(D)(2):**  \n   - **16 AWG copper** is permitted with a **10A overcurrent device**, provided:  ",
+        "## Maximum Overcurrent Protection for 16 AWG Motor Control Circuit Conductors (CEC 2022)\n\nThe maximum overcurrent protection for **16 AWG copper conductors** in a motor control circuit extending beyond the enclosure in California is **10 amperes** under standard conditions. However, an exception allows **15 amperes** under specific motor load conditions.\n\n---\n\n### Key Requirements and Exceptions:\n1. **Standard Rule (10A Protection):**  \n   - 16 AWG copper conductors have an ampacity of **10A** a"
+      ],
+      "cec_tools_used": [
+        "cec_lookup_conductor_ampacity",
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "430.55",
+        "240.4",
+        "430.32",
+        "430.122",
+        "430.22",
+        "430.52",
+        "430.6",
+        "230.90",
+        "310.16"
+      ],
+      "avg_duration_seconds": 10.8,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-025",
+      "tier": "calculation",
+      "category": "dwelling_load",
+      "ca_specific": false,
+      "question": "Calculate the general lighting load for a 2,400 square foot dwelling unit in California.",
+      "expected_answer": "Per CEC Table 220.12, dwelling units require 3 VA per square foot. General lighting load = 2,400 sq ft x 3 VA/sq ft = 7,200 VA (7.2 kVA).",
+      "cec_reference": "CEC Table 220.12",
+      "nec_reference": "NEC Table 220.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## General Lighting Load Calculation (CEC 2022)\n\nFor a **2,400 sq ft dwelling unit**, the general lighting load is calculated using **CEC 2022 Section 220.14(J)** and **220.82(B)(1)**:\n\n**Formula**:  \n$$\n\\text{General Lighting Load} = \\text{Floor Area} \\times \\text{Unit Load}\n$$\n$$\n= 2,400 \\, \\text{sq ft} \\times 3 \\, \\text{VA/sq ft} = 7,200 \\, \\text{VA}\n$$\n\n**Citations**:  \n- **CEC 220.14(J)**: Minimum unit load of 3 VA/sq ft for dwelling units.  \n- **CEC 220.82(B)(1)**: General calculated load includes 3 VA/sq ft for lighting and receptacles.\n\n**Exceptions Checked**:  \n- **CEC 220.85**: Applies to multi-unit dwellings (not relevant here).  \n- **CEC 230.40**: Service-entrance conductor rules (no impact on lighting load).  \n- **CEC 220.44**: Demand factors for non-dwelling units (not applicable to dwellings).  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023. NEC 220.14(J) also specifies 3 VA/sq ft for dwelling units.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## General Lighting Load Calculation (CEC 2022)\n\nFor a **2,400 sq ft dwelling unit**, the general lighting load is calculated using **CEC 2022 Section 220.14(J)** and **220.82(B)(1)**:\n\n**Formula**:  \n$$\n\\text{General Lighting Load} = \\text{Floor Area} \\times \\text{Unit Load}\n$$\n$$\n= 2,400 \\, \\text{sq ft} \\times 3 \\, \\text{VA/sq ft} = 7,200 \\, \\text{VA}\n$$\n\n**Citations**:  \n- **CEC 220.14(J)**: Minimum unit load of 3 VA/sq ft for dwelling units.  \n- **CEC 220.82(B)(1)**: General calculated load ",
+        "## General Lighting Load for Dwelling Unit (CEC 2022)\n\nThe general lighting load for a **2,400 square foot dwelling unit** in California is calculated as follows:\n\n**Calculation:**  \n2,400 sq ft × 3 VA/ft² (per CEC 2022 Section 220.82(B)(1))  \n= **7,200 volt-amperes**\n\n**Exception Review:**  \n- **Section 220.12** applies to non-dwelling units (not applicable here).  \n- **Section 220.85** applies to multi-unit buildings (not applicable).  \n- **Section 220.52** adds small-appliance/laundry loads b",
+        "## General Lighting Load for Dwelling Unit (CEC 2022)\n\nFor a **2,400 square foot dwelling unit**, the general lighting load is calculated using **3 VA per square foot** as specified in **CEC 220.12**. No applicable exceptions override this requirement for single-family dwelling units.\n\n**Calculation:**\n```\n2,400 sq ft × 3 VA/sq ft = 7,200 VA (7.2 kVA)\n```\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023. Both codes use **3 VA/sq ft** for dwelling unit general lighting loads.\n\n✓ Sources: CE"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "220.82",
+        "220.52",
+        "220.85",
+        "220.40",
+        "220.14",
+        "230.40",
+        "422.23",
+        "220.12",
+        "220.44"
+      ],
+      "avg_duration_seconds": 12.1,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-026",
+      "tier": "comparison",
+      "category": "gfci",
+      "ca_specific": true,
+      "question": "Compare the kitchen GFCI requirements between CEC 2022 and NEC 2023. Which code is more restrictive?",
+      "expected_answer": "CEC 2022 is MORE PERMISSIVE than NEC 2023 for kitchen GFCI. CEC limits GFCI requirements to receptacles serving countertop surfaces and within 6 feet of the sink. NEC 2023 requires GFCI protection for ALL kitchen receptacles, including those for refrigerators and built-in microwaves.",
+      "cec_reference": "CEC 210.8(A)",
+      "nec_reference": "NEC 210.8(A)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Kitchen GFCI Requirements Comparison (CEC 2022 vs NEC 2023)  \n**With Exceptions Considered**\n\n---\n\n### **CEC 2022 Key Exceptions**  \n1. **Ceiling Fans/Luminaires**:  \n   - **Exempt**: Listed locking receptacles used with compatible attachment fittings for ceiling fans or luminaires **do not require GFCI** (Section 210.8, Exception).  \n   - **NEC 2023**: No such exception exists—GFCI is required for all countertop receptacles, including those serving ceiling fans.  \n\n2. **Receptacles Behind Appliances**:  \n   - **Exempt**: Receptacles not readily accessible and dedicated to fixed appliances (e.g., ranges) are **exempt** from GFCI (Section 210.8, Exception).  \n   - **NEC 2023**: No explicit exception for appliance-dedicated circuits; GFCI applies broadly.  \n\n3. **Spacing Requirements**:  \n   - **CEC**: Countertop receptacles must be within **600 mm (24 in)** of the outer end of peninsular countertops (Section 210.52(C)(2)(b)).  \n   - **NEC**: Same spacing requirement, but **no exceptions** for appliance-mounted receptacles.  \n\n---\n\n### **NEC 2023 Key Differences**  \n1. **No Exceptions for Ceiling Fans/Luminaires**:  \n   - GFCI is required for **all countertop receptacles**, including those serving ceiling fans or luminaires.  \n\n2. **Appliance-Dedicated Circuits**:  \n   - **No exception** for receptacles behind fixed appliances; GFCI applies to all countertop receptacles unless explicitly exempted elsewhere (e.g., 422.5 for appliances).  \n\n3. **Receptacle Spacing**:  \n   - Same as CEC (24 in from peninsular ends), but **no exceptions** for appliance-mounted or locking receptacles.  \n\n---\n\n### **Restrictiveness Comparison**  \n| **Aspect**                | **CEC 2022**                          | **NEC 2023**                          | **More Restrictive** |  \n|---------------------------|---------------------------------------|---------------------------------------|----------------------|  \n| **Ceiling Fans/Luminaires** | Exempt with locking receptacles       | GFCI required for all countertop receptacles | **NEC**              |  \n| **Appliance-Dedicated Circuits** | Exempt if not readily accessible    | GFCI required unless exempted elsewhere | **NEC**              |  \n| **General Countertop GFCI** | Required                              | Required                              | **Same**             |  \n\n---\n\n### **Conclusion**  \n- **NEC 2023 is more restrictive** because:  \n  1. It **does not allow exceptions** for ceiling fans/luminaires using locking receptacles.  \n  2. It **requires GFCI for all countertop receptacles**, including those serving dedicated appliances, unless explicitly exempted (which CEC permits).  \n\n- **CEC 2022** provides **specific exceptions** for certain installations (e.g., ceiling fans with locking receptacles), making it less restrictive in those scenarios.  \n\nBoth codes align on core GFCI requirements for kitchens, but NEC extends protection to edge cases where CEC allows exemptions.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Final Comparison of Kitchen GFCI Requirements (CEC 2022 vs NEC 2023)\n\n### **CEC 2022 Key Exceptions**  \n- **210.52(A) & 210.52(C):**  \n  - Allows receptacles behind ranges, sinks, or cooking units (but still requires GFCI).  \n  - Permits receptacles in countertops if spaced per 210.52(C)(1)–(C)(3) (no GFCI exemption).  \n  - **No exceptions for HVAC or security systems** (unlike NEC).  \n\n- **220.56:**  \n  - Load calculations for commercial kitchens (not residential).  \n\n---\n\n### **NEC 2023 Key",
+        "## Final Answer: CEC 2022 vs NEC 2023 Kitchen GFCI Requirements\n\n### **1. CEC 2022 Requirements**\n- **Section 210.8(A)(6):**  \n  **All 125–250V receptacles in kitchens** serving countertop surfaces **must have GFCI protection**.  \n  - **No exceptions** for refrigerator circuits.  \n  - Applies to **all dwelling units**, including guest rooms with cooking facilities (Section 210.17).  \n\n- **Additional Coverage:**  \n  - GFCI required within **1.8 m (6 ft)** of sink basins (Section 210.8(A)(7)).  \n ",
+        "## Kitchen GFCI Requirements Comparison (CEC 2022 vs NEC 2023)  \n**With Exceptions Considered**\n\n---\n\n### **CEC 2022 Key Exceptions**  \n1. **Ceiling Fans/Luminaires**:  \n   - **Exempt**: Listed locking receptacles used with compatible attachment fittings for ceiling fans or luminaires **do not require GFCI** (Section 210.8, Exception).  \n   - **NEC 2023**: No such exception exists—GFCI is required for all countertop receptacles, including those serving ceiling fans.  \n\n2. **Receptacles Behind Ap"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [
+        "compare_with_nec",
+        "nec_search"
+      ],
+      "citations": [
+        "215.9",
+        "210.17",
+        "210.52",
+        "220.56",
+        "210.8",
+        "422.5"
+      ],
+      "avg_duration_seconds": 23.8,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-027",
+      "tier": "comparison",
+      "category": "panelboard",
+      "ca_specific": true,
+      "question": "Compare the panelboard space requirements between CEC 2022 and NEC 2023 for single-family dwellings.",
+      "expected_answer": "CEC 2022 Section 408.2 requires reserved panelboard spaces for heat pump water heaters, heat pump space heaters, electric cooktops, electric clothes dryers, and EV charging equipment. NEC 2023 has NO such requirement. This is a significant California-specific difference for building electrification.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "NEC 408 (no equivalent requirement)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Final Answer: Panelboard Space Requirements (CEC 2022 vs NEC 2023)\n\n### **CEC 2022 Requirements**  \n1. **Reserved Circuit Breaker Spaces** (CEC 408.2(A)):  \n   - **Single-family dwellings** must have panelboards with **reserved spaces** for:  \n     - Heat pump water heaters  \n     - Heat pump space heaters  \n     - Electric cooktops  \n     - Electric clothes dryers  \n   - Mandated by **California Energy Code Section 150.0**.  \n\n2. **General Panelboard Rating** (CEC 408.30):  \n   - Panelboard rating must match or exceed the **calculated feeder load** (per Article 220).  \n\n3. **Wire-Bending Space** (CEC 408.55):  \n   - Top/bottom wire-bending space must comply with **Table 312.6(B)** for the largest conductor.  \n   - **Exceptions** apply for panelboards ≤225A with ≤42 overcurrent devices.  \n\n---\n\n### **NEC 2023 Requirements**  \n1. **General Panelboard Rating** (NEC 408.30):  \n   - Same as CEC: Panelboard rating must match or exceed the **calculated feeder load**.  \n\n2. **Construction and Enclosure** (NEC 408.6, 408.38):  \n   - Panelboards must be **dead-front** and mounted in approved enclosures.  \n   - **No reserved spaces** required for specific appliances.  \n\n3. **Wire-Bending Space** (NEC 312.6):  \n   - Aligns with CEC 408.55, referencing **Table 312.6(A) and (B)**.  \n\n---\n\n### **Key Differences**  \n| **Aspect**                | **CEC 2022**                                                                 | **NEC 2023**                          |  \n|---------------------------|------------------------------------------------------------------------------|---------------------------------------|  \n| **Reserved Spaces**       | **Mandates** reserved spaces for appliances in single-family dwellings.      | **No specific requirement**.          |  \n| **Energy Code Integration** | Includes **California Energy Code** mandates (Section 150.0).              | No appliance-specific energy code mandates. |  \n| **Wire-Bending Space**    | Same as NEC, with exceptions for ≤225A, ≤42-device panelboards.              | Same as CEC.                          |  \n\n---\n\n### **Exceptions Checked**  \n- **CEC 408.2** exceptions referenced sections about **special permissions** for appliances (e.g., 422.23, 424.10), but these do not override the **reserved space requirement** in 408.2(A).  \n- No exceptions negate the California Energy Code mandate for reserved spaces.  \n\n---\n\n### **NEC 2023 Reference**  \n- NEC 2023 does **not include** California’s appliance-specific panelboard space requirements.  \n- Reserved spaces for appliances are **California-only mandates** under **Title 24 Energy Code**.  \n\n✓ **Sources**: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Panelboard Space Requirements Comparison (CEC 2022 vs NEC 2023) - Final Answer\n\n### **Wire-Bending Space Exceptions**\n| **Exception Type** | **CEC 2022 (408.55)** | **NEC 2023 (408.55)** |\n|---------------------|-----------------------|-------------------------|\n| **Small Panelboards**<br>(≤225A, ≤42 OCPD) | ✅ Allows top/bottom space per **Table 312.6(A)**<br>(Exception No. 1) | ✅ Same allowance with **Table 312.6(A)**<br>(Exception No. 1) |\n| **Single 90° Bend Design** | ✅ Permits top/bottom",
+        "## Panelboard Space Requirements Comparison (CEC 2022 vs NEC 2023)  \n**With Exceptions and Cross-References**  \n\n---\n\n### **CEC 2022 Requirements**  \n1. **Reserved Circuit Breaker Spaces** (CEC 408.2):  \n   - **Single-family dwellings** must have **dedicated spaces** for:  \n     - Heat pump water heaters  \n     - Heat pump space heaters  \n     - Electric cooktops  \n     - Electric clothes dryers  \n   - Mandated by **California Energy Code (CEC) Sections 150.0(n), (t), (u), and (v)**.  \n   - **Ex",
+        "## Final Answer: Panelboard Space Requirements (CEC 2022 vs NEC 2023)\n\n### **CEC 2022 Requirements**  \n1. **Reserved Circuit Breaker Spaces** (CEC 408.2(A)):  \n   - **Single-family dwellings** must have panelboards with **reserved spaces** for:  \n     - Heat pump water heaters  \n     - Heat pump space heaters  \n     - Electric cooktops  \n     - Electric clothes dryers  \n   - Mandated by **California Energy Code Section 150.0**.  \n\n2. **General Panelboard Rating** (CEC 408.30):  \n   - Panelboard "
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [
+        "nec_search"
+      ],
+      "citations": [
+        "408.58",
+        "408.6",
+        "312.6",
+        "408.38",
+        "408.2",
+        "408.55",
+        "150.0",
+        "408.36",
+        "408.30",
+        "422.23",
+        "424.10"
+      ],
+      "avg_duration_seconds": 14.4,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-028",
+      "tier": "comparison",
+      "category": "ev_charging",
+      "ca_specific": true,
+      "question": "Compare California's EV charging infrastructure requirements with the NEC 2023 requirements.",
+      "expected_answer": "California (CEC + Title 24) MANDATES EV charging infrastructure in new construction, requiring dedicated circuits, conduit, and panel capacity. NEC 2023 Article 625 only provides installation rules for EV charging equipment but does not mandate installation. California leads with proactive requirements.",
+      "cec_reference": "CEC 408.2, Title 24",
+      "nec_reference": "NEC 625",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## **Revised California EV Charging Requirements with Exceptions**  \n\n### **California CEC 2022 Additions from Exceptions**  \n1. **Load Management for Continuous Loads**  \n   - **CEC 625.42**: EV charging loads are **continuous**, requiring service/feeder sizing based on product ratings. Automatic load management systems must limit service/feeder loads to their maximum permitted values. Adjustable settings require restricted access (e.g., locked doors, password-protected software).  \n\n2. **Backfeed Prevention**  \n   - **CEC 625.46**: Systems must prevent energy backfeed to premises wiring when utility power is lost, unless permitted by 625.48.  \n\n3. **Ventilation Exceptions**  \n   - **CEC 625.52**: Ventilation is **not required** if equipment is listed for indoor use without ventilation. Otherwise, mechanical ventilation must be interlocked with charging circuits.  \n\n---\n\n### **Updated Comparison with NEC 2023**  \n\n| **Requirement**               | **California CEC**                                                                 | **NEC 2023**                                                                 |  \n|-------------------------------|-----------------------------------------------------------------------------------|------------------------------------------------------------------------------|  \n| **Load Management**           | Mandates automatic load management systems for continuous EV loads (625.42).    | General load management in 220.85; no EV-specific requirements.               |  \n| **Backfeed Prevention**       | Explicitly requires anti-backfeed measures (625.46).                           | No EV-specific backfeed rules; general AC system requirements in 705.43.     |  \n| **Ventilation**               | Ventilation required for indoor charging unless equipment is listed for indoors.   | No specific ventilation requirements for EV charging.                        |  \n| **CALGreen Mandates**         | EV readiness in new construction (CALGreen Ch. 4 & 5).                           | No mandatory EV infrastructure in new construction.                            |  \n\n---\n\n### **Key Takeaways**  \n- California’s **625.42** adds strict load management rules not found in NEC.  \n- **625.46** introduces anti-backfeed requirements beyond NEC’s general PV/system interconnection rules.  \n- Ventilation exceptions (**625.52**) clarify compliance paths for indoor EV charging.  \n\nAlways verify local amendments and CALGreen compliance for full adherence to California’s EV infrastructure mandates.",
+      "all_answers": [
+        "## Updated Analysis with Exceptions\n\n### **Exception to CEC 625.1: Electrified Truck Parking Spaces**\n- **CEC 2022 626.4(A)**: Excludes equipment used for **loading/unloading cargo**, **operating conveyors**, or other site-specific truck operations from Article 626 requirements.\n- **CEC 2022 626.4(B)**: Specifies **nominal AC voltages** (120, 120/240, 208Y/120, 240, 480Y/277) for electrified truck parking space supply equipment.\n- **CEC 2022 626.4(C)**: Applies only to equipment **intended for c",
+        "## California EV Charging Infrastructure Requirements vs NEC 2023 (Updated with Exceptions)\n\n### 1. **Mandatory EV Readiness in New Construction**  \n**CEC 2022 625.1.1**  \n- **CALGreen Mandate**: New residential and commercial buildings must include EV charging infrastructure (Chapter 4, Division 4.1 and Chapter 5, Division 5.1).  \n- **Exception**: None. This is a strict mandate with no exceptions.  \n- **NEC 2023**: No mandatory EV infrastructure requirement.  \n\n---\n\n### 2. **Ventilation Require",
+        "## **Revised California EV Charging Requirements with Exceptions**  \n\n### **California CEC 2022 Additions from Exceptions**  \n1. **Load Management for Continuous Loads**  \n   - **CEC 625.42**: EV charging loads are **continuous**, requiring service/feeder sizing based on product ratings. Automatic load management systems must limit service/feeder loads to their maximum permitted values. Adjustable settings require restricted access (e.g., locked doors, password-protected software).  \n\n2. **Backf"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "626.4",
+        "625.22",
+        "625.52",
+        "625.42",
+        "220.85",
+        "408.2",
+        "625.48",
+        "625.46",
+        "625.1",
+        "705.43"
+      ],
+      "avg_duration_seconds": 14.1,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-029",
+      "tier": "comparison",
+      "category": "afci",
+      "ca_specific": false,
+      "question": "Compare the AFCI protection requirements between CEC 2022 and NEC 2023 for dwelling units.",
+      "expected_answer": "Both CEC 2022 and NEC 2023 require AFCI protection for 120V, 15/20A branch circuits in kitchens, family rooms, dining rooms, living rooms, bedrooms, sunrooms, closets, hallways, laundry areas, and similar rooms. The requirements are largely similar between the two codes.",
+      "cec_reference": "CEC 210.12",
+      "nec_reference": "NEC 210.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## AFCI Protection Requirements Comparison: CEC 2022 vs NEC 2023 (With Exceptions)\n\n### **CEC 2022 Requirements (Section 210.12)**\n1. **Scope**  \n   - Applies to **15- and 20-ampere** branch circuits in dwelling units for areas like kitchens, family rooms, bedrooms, hallways, laundry areas, and similar rooms.  \n   - **Permitted AFCI Types**:  \n     - Combination-type AFCI (protects entire circuit).  \n     - Branch/feeder-type AFCI + outlet branch-circuit-type AFCI at first outlet.  \n     - Supplemental arc protection circuit breaker + outlet AFCI (with conductor length limits).  \n     - Outlet branch-circuit-type AFCI at first outlet (for circuits in metal raceways or concrete-encased wiring).  \n\n2. **Exceptions**  \n   - Fire alarm systems (per 760.41(B)/760.121(B)) if installed in metal raceways.  \n   - No AFCI required for branch circuit extensions ≤1.8 m (6 ft) without additional outlets.  \n\n3. **Key Exceptions from cec_exception_search**  \n   - **Section 210.11(C)(3)**: Bathroom branch circuits must have no other outlets, but this does not override AFCI requirements.  \n   - **Section 210.52(A)**: Receptacle spacing rules do not affect AFCI application.  \n   - **Section 230.40**: Service-entrance conductor rules are unrelated to AFCI requirements.  \n\n---\n\n### **NEC 2023 Requirements (Section 210.12)**\n1. **Scope**  \n   - Applies to **10-, 15-, and 20-ampere** branch circuits in dwelling units, dormitory units, and guest rooms.  \n   - **Protected Locations**:  \n     - Kitchens, bathrooms, garages, outdoors, crawl spaces, laundry areas, and similar areas.  \n     - **Additional locations**: Boathouses, aquariums, and HVAC equipment (with expiring exception).  \n\n2. **Exceptions**  \n   - Fire alarm systems (per 760.41(B)/760.121(B)).  \n   - **Arc welding equipment**: No AFCI required until January 1, 2025.  \n   - **HVAC equipment**: Exempt until September 1, 2026 (NEC 2023).  \n   - Short extensions (≤1.8 m/6 ft) without additional outlets.  \n\n3. **Key Exceptions from NEC**  \n   - **Section 210.12(E)**: Temporary exemption for arc welding equipment.  \n   - **Section 210.12(F)**: Temporary exemption for HVAC equipment.  \n\n---\n\n### **Side-by-Side Comparison**\n| **Feature**                | **CEC 2022**                          | **NEC 2023**                          |\n|-----------------------------|---------------------------------------|---------------------------------------|\n| **Applicable Circuits**     | 15- and 20-ampere                     | 10-, 15-, and 20-ampere               |\n| **Protected Locations**     | Kitchens, bedrooms, family rooms, etc. | Includes bathrooms, garages, outdoors |\n| **AFCI Types**              | Combination, branch/feeder, outlet    | Same, with system combination-type    |\n| **Exceptions**              | Fire alarm systems, short extensions  | + Arc welding (until 2025), HVAC (until 2026) |\n| **Code References**         | UL 1699, UL 1699A                     | UL 1699, UL 1699A, UL 1699C          |\n\n---\n\n### **Conclusion**\n- **CEC 2022** focuses on dwelling units with broader \"similar rooms\" but excludes 10A circuits and arc welding exceptions.  \n- **NEC 2023** expands AFCI requirements to 10A circuits, adds explicit locations (bathrooms, garages), and includes temporary exemptions for specialized equipment.  \n\n**Sources**:  \n- CEC 2022 Section 210.12 and exceptions (210.11, 210.52, 230.40)  \n- NEC 2023 Section 210.12 and exceptions (210.12(E), 210.12(F))",
+      "all_answers": [
+        "## AFCI Protection Requirements: CEC 2022 vs NEC 2023 (Final Answer)\n\n### **Core Requirements for Dwelling Units**\nBoth codes require **AFCI protection** for **15- and 20-ampere, 120V branch circuits** in kitchens, family rooms, bedrooms, and similar areas. Protection methods include:\n- **Combination-type AFCI** (entire circuit protection)\n- **Branch/feeder-type AFCI + outlet branch-circuit AFCI**\n- **Supplemental protection + outlet branch-circuit AFCI** (with conductor length limits)\n- **Outle",
+        "## AFCI Protection Requirements Comparison: CEC 2022 vs NEC 2023 (With Exceptions)\n\n### **CEC 2022 Requirements (Section 210.12)**\n1. **Scope**  \n   - Applies to **15- and 20-ampere** branch circuits in dwelling units for areas like kitchens, family rooms, bedrooms, hallways, laundry areas, and similar rooms.  \n   - **Permitted AFCI Types**:  \n     - Combination-type AFCI (protects entire circuit).  \n     - Branch/feeder-type AFCI + outlet branch-circuit-type AFCI at first outlet.  \n     - Suppl",
+        "## Final Answer: AFCI Protection Requirements (CEC 2022 vs NEC 2023)\n\n### **Key Exceptions in CEC 2022**\n1. **Fire Alarm Systems** (Section 210.12 Exception):  \n   - AFCI protection **not required** for branch circuits supplying fire alarm systems installed per 760.41(B) or 760.121(B).  \n   - **Condition**: Branch circuits must be in metal raceway, metal conduit, or steel-armored cable.\n\n2. **Short Extensions** (Section 210.12(D) Exception):  \n   - **6 ft (1.8 m)** extensions of existing branch "
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [
+        "compare_with_nec",
+        "nec_search"
+      ],
+      "citations": [
+        "210.52",
+        "210.12",
+        "230.40",
+        "760.41",
+        "404.22",
+        "210.11",
+        "760.121"
+      ],
+      "avg_duration_seconds": 23.7,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-030",
+      "tier": "comparison",
+      "category": "solar_pv",
+      "ca_specific": true,
+      "question": "Compare California's solar PV requirements with NEC 2023 Article 690.",
+      "expected_answer": "California MANDATES solar PV on new single-family homes through Title 24 Part 6. CEC 690 follows NEC 690 for installation requirements (rapid shutdown, arc-fault protection, grounding). The key difference is California requires solar installation; NEC only covers how to install it safely.",
+      "cec_reference": "CEC 690, Title 24 Part 6",
+      "nec_reference": "NEC 690",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Final Answer: California Solar PV Requirements vs NEC 2023 Article 690\n\n### 1. **Voltage Calculations (CEC 690.7 vs NEC 690.7)**\n- **CEC 2022 690.7**:  \n  - **Mandatory use of Table 690.7(A)** for crystalline silicon modules (California-specific correction factors).  \n  - Voltage limits:  \n    - 1000V for building-mounted systems  \n    - 600V for residential systems  \n    - 1500V for non-building locations  \n  - **Exception**: Systems ≥100kW can use licensed engineer designs (690.7(3)).  \n\n- **NEC 2023 690.7**:  \n  - General temperature correction methods without California-specific tables.  \n  - No voltage limit differentiation by installation type.  \n\n---\n\n### 2. **Circuit Sizing (CEC 690.8 vs NEC 690.8)**\n- **CEC 2022 690.8(B)(1)**:  \n  - Requires **125% of maximum current** without adjustment factors.  \n  - **Exception**: Circuits with assemblies listed for continuous operation at 100% rating can use 100% (690.8(B)(1) Exception).  \n\n- **NEC 2023 690.8**:  \n  - Allows conductor sizing with or without adjustment factors (NEC 310.15).  \n  - No exception for large systems.  \n\n---\n\n### 3. **Overcurrent Protection (CEC 690.9 vs NEC 690.9)**\n- **CEC 2022 690.9(C)**:  \n  - Permits **single overcurrent device** in DC circuits if paired with ground-fault protection.  \n  - Devices must be **listed for PV systems**.  \n  - **Exception**: Conductors ≤3m (10ft) in metal raceways can have protection on one end (690.9(A)(4)).  \n\n- **NEC 2023 690.9**:  \n  - No exception for single overcurrent devices with ground-fault protection.  \n  - Less restrictive device listing requirements.  \n\n---\n\n### 4. **Arc-Fault Protection (CEC 690.11 vs NEC 690.11)**\n- **CEC 2022 690.11**:  \n  - **Mandatory** for DC circuits ≥80V **on or in buildings**.  \n  - **Exception**: Systems in metallic raceways or underground (not in NEC).  \n\n- **NEC 2023 690.11**:  \n  - Requires arc-fault protection for DC circuits ≥80V but **no exception** for non-building locations.  \n\n---\n\n### 5. **Key California Exceptions**\n- **Voltage Correction**: Table 690.7(A) (NEC lacks this).  \n- **Arc-Fault Exception**: Non-building systems in metallic raceways (690.11 Exception).  \n- **Overcurrent Exception**: Single device with ground-fault protection (690.9(C)).  \n\n---\n\n## NEC 2023 Reference\n- **Differences**:  \n  - California mandates **Table 690.7(A)** voltage corrections.  \n  - Unique arc-fault exceptions for non-building systems.  \n  - Functionally grounded system definition absent in NEC.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## California Solar PV Requirements vs NEC 2023 Article 690 (CEC 2022) – Final Answer\n\n### Key California-Specific Requirements and Exceptions\n\n1. **Rapid Shutdown Exemption for Ground-Mounted Systems**  \n   - **CEC 690.12 Exception**: Ground-mounted PV systems in detached structures (solely for housing PV equipment) are **exempt** from rapid shutdown requirements.  \n   - **NEC 2023**: No such exemption exists; rapid shutdown applies to all building-mounted systems.\n\n2. **Arc-Fault Protection Ex",
+        "## Final Answer: California Solar PV Requirements vs NEC 2023 Article 690\n\n### 1. **Voltage Calculations (CEC 690.7 vs NEC 690.7)**\n- **CEC 2022 690.7**:  \n  - **Mandatory use of Table 690.7(A)** for crystalline silicon modules (California-specific correction factors).  \n  - Voltage limits:  \n    - 1000V for building-mounted systems  \n    - 600V for residential systems  \n    - 1500V for non-building locations  \n  - **Exception**: Systems ≥100kW can use licensed engineer designs (690.7(3)).  \n\n- ",
+        "## California Solar PV Requirements vs NEC 2023 Article 690 (CEC 2022)\n\n### Key Differences and California Amendments\n\n1. **Arc-Fault Circuit Protection (690.11)**\n   - **CEC**: Requires PV arc-fault protection for systems with ≥80V DC circuits.\n   - **Exception**: Permits omission for systems in metallic raceways, underground, or in non-building structures.\n   - **NEC 2023**: Requires arc-fault protection for DC circuits ≥30V (NEC 690.12), but no exception for raceway installations.\n   - **Amen"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "690.10",
+        "310.15",
+        "690.43",
+        "690.41",
+        "705.12",
+        "690.7",
+        "690.8",
+        "690.12",
+        "690.9",
+        "690.6",
+        "690.71",
+        "706.61",
+        "691.10",
+        "690.11",
+        "690.59"
+      ],
+      "avg_duration_seconds": 11.1,
+      "cec_primary": true
+    }
+  ]
+}

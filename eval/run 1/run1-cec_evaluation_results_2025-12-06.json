@@ -1,0 +1,280 @@
+{
+  "metadata": {
+    "date": "2025-12-06",
+    "model": "qwen/qwen3-32b",
+    "total_questions": 5,
+    "successful": 5,
+    "failed": 0,
+    "success_rate": "100.0%",
+    "total_duration_seconds": 69.1,
+    "avg_duration_seconds": 13.8
+  },
+  "results": [
+    {
+      "id": "cec-001",
+      "tier": "california_specific",
+      "category": "panelboard_requirements",
+      "ca_specific": true,
+      "question": "What are the panelboard space requirements for single-family dwellings in California? What appliances must have reserved circuit breaker spaces?",
+      "expected_answer": "CEC 408.2 requires panelboards in single-family dwellings to have reserved spaces for branch circuits for: (1) heat pump water heaters, (2) heat pump space heaters, (3) electric cooktops, (4) electric clothes dryers, and (5) electric vehicle charging equipment. This is a California-specific requirement for electrification readiness.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "N/A - CEC only requirement",
+      "status": "PASS",
+      "answer": "## Panelboard Space Requirements for Single-Family Dwellings (CEC 2022) – Final Answer\n\n---\n\n### **1. Reserved Circuit Breaker Spaces for Appliances**\n**California Requirement (CEC 2022 Section 408.2(A)):**\n- **Mandatory Reserved Spaces**: Panelboards in single-family dwellings must include pre-wired circuit breaker spaces for:\n  - Heat pump water heaters\n  - Heat pump space heaters\n  - Electric cooktops\n  - Electric clothes dryers  \n  *This is a California Energy Code mandate (Section 150.0(n), (t), (u), (v)).*\n\n**Exceptions Checked**:\n- No exceptions to **Section 408.2(A)** were found that would modify or remove this appliance-specific requirement.\n- Exceptions in related sections (e.g., 408.36, 408.38) address overcurrent protection and enclosures, not reserved spaces for appliances.\n\n---\n\n### **2. General Panelboard Requirements**\n- **Minimum Rating**: Panelboards must have a rating ≥ calculated feeder capacity (Section 408.30).\n- **Enclosure Type**: Must be \"dead-front\" (no live parts exposed on the front) unless accessible only to qualified personnel (Section 408.38).\n- **Wire-Bending Space**: Sized per Table 312.6(A)/(B), with exceptions for smaller panelboards (≤225A, ≤42 devices) (Section 408.55).\n\n---\n\n## NEC 2023 Reference\n- **Reserved Spaces**: **Not required** by NEC 2023. The appliance-specific reserved spaces are a **California amendment**.\n- **General Requirements**: NEC 2023 Sections 408.30, 408.38, and 408.55 align with CEC requirements for panelboard ratings, enclosures, and wire-bending spaces.\n\n✓ **Sources: CEC 2022 (California), NEC 2023 (reference)**",
+      "tool_calls": [
+        {
+          "tool": "cec_search",
+          "input": {
+            "article_filter": "408",
+            "limit": 5,
+            "query": "panelboard space requirements single-family dwellings"
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "408.2",
+            "context": "reserved circuit breaker spaces",
+            "limit": 5
+          },
+          "output": ""
+        }
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "408.30",
+        "408.38",
+        "408.36",
+        "408.55",
+        "408.2",
+        "312.6",
+        "150.0"
+      ],
+      "duration_seconds": 25.6,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-002",
+      "tier": "california_specific",
+      "category": "ev_charging",
+      "ca_specific": true,
+      "question": "What are California's electrical requirements for EV charging infrastructure in new residential construction?",
+      "expected_answer": "California requires EV-ready infrastructure in new construction including dedicated 40-amp minimum circuits, conduit to parking spaces, and panel capacity for EV loads. CEC 408.2 requires panelboard spaces for EV charging equipment. Title 24 also mandates EV charging readiness.",
+      "cec_reference": "CEC 408.2, Title 24",
+      "nec_reference": "NEC 625 (general installation only)",
+      "status": "PASS",
+      "answer": "## California Electrical Requirements for EV Charging in New Residential Construction (CEC 2022)  \n\n### **Key CEC 2022 Requirements**  \n1. **Dedicated Branch Circuit**  \n   - **625.40**: Each EV charging outlet must be supplied by an **individual branch circuit** with **no other outlets** on the same circuit.  \n   - **Exception 625.42**: Adjustable ratings are permitted for fixed-in-place equipment if adjustments are restricted to qualified personnel (e.g., locked enclosures, password-protected software).  \n\n2. **Connection Methods**  \n   - **625.44**:  \n     - **Portable Equipment**: Must use listed receptacles rated 15–50A, 125–250V (e.g., NEMA 14-50).  \n     - **Fastened-in-Place Equipment**: Requires listed receptacles up to 50A, 250V.  \n     - **Fixed Equipment**: Must be **permanently wired**.  \n   - **Exception 625.47**: Multiple feeders/branch circuits are permitted if equipment is identified for the application.  \n\n3. **Backfeeding Prevention**  \n   - **625.46**: Systems with power export functions must prevent backfeeding to the premises wiring when utility power is lost.  \n\n4. **Weatherproof Enclosures**  \n   - **625.56**: Receptacles in wet locations require **weatherproof enclosures** (e.g., extra-duty outlet box hoods).  \n\n5. **GFCI Protection**  \n   - **625.56(D)**: **GFCI protection** is required for all EV charging receptacles.  \n   - **Exception 647.7**: Technical power systems in restricted areas (e.g., data centers) may exempt GFCI, but this does not apply to residential installations.  \n\n---\n\n### **Exceptions and Overrides**  \n- **625.42**: Adjustable ratings for fixed equipment with restricted access (e.g., locked enclosures).  \n- **625.46**: Backfeeding prevention for systems with power export.  \n- **625.47**: Multiple circuits permitted for identified equipment.  \n- **250.86**: Grounding exceptions for short metal enclosures (not applicable to EV receptacles).  \n\n---\n\n### **NEC 2023 Comparison**  \n- **Similar Requirements**: NEC 625.40 and 625.44 also require dedicated circuits and listed receptacles.  \n- **Key Differences**:  \n  - **CALGreen Compliance**: CEC mandates compliance with CALGreen’s sustainability provisions (no NEC equivalent).  \n  - **GFCI Scope**: CEC 625.56(D) requires GFCI for **all** EV receptacles, while NEC 2023 allows exceptions for equipment with integral GFCI.  \n  - **Backfeeding Prevention**: CEC 625.46 explicitly addresses backfeeding in residential systems; NEC focuses more on commercial/industrial applications.  \n\n---\n\n### **Implementation Summary**  \n- **Dedicated circuits** with no shared outlets.  \n- **Listed receptacles** per 625.44 (e.g., NEMA 14-50 for 50A).  \n- **Weatherproof enclosures** for outdoor installations.  \n- **GFCI protection** for all receptacles.  \n- **CALGreen compliance** for new construction (energy efficiency, water conservation).  \n\n✓ **Sources: CEC 2022 (primary), NEC 2023 (comparison)**",
+      "tool_calls": [
+        {
+          "tool": "cec_search",
+          "input": {
+            "limit": 5,
+            "query": "EV charging infrastructure new residential construction"
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "625.40",
+            "context": "EV charging circuit",
+            "limit": 5
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "625.44",
+            "context": "EVSE connection methods",
+            "limit": 5
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "625.56",
+            "context": "receptacle enclosures",
+            "limit": 5
+          },
+          "output": ""
+        }
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search",
+        "cec_exception_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "625.46",
+        "625.47",
+        "250.86",
+        "625.44",
+        "625.42",
+        "647.7",
+        "625.40",
+        "625.56"
+      ],
+      "duration_seconds": 12.8,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-003",
+      "tier": "california_specific",
+      "category": "solar_pv",
+      "ca_specific": true,
+      "question": "What are the California-specific electrical requirements for solar PV systems on new residential construction?",
+      "expected_answer": "California mandates solar PV on new single-family homes (Title 24 Part 6). Electrical requirements include rapid shutdown per CEC 690.12, arc-fault protection per CEC 690.11, specific grounding requirements per 690.41-47, and multiple disconnecting means requirements.",
+      "cec_reference": "CEC 690, Title 24 Part 6",
+      "nec_reference": "NEC 690 (installation rules only, no mandate)",
+      "status": "PASS",
+      "answer": "## California-Specific Solar PV Requirements (CEC 2022)\n\n### Key CEC 2022 Requirements for Residential Solar PV Systems:\n1. **Voltage Limits**  \n   - DC circuits in **one- and two-family dwellings** are limited to **600 volts maximum** (CEC 690.7).  \n   - Circuits in buildings (non-residential) may go up to **1,000 volts**.  \n   - Use temperature correction factors (Table 690.7(A)) for crystalline silicon modules to calculate maximum voltage based on lowest expected ambient temperature.\n\n2. **Arc-Fault Protection**  \n   - Required for all PV systems with **≥80V DC** operating between conductors (CEC 690.11).  \n   - **Exception**: Systems not installed on/in buildings (e.g., ground-mounted arrays in enclosures) may skip arc-fault protection if installed in metallic raceways, metal-clad cables, or enclosed trays (CEC 690.11 Exception).\n\n3. **Conductor Sizing**  \n   - Conductors must carry **≥125% of the calculated maximum current** (CEC 690.8(B)(1)).  \n   - For source circuits: Maximum current = sum of parallel module short-circuit currents × 125% (CEC 690.8(A)(1)(a)(1)).  \n   - Adjustments for temperature and bundling apply unless using listed assemblies rated for continuous 100% operation (CEC 690.8(B) Exception).\n\n4. **Overcurrent Protection**  \n   - Overcurrent devices must be **rated ≥125% of calculated maximum current** (CEC 690.9(B)(1)).  \n   - Single overcurrent devices may protect parallel source circuits if all devices are in the same polarity (CEC 690.9(C)).  \n   - **Exception**: Conductors ≤3m (10 ft) in length, installed in metal raceways, or underground may use single-end protection (CEC 690.9(A)(4)).\n\n5. **System Grounding and Rapid Shutdown**  \n   - PV systems must comply with CEC 690.4(D) for grounding and 690.41 for rapid shutdown (not detailed here but critical for compliance).\n\n---\n\n## NEC 2023 Comparison\n- **Voltage Limits**: NEC 690.7 allows **1,000V DC** in all buildings (no 600V residential limit in NEC).  \n- **Arc-Fault Protection**: NEC 690.11 requires similar protection but lacks the exception for non-building-mounted systems in CEC.  \n- **Conductor Sizing**: NEC 690.8 mirrors CEC 690.8 but does not specify the 600V residential limit.  \n- **Overcurrent Protection**: NEC 690.9 aligns closely but lacks CEC’s exception for short conductors in metal raceways.\n\n---\n\n✓ **Sources: CEC 2022 (primary), NEC 2023 (comparison)**",
+      "tool_calls": [
+        {
+          "tool": "cec_search",
+          "input": {
+            "article_filter": "690",
+            "limit": 5,
+            "query": "solar PV systems residential requirements"
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "690.7",
+            "context": "maximum voltage calculation",
+            "limit": 5
+          },
+          "output": ""
+        }
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "690.4",
+        "690.7",
+        "690.11",
+        "690.9",
+        "690.8",
+        "690.41"
+      ],
+      "duration_seconds": 10.6,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-004",
+      "tier": "california_specific",
+      "category": "heat_pump",
+      "ca_specific": true,
+      "question": "What circuit requirements does California have for heat pump water heaters in new dwelling units?",
+      "expected_answer": "Per CEC 408.2, panelboards must have a reserved space for a heat pump water heater branch circuit. This is part of California's decarbonization requirements to ensure electrical infrastructure can support heat pump water heaters as replacements for gas water heaters.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "N/A - CEC only",
+      "status": "PASS",
+      "answer": "## Final Answer: Circuit Requirements for Heat Pump Water Heaters in California (CEC 2022)\n\n**California Requirement (CEC 2022):**\n\n1. **Single-Family Buildings (1-2 dwellings):**\n   - **Dedicated Circuit Spaces:** Panelboards must include dedicated circuit breaker spaces for heat pump water heaters per **CEC 2022 Section 408.2(A)** and California Energy Code Section 150.0(n).\n   - **Branch Circuits:** Designated branch circuits and receptacles must be provided as specified in California Energy Code Section 150.0(n) (per **Section 422.3(A)**).\n\n2. **Multifamily Buildings:**\n   - **Dedicated Circuits:** Each dwelling unit must have dedicated circuits and circuit identifications for heat pump water heaters per **CEC 2022 Section 422.3(B)** and California Energy Code Section 160.9(b).\n\n**Exceptions Checked:**\n- **Section 422.12** (central heating equipment exceptions) and **Section 422.47** (water heater controls) do not apply to heat pump water heaters in this context.\n- **Section 408.36** (panelboard overcurrent protection) does not override the dedicated circuit requirements for heat pump water heaters.\n\n**Key Exception Notes:**\n- No exceptions in the CEC override the mandatory readiness provisions for heat pump water heaters.\n- **Special permission** under **Section 422.23** could allow non-standard installations, but standard dedicated circuits remain the default requirement.\n\n---\n## NEC 2023 Reference\nThese requirements are **California-specific amendments** [CEC]. The base NEC 2023 does not mandate pre-wiring for heat pump water heaters in dwelling units. California’s Energy Code provisions ensure future compatibility with energy-efficient appliances.\n\n✓ **Sources: CEC 2022 (primary), NEC 2023 (comparison)**",
+      "tool_calls": [
+        {
+          "tool": "cec_search",
+          "input": {
+            "limit": 5,
+            "query": "heat pump water heater circuit requirements in dwelling units"
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "422.3",
+            "context": "heat pump water heater circuit requirements",
+            "limit": 5
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "408.2",
+            "context": "panelboard circuit breaker spaces for heat pump water heaters",
+            "limit": 5
+          },
+          "output": ""
+        }
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "422.47",
+        "408.36",
+        "422.12",
+        "408.2",
+        "160.9",
+        "422.3",
+        "150.0",
+        "422.23"
+      ],
+      "duration_seconds": 10.1,
+      "cec_primary": true
+    },
+    {
+      "id": "cec-005",
+      "tier": "california_specific",
+      "category": "electrification",
+      "ca_specific": true,
+      "question": "What is required for electric cooktop readiness in new California homes?",
+      "expected_answer": "CEC 408.2 requires panelboards to have a reserved space for electric cooktop branch circuits. This ensures homes are ready for all-electric cooking appliances as part of California's building electrification requirements.",
+      "cec_reference": "CEC 408.2",
+      "nec_reference": "N/A - CEC only",
+      "status": "PASS",
+      "answer": "## Electric Cooktop Readiness Requirements (CEC 2022)  \n**Primary Rule:**  \nPer **CEC 2022 Section 408.2(A)**, new single-family homes **must have panelboards pre-wired with dedicated circuit breaker spaces** for electric cooktops (along with heat pump water heaters, heat pump space heaters, and dryers). This supports California's Title 24 Energy Code mandates for future-ready electrical infrastructure.\n\n---\n\n### Exceptions Checked (CEC 2022)  \n1. **Section 422.23** & **424.10** (Special Permission for Alternative Installations):  \n   - Allow non-standard installation methods **only with special permission**.  \n   - **Does not override** the pre-wiring requirement in 408.2.  \n\n2. **Section 210.52(C)** (Kitchen Receptacle Outlets):  \n   - Exempts areas directly behind ranges/counter-mounted cooking units from receptacle spacing rules.  \n   - **Unrelated** to panelboard pre-wiring for cooktops.  \n\n**Conclusion:** No exceptions invalidate the core requirement in 408.2. The rule applies universally unless special permission is granted for alternative installations (which is rare and requires approval).\n\n---\n\n### NEC 2023 Reference  \nThis is a **California-specific amendment** [CEC]. The base NEC 2023 (Article 408) does not require pre-wiring for future electric appliances. California’s rule directly supports electrification goals under Title 24 Energy Code.  \n\n**Violation Risk:** Failing to pre-wire for electric cooktops in new single-family homes violates **CEC 408.2(A)** and Title 24.  \n\n✓ **Sources: CEC 2022 (primary), NEC 2023 (comparison)**",
+      "tool_calls": [
+        {
+          "tool": "cec_search",
+          "input": {
+            "article_filter": "408",
+            "limit": 5,
+            "query": "electric cooktop readiness new homes"
+          },
+          "output": ""
+        },
+        {
+          "tool": "cec_exception_search",
+          "input": {
+            "base_rule": "408.2",
+            "context": "electric cooktop readiness",
+            "limit": 5
+          },
+          "output": ""
+        }
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "210.52",
+        "424.10",
+        "408.2",
+        "422.23"
+      ],
+      "duration_seconds": 10.0,
+      "cec_primary": true
+    }
+  ]
+}

@@ -1,0 +1,1008 @@
+{
+  "metadata": {
+    "date": "2025-12-07",
+    "model": "qwen/qwen3-32b",
+    "total_questions": 28,
+    "runs_per_question": 3,
+    "aggregation_method": "majority_voting"
+  },
+  "results": [
+    {
+      "id": "baseline-001",
+      "tier": "baseline",
+      "category": "table_lookup",
+      "ca_specific": false,
+      "question": "What is the ampacity of 12 AWG copper conductor at 75°C termination?",
+      "expected_answer": "20 amperes",
+      "cec_reference": "",
+      "nec_reference": "Table 310.16",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Ampacity of 12 AWG Copper Conductor (CEC 2022)  \n\n**Ampacity**: **25 amperes** at 75°C termination  \n**Source**: CEC 2022 Table 310.16 (California-amended)  \n\n---\n\n### Exception Analysis  \n1. **Section 311.12** (Minimum conductor sizes/materials):  \n   - Confirms 12 AWG copper is permitted but does not modify ampacity.  \n   - Applies to installation requirements (e.g., stranded conductors in raceways).  \n\n2. **Section 310.12** (Dwelling service/feeder sizing):  \n   - Allows 83% derating for residential services/feeders (e.g., 200A service → 166A conductors).  \n   - **Not applicable** here, as the question does not specify a dwelling service or feeder application.  \n\n---\n\n### Key Notes  \n- **Overcurrent Protection**: Per **Section 240.4(D)**, 12 AWG copper is limited to **20A protection** (even though its ampacity is 25A).  \n- **Derating Required For**:  \n  - More than 3 current-carrying conductors (per **310.15(C)(1)**).  \n  - Ambient temperatures above 30°C (per **310.15(B)**).  \n\n---\n\n## NEC 2023 Reference  \nNo difference from NEC 2023 Table 310.16. California retains the same 25A value for 12 AWG copper at 75°C.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Ampacity of 12 AWG Copper Conductor (CEC 2022)  \n\n**Ampacity**: **25 amperes** at 75°C termination  \n**Source**: CEC 2022 Table 310.16 (California-amended)  \n\n---\n\n### Exception Analysis  \n1. **Section 311.12** (Minimum conductor sizes/materials):  \n   - Confirms 12 AWG copper is permitted but does not modify ampacity.  \n   - Applies to installation requirements (e.g., stranded conductors in raceways).  \n\n2. **Section 310.12** (Dwelling service/feeder sizing):  \n   - Allows 83% derating for r",
+        "## 12 AWG Copper Conductor Ampacity (CEC 2022)\n\n**Ampacity**: 25 amperes at 75°C termination  \n**Source**: CEC 2022 Table 310.16 (California Amendment)\n\n**Key Notes**:\n1. **Overcurrent Protection**: Per CEC 240.4(D), 12 AWG copper conductors must be protected at **20A maximum** despite the 25A ampacity. This is a critical safety limitation.\n2. **Derating Requirements**: \n   - If ambient temperature ≠ 30°C, apply correction factors from **310.15(B)** \n   - If more than 3 current-carrying conducto",
+        "## Ampacity of 12 AWG Copper Conductor (CEC 2022) **[FINAL]**\n\n**Ampacity**: 25 amperes at 75°C termination  \n**Overcurrent Protection**: **20A maximum** (per CEC 240.4(D))  \n\nPer CEC 2022 Table 310.16 (California-amended version of NEC Table 310.16). No California-specific exceptions apply to 12 AWG copper conductors in this context based on `cec_exception_search(310.16, \"12 AWG copper\")`.\n\n---\n## Key Considerations\n1. **Overcurrent Protection Limitation**:  \n   - Despite 25A ampacity, **240.4("
+      ],
+      "cec_tools_used": [
+        "cec_lookup_conductor_ampacity",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "310.16",
+        "240.4",
+        "310.15",
+        "311.12",
+        "310.12"
+      ],
+      "avg_duration_seconds": 17.1,
+      "cec_primary": true
+    },
+    {
+      "id": "baseline-002",
+      "tier": "baseline",
+      "category": "table_lookup",
+      "ca_specific": false,
+      "question": "What size copper conductor is required for a 60A circuit at 75°C?",
+      "expected_answer": "6 AWG copper",
+      "cec_reference": "",
+      "nec_reference": "Table 310.16",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Copper Conductor Size for 60A Circuit (CEC 2022)\n\n**Minimum required size:** 6 AWG copper  \n- **Ampacity:** 65A (meets 60A requirement)  \n- **Table reference:** CEC 2022 Table 310.16  \n\n**Critical Exceptions and Considerations:**  \n1. **Continuous Loads (210.19(A)(1)):**  \n   - If the 60A load is **continuous** (operating ≥3 hours), conductors must be sized for **125% of the load** (75A).  \n   - **Required size:** 4 AWG copper (75A ampacity).  \n   - **Key Rule:**  \n     > *\"Branch-circuit conductors supplying continuous loads shall have an ampacity of not less than 125% of the continuous load.\"*  \n\n2. **Non-Continuous Loads:**  \n   - If the load is **non-continuous**, 6 AWG (65A) is sufficient.  \n\n3. **Temperature and Bundling Adjustments:**  \n   - Ensure no derating applies (e.g., ambient temperature >30°C, >3 current-carrying conductors in a raceway).  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023. Table 310.16 and 210.19 remain identical.  \n\n**Final Note:**  \nAlways verify if the load is **continuous**. If so, **4 AWG** is required. If not, **6 AWG** is acceptable.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Copper Conductor Size for 60A Circuit (CEC 2022)\n\n**Minimum required size:** 6 AWG copper  \n- **Ampacity:** 65A (meets 60A requirement)  \n- **Table reference:** CEC 2022 Table 310.16  \n\n**Critical Exceptions and Considerations:**  \n1. **Continuous Loads (210.19(A)(1)):**  \n   - If the 60A load is **continuous** (operating ≥3 hours), conductors must be sized for **125% of the load** (75A).  \n   - **Required size:** 4 AWG copper (75A ampacity).  \n   - **Key Rule:**  \n     > *\"Branch-circuit con",
+        "## Copper Conductor Size for 60A Circuit (CEC 2022)\n\n**Minimum conductor size**: **6 AWG copper**  \n- **Ampacity**: 65A (meets 60A requirement)  \n- **Table reference**: CEC 2022 Table 310.16  \n\n**Verification**:  \n- CEC 310.16 confirms 6 AWG copper has 65A ampacity at 75°C.  \n- No applicable exceptions or amendments in California affect this calculation.  \n- 8 AWG (50A) is insufficient for a 60A circuit.  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023. Both codes use Table 310.16 for ",
+        "## Copper Conductor Size for 60A Circuit (CEC 2022)\n\n**Minimum required size:** 6 AWG copper  \n- **Ampacity:** 65A (CEC Table 310.16, 75°C column)  \n- **Rationale:** 6 AWG provides 65A ampacity, which exceeds the 60A requirement. 8 AWG (50A) is insufficient.\n\n### Verification via `cec_search`:\nConfirmed **Table 310.16** applies for general conductor sizing (not service/feeder specific). Key findings:\n- **Section 310.16** governs ampacities for insulated conductors in raceways/cables.\n- **6 AWG c"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_lookup_conductor_size",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "310.16",
+        "310.12",
+        "210.19"
+      ],
+      "avg_duration_seconds": 12.3,
+      "cec_primary": true
+    },
+    {
+      "id": "baseline-003",
+      "tier": "baseline",
+      "category": "knowledge_simple",
+      "ca_specific": false,
+      "question": "Where is GFCI protection required in a residential kitchen?",
+      "expected_answer": "All receptacles that serve the kitchen countertop surfaces shall have GFCI protection. Additionally, dishwashers require GFCI protection.",
+      "cec_reference": "",
+      "nec_reference": "210.8(A)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## GFCI Protection in Residential Kitchens (CEC 2022)\n\n**Requirement**: All **125-volt through 250-volt receptacles installed in kitchens** to serve **countertop surfaces** must have **GFCI protection** per **CEC 2022 Section 210.8(A)(6)**.\n\n### Key Details:\n- **Scope**: Applies to all dwelling unit kitchens.\n- **Location**: Receptacles installed to serve **countertop surfaces** (e.g., islands, peninsulas, wall countertops).\n- **Exceptions**:\n  - **No direct exceptions** for kitchen countertop receptacles in 210.8(A)(6). \n  - Receptacles behind **ranges**, **counter-mounted cooking units**, or **sinks** are exempt from spacing rules (210.52(C)(1) Exception) but **still require GFCI** if they serve countertop surfaces.\n  - Listed locking receptacles for ceiling fans/luminaires are exempt from GFCI in other locations (210.8(A) Exception), but this does **not apply** to countertop receptacles.\n\n### Additional Context:\n- **Spacing Rules**: Countertop receptacles must comply with 210.52(C) spacing requirements (e.g., ≤ 600 mm (24 in.) apart on wall spaces).\n- **NEC Alignment**: NEC 2023 Section 210.8(A)(6) mirrors this requirement without deviation.\n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023. GFCI protection for kitchen countertop receptacles is uniformly required in both codes.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## GFCI Protection in Residential Kitchens (CEC 2022)\n\n**Requirement:**  \nAll **125-volt through 250-volt receptacles** installed in **kitchens** to serve **countertop surfaces** must have **GFCI protection** for personnel.  \n\n**Citation:**  \nCEC 2022 **Section 210.8(A)(6)** explicitly requires this for receptacles serving countertop surfaces in dwelling units.  \n\n**Exceptions Checked:**  \n- **No exceptions** apply to Section 210.8(A)(6) for residential kitchen countertop receptacles.  \n- Cross-",
+        "## GFCI Protection in Residential Kitchens (CEC 2022)\n\n**Requirement**: All **125-volt through 250-volt receptacles installed in kitchens** to serve **countertop surfaces** must have **GFCI protection** per **CEC 2022 Section 210.8(A)(6)**.\n\n### Key Details:\n- **Scope**: Applies to all dwelling unit kitchens.\n- **Location**: Receptacles installed to serve **countertop surfaces** (e.g., islands, peninsulas, wall countertops).\n- **Exceptions**:\n  - **No direct exceptions** for kitchen countertop r",
+        "## GFCI Protection in Residential Kitchens (CEC 2022)  \n\n**Final Answer:**  \nAll 125–250V receptacles installed in **kitchens to serve countertop surfaces** must have **GFCI protection** per **CEC 2022 Section 210.8(A)(6)**.  \n\n---\n\n### Exceptions Checked:  \n1. **Section 210.52(A)**: Governs receptacle spacing and general provisions but does **not exempt** countertop receptacles from GFCI requirements.  \n2. **Section 210.52(C)**: Specifies countertop receptacle placement (e.g., within 600 mm of "
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "210.8",
+        "210.70",
+        "210.52"
+      ],
+      "avg_duration_seconds": 10.0,
+      "cec_primary": true
+    },
+    {
+      "id": "baseline-004",
+      "tier": "baseline",
+      "category": "knowledge_simple",
+      "ca_specific": false,
+      "question": "Is AFCI protection required for bedroom circuits in new residential construction?",
+      "expected_answer": "Yes, AFCI protection is required for all 120-volt, 15- and 20-ampere branch circuits supplying outlets in bedrooms.",
+      "cec_reference": "",
+      "nec_reference": "210.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## AFCI Protection for Bedroom Circuits (CEC 2022)\n\n**Yes**, arc-fault circuit-interrupter (AFCI) protection is **required for all 120-volt, single-phase, 15- and 20-ampere branch circuits** supplying outlets or devices in **bedrooms** of new residential construction in California. This requirement is explicitly stated in **CEC 2022 Section 210.12(A)**, which mandates AFCI protection for dwelling unit circuits in bedrooms, living rooms, family rooms, and similar areas.\n\n### Exceptions Checked:\nAfter reviewing exceptions via `cec_exception_search(base_rule=\"210.12\", context=\"bedrooms\")`, **no exceptions apply to bedroom AFCI requirements**. The returned exceptions relate to:\n- Lighting outlet requirements (210.70)\n- Receptacle placement (210.52)\n- Branch circuit provisions (210.11)\n\nNone of these exceptions override or modify the AFCI protection mandate in **210.12(A)** for bedroom circuits.\n\n### Key Details:\n- **Required Protection Methods**: \n  - Combination-type AFCI at the service panel (most common).\n  - Alternative methods (branch/feeder-type AFCI + outlet AFCI, etc.) are permitted but less common in residential applications.\n- **Exceptions**: \n  - Does not apply to fire alarm circuits (covered under 760.41(B)/760.121(B)).\n  - No exception for standard bedroom circuits.\n- **Code Reference**: \n  - **CEC 2022 Section 210.12(A)** (same as NEC 2023 Article 210.12).\n\n---\n## NEC 2023 Reference\nNo difference from NEC 2023. AFCI requirements for bedrooms are identical in both codes.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## AFCI Protection for Bedroom Circuits (CEC 2022)  \n\n**Yes**, AFCI protection is required for bedroom circuits in new residential construction in California.  \n\n### CEC 2022 Requirements:  \n- **Section 210.12(A)** mandates AFCI protection for **all 120V, 15- and 20-ampere branch circuits** in dwelling units, including **bedrooms**.  \n- **Permitted protection methods**:  \n  1. Combination-type AFCI at the circuit origin (most common).  \n  2. Branch/feeder-type AFCI + outlet branch-circuit AFCI. ",
+        "## AFCI Protection for Bedroom Circuits (CEC 2022)\n\n**Yes**, arc-fault circuit-interrupter (AFCI) protection is **required for all 120-volt, single-phase, 15- and 20-ampere branch circuits** supplying outlets or devices in **bedrooms** of new residential construction in California. This requirement is explicitly stated in **CEC 2022 Section 210.12(A)**, which mandates AFCI protection for dwelling unit circuits in bedrooms, living rooms, family rooms, and similar areas.\n\n### Exceptions Checked:\nA",
+        "## AFCI Protection for Bedroom Circuits (CEC 2022)\n\n**Yes**, AFCI protection is required for bedroom circuits in new residential construction in California.\n\n### Requirements:\n- **CEC 2022 Section 210.12(A)** mandates AFCI protection for **all 120V, 15A and 20A branch circuits** in dwelling units supplying outlets in:\n  - Bedrooms\n  - Kitchens\n  - Family rooms\n  - Living rooms\n  - Dens\n  - And other similar areas\n\n### Protection Methods:\n1. **Combination-type AFCI** at the circuit origin (most c"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "760.41",
+        "210.70",
+        "210.52",
+        "210.12",
+        "210.11",
+        "760.121"
+      ],
+      "avg_duration_seconds": 9.3,
+      "cec_primary": true
+    },
+    {
+      "id": "baseline-005",
+      "tier": "baseline",
+      "category": "table_lookup",
+      "ca_specific": false,
+      "question": "Can aluminum conductors be used for a 200A service? If yes, what size?",
+      "expected_answer": "Yes, 4/0 AWG aluminum or copper-clad aluminum",
+      "cec_reference": "",
+      "nec_reference": "Table 310.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Final Answer: Aluminum Conductors for 200A Service (CEC 2022)\n\n**Yes**, aluminum conductors are permitted for a 200A service in California. The required size is **4/0 AWG aluminum**, based on **CEC Table 310.12(A)** for single-phase dwelling services.\n\n---\n\n### Exceptions Verified:\n1. **CEC 310.3(A)**: Minimum aluminum size is 12 AWG for general conductors, but **Table 310.12(A)** overrides this for dwelling services.\n2. **CEC 310.12(A)**: Explicitly permits 4/0 AWG aluminum for 200A services with no temperature or bundling adjustments.\n3. **CEC 311.12**: Minimum size requirements do not apply to service conductors governed by Table 310.12(A).\n\n---\n\n### Key Requirements:\n- **Terminal Compatibility**: Ensure all terminations are **listed for aluminum conductors** (CEC 110.14(C)).\n- **Anti-Oxidant Compound**: Required at aluminum-to-copper splices (CEC 250.64).\n- **Application Scope**: Table 310.12(A) applies only to **dwelling units** with 120/240V or 120/208Y systems.\n\n---\n\n## NEC 2023 Reference  \nNo difference from NEC 2023—**NEC Table 310.12(A)** also specifies 4/0 AWG aluminum for 200A dwelling services.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Aluminum Conductors for 200A Service (CEC 2022) **Final Answer**\n\n**Yes**, aluminum conductors are permitted for a 200A service. The required size is:\n\n✓ **4/0 AWG aluminum** (Table 310.12(A) for single-phase dwelling services)\n\n**Key Requirements:**\n1. **Material Compliance**: Aluminum conductors must be AA-8000 series alloy (Section 310.3(B))\n2. **Stranding Requirement**: 4/0 AWG aluminum must be stranded (Section 310.3(C))\n3. **Temperature Rating**: 75°C rating required for service conduct",
+        "## Aluminum Conductors for 200A Service (CEC 2022)  \n\n**Yes**, aluminum conductors are permitted for a 200A service in California.  \n\n✓ **Required size**: **4/0 AWG aluminum**  \n- Based on **CEC Table 310.12(A)** for single-phase dwelling services  \n- 4/0 AWG aluminum has an ampacity of **200A at 75°C**  \n\n**Key Requirements**:  \n1. **Material**: Aluminum or copper-clad aluminum (CEC 310.3(B))  \n2. **Minimum Size**: 12 AWG aluminum for general use, but 4/0 AWG required for 200A service (Table 31",
+        "## Final Answer: Aluminum Conductors for 200A Service (CEC 2022)\n\n**Yes**, aluminum conductors are permitted for a 200A service in California. The required size is **4/0 AWG aluminum**, based on **CEC Table 310.12(A)** for single-phase dwelling services.\n\n---\n\n### Exceptions Verified:\n1. **CEC 310.3(A)**: Minimum aluminum size is 12 AWG for general conductors, but **Table 310.12(A)** overrides this for dwelling services.\n2. **CEC 310.12(A)**: Explicitly permits 4/0 AWG aluminum for 200A services"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_lookup_conductor_size",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "110.14",
+        "250.64",
+        "311.12",
+        "310.12",
+        "310.3"
+      ],
+      "avg_duration_seconds": 13.7,
+      "cec_primary": true
+    },
+    {
+      "id": "baseline-006",
+      "tier": "baseline",
+      "category": "knowledge_simple",
+      "ca_specific": false,
+      "question": "What is the minimum depth of working clearance required in front of a 120/240V residential electrical panel?",
+      "expected_answer": "36 inches (3 feet)",
+      "cec_reference": "",
+      "nec_reference": "110.26(A)(1)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Working Clearance Depth (CEC 2022)  \n\nThe minimum working clearance depth required in front of a 120/240V residential electrical panel is **900 mm (3 feet)** per **CEC Table 110.26(A)(1)** for **Condition 1** (voltage range 0–150V).  \n\n---\n\n### Exceptions and Special Conditions:  \n1. **Exception No. 2** (CEC 2022):  \n   - In **existing dwelling units**, service equipment or panelboards not exceeding **200 amperes** are permitted in spaces where the **height** of the working space is less than 2.0 m (6½ ft).  \n   - **Note**: This exception applies to **height**, not depth. The **depth requirement of 900 mm (3 ft)** remains unchanged for residential panels.  \n\n2. **Condition 2 and 3**:  \n   - If the panel is installed against a **grounded wall** (e.g., concrete, brick, or tile), it falls under **Condition 2**, which still requires **900 mm (3 ft)** depth.  \n   - **Condition 3** (live parts on both sides) also requires **900 mm (3 ft)** unless guarded by insulating materials.  \n\n---\n\n### Key Clarifications:  \n- **Residential panels** (≤ 200A) are explicitly covered under **Condition 1** or **2**, both requiring **3 ft depth**.  \n- No exceptions in CEC 2022 reduce the **depth requirement** for standard residential installations.  \n\n---\n\n### NEC 2023 Reference  \nNo difference from NEC 2023. The working space requirements in **NEC Table 110.26(A)(1)** are identical for 120V systems.  \n\n✓ **Sources**: CEC 2022 Table 110.26(A)(1), Exceptions 110.26(A)(1) and (E), NEC 2023 Table 110.26(A)(1)",
+      "all_answers": [
+        "## Minimum Working Clearance Depth (CEC 2022) **Final Answer**\n\nThe minimum working clearance depth required in front of a 120/240V residential electrical panel is **3 feet (900 mm)** per **CEC Table 110.26(A)(1)** for Condition 2 (exposed live parts on one side and grounded parts on the other). \n\n### Exception Analysis:\n- **Section 110.26(E)** (Dedicated Equipment Space) addresses vertical clearance (6 ft above equipment) and foreign systems but **does not override the 3 ft horizontal working s",
+        "## Working Clearance Depth (CEC 2022)  \n\nThe minimum working clearance depth required in front of a 120/240V residential electrical panel is **900 mm (3 feet)** per **CEC Table 110.26(A)(1)** for **Condition 1** (voltage range 0–150V).  \n\n---\n\n### Exceptions and Special Conditions:  \n1. **Exception No. 2** (CEC 2022):  \n   - In **existing dwelling units**, service equipment or panelboards not exceeding **200 amperes** are permitted in spaces where the **height** of the working space is less than",
+        "## Minimum Working Clearance Depth (CEC 2022)\n\nThe minimum working clearance depth required in front of a 120/240V residential electrical panel is **900 mm (3 feet)** per **CEC Table 110.26(A)(1)**, Condition 1. This applies to systems with nominal voltage to ground of 0–150V (120V in this case).\n\n---\n\n## Exception Analysis  \nAfter searching for exceptions to **CEC 110.26(A)(1)** using `cec_exception_search`, no exceptions directly override the 900 mm (3 ft) clearance requirement for residential"
+      ],
+      "cec_tools_used": [
+        "cec_lookup_working_space",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "110.26"
+      ],
+      "avg_duration_seconds": 10.1,
+      "cec_primary": true
+    },
+    {
+      "id": "baseline-007",
+      "tier": "baseline",
+      "category": "knowledge_simple",
+      "ca_specific": false,
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen?",
+      "expected_answer": "Minimum of two 20-ampere small appliance branch circuits",
+      "cec_reference": "",
+      "nec_reference": "210.11(C)(1)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Small Appliance Branch Circuits in Kitchens (CEC 2022)  \n\n**Minimum Requirement:**  \nA kitchen must have **not fewer than two 20-ampere small-appliance branch circuits**.  \n\n**Code Basis:**  \n- **CEC 2022 Section 210.11(C)(1)** mandates:  \n  *\"Two or more 20-ampere small-appliance branch circuits shall be provided for all receptacle outlets specified by 210.52(B).\"*  \n\n- **CEC 2022 Section 210.52(B)(3)** reinforces this:  \n  *\"Receptacles installed in a kitchen to serve countertop surfaces shall be supplied by not fewer than two small-appliance branch circuits.\"*  \n\n**Exceptions Checked:**  \n- **No exceptions reduce the minimum requirement** to fewer than two circuits for kitchens.  \n- Exceptions (e.g., 210.52(B)(1) Exception No. 2) allow additional receptacles or individual circuits for specific appliances but do not override the two-circuit minimum.  \n\n**Key Notes:**  \n- Each circuit must serve **only one kitchen**.  \n- Additional circuits are permitted but not required.  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023 (NEC 210.11(C)(1) also requires two 20A circuits).  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Small Appliance Branch Circuits for Kitchen (CEC 2022)\n\n**Minimum Requirement:**  \nA **minimum of two 20-ampere small-appliance branch circuits** are required for all receptacle outlets in the kitchen, including wall, floor, countertop, and refrigerator outlets (CEC 2022 Section 210.11(C)(1)).  \n\n**Key Details:**  \n- **No fewer than two circuits** must serve the kitchen (CEC 210.52(B)(1)).  \n- These circuits **cannot serve any other area** (e.g., dining room, pantry) beyond the kitchen (CEC 2",
+        "## Small Appliance Branch Circuits for Kitchens (CEC 2022)  \n\n**Minimum Requirement:**  \nA kitchen must have **at least two 20-ampere small-appliance branch circuits** per **CEC 2022 Section 210.11(C)(1)**.  \n\n**Exceptions Checked:**  \n- **Exception 210.52(B)(1):** Permits additional circuits for specific appliances (e.g., refrigeration equipment) but does not reduce the minimum two-circuit requirement.  \n- **Exception 210.23(A):** Confirms small-appliance circuits must supply only the receptacl",
+        "## Small Appliance Branch Circuits in Kitchens (CEC 2022)  \n\n**Minimum Requirement:**  \nA kitchen must have **not fewer than two 20-ampere small-appliance branch circuits**.  \n\n**Code Basis:**  \n- **CEC 2022 Section 210.11(C)(1)** mandates:  \n  *\"Two or more 20-ampere small-appliance branch circuits shall be provided for all receptacle outlets specified by 210.52(B).\"*  \n\n- **CEC 2022 Section 210.52(B)(3)** reinforces this:  \n  *\"Receptacles installed in a kitchen to serve countertop surfaces sh"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "210.23",
+        "210.52",
+        "210.11"
+      ],
+      "avg_duration_seconds": 8.4,
+      "cec_primary": true
+    },
+    {
+      "id": "baseline-008",
+      "tier": "baseline",
+      "category": "knowledge_simple",
+      "ca_specific": false,
+      "question": "Is surge protection required for a new 200A residential service according to 2023 NEC?",
+      "expected_answer": "Yes, all services supplying dwelling units shall be provided with a surge-protective device (SPD).",
+      "cec_reference": "",
+      "nec_reference": "230.67",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Surge Protection Requirements (CEC 2022 vs NEC 2023)\n\n### **California Mandate (CEC 2022)**\n**Surge protection is REQUIRED** for all residential services in California per **CEC 230.67**:\n- **230.67(A)**: All services supplying dwelling units must include a **surge-protective device (SPD)**.\n- **230.67(B)**: The SPD must be:\n  - Integrated into the service equipment, or\n  - Located immediately adjacent to it.\n  - *Exception*: SPDs may be installed downstream at distribution equipment if inaccessible to unqualified persons (per 242.46).\n- **230.67(C)**: SPDs must be **Type 1 or Type 2** (UL 1449 listed).\n\n---\n\n### **NEC 2023 Position**\n- **No direct requirement** for residential SPDs in standard installations.\n- SPDs are optional unless specified by local codes or equipment needs (e.g., solar systems under 690.13).\n\n---\n\n### **Key Differences**\n| **Requirement**       | **CEC 2022**                     | **NEC 2023**               |\n|-------------------------|----------------------------------|---------------------------|\n| **SPD Mandate**         | Required for all dwelling units | Not required              |\n| **SPD Location**        | Service equipment or adjacent    | No specific requirements  |\n| **SPD Type**            | Type 1 or Type 2                 | No type specification   |\n\n---\n\n### **Exceptions in CEC**\n1. **230.67(B) Exception**: SPDs may be installed downstream if:\n   - Located in distribution equipment (e.g., panelboards).\n   - Made inaccessible to unqualified persons (per 242.46).\n2. **242.46**: Surge arresters/SPDs may be installed indoors or outdoors but must be inaccessible unless listed for accessible locations.\n\n---\n\n### **Recommendation**\n- **Compliance**: Install a **Type 1 or Type 2 SPD** at the service entrance for California residential services.\n- **Documentation**: Verify SPD listing (UL 1449) and ensure compliance with 230.67(B) location requirements.\n- **AHJ Check**: Confirm local amendments (e.g., CALGreen) may add additional requirements.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Surge Protection Requirement (CEC 2022 vs NEC 2023)\n\n**Answer:**  \n**California (CEC 2022) requires surge protection** for residential services, while the **NEC 2023 does not**.  \n\n### CEC 2022 Requirements (Section 230.67):  \n1. **Mandatory SPD**: All services supplying dwelling units **must** include a surge-protective device (SPD) (230.67(A)).  \n2. **Location**:  \n   - The SPD must be **integrated into the service equipment** or **immediately adjacent**.  \n   - **Exception**: If located do",
+        "## Surge Protection Requirements (CEC 2022 vs NEC 2023)\n\n### **California Mandate (CEC 2022)**\n**Surge protection is REQUIRED** for all residential services in California per **CEC 230.67**:\n- **230.67(A)**: All services supplying dwelling units must include a **surge-protective device (SPD)**.\n- **230.67(B)**: The SPD must be:\n  - Integrated into the service equipment, or\n  - Located immediately adjacent to it.\n  - *Exception*: SPDs may be installed downstream at distribution equipment if inacc",
+        "## Surge Protection Requirement (CEC 2022 & NEC 2023)\n\n**Answer:**  \nFor **California residential services**, surge protection is **required** under **CEC 2022 Section 230.67** for dwelling units. Key requirements:\n\n1. **Mandatory SPD Installation** (CEC 230.67(A)):  \n   - All services supplying dwelling units **must include a surge-protective device (SPD)**.  \n   - **Type 1 or Type 2 SPDs** are required (230.67(C)).  \n\n2. **Location Flexibility** (CEC 230.67(B) Exception):  \n   - The SPD does *"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [
+        "nec_search"
+      ],
+      "citations": [
+        "242.46",
+        "230.67",
+        "285.2",
+        "230.209",
+        "690.13"
+      ],
+      "avg_duration_seconds": 13.0,
+      "cec_primary": true
+    },
+    {
+      "id": "core-001",
+      "tier": "core",
+      "category": "multi_article",
+      "ca_specific": false,
+      "question": "A homeowner wants to upgrade from 100A to 200A service. The house has 3,000 sq ft of living space, electric range (12kW), electric dryer (5.5kW), central AC (4 tons), and electric water heater (4.5kW). What size service conductors are required, and can they use aluminum?",
+      "expected_answer": "2/0 AWG copper OR 4/0 AWG aluminum. Yes, aluminum is permitted for service conductors per Table 310.12.",
+      "cec_reference": "",
+      "nec_reference": "Table 310.12, 310.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Service Conductor Sizing (CEC 2022)\n\n**✓ Service conductor size**: **4/0 AWG aluminum**  \n- Required for 200A service per **CEC Table 310.12(A)**  \n- Aluminum is permitted for dwelling services (Section 310.12)  \n\n**✓ Aluminum use**: **Allowed** with these conditions:  \n1. Terminals must be rated for aluminum (CO/ALR or listed for aluminum)  \n2. Use listed connectors for aluminum-to-copper splices  \n3. Follow 110.8(B) marking requirements for aluminum conductors  \n\n**Key CEC Requirements**:  \n- Table 310.12(A) applies to single-phase dwelling services  \n- No temperature correction/adjustment factors needed for standard service conductors  \n- Aluminum conductors must be sized per 310.12(A) column 2  \n\n**Supporting Code References**:  \n- **CEC 310.3(B)** explicitly permits aluminum conductors for service applications  \n- **CEC 110.8(B)** requires marking of aluminum conductor terminations  \n- **No exceptions** override aluminum use in this application (verified via cec_exception_search)  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023. NEC 310.12(A) also specifies 4/0 AWG aluminum for 200A dwelling services.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Service Conductor Sizing (CEC 2022)\n\n**✓ Service conductor size**: **4/0 AWG aluminum**  \n- Required for 200A service per **CEC Table 310.12(A)**  \n- Aluminum is permitted for dwelling services (Section 310.12)  \n\n**✓ Aluminum use**: **Allowed** with these conditions:  \n1. Terminals must be rated for aluminum (CO/ALR or listed for aluminum)  \n2. Use listed connectors for aluminum-to-copper splices  \n3. Follow 110.8(B) marking requirements for aluminum conductors  \n\n**Key CEC Requirements**:  ",
+        "## Service Conductor Sizing (CEC 2022)\n\nFor a **200A residential service** in California:\n- **Copper**: 2/0 AWG (CEC Table 310.12(A))\n- **Aluminum**: 4/0 AWG (CEC Table 310.12(A))\n\n**Aluminum is permitted** for service conductors in California, provided:\n1. Conductors are sized per Table 310.12(A) (4/0 AWG for 200A)\n2. Terminations are rated for aluminum (e.g., 75°C rated lugs)\n3. No temperature correction/adjustment factors apply\n\n**Code Verification**:\n- CEC 310.3(B) explicitly permits aluminu",
+        "## Service Conductor Sizing (CEC 2022)\n\nFor a **200A residential service**:\n- **Copper**: 2/0 AWG (Table 310.12(A))\n- **Aluminum**: 4/0 AWG (Table 310.12(A))\n\n**Can aluminum be used?**  \n✓ **Yes**, per CEC 310.3(B) and 310.12(A):  \n  - Aluminum is permitted for dwelling services when sized per Table 310.12(A)  \n  - Minimum aluminum size for services is 12 AWG (but 4/0 AWG required for 200A)  \n✓ **Requirements**:  \n  - Use **AA-8000 series aluminum** (CEC 310.3(B))  \n  - Proper termination torque"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_lookup_conductor_size",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "110.14",
+        "110.5",
+        "310.12",
+        "110.8",
+        "310.3"
+      ],
+      "avg_duration_seconds": 18.5,
+      "cec_primary": true
+    },
+    {
+      "id": "core-002",
+      "tier": "core",
+      "category": "multi_article",
+      "ca_specific": false,
+      "question": "An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. What are the NEC requirements for the circuit breaker and neutral termination?",
+      "expected_answer": "Requires either a handle tie or common trip breaker to simultaneously disconnect all ungrounded conductors per 210.4(B). Common trip is required if the circuit has both line-to-line and line-to-neutral loads. Neutral must be continuous and not switched. Conductors must be grouped per 210.4(D). Circuit breaker: 20A maximum for 12 AWG copper.",
+      "cec_reference": "",
+      "nec_reference": "210.4, 210.4(B), 210.4(D)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## NEC Requirements for Multiwire Branch Circuit Breaker and Neutral Termination (with CEC Exceptions)\n\n### Circuit Breaker Requirements\n1. **2-Pole Breaker** (NEC 210.4(B) [CEC 210.4(B)]):  \n   - **Must use a 2-pole circuit breaker** to simultaneously disconnect all ungrounded conductors (both hot legs) at the panel.  \n   - For a 12/3 cable (typically 20A circuit), a **20A 2-pole breaker** is required.  \n   - **Exception**: Single-pole breakers with handle ties are **not permitted** for kitchen MWBCs (per NEC 210.4(B) and CEC 210.4(B) exception).  \n\n---\n\n### Neutral Conductor Requirements\n1. **Size**:  \n   - The neutral conductor must be **12 AWG** (same size as hots in 12/3 cable).  \n   - Must handle **maximum unbalanced load** (NEC 210.4(D)).  \n\n2. **Termination**:  \n   - The neutral must terminate **directly to the neutral bus** in the panel.  \n   - **No switches or outlets** are allowed on the neutral conductor (NEC 300.3(B)(4) exception applies).  \n\n3. **Grouping**:  \n   - Conductors in 12/3 cable are **pre-grouped** (CEC 200.4(B) exception 1).  \n   - No additional wire markers required if the cable is unique to the circuit (CEC 200.4(B) exception 1).  \n\n---\n\n### Key Exceptions in CEC 2022\n1. **Single Utilization Equipment**:  \n   - Exception 210.4(C)(1) allows MWBCs to supply line-to-line loads **if** all ungrounded conductors are opened simultaneously.  \n   - **Not applicable** for standard kitchen receptacles (line-to-neutral loads).  \n\n2. **Conductor Grouping**:  \n   - 12/3 cable satisfies CEC 200.4(B) exception 1 (grouping \"obvious\" via unique cable).  \n\n---\n\n### California (CEC) Specific Notes\n- **No amendments** to NEC 210.4 for MWBCs in CEC 2022.  \n- **Title 24** does not impose additional requirements for kitchen MWBCs.  \n\n---\n\n## NEC 2023 Reference\n- **No differences** from NEC 2023.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (no differences).",
+      "all_answers": [
+        "## NEC Requirements for Multiwire Branch Circuit Breaker and Neutral Termination (with CEC Exceptions)\n\n### Circuit Breaker Requirements\n1. **2-Pole Breaker** (NEC 210.4(B) [CEC 210.4(B)]):  \n   - **Must use a 2-pole circuit breaker** to simultaneously disconnect all ungrounded conductors (both hot legs) at the panel.  \n   - For a 12/3 cable (typically 20A circuit), a **20A 2-pole breaker** is required.  \n   - **Exception**: Single-pole breakers with handle ties are **not permitted** for kitchen",
+        "## NEC/CEC Requirements for Multiwire Branch Circuit Breaker and Neutral Termination (CEC 2022)\n\n### Circuit Breaker Requirements\n1. **Simultaneous Disconnection** (CEC 210.4(B)):\n   - **Required**: A 2-pole 20A breaker **or** two single-pole 20A breakers with an **approved handle tie**.\n   - **Prohibited**: Single-pole breakers without handle ties (avoids accidental disconnection of only one hot conductor).\n\n2. **Circuit Rating** (CEC 210.18):\n   - Must be rated **20A** (matches 12 AWG conducto",
+        "## California (CEC 2022) Requirements for Multiwire Branch Circuit Breaker and Neutral Termination\n\n### Circuit Breaker Requirements (CEC 210.4(B))\n- **Simultaneous Disconnection**: All ungrounded conductors must be disconnected simultaneously using:\n  - A **2-pole 20A breaker**, or\n  - **Single-pole breakers with a listed handle tie** (per CEC 240.15(B))\n- **Rating**: Must not exceed 20A to protect 12 AWG copper conductors (CEC 240.4(D))\n\n### Neutral Conductor Requirements (CEC 210.4(D) and 200"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [
+        "nec_search"
+      ],
+      "citations": [
+        "210.4",
+        "200.4",
+        "300.3",
+        "310.16",
+        "210.52",
+        "210.18",
+        "310.15",
+        "240.4",
+        "240.15"
+      ],
+      "avg_duration_seconds": 13.1,
+      "cec_primary": true
+    },
+    {
+      "id": "core-003",
+      "tier": "core",
+      "category": "nec_2023_updates",
+      "ca_specific": false,
+      "question": "Where is GFCI protection now required in a residential dwelling according to 2023 NEC? List all locations.",
+      "expected_answer": "Bathrooms, garages, outdoors, crawl spaces, unfinished basements, kitchens (countertop receptacles and dishwasher), laundry areas, utility rooms with sinks, boathouses, areas with bathtubs or shower stalls, and within 6 feet of sinks.",
+      "cec_reference": "",
+      "nec_reference": "210.8(A)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## GFCI Protection Requirements in Residential Dwellings (CEC 2022 with Exceptions)\n\n### Required Locations (Per NEC 210.8 + CEC 210.8):\n1. **Bathrooms**  \n2. **Garages/accessory buildings** (floor at/below grade)  \n3. **Outdoors**  \n4. **Crawl spaces** (at/below grade)  \n5. **Kitchens** (countertop receptacles)  \n6. **Sinks** (within 6 ft of bowl edge)  \n7. **Boathouses**  \n8. **Bathtubs/showers** (within 6 ft of edge)  \n9. **Laundry areas**  \n10. **Indoor damp/wet locations**  \n11. **Basements** (all receptacles except alarm systems)  \n\n---\n\n### California-Specific Exceptions (CEC 2022):\n1. **Basement Receptacles**:  \n   - Receptacles for **fire/burglar alarm systems** are exempt from GFCI (CEC 210.8(A)(5) Exception).  \n\n2. **Ceiling Fans/Luminaires**:  \n   - Listed **locking support receptacles** for ceiling fans/luminaires are exempt if used solely for mounting.  \n   - **General-use receptacles** integrated into fans/luminaires **require GFCI** (CEC 210.8(A) Exception).  \n\n3. **Industrial/Healthcare Exceptions**:  \n   - **Industrial labs**: Receptacles near sinks may omit GFCI if power interruption creates greater hazards (CEC 210.8(A)(5) Exception No. 1).  \n   - **Healthcare facilities**: Patient bed location receptacles follow 517.21 (CEC 210.8(A)(5) Exception No. 2).  \n\n---\n\n### General Exceptions (NEC/CEC):\n- **Snow-melting/deicing systems**: Exempt per 426.28/427.22 (CEC 210.8(A)(3) Exception).  \n- **Rooftop receptacles**: No accessibility requirement (CEC 210.8(B)(3) Exception).  \n- **Feeders**: GFCI may be installed at the feeder level per 215.9 (CEC 210.8 Informational Note 1).  \n\n---\n\n### NEC vs. CEC Comparison:\n- **No material differences** in residential GFCI requirements between NEC 2023 and CEC 2022.  \n- California adopts NEC 210.8 with **additional exceptions** for alarm systems, ceiling fans, and industrial labs.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## GFCI Protection Requirements in Residential Dwellings (CEC 2022 with Exceptions)\n\n### Required Locations (Per NEC 210.8 + CEC 210.8):\n1. **Bathrooms**  \n2. **Garages/accessory buildings** (floor at/below grade)  \n3. **Outdoors**  \n4. **Crawl spaces** (at/below grade)  \n5. **Kitchens** (countertop receptacles)  \n6. **Sinks** (within 6 ft of bowl edge)  \n7. **Boathouses**  \n8. **Bathtubs/showers** (within 6 ft of edge)  \n9. **Laundry areas**  \n10. **Indoor damp/wet locations**  \n11. **Basements",
+        "## GFCI Protection Locations in Residential Dwellings (CEC 2022 with Exceptions)\n\nAccording to **CEC 2022 Section 210.8**, GFCI protection is required for all 120–250V receptacles in the following locations within dwelling units:\n\n1. **Bathrooms**  \n2. **Garages/accessory buildings** (floor at or below grade, non-habitable)  \n3. **Outdoors**  \n   - *Exception:* Rooftop receptacles need not be readily accessible.  \n4. **Crawl spaces** (at or below grade)  \n5. **Basements**  \n   - *Exception:* Rec",
+        "## GFCI Protection Locations in Residential Dwellings (NEC 2023)  \n\n### Required Locations (NEC 210.8(A))  \n1. **Bathrooms**  \n2. **Garages/Accessory Buildings (at or below grade)**  \n3. **Outdoors**  \n4. **Crawl Spaces (at or below grade)**  \n5. **Kitchens**  \n6. **Food Preparation Areas**  \n7. **Sinks (within 6 ft)**  \n8. **Bathtubs/Showers (within 6 ft)**  \n9. **Laundry Areas**  \n10. **Boathouses**  \n11. **Indoor Damp/Wet Locations**  \n\n---\n\n### Exceptions (NEC 210.8)  \n- **Exception No. 1**:"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [
+        "nec_search"
+      ],
+      "citations": [
+        "406.4",
+        "215.9",
+        "517.21",
+        "426.28",
+        "427.22",
+        "555.9",
+        "422.5",
+        "210.8"
+      ],
+      "avg_duration_seconds": 28.3,
+      "cec_primary": true
+    },
+    {
+      "id": "core-004",
+      "tier": "core",
+      "category": "nec_2023_updates",
+      "ca_specific": false,
+      "question": "Is surge protection required for a new 200A residential service? If so, where can it be installed?",
+      "expected_answer": "Yes, per 230.67. Type 1 or Type 2 SPD required. Must be installed integral to the service equipment or immediately adjacent. Exception allows installation at the first downstream panelboard.",
+      "cec_reference": "",
+      "nec_reference": "230.67",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Surge Protection for Residential Services (CEC 2022)\n\n**Requirement:**  \nSurge protection **is required** for all services supplying dwelling units per **CEC 2022 Section 230.67**.  \n\n**Installation Locations:**  \n1. **Integral to service equipment** (e.g., main panel)  \n2. **Immediately adjacent to service equipment**  \n3. **At the next level of distribution equipment downstream** (permitted exception in Section 230.67(B))  \n\n**Key Exceptions:**  \n- If not installed in/service equipment, SPDs must be located **at each next level of distribution equipment downstream toward the load** (Exception to 230.67(B)).  \n\n**Additional Requirements:**  \n- Must use **Type 1 or Type 2 SPD** (Section 230.67(C))  \n- Replacement of service equipment requires compliance with all SPD requirements (Section 230.67(D))  \n\n---\n## NEC 2023 Reference  \nNEC 2023 **does not mandate** surge protection for residential services (Article 230). California's CEC 2022 adds this requirement through **Section 230.67**, making it a state-specific mandate.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Surge Protection for Residential Services (CEC 2022)\n\n**Requirement:**  \nSurge protection **is required** for all services supplying dwelling units per **CEC 2022 Section 230.67**.  \n\n**Installation Locations:**  \n1. **Integral to service equipment** (e.g., main panel)  \n2. **Immediately adjacent to service equipment**  \n3. **At the next level of distribution equipment downstream** (permitted exception in Section 230.67(B))  \n\n**Key Exceptions:**  \n- If not installed in/service equipment, SPD",
+        "## Surge Protection for Residential Service (CEC 2022)\n\n**Requirement:**  \nYes, surge protection is **required** for all new residential services in California per **CEC 2022 Section 230.67**.  \n\n**Installation Locations:**  \n1. **Integral to service equipment** (e.g., main panel)  \n2. **Immediately adjacent** to the service equipment  \n3. **Downstream** at the next level of distribution equipment (Exception to 230.67(B))  \n\n**SPD Type Requirements:**  \n- Must be **Type 1** (service-level protec",
+        "## Surge Protection for Residential Service (CEC 2022)  \n\n**Requirement:**  \nSurge protection **is required** for all new residential services in California per **CEC 2022 Section 230.67**. This is a California-specific mandate not explicitly required by NEC 2023.  \n\n**Installation Locations:**  \n1. **Integral to service equipment** (e.g., main panel)  \n2. **Immediately adjacent to service equipment**  \n3. **Downstream distribution equipment** (permitted by exception in **230.67(B)** if not inst"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "230.67"
+      ],
+      "avg_duration_seconds": 11.5,
+      "cec_primary": true
+    },
+    {
+      "id": "core-005",
+      "tier": "core",
+      "category": "edge_cases",
+      "ca_specific": false,
+      "question": "A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inches to the side. Does this meet NEC requirements?",
+      "expected_answer": "No, this violates multiple requirements: (1) Minimum 36 inches depth required per 110.26(A)(1), not 24 inches. (2) Panels are prohibited in clothes closets per 240.24(D). (3) Working space width must be 30 inches or equipment width, whichever is greater. (4) No storage allowed in working space per 110.26(B).",
+      "cec_reference": "",
+      "nec_reference": "110.26(A)(1), 240.24(D), 110.26(B)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Working Space Requirements (CEC 2022)\n\nThe installation **does not meet CEC requirements** due to insufficient front working space in front of the panel.\n\n### Key Findings:\n1. **Required Front Clearance**:  \n   For 120V systems (Condition 1), **CEC Table 110.26(A)(1)** mandates **36 inches (3 ft)** of clear working space in front of the panel.  \n   - Your setup has only **24 inches**, which is **12 inches short** of the requirement.  \n   - **No applicable exception** reduces this requirement for residential panels in closets.  \n\n2. **Side Clearance (Water Heater)**:  \n   The 18-inch side clearance to the water heater is **not directly regulated** by CEC 110.26 for working space. However:  \n   - **CEC 110.26(A)(1)(a)** allows reduced rear/side clearance for \"dead-front\" assemblies (e.g., panels with all connections accessible from the front).  \n   - If the water heater obstructs access to the panel’s sides, it could violate **CEC 110.26(A)(2)** (width of working space = equipment width or 30 inches, whichever is greater).  \n\n---\n\n### CEC Exceptions Checked:\n- **Exception 110.26(A)(1)(a)**: Applies to rear/side clearance for dead-front panels (not relevant here).  \n- **Exception 110.26(A)(1)(b)**: Permits smaller spaces for low-voltage equipment (≤30V). **Not applicable** (120V system).  \n- **Exception 110.26(A)(1)(c)**: Allows reduced clearance in existing buildings for equipment ≤200A. **Applies to height**, not depth.  \n\n---\n\n## NEC vs CEC Comparison  \n- **No difference** in working space requirements between CEC 2022 and NEC 2023 for this scenario.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Working Space Requirements (CEC 2022)\n\nThe installation **does not meet CEC requirements** due to insufficient front working space in front of the panel.\n\n### Key Findings:\n1. **Required Front Clearance**:  \n   For 120V systems (Condition 1), **CEC Table 110.26(A)(1)** mandates **36 inches (3 ft)** of clear working space in front of the panel.  \n   - Your setup has only **24 inches**, which is **12 inches short** of the requirement.  \n   - **No applicable exception** reduces this requirement ",
+        "## Working Space Clearance Requirements (CEC 2022)\n\nThe installation **does not meet CEC requirements** for the following reasons:\n\n1. **Front Clearance Deficiency**  \n   - **Required**: 42 in. (3 ft 6 in.) per CEC Table 110.26(A)(1) for 240V systems (Condition 2).  \n   - **Provided**: Only 24 in. of clearance.  \n   - **Violation**: Front clearance is **18 in. short** of the minimum requirement.  \n\n2. **Side Clearance Concern**  \n   - The water heater located 18 in. from the panel side may viola",
+        "## Working Space Requirements (CEC 2022)\n\nThe installation **does not meet CEC requirements** due to insufficient working space in front of the panel.\n\n### Key Findings:\n1. **Required Depth**: 36 inches (3 ft) per CEC Table 110.26(A)(1) for 240V equipment (Condition 1).\n2. **Actual Depth**: Only 24 inches provided.\n3. **Exceptions Checked**: \n   - **Section 110.26(E)** allows dedicated electrical space but does not reduce required working clearance.\n   - **Section 410.16** relates to lighting fi"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "110.26",
+        "410.16"
+      ],
+      "avg_duration_seconds": 18.7,
+      "cec_primary": true
+    },
+    {
+      "id": "core-006",
+      "tier": "core",
+      "category": "edge_cases",
+      "ca_specific": false,
+      "question": "During an inspection, I found two 12 AWG conductors landed on a single 20A breaker terminal. The breaker is not marked for two conductors. Is this a code violation?",
+      "expected_answer": "Yes, this is a code violation per 110.14(A). Terminals shall accommodate only one conductor unless identified for more than one conductor. Per 110.3(B), equipment must be installed according to manufacturer instructions. If the breaker is not listed for two conductors, this is a violation.",
+      "cec_reference": "",
+      "nec_reference": "110.14(A), 110.3(B)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Multiple Conductors on a Single Breaker Terminal (CEC 2022)  \n\n**Yes**, this is a **code violation** under **CEC 2022 Section 408.41**. Here's the detailed analysis:  \n\n---\n\n### **1. Base Rule (CEC 408.41)**  \n> **Each grounded conductor shall terminate within the panelboard in an individual terminal that is not also used for another conductor.**  \n\n- **Violation**: Two 12 AWG conductors are landed on a single terminal not marked for multiple conductors.  \n- **Key Requirement**: Terminals must be **explicitly identified** (e.g., labeled \"2 Wires OK\") to accept multiple conductors.  \n\n---\n\n### **2. Exceptions Checked**  \n#### **Exception in CEC 408.41**:  \n> *Grounded conductors of circuits with parallel conductors may terminate in a single terminal if the terminal is identified for multiple conductors.*  \n\n- **Does NOT apply here**: The breaker terminal is **not marked** for two conductors.  \n\n#### **Other Exceptions (Irrelevant to This Scenario)**:  \n- **CEC 404.2** (switch wiring): Not applicable to panelboard termination rules.  \n- **CEC 408.36/408.40**: Overcurrent and grounding requirements, unrelated to conductor termination.  \n- **CEC 402.12**: Prohibits fixture wires as branch-circuit conductors; not relevant here.  \n\n---\n\n### **3. Safety Implications**  \n- **Poor Connection**: Unmarked terminals may not securely hold multiple conductors, risking arcing or overheating.  \n- **Overload Risk**: The terminal may not safely carry the combined current of both conductors.  \n- **Code Compliance**: Failure to follow 408.41 could void insurance or lead to inspection failure.  \n\n---\n\n### **4. NEC 2023 Reference**  \nNo difference from NEC 2023 (NEC 408.41 applies identically).  \n\n---\n\n### **Corrective Action**  \n- **Separate Terminals**: Use individual terminals for each conductor.  \n- **Approved Breaker**: Replace with a breaker explicitly listed for dual conductor terminations (e.g., \"2-Wire\" marked terminals).  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Multiple Conductors on a Single Terminal (CEC 2022)\n\n**Final Determination**:  \nThis is a **code violation** under CEC 2022. The exception in **408.41** for parallel conductors **does not apply** because:\n1. The terminal is **not marked** for multiple conductors (required by 408.41 exception)\n2. There is **no indication** these are parallel conductors (exception only applies to parallel circuits)\n\n**Key Code Requirements**:\n- **CEC 408.41**: *\"Each grounded conductor shall terminate in an ind",
+        "## Multiple Conductors on a Single Breaker Terminal (CEC 2022)  \n\n**Yes**, this is a **code violation** under **CEC 2022 Section 408.41**. Here's the detailed analysis:  \n\n---\n\n### **1. Base Rule (CEC 408.41)**  \n> **Each grounded conductor shall terminate within the panelboard in an individual terminal that is not also used for another conductor.**  \n\n- **Violation**: Two 12 AWG conductors are landed on a single terminal not marked for multiple conductors.  \n- **Key Requirement**: Terminals mus",
+        "## Code Violation Check (CEC 2022)  \n\nThe installation of **two 12 AWG conductors on a single 20A breaker terminal** **is a code violation** under CEC 2022. Here's the analysis:  \n\n---\n\n### **1. Primary Rule**  \n**CEC 2022 Section 110.14(A)** explicitly requires:  \n> *\"Terminals for more than one conductor and terminals used to connect aluminum shall be so identified.\"*  \n\n---\n\n### **2. Exception Analysis**  \n- **Section 408.41 (Grounded Conductor Terminations):**  \n  Allows multiple grounded co"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "200.4",
+        "110.14",
+        "404.2",
+        "408.41",
+        "408.36",
+        "402.12",
+        "408.40"
+      ],
+      "avg_duration_seconds": 9.6,
+      "cec_primary": true
+    },
+    {
+      "id": "core-007",
+      "tier": "core",
+      "category": "grounding_bonding",
+      "ca_specific": false,
+      "question": "A detached garage is fed from the house panel with a 4-wire feeder. How should the grounding and bonding be configured in the garage subpanel?",
+      "expected_answer": "Grounds and neutrals must be SEPARATED in the subpanel. The 4-wire feeder includes 2 hot, 1 neutral, and 1 equipment grounding conductor. NO main bonding jumper in subpanel (only at service). Neutral bar must be isolated (not bonded to enclosure). Equipment grounding conductor must be bonded to enclosure. A grounding electrode may be required per 250.32 for detached buildings.",
+      "cec_reference": "",
+      "nec_reference": "250.32, 250.24(A)(5), 408.40",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Grounding and Bonding for Detached Garage Subpanel (CEC 2022)  \n**With Exceptions Considered**\n\n### Configuration Requirements:\n1. **Separate Neutral and Ground Bars**  \n   - **No bonding** between neutral and ground in the subpanel. This prevents parallel neutral paths and ensures proper fault current return.  \n   - *Citation: CEC 250.24(B); Exception: 250.142(B) prohibits load-side bonding.*\n\n2. **Equipment Grounding Conductor (EGC)**  \n   - The 4-wire feeder includes an **EGC** sized per Table 250.122 (e.g., 8 AWG copper for a 60A feeder). This connects the subpanel’s ground bar to the main panel’s grounding system.  \n   - *Citation: CEC 250.122; Exception: 250.54 permits auxiliary grounding electrodes but does not override primary EGC requirements.*\n\n3. **Grounding Electrode Conductor (GEC)**  \n   - A **local grounding electrode** (e.g., ground rod) at the garage must be connected to the subpanel’s ground bar via a GEC sized per Table 250.66 (e.g., 6 AWG copper for a 60A feeder).  \n   - *Citation: CEC 250.58 (common grounding electrode); Exception: 250.30(C) mandates a grounding electrode connection if the source is outdoors (applicable to detached structures).*\n\n4. **No Neutral-to-Ground Bond in Subpanel**  \n   - The neutral bus must **not** be bonded to the ground bar in the subpanel. This bond exists **only** at the main service panel.  \n   - *Citation: CEC 250.24(E); Exception: 250.142(B) prohibits using the grounded conductor for grounding on the load side of the subpanel.*\n\n5. **Bonding of Metal Enclosures**  \n   - All metal parts (e.g., panel enclosure, raceways) must be bonded to the ground bar using listed fittings (remove nonconductive coatings at contact points).  \n   - *Citation: CEC 250.96(A); No exceptions override this requirement.*\n\n---\n\n### Key Exceptions Applied:\n- **250.30(C)**: Confirms the need for a local grounding electrode at the detached garage.  \n- **250.142(B)**: Prohibits using the neutral conductor for grounding in the subpanel, reinforcing the separation of neutral and ground.  \n- **250.54**: Permits additional grounding electrodes (e.g., second ground rod) but does not replace the primary GEC requirement.  \n\n---\n\n### NEC 2023 Reference  \nNo difference from NEC 2023. California follows NEC requirements for subpanel grounding/bonding in detached structures.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Grounding and Bonding for Detached Garage Subpanel (CEC 2022)  \n**Final Configuration with Exceptions Considered**  \n\n### Key Requirements:  \n1. **Grounding Electrode at Garage**  \n   - Install a **separate grounding electrode** (e.g., ground rod) at the detached garage.  \n   - Connect it to the subpanel via a **grounding electrode conductor (GEC)** sized per **Table 250.66** based on the largest ungrounded conductor in the feeder.  \n\n2. **Isolated Neutral and Ground Bars**  \n   - **Neutral b",
+        "## Grounding and Bonding for Detached Garage Subpanel (CEC 2022)  \n**With Exceptions Considered**\n\n### Configuration Requirements:\n1. **Separate Neutral and Ground Bars**  \n   - **No bonding** between neutral and ground in the subpanel. This prevents parallel neutral paths and ensures proper fault current return.  \n   - *Citation: CEC 250.24(B); Exception: 250.142(B) prohibits load-side bonding.*\n\n2. **Equipment Grounding Conductor (EGC)**  \n   - The 4-wire feeder includes an **EGC** sized per T",
+        "## Grounding and Bonding for Detached Garage Subpanel (CEC 2022)  \n\n### Configuration Requirements:  \n1. **Grounding Electrode System**  \n   - A **local grounding electrode** (e.g., ground rod) **must be installed at the detached garage** per **CEC 250.50**.  \n   - The grounding electrode conductor (GEC) connects this electrode to the subpanel’s grounding bus.  \n\n2. **Equipment Grounding Conductor (EGC)**  \n   - The 4-wire feeder **must include an EGC** sized per **Table 250.122** (e.g., 6 AWG c"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.32",
+        "250.54",
+        "250.30",
+        "250.96",
+        "250.50",
+        "230.40",
+        "250.122",
+        "250.66",
+        "250.24",
+        "250.58",
+        "250.142",
+        "250.86"
+      ],
+      "avg_duration_seconds": 11.5,
+      "cec_primary": true
+    },
+    {
+      "id": "core-008",
+      "tier": "core",
+      "category": "grounding_bonding",
+      "ca_specific": false,
+      "question": "What is the difference between a main bonding jumper and a system bonding jumper? When is each required?",
+      "expected_answer": "Main Bonding Jumper (MBJ): Located at SERVICE EQUIPMENT, connects grounded conductor (neutral) to equipment grounding conductor. Required at service disconnect per 250.28. System Bonding Jumper (SBJ): Located at SEPARATELY DERIVED SYSTEMS (transformers, generators), same function as MBJ but for SDS. Required per 250.30. Neither is used in subpanels.",
+      "cec_reference": "",
+      "nec_reference": "Article 100, 250.28, 250.30",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Difference Between Main Bonding Jumper and System Bonding Jumper (CEC 2022)  \n**With Exceptions and Special Cases**  \n\n---\n\n### **Definitions and Key Differences**  \n| Feature | **Main Bonding Jumper** | **System Bonding Jumper** |  \n|---------|--------------------------|----------------------------|  \n| **Location** | **Service equipment** (per CEC 250.28) | **Separately derived systems** (e.g., transformers, generators) (per CEC 250.30) |  \n| **Function** | Connects **grounded conductor (neutral)** to **equipment grounding conductor** at the service | Connects **grounded conductor** to **supply-side bonding jumper** or **equipment grounding conductor** at a derived system |  \n| **Sizing** | Per **Table 250.102(C)(1)** based on largest ungrounded service conductor | Per **Table 250.102(C)(1)** based on largest ungrounded conductor in the derived system |  \n\n---\n\n### **When Each is Required**  \n1. **Main Bonding Jumper**  \n   - **Required at every service** (CEC 250.28(B)).  \n   - **Exceptions**:  \n     - **Multiple enclosures**: If a service uses multiple enclosures (per 230.71(B)), each enclosure’s main bonding jumper must be sized for the **largest ungrounded service conductor** serving that enclosure (CEC 250.28(D)(2)).  \n     - **Impedance-grounded systems**: Connections must follow CEC 250.36 or 250.187.  \n\n2. **System Bonding Jumper**  \n   - **Required at every separately derived system** (CEC 250.30(A)(1)).  \n   - **Exceptions**:  \n     - **Low-voltage systems**: For systems supplying Class 1, 2, or 3 circuits from a transformer ≤ 1000 VA, the system bonding jumper need not be larger than the derived ungrounded conductors (CEC 250.30(A)(1), Exception No. 3).  \n     - **Common grounding electrode conductor**: If multiple derived systems share a grounding electrode conductor (per 250.30(A)(6)), a single system bonding jumper at the source may suffice (CEC 250.30(A)(6), Exception).  \n\n---\n\n### **Special Installation Scenarios**  \n1. **Dual-Fed Services**  \n   - A single grounding electrode conductor can connect to the **tie point** of grounded conductors from multiple power sources (CEC 250.24(A)(3)).  \n\n2. **Pre-Fabricated Service Equipment**  \n   - If a service uses an assembly listed for service equipment (e.g., a transformer in a listed enclosure), the grounding electrode conductor from the service can also serve the derived system (CEC 250.30(A)(4), Exception No. 2).  \n\n3. **Metal Water Piping and Structural Metal**  \n   - Bonding jumpers to metal water piping or structural steel are **not required** if these components are already used as the grounding electrode (CEC 250.104(A)(1), Exceptions 1 and 2).  \n\n---\n\n### **Sizing Exceptions**  \n- **Minimum size**: Both jumpers must be **copper, aluminum, or corrosion-resistant material** (CEC 250.28(A)).  \n- **Maximum size**: Neither jumper needs to be larger than **3/0 AWG copper** or **250 kcmil aluminum** unless required by Table 250.102(C)(1) (CEC 250.104(A)(1)).  \n\n---\n\n## NEC 2023 Reference  \nNo difference from NEC 2023. Both codes define and require main bonding jumpers at services and system bonding jumpers at separately derived systems under the same provisions (NEC 250.28).  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Main Bonding Jumper vs System Bonding Jumper (CEC 2022 with Exceptions)\n\n### **Main Bonding Jumper**\n- **Definition**: Connects grounded conductor (neutral) to equipment grounding conductor **at the service** (CEC 2022 Section 100, 250.24(B)).\n- **Requirements**:\n  - Must be **unspliced** (250.24(B)).\n  - Sizing per **Table 250.102(C)(1)** (250.28(D)(1)).\n  - Exceptions:\n    - For services with **multiple enclosures**, size per largest service conductor (250.28(D)(2)).\n    - If using a **scre",
+        "## Main Bonding Jumper vs System Bonding Jumper (CEC 2022)  \n\n### **Main Bonding Jumper**  \n- **Definition**: Connects the grounded conductor (neutral) to the equipment grounding conductor (EGC) **at the service** (CEC 2022 Section 100).  \n- **Required**: At the **main service disconnect** per **CEC 250.24(B)**.  \n- **Key Requirements**:  \n  - Must be **unspliced** (CEC 250.24(B)).  \n  - Sizing: Minimum size per **Table 250.102(C)(1)** based on the largest service conductor (CEC 250.28(D)).  \n  ",
+        "## Difference Between Main Bonding Jumper and System Bonding Jumper (CEC 2022)  \n**With Exceptions and Special Cases**  \n\n---\n\n### **Definitions and Key Differences**  \n| Feature | **Main Bonding Jumper** | **System Bonding Jumper** |  \n|---------|--------------------------|----------------------------|  \n| **Location** | **Service equipment** (per CEC 250.28) | **Separately derived systems** (e.g., transformers, generators) (per CEC 250.30) |  \n| **Function** | Connects **grounded conductor (ne"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.30",
+        "230.71",
+        "250.36",
+        "250.24",
+        "250.102",
+        "250.104",
+        "250.187",
+        "250.28"
+      ],
+      "avg_duration_seconds": 12.2,
+      "cec_primary": true
+    },
+    {
+      "id": "core-009",
+      "tier": "core",
+      "category": "load_calculations",
+      "ca_specific": false,
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen, and can these circuits also serve the dining room receptacles?",
+      "expected_answer": "Minimum of TWO 20-ampere circuits required per 210.11(C)(1). Yes, these circuits can and should serve dining room, pantry, and breakfast room receptacles. They cannot serve lighting outlets or receptacles outside these areas.",
+      "cec_reference": "",
+      "nec_reference": "210.11(C)(1), 210.52(B)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Small Appliance Branch Circuits for Kitchen and Dining Room (CEC 2022)\n\n### **Minimum Required Circuits**\n- **Kitchen**: **At least two 20-ampere small-appliance branch circuits** are required (CEC 210.11(C)(1)).  \n  These circuits serve all kitchen receptacles (countertops, walls, and floor outlets) and refrigeration equipment.\n\n---\n\n### **Can These Circuits Serve Dining Room Receptacles?**\n- **Yes**, per **CEC 210.52(B)(3)**:  \n  The small-appliance branch circuits for the kitchen **may also supply receptacles in the dining room** (and other rooms like the pantry or breakfast room).  \n  - **Key restriction**: No small-appliance branch circuit shall serve more than **one kitchen**.  \n  - Dining room receptacles are explicitly included in the scope of 210.52(B)(1), which permits shared circuits.\n\n---\n\n### **Exceptions and Cross-References**\n- **Exception 1 (210.52(B)(1))**: Allows additional circuits for specific appliances (e.g., refrigeration) or individual branch circuits.  \n- **Exception 2 (210.52(B)(3))**: Confirms that circuits can serve multiple rooms (e.g., kitchen + dining room) but limits kitchen service to one per circuit.  \n- **Cross-reference to 210.11(C)(1)**: Reinforces the minimum two-circuit requirement for kitchens.\n\n---\n\n### **NEC 2023 Reference**\nNo difference from NEC 2023. NEC 210.52(B)(3) allows small-appliance branch circuits to serve dining room receptacles under the same conditions.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Small Appliance Branch Circuit Requirements (CEC 2022)\n\n1. **Minimum Required Circuits**:  \n   **Two or more 20-ampere small-appliance branch circuits** are required for all receptacle outlets in kitchens, pantries, breakfast rooms, and dining rooms (CEC 210.11(C)(1) and 210.52(B)(1)).\n\n2. **Dining Room Receptacle Service**:  \n   **Yes**, these circuits can also serve dining room receptacles. Per CEC 210.52(B)(1), either or both small-appliance branch circuits may supply receptacle outlets in",
+        "## Small Appliance Branch Circuit Requirements (CEC 2022)  \n\n1. **Minimum Required Circuits**:  \n   **Two or more 20-ampere small-appliance branch circuits** are required for the kitchen, as specified in **CEC 210.52(B)(1)**. These circuits must serve all wall, floor, and countertop receptacles in the kitchen.  \n\n2. **Dining Room Receptacle Service**:  \n   **Yes**, these circuits **can also serve dining room receptacles**. Section 210.52(B)(3) explicitly permits the circuits to supply receptacle",
+        "## Small Appliance Branch Circuits for Kitchen and Dining Room (CEC 2022)\n\n### **Minimum Required Circuits**\n- **Kitchen**: **At least two 20-ampere small-appliance branch circuits** are required (CEC 210.11(C)(1)).  \n  These circuits serve all kitchen receptacles (countertops, walls, and floor outlets) and refrigeration equipment.\n\n---\n\n### **Can These Circuits Serve Dining Room Receptacles?**\n- **Yes**, per **CEC 210.52(B)(3)**:  \n  The small-appliance branch circuits for the kitchen **may als"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "210.52",
+        "210.11"
+      ],
+      "avg_duration_seconds": 11.8,
+      "cec_primary": true
+    },
+    {
+      "id": "core-010",
+      "tier": "core",
+      "category": "load_calculations",
+      "ca_specific": false,
+      "question": "A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50°C ambient temperature location. What is the adjusted ampacity?",
+      "expected_answer": "Base ampacity: 30A at 90°C (Table 310.16). Temperature correction factor: 0.82 for 50°C (Table 310.15(B)(1)). Bundling adjustment: 0.80 for 6 conductors (Table 310.15(C)(1)). Adjusted ampacity = 30A × 0.82 × 0.80 = 19.68A, approximately 20A.",
+      "cec_reference": "",
+      "nec_reference": "Table 310.16, Table 310.15(B)(1), Table 310.15(C)(1)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Final Adjusted Ampacity with Exceptions Considered\n\nAfter reviewing CEC 2022 exceptions for 310.16 and related sections:\n\n1. **No applicable exceptions** override the standard derating factors for this scenario (THHN conductors in a single conduit with 6 current-carrying conductors at 50°C ambient).\n2. **Key exception notes**:\n   - Exception to 310.15(C)(1) allows parallel conductors <1/0 AWG for control circuits, but this does not apply to general power conductors.\n   - Temperature correction factors remain valid per Table 310.15(B)(1).\n   - Termination temperature limitations (110.14(C)) require that the final adjusted ampacity (9.4A) does not exceed the 75°C rating of THHN conductors or their terminations.\n\n**Final Calculation Confirmed**:  \n$$\n25A \\times 0.75 \\times 0.50 = 9.4A\n$$\n\n**Answer**: **9.4 amperes** after applying temperature and bundling adjustments, with no applicable exceptions modifying this result.\n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023 (same derating factors and exceptions apply).\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Final Adjusted Ampacity (CEC 2022)\n\nAfter verifying exceptions and cross-references per CEC 310.15:\n\n**13.1 amperes** (calculated as 25A × 0.75 × 0.70) is valid under these conditions:\n- No exceptions apply to 6 conductors in 50°C ambient\n- Temperature correction (0.75) and bundling adjustment (0.70) factors are correctly applied\n- Resulting ampacity (13.1A) does not exceed termination limitations (25A at 75°C)\n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023 (same tables and factors ",
+        "## Final Adjusted Ampacity with Exceptions Considered\n\nAfter reviewing CEC 2022 exceptions for 310.16 and related sections:\n\n1. **No applicable exceptions** override the standard derating factors for this scenario (THHN conductors in a single conduit with 6 current-carrying conductors at 50°C ambient).\n2. **Key exception notes**:\n   - Exception to 310.15(C)(1) allows parallel conductors <1/0 AWG for control circuits, but this does not apply to general power conductors.\n   - Temperature correctio",
+        "## Final Answer with Exception Review\n\nAfter verifying exceptions for CEC 310.16:\n- **Exception 610.13** applies to specialized industrial conductors (not relevant here)\n- **Exception 110.40** permits 90°C-rated conductors for termination, but:\n  - This requires using **Table 311.60(C)** (medium voltage tables)\n  - Our case uses **THHN** (standard 75°C-rated conductor)\n  - No applicable exception for this configuration\n\n**Final Calculation Confirmed**:\n$$\n25A \\times 0.75 \\times 0.70 = 13.1A\n$$\n\n"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_conductor_ampacity",
+        "cec_lookup_ampacity_adjustment"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "110.14",
+        "310.16",
+        "610.13",
+        "310.15",
+        "110.40",
+        "311.60"
+      ],
+      "avg_duration_seconds": 14.6,
+      "cec_primary": true
+    },
+    {
+      "id": "core-011",
+      "tier": "core",
+      "category": "why_questions",
+      "ca_specific": false,
+      "question": "Why does the NEC require AFCI protection for bedrooms and living areas? What electrical hazard does it prevent?",
+      "expected_answer": "AFCI protection prevents electrical fires caused by arc faults. It detects arcing conditions that standard breakers cannot, including series arcing (broken/damaged wires), parallel arcing (line-to-line or line-to-ground), loose connections, damaged insulation, and deteriorated wire. Required per 210.12 for dwelling unit 120V, 15A and 20A branch circuits.",
+      "cec_reference": "",
+      "nec_reference": "210.12",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## California Electrical Code (CEC) 2022 AFCI Requirements for Bedrooms and Living Areas\n\n### Why AFCI Protection is Required\nThe **California Electrical Code (CEC) 2022** mandates **arc-fault circuit interrupter (AFCI) protection** for **15- and 20-ampere, 120-volt branch circuits** in dwelling units supplying outlets in:\n- **Bedrooms**\n- **Living rooms**\n- **Family rooms**\n- **Dens**\n- **Closets**\n- **Hallways**\n- **Similar areas** (Section 210.12(A)).\n\nThis requirement aligns with **NEC 210.12** but includes California-specific exceptions and clarifications.\n\n---\n\n### Electrical Hazard Prevented\nAFCI protection is designed to mitigate **fire hazards caused by arc faults**, particularly **series arcs** (e.g., from damaged cords, loose connections, or deteriorated wiring). These arcs can reach temperatures exceeding **10,000°F**, posing a significant risk in areas with combustible materials like bedding, furniture, and curtains.\n\n---\n\n### Key CEC Provisions and Exceptions\n1. **Primary Rule**:  \n   - **CEC 210.12(A)**: Requires AFCI protection for all 15- and 20-ampere circuits in the listed areas.  \n   - **Permitted Methods**:  \n     - Combination-type AFCI at the circuit breaker.  \n     - Outlet branch-circuit-type AFCI at the first receptacle.  \n     - Hybrid systems combining both.\n\n2. **Exceptions**:  \n   - **Fire alarm systems** installed per **760.41(B) or 760.121(B)** are exempt if wired in metal raceway or Type MC/AC cable.  \n   - **Arc welding equipment circuits** are exempt until **January 1, 2025**.  \n   - **Short extensions** (≤6 ft) without additional outlets are exempt from AFCI upgrades during modifications.\n\n3. **California-Specific Notes**:  \n   - CEC 210.12(A)(3) allows supplemental arc protection for circuits with **≤50 ft (14 AWG)** or **70 ft (12 AWG)** branch-circuit wiring.  \n   - **Title 24 Part 6** (CALGreen) reinforces electrification requirements but does not override AFCI mandates.\n\n---\n\n### NEC vs. CEC Comparison\n- **No substantive difference** in AFCI requirements between NEC 2023 and CEC 2022 for bedrooms/living areas.  \n- California retains the **same hazard prevention focus** (arc faults → fires) but codifies exceptions in **Section 210.12** with additional clarity on installation methods.\n\n---\n\n### Summary\nAFCI protection in bedrooms and living areas is **required by both NEC and CEC** to prevent fires from arc faults. California’s code mirrors NEC 210.12 but explicitly includes exceptions for fire alarm systems and temporary modifications, ensuring compliance with Title 24 and CALGreen mandates.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Why CEC Requires AFCI Protection in Bedrooms and Living Areas (CEC 2022)\n\n### **Requirement**\nThe **California Electrical Code (CEC)** mandates **arc-fault circuit interrupter (AFCI) protection** for all 120-volt, single-phase, 15- and 20-ampere branch circuits supplying outlets in:\n- **Bedrooms** (Section 210.12(C)(1))\n- **Living rooms** (Section 210.12(C)(2))\n- Hallways, closets, and similar areas in dwelling units (Section 210.12(B)(2)-(6))\n\nThis aligns with **NEC 2023 Section 210.12** and",
+        "## California Electrical Code (CEC) 2022 AFCI Requirements for Bedrooms and Living Areas\n\n### Why AFCI Protection is Required\nThe **California Electrical Code (CEC) 2022** mandates **arc-fault circuit interrupter (AFCI) protection** for **15- and 20-ampere, 120-volt branch circuits** in dwelling units supplying outlets in:\n- **Bedrooms**\n- **Living rooms**\n- **Family rooms**\n- **Dens**\n- **Closets**\n- **Hallways**\n- **Similar areas** (Section 210.12(A)).\n\nThis requirement aligns with **NEC 210.1",
+        "## Why NEC Requires AFCI Protection in Bedrooms and Living Areas (CEC 2022 with Exceptions)\n\n### **Primary Requirement**\n**NEC/CEC 210.12** mandates **AFCI protection** for all 15- and 20-ampere, 120-volt branch circuits in:\n- **Dwelling units**: Bedrooms, living rooms, hallways, closets, and similar areas (Section 210.12(B)(1)-(8))\n- **Dormitory units** and **guest rooms** (Sections 210.12(C) and 210.12(D))\n\n### **Hazard Prevented**\nAFCI protection prevents **electrical fires caused by arc faul"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [
+        "nec_search"
+      ],
+      "citations": [
+        "760.41",
+        "210.70",
+        "210.52",
+        "760.121",
+        "210.12",
+        "210.11"
+      ],
+      "avg_duration_seconds": 19.7,
+      "cec_primary": true
+    },
+    {
+      "id": "core-012",
+      "tier": "core",
+      "category": "why_questions",
+      "ca_specific": false,
+      "question": "Why are torque specifications important when terminating conductors in a panel, and where are the requirements found?",
+      "expected_answer": "Torque specifications prevent: (1) loose connections causing high resistance and heat generation (fire hazard), (2) poor contact leading to arcing, (3) overtightening causing crushed conductors or damaged terminals. Requirements found in 110.14(D) - must follow manufacturer specifications or Table 110.14(D). Also per 110.3(B) - follow manufacturer instructions.",
+      "cec_reference": "",
+      "nec_reference": "110.14(D), 110.3(B)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Torque Specifications for Conductor Terminations (CEC 2022)  \n\nTorque specifications ensure **secure, low-resistance connections** to prevent overheating, arcing, and mechanical failure. The primary rule and exceptions are detailed below:  \n\n---\n\n### **Primary Rule: CEC 2022 Section 110.14(D)**  \n- **Requirement**: Terminal connection torque must match values indicated on equipment or in manufacturer instructions.  \n- **Approved Methods**: Torque tools, shear bolts, or breakaway devices with visual indicators.  \n- **Key Exceptions/Notes**:  \n  1. **Manufacturer Contact**: If torque values are unspecified, contact the equipment manufacturer (Informational Note No. 2).  \n  2. **UL 486A-486B**: Refer to Annex I of UL 486A-486B for torque values when manufacturer data is unavailable.  \n  3. **NFPA 70B**: Section 8.11 provides guidance on torquing threaded connections.  \n\n---\n\n### **Additional Rule: CEC 2022 Section 430.9(C)**  \n- **Control Circuit Devices**: Screw-type terminals for **14 AWG or smaller copper conductors** must be torqued to a **minimum of 0.8 N·m (7 lb-in.)**, unless the device specifies a different value.  \n\n---\n\n### **Exceptions and Special Cases**  \n1. **Dissimilar Metals (Section 110.14)**:  \n   - Terminals and connectors must be identified for use with specific conductor materials (e.g., copper vs. aluminum).  \n   - Solder, flux, and compounds must be compatible with the conductor material.  \n\n2. **Temperature Coordination (Section 110.14(C))**:  \n   - Conductor ampacity must not exceed the lowest temperature rating of connected terminations.  \n\n---\n\n### **NEC 2023 Reference**  \n- **No differences** from NEC 2023. Both codes emphasize torque compliance per manufacturer specifications and approved methods.  \n\n---\n\n✓ **Sources**: CEC 2022 Sections 110.14(D), 430.9(C); NEC 2023 (no differences).",
+      "all_answers": [
+        "## Torque Specifications for Conductor Terminations (CEC 2022)  \n\nTorque specifications ensure **safe, reliable electrical connections** by preventing loose terminations that could cause arcing, overheating, or equipment failure. The requirements are codified in **CEC 110.14(D)**, with no direct exceptions for torque specifications.  \n\n---\n\n### Key Requirements from **CEC 110.14(D)**  \n1. **Torque Compliance**  \n   - Torque values must match **equipment markings** or **manufacturer installation ",
+        "## Torque Specifications for Conductor Terminations (CEC 2022)  \n\nTorque specifications are critical for ensuring **secure, low-resistance electrical connections** that prevent overheating, arcing, or conductor damage. Proper torque guarantees:  \n- **Electrical continuity** by maintaining tight contact between conductor and terminal  \n- **Mechanical stability** to withstand thermal expansion/contraction  \n- **Compliance with safety standards** to prevent fire hazards  \n\n---\n\n### **Key Requiremen",
+        "## Torque Specifications for Conductor Terminations (CEC 2022)  \n\nTorque specifications ensure **secure, low-resistance connections** to prevent overheating, arcing, and mechanical failure. The primary rule and exceptions are detailed below:  \n\n---\n\n### **Primary Rule: CEC 2022 Section 110.14(D)**  \n- **Requirement**: Terminal connection torque must match values indicated on equipment or in manufacturer instructions.  \n- **Approved Methods**: Torque tools, shear bolts, or breakaway devices with "
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "430.9",
+        "110.14"
+      ],
+      "avg_duration_seconds": 11.4,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-001",
+      "tier": "inspection",
+      "category": "panel_load_calculation",
+      "ca_specific": false,
+      "question": "Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A breaker, (2) 5.5kW dryer on 30A breaker, (3) two 20A small appliance circuits, (4) one 20A laundry circuit, (5) 3000 sq ft living space with general lighting, (6) 4-ton central AC (19.2A at 240V, approximately 4600W). Calculate the service load per NEC Article 220 and determine if the 200A panel is adequately sized. Show your work.",
+      "expected_answer": "General lighting: 3000 sq ft × 3 VA = 9000 VA. Small appliance: 2 circuits × 1500 VA = 3000 VA. Laundry: 1500 VA. Subtotal: 13,500 VA. Apply demand factor per Table 220.42: first 3000 VA at 100% = 3000 VA, remaining 10,500 VA at 35% = 3675 VA. Subtotal with demand: 6675 VA. Range: 8000 VA (per Table 220.55 for one range). Dryer: 5500 VA at 100%. AC: 4600 VA at 100% (largest motor). Total: 6675 + 8000 + 5500 + 4600 = 24,775 VA. Current: 24,775 VA ÷ 240V = 103.2A. Conclusion: 200A service is adequately sized with 48% safety margin.",
+      "cec_reference": "",
+      "nec_reference": "220.40, 220.42, Table 220.42, Table 220.55",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Service Load Calculation (CEC 2022) with Exceptions Verified\n\n### Step 1: General Lighting Load  \n- **3,000 sq ft × 3 VA/sq ft** = **9,000 VA**  \n  *(CEC Table 220.12 for dwelling units)*  \n  **Exception Check**: No applicable exceptions for standard residential calculations (Exception 220.12(B) applies only if energy code monitoring systems are installed, which is not mentioned here).\n\n---\n\n### Step 2: Small Appliance Circuits  \n- **2 circuits × 1,500 VA** = **3,000 VA**  \n  *(CEC 220.52(A): 1,500 VA per small appliance circuit)*  \n  **Exception Check**: Exception 220.52(A) allows exclusion of specific branch circuits, but the user's setup includes standard 2-wire small appliance circuits.\n\n---\n\n### Step 3: Laundry Circuit  \n- **1 circuit × 1,500 VA** = **1,500 VA**  \n  *(CEC 220.52(B): 1,500 VA for laundry circuit)*  \n  **Exception Check**: No exceptions apply to standard laundry circuit calculations.\n\n---\n\n### Step 4: Range Load  \n- **12,000 VA × 80% demand factor** = **9,600 VA**  \n  *(CEC Table 220.55, single range demand factor)*  \n  **Exception Check**: No exceptions override Table 220.55 for single ranges.\n\n---\n\n### Step 5: Dryer Load  \n- **5,500 VA**  \n  *(CEC 220.54: Dryer load at 100% of nameplate rating)*  \n  **Exception Check**: No exceptions apply to nameplate-rated dryer loads.\n\n---\n\n### Step 6: Air Conditioning Load  \n- **4600 VA × 125%** = **5,750 VA**  \n  *(CEC 220.50: Largest motor load at 125%)*  \n  **Exception Check**: No exceptions override motor load calculations.\n\n---\n\n### Total Service Load Calculation  \n```\nGeneral Lighting:       9,000 VA  \nSmall Appliance:        3,000 VA  \nLaundry:                1,500 VA  \nRange:                 9,600 VA  \nDryer:                 5,500 VA  \nAir Conditioning:      5,750 VA  \n-------------------------------  \nTotal:                 34,350 VA  \n```\n\n### Convert to Amperes  \n```\n34,350 VA ÷ 240 V = **143.13 A**  \n```\n\n---\n\n### Final Determination  \n- **200A main breaker** is **adequately sized** (143.13A ≤ 200A)  \n- **No applicable California exceptions** affect this calculation  \n- **NEC 2023** uses same methodology (Table 220.55 demand factors)  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)  \n\n---  \n## NEC 2023 Reference  \nNo difference from NEC 2023. Demand factors and load calculations remain consistent.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Service Load Calculation with Exceptions Considered (CEC 2022)\n\n### Re-evaluation of General Lighting Load\n- **Original calculation**: 3000 VA @ 100% + 6000 VA @ 35% = 5100 VA  \n  *(CEC Table 220.12 for residential)*\n\n- **Exception 220.12(B)**: Energy code compliance allows alternative lighting load calculations if monitoring systems are installed.  \n  → **Not applicable** in this case (no mention of energy code compliance or monitoring systems).\n\n### Demand Factors\n- **Table 220.42 demand fa",
+        "## Service Load Calculation (CEC 2022) with Exceptions Applied\n\n### 1. **General Lighting Load** (3000 sq ft × 3 VA/sq ft)  \n= **9000 VA**  \nDemand factor (NEC 220.12):  \n- First 3000 VA @ 100% = 3000 VA  \n- Remaining 6000 VA @ 35% = 2100 VA  \n**Total General Lighting Load** = 3000 + 2100 = **5100 VA**  \n\n### 2. **Small Appliance & Laundry Circuits**  \n- 2 small appliance circuits @ 1500 VA = 3000 VA  \n- 1 laundry circuit @ 1500 VA = 1500 VA  \n**Total** = **4500 VA**  \n\n### 3. **Electric Range**",
+        "## Service Load Calculation (CEC 2022) with Exceptions Verified\n\n### Step 1: General Lighting Load  \n- **3,000 sq ft × 3 VA/sq ft** = **9,000 VA**  \n  *(CEC Table 220.12 for dwelling units)*  \n  **Exception Check**: No applicable exceptions for standard residential calculations (Exception 220.12(B) applies only if energy code monitoring systems are installed, which is not mentioned here).\n\n---\n\n### Step 2: Small Appliance Circuits  \n- **2 circuits × 1,500 VA** = **3,000 VA**  \n  *(CEC 220.52(A):"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "115.4",
+        "220.54",
+        "220.42",
+        "220.55",
+        "143.13",
+        "220.50",
+        "220.52",
+        "220.12",
+        "114.4"
+      ],
+      "avg_duration_seconds": 31.7,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-002",
+      "tier": "inspection",
+      "category": "clearance_violations",
+      "ca_specific": false,
+      "question": "Electrical panel inspection in residential garage: Panel has 30 inches width clearance, 28 inches depth clearance in front, and a water heater located 16 inches to the left side within the working space. Panel is surface-mounted on wall at 5 feet height. Identify ALL NEC violations.",
+      "expected_answer": "Violations: (1) Depth clearance is 28 inches but 110.26(A)(1) requires minimum 36 inches for 120/240V equipment - VIOLATION. (2) Water heater at 16 inches is within the 30-inch width working space - equipment not related to electrical installation is prohibited in working space per 110.26(B) - VIOLATION. Width of 30 inches meets minimum requirement. Height would need to verify if working space height of 6.5 feet (78 inches) is maintained above the panel.",
+      "cec_reference": "",
+      "nec_reference": "110.26(A)(1), 110.26(B), 110.26(A)(3)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Revised Electrical Panel Working Space Violations (CEC 2022)\n\n**1. Insufficient Depth Clearance**  \n- **Measured**: 28 inches  \n- **Required**: 36 inches (3 ft) per CEC Table 110.26(A)(1) for 240V equipment  \n- **Violation**: Depth is 8 inches short of required working space  \n- **No applicable exception** for depth reduction  \n\n**2. Obstruction in Working Space**  \n- Water heater located within required 36-inch depth clearance zone  \n- **Violation**: Working space must be \"clear of all obstructions\" (CEC 110.26(A)(2))  \n- **No exception** allows obstructions in working space  \n\n**3. Inadequate Mounting Height**  \n- **Measured**: 5 ft (60 in) from floor to panel bottom  \n- **Required**: Minimum 6.5 ft (78 in) per CEC 110.26(A)(3)  \n- **Exception**: For **existing dwelling units** with **≤200A service equipment**, height can be less than 6.5 ft (CEC 110.26(A) Exception 2)  \n- **Assessment**: If this is an **existing dwelling** with a **200A or smaller panel**, the height violation is **waived**. If the panel exceeds 200A or is in a **new installation**, the violation remains.  \n\n**4. Width Clearance**  \n- **Measured**: 30 inches  \n- **Required**: Minimum 30 inches (CEC Table 110.26(A)(1))  \n- **Compliant**: Width meets minimum requirement  \n\n---\n## NEC 2023 Reference  \n- Depth requirement: 30.5 inches (3 ft) per NEC Table 110.26(A)(1)  \n- California increases this to 36 inches (3 ft) via CEC amendment  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)  \n\n**Final Note**: The height violation is **conditional** based on whether the panel is in an **existing dwelling** and meets the 200A limit. If these conditions apply, the height violation is resolved. Otherwise, it remains a violation.",
+      "all_answers": [
+        "## Electrical Panel Inspection Violations (CEC 2022)  \n\n**Confirmed Violations After Exception Review:**  \n\n1. **Depth Clearance Insufficient**  \n   - **Required:** 30 inches (762 mm) per CEC 2022 Table 110.26(A)(1) for 240V systems.  \n   - **Actual:** 28 inches.  \n   - **Exception Check:**  \n     - **110.26(E) Deducted Space:** Allows structural overhangs/roof extensions but not obstructions like water heaters.  \n     - **110.26(A)(1) Exception 2:** Permits smaller spaces in existing dwellings ",
+        "## Revised Electrical Panel Working Space Violations (CEC 2022)\n\n**1. Insufficient Depth Clearance**  \n- **Measured**: 28 inches  \n- **Required**: 36 inches (3 ft) per CEC Table 110.26(A)(1) for 240V equipment  \n- **Violation**: Depth is 8 inches short of required working space  \n- **No applicable exception** for depth reduction  \n\n**2. Obstruction in Working Space**  \n- Water heater located within required 36-inch depth clearance zone  \n- **Violation**: Working space must be \"clear of all obstr",
+        "## Electrical Panel Working Space Violations (CEC 2022)\n\n### 1. **Depth Clearance Violation**  \n- **Measured**: 28 inches  \n- **Required**: 36 inches (3 ft) per **CEC Table 110.26(A)(1)** for 240V equipment (Condition 1)  \n- **Violation**: Fails minimum depth requirement for working space.  \n\n### 2. **Obstruction in Working Space**  \n- **Issue**: Water heater located 16 inches within required working space  \n- **Violation**: **CEC 110.26(A)(1)** mandates working space must be **clear of obstruct"
+      ],
+      "cec_tools_used": [
+        "cec_lookup_working_space",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "110.26"
+      ],
+      "avg_duration_seconds": 16.7,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-005",
+      "tier": "inspection",
+      "category": "gfci_afci_compliance",
+      "ca_specific": false,
+      "question": "New residential construction, 2023 NEC. Kitchen installation has: (1) four countertop receptacles on two 20A circuits, (2) dishwasher on dedicated 15A circuit, (3) garbage disposal on dedicated 15A circuit, (4) refrigerator on dedicated 20A circuit. For each circuit, specify the required protection: standard breaker, GFCI, AFCI, or combination AFCI/GFCI. Provide NEC references.",
+      "expected_answer": "Per 2023 NEC: (1) Countertop receptacles (2 circuits): GFCI required per 210.8(A)(6), AFCI required per 210.12(A). Use combination AFCI/GFCI breakers. (2) Dishwasher: GFCI required per 210.8(D), AFCI required per 210.12(A). Use combination AFCI/GFCI breaker. (3) Disposal: GFCI not specifically required for disposal, but AFCI required per 210.12(A). AFCI breaker or combination AFCI/GFCI recommended. (4) Refrigerator: AFCI required per 210.12(A). Standard AFCI breaker (GFCI not required for refrigerator circuit).",
+      "cec_reference": "",
+      "nec_reference": "210.8(A), 210.8(D), 210.12(A)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Circuit Protection Requirements (NEC 2023) with Exceptions Verified\n\n1. **Countertop Receptacles (20A circuits):**  \n   - **Protection:** **Combination AFCI/GFCI breaker**  \n   - **NEC References:**  \n     - **210.8(A)(6):** GFCI required for all kitchen countertop receptacles.  \n     - **210.12(A):** AFCI required for all dwelling unit branch circuits.  \n     - **No exception applies** to general-purpose countertop circuits (not \"specific appliances\" under 210.12(A) Ex. 1).  \n\n2. **Dishwasher (15A dedicated circuit):**  \n   - **Protection:** **GFCI breaker only**  \n   - **NEC References:**  \n     - **210.8(A)(6):** GFCI required for dishwasher receptacles.  \n     - **210.12(A) Ex. 1:** AFCI exemption applies to **specific appliances** (e.g., dishwashers).  \n\n3. **Garbage Disposal (15A dedicated circuit):**  \n   - **Protection:** **GFCI breaker only**  \n   - **NEC References:**  \n     - **210.8(A)(6):** GFCI required for garbage disposal receptacles.  \n     - **210.12(A) Ex. 1:** AFCI exemption applies to **specific appliances** (e.g., garbage disposals).  \n\n4. **Refrigerator (20A dedicated circuit):**  \n   - **Protection:** **GFCI breaker only**  \n   - **NEC References:**  \n     - **210.8(A)(6):** GFCI required for refrigerator receptacles.  \n     - **210.12(A) Ex. 1:** AFCI exemption applies to **specific appliances** (e.g., refrigerators).  \n\n---\n## Key Notes:\n- **Countertop circuits** require **both GFCI and AFCI** because they are general-purpose receptacles (not exempt under 210.12(A) Ex. 1).  \n- **Dedicated appliance circuits** (dishwasher, disposal, refrigerator) require **GFCI only** due to AFCI exemptions in **210.12(A) Ex. 1**.  \n- Exceptions verified via **210.52(B)(1)** and **210.52(B)(3)** confirm dedicated circuits for specific appliances are permitted.  \n\n✓ Sources: NEC 2023 (primary) with exceptions verified via nec_exception_search.",
+      "all_answers": [
+        "## Circuit Protection Requirements (CEC 2022)\n\n### 1. **Countertop Receptacles (Two 20A Circuits)**\n- **Protection**: **GFCI only**\n- **CEC References**:\n  - **210.8(A)(5)**: All kitchen receptacles require GFCI protection.\n  - **210.12(B)**: Kitchen countertop circuits are exempt from AFCI requirements.\n\n---\n\n### 2. **Dishwasher (Dedicated 15A Circuit)**\n- **Protection**: **GFCI + AFCI**\n- **CEC References**:\n  - **210.8(A)(5)**: GFCI required for all kitchen receptacles.\n  - **210.12(A)**: AFC",
+        "## Final Answer with Exceptions Verified\n\n### Circuit Protection Requirements (NEC 2023 with California Exceptions Checked)\n\n1. **Countertop Receptacles (20A circuits)**  \n   - **Protection**: **GFCI + AFCI**  \n   - **NEC References**:  \n     - GFCI: 210.8(A)(6) (kitchen receptacles require GFCI)  \n     - AFCI: 210.12(A) (all dwelling unit circuits require AFCI)  \n   - **California Exceptions**: No exceptions override these requirements.  \n\n2. **Dishwasher (15A dedicated circuit)**  \n   - **Prot",
+        "## Circuit Protection Requirements (NEC 2023) with Exceptions Verified\n\n1. **Countertop Receptacles (20A circuits):**  \n   - **Protection:** **Combination AFCI/GFCI breaker**  \n   - **NEC References:**  \n     - **210.8(A)(6):** GFCI required for all kitchen countertop receptacles.  \n     - **210.12(A):** AFCI required for all dwelling unit branch circuits.  \n     - **No exception applies** to general-purpose countertop circuits (not \"specific appliances\" under 210.12(A) Ex. 1).  \n\n2. **Dishwashe"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [
+        "nec_exception_search",
+        "nec_search"
+      ],
+      "citations": [
+        "210.8",
+        "210.52",
+        "210.12"
+      ],
+      "avg_duration_seconds": 19.1,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-006",
+      "tier": "inspection",
+      "category": "subpanel_violations",
+      "ca_specific": false,
+      "question": "Subpanel inspection in detached garage: 100A subpanel fed from main house panel with 4-wire feeder (#2 AWG aluminum: 2 hots, 1 neutral, 1 ground). Inspector notes: (1) neutral bar and ground bar are bonded together with main bonding jumper installed, (2) ground bar is bonded to metal enclosure, (3) neutral bar is bonded to metal enclosure, (4) feeder ground wire is connected to ground bar, (5) feeder neutral is connected to neutral bar. Identify all violations and explain correct configuration.",
+      "expected_answer": "VIOLATIONS: (1) Neutral bar bonded to enclosure - VIOLATION per 250.24(A)(5) and 408.40. In subpanels, neutral must be isolated from enclosure. (2) Main bonding jumper installed - VIOLATION. MBJ only permitted at service equipment per 250.28, not in subpanels. CORRECT configuration: Remove bond between neutral bar and enclosure. Remove main bonding jumper. Neutral bar must be isolated (floating). Only ground bar bonded to enclosure. Feeder EGC connects to ground bar. Feeder neutral connects to isolated neutral bar. Grounds and neutrals must be kept separate in subpanels.",
+      "cec_reference": "",
+      "nec_reference": "250.24(A)(5), 250.28, 408.40, 250.32(B)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Subpanel Inspection Violations (CEC 2022) - Final Answer\n\n### **Identified Violations**\n1. **Neutral/ground bonding in subpanel**  \n   - **Violation**: Neutral and ground bars are bonded together with a main bonding jumper (Inspector Note 1).  \n   - **Rule**: CEC 250.32(B) requires **separate neutral and ground bars** in subpanels. Bonding creates parallel paths for neutral current, risking overloading and equipment damage.  \n   - **Exception Check**:  \n     - **Exception 250.32(B) Exception No. 2** allows system bonding jumpers under specific conditions (e.g., installations compliant with previous code editions).  \n     - **Does NOT apply here**: The subpanel’s neutral bar is bonded to the metal enclosure (Inspector Note 3), violating **CEC 250.142(A)**, which prohibits neutral-to-enclosure bonding in subpanels.  \n\n2. **Neutral bar bonded to metal enclosure**  \n   - **Violation**: Neutral bar is bonded to the metal enclosure (Inspector Note 3).  \n   - **Rule**: CEC 250.142(A) explicitly prohibits bonding neutral to the enclosure in subpanels. This creates a ground loop and risks shock hazards.  \n   - **Exception Check**:  \n     - No exceptions permit neutral-to-enclosure bonding in subpanels under CEC 2022.  \n\n---\n\n### **Correct Grounding Configuration**\n1. **Feeder Ground Conductor**:  \n   - **Size**: 6 AWG aluminum (per CEC Table 250.122 for 100A overcurrent protection).  \n   - **Connection**: Attach to ground bar (Inspector Note 4).  \n\n2. **Ground Bar Bonding**:  \n   - Bond ground bar to metal enclosure (Inspector Note 2) via a **listed bonding jumper** (CEC 250.142(B)).  \n\n3. **Feeder Neutral Conductor**:  \n   - **Connection**: Attach to neutral bar (Inspector Note 5).  \n   - **No bonding** to ground bar or enclosure.  \n\n4. **Grounding Electrode Conductor (GEC)**:  \n   - Size per CEC Table 250.66 (based on service conductor size).  \n   - Connect to grounding electrode system (e.g., rod, plate) at the subpanel location.  \n\n---\n\n### **NEC 2023 Reference**\nNo difference from NEC 2023. Both codes require separate neutral/ground bars in subpanels (NEC 250.32(B)).\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Subpanel Grounding and Bonding Violations (CEC 2022) - Final Answer\n\n### **Confirmed Violations After Exception Review**:\n1. **Neutral and Ground Bars Bonded Together**  \n   - **Rule**: CEC 250.24(A)(5) explicitly prohibits connecting grounded (neutral) conductors to equipment grounding conductors on the load side of the service disconnect.  \n   - **Exceptions Checked**: No exceptions (250.54, 250.25, etc.) permit this bonding in subpanels. The rule is absolute for subpanels (not main service",
+        "## Subpanel Grounding and Bonding Violations (CEC 2022)  \n\n### **Identified Violations**  \n1. **Neutral and ground bars bonded together**  \n   - **Violation**: CEC 250.24(A)(5) prohibits bonding neutrals and grounds on the load side of the service disconnect (subpanel).  \n   - **Impact**: Creates parallel ground paths, risking equipment damage and safety hazards.  \n\n2. **Neutral bar bonded to metal enclosure**  \n   - **Violation**: CEC 408.40 requires neutral bars to be isolated from equipment g",
+        "## Subpanel Inspection Violations (CEC 2022) - Final Answer\n\n### **Identified Violations**\n1. **Neutral/ground bonding in subpanel**  \n   - **Violation**: Neutral and ground bars are bonded together with a main bonding jumper (Inspector Note 1).  \n   - **Rule**: CEC 250.32(B) requires **separate neutral and ground bars** in subpanels. Bonding creates parallel paths for neutral current, risking overloading and equipment damage.  \n   - **Exception Check**:  \n     - **Exception 250.32(B) Exception "
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_lookup_grounding_conductor",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.32",
+        "250.54",
+        "250.4",
+        "250.122",
+        "250.24",
+        "250.66",
+        "250.142",
+        "250.25",
+        "250.97",
+        "250.86",
+        "408.40"
+      ],
+      "avg_duration_seconds": 11.4,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-007",
+      "tier": "inspection",
+      "category": "conduit_fill",
+      "ca_specific": false,
+      "question": "A 1¼-inch rigid metal conduit (RMC) needs to accommodate multiple 10 AWG THHN conductors for a commercial installation. Using NEC Chapter 9 Tables, determine the maximum number of 10 AWG THHN conductors that can be installed in this conduit. Show your calculation.",
+      "expected_answer": "Per Chapter 9 Table 1: Maximum 40% fill for more than two conductors. From Chapter 9 Table 4: Trade size 1¼\" RMC has 40% fill area of 0.610 square inches. From Chapter 9 Table 5: 10 AWG THHN conductor area is 0.0211 square inches. Calculation: 0.610 in² ÷ 0.0211 in² per conductor = 28.91 conductors. Per Chapter 9 Note 7: When the decimal is 0.8 or larger, round up to the next whole number. Since 0.91 > 0.8, maximum is 29 conductors. However, conservative practice uses 28 conductors maximum.",
+      "cec_reference": "",
+      "nec_reference": "Chapter 9 Table 1, Chapter 9 Table 4, Chapter 9 Table 5, Chapter 9 Note 7",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Final Answer with Exception Review\n\n**Conclusion:**  \nNo applicable exceptions affect the conduit fill calculation for 10 AWG THHN conductors in 1¼\" RMC. The maximum of **28 conductors** remains valid under CEC 2022:\n\n1. **Primary Rule:** CEC Chapter 9 Tables 4 and 5 govern conduit fill calculations.  \n2. **Exceptions Checked:**  \n   - **Section 358.22** reaffirms compliance with Table 1 (Chapter 9) fill limits.  \n   - Other exceptions (353.10, 250.86, 354.10, 300.50) relate to HDPE, grounding, or underground installations—not RMC fill calculations.  \n\n**Final Answer:**  \nA 1¼\" rigid metal conduit (RMC) can contain **28** 10 AWG THHN conductors at 40% fill, per CEC Chapter 9 Tables 4 and 5. No California amendments or exceptions modify this result.  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023. California adopts NEC Chapter 9 conduit fill rules without amendment.  \n\n✓ Sources: CEC 2022 Chapter 9 Tables 4 and 5 (primary), NEC 2023 Chapter 9 (comparison), CEC exceptions verified via cec_exception_search.",
+      "all_answers": [
+        "## Maximum Number of 10 AWG THHN Conductors in 1¼\" RMC (CEC 2022)  \n\n**Final Answer:**  \nA 1¼-inch rigid metal conduit (RMC) can accommodate **up to 28** 10 AWG THHN conductors at 40% fill, as calculated using **CEC 2022 Chapter 9 Tables 4 and 5**. Three conductors are acceptable, occupying only 4.1% of the conduit's cross-sectional area.  \n\n**Exception Verification:**  \n- **CEC 402.7** (conduit fill rule) has no exceptions affecting this calculation.  \n- Cross-referenced sections (e.g., 230.50,",
+        "## Maximum Number of 10 AWG THHN Conductors in 1¼\" RMC (CEC 2022 Final Verification)\n\n**Exception Analysis:**  \nThe exceptions found reference **Table 1, Chapter 9** for percentage fill requirements but do not modify the conduit fill calculation for rigid metal conduit (RMC) or THHN conductors. Key findings:  \n- **Section 402.7**, **640.23(A)**, and **358.22** all reinforce the general rule: \"Number of conductors shall not exceed percentage fill specified in Table 1, Chapter 9\" – aligning with N",
+        "## Final Answer with Exception Review\n\n**Conclusion:**  \nNo applicable exceptions affect the conduit fill calculation for 10 AWG THHN conductors in 1¼\" RMC. The maximum of **28 conductors** remains valid under CEC 2022:\n\n1. **Primary Rule:** CEC Chapter 9 Tables 4 and 5 govern conduit fill calculations.  \n2. **Exceptions Checked:**  \n   - **Section 358.22** reaffirms compliance with Table 1 (Chapter 9) fill limits.  \n   - Other exceptions (353.10, 250.86, 354.10, 300.50) relate to HDPE, groundin"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search",
+        "cec_lookup_conduit_fill"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "230.50",
+        "354.10",
+        "300.50",
+        "250.86",
+        "353.10",
+        "402.7",
+        "358.22",
+        "355.10",
+        "640.23"
+      ],
+      "avg_duration_seconds": 17.4,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-008",
+      "tier": "inspection",
+      "category": "voltage_drop",
+      "ca_specific": false,
+      "question": "A 120V single-phase branch circuit supplies a continuous load of 22 amperes. The circuit uses 12 AWG copper conductors with a resistance of 1.29 ohms per 1,000 feet. The one-way distance from the panel to the load is 50 feet. Calculate the voltage drop in volts and as a percentage. Does this meet NEC recommendations (3% maximum for branch circuits)?",
+      "expected_answer": "Voltage drop formula: VD = (2 × L × R × I) / 1000. Where: L = 50 feet (one-way distance), R = 1.29 ohms/1000ft for 12 AWG copper (Chapter 9 Table 8), I = 22 amperes, multiply by 2 for round trip. Calculation: VD = (2 × 50 × 1.29 × 22) / 1000 = 2,838 / 1000 = 2.84 volts. Percentage: (2.84V / 120V) × 100 = 2.37%. Conclusion: YES, this meets NEC recommendations. 2.37% is less than the 3% maximum recommended for branch circuits per 210.19(A)(1) Informational Note No. 4.",
+      "cec_reference": "",
+      "nec_reference": "210.19(A)(1) Informational Note No. 4, Chapter 9 Table 8",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Voltage Drop Calculation (CEC 2022)\n\n**Voltage drop**: 4.36 volts  \n**Percentage**: 3.63%  \n\n### Code Compliance:\n- **Exceeds CEC 647.4(D)** (1.5% for branch circuits) and **NEC 3% recommendation**.  \n- **No applicable exceptions** found for voltage drop limits in CEC 2022.  \n\n### Key Findings:\n1. **CEC 647.4(D)** enforces stricter limits than NEC:  \n   - Branch circuits: **1.5% maximum**  \n   - Combined feeder/branch circuits: **2.5% maximum**  \n2. Exceptions for 647.4(D) only address wiring methods, panelboard markings, and conductor identification—not voltage drop tolerances.  \n3. **NEC 210.6** (referenced in exceptions) pertains to voltage limitations for specific occupancies, not voltage drop calculations.  \n\n### Recommendation:\nUse **larger conductors** (e.g., 10 AWG) or **reduce distance** to meet code requirements.  \n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023.  \n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Voltage Drop Calculation (CEC 2022)\n\n**Voltage drop calculation:**  \n$$\nVD = \\frac{2 \\times I \\times L \\times R}{1000} = \\frac{2 \\times 22A \\times 50ft \\times 1.29\\Omega}{1000} = 2.84V\n$$\n\n**Percentage drop:**  \n$$\n\\frac{2.84V}{120V} \\times 100 = 2.37\\%\n$$\n\n**Code Verification:**  \n- **CEC 210.19(A):** Recommends ≤3% voltage drop for branch circuits (2.37% < 3% ✅)  \n- **No applicable exceptions found** in cec_exception_search results for 210.19(A)  \n- **CEC 647.4(D):** Applies stricter 1.5% l",
+        "## Voltage Drop Calculation (CEC 2022)\n\n**Voltage drop**: 4.36 volts  \n**Percentage**: 3.63%  \n\n### Code Compliance:\n- **Exceeds CEC 647.4(D)** (1.5% for branch circuits) and **NEC 3% recommendation**.  \n- **No applicable exceptions** found for voltage drop limits in CEC 2022.  \n\n### Key Findings:\n1. **CEC 647.4(D)** enforces stricter limits than NEC:  \n   - Branch circuits: **1.5% maximum**  \n   - Combined feeder/branch circuits: **2.5% maximum**  \n2. Exceptions for 647.4(D) only address wiring",
+        "## Final Answer: Voltage Drop Compliance (CEC 2022)\n\n**Voltage drop**: 2.84 volts (2.36% of 120V)  \n\n**Code Evaluation**:  \n- **CEC 647.4(D)**: **Fails** (1.5% maximum for branch circuits supplying fixed equipment).  \n- **NEC 210.19(A)(1) FPN**: **Passes** (3% maximum allowed).  \n\n**Exception Check**:  \n- No exceptions apply to **647.4(D)** for general branch circuit voltage drop limits.  \n- The rule explicitly states **1.5% maximum** for fixed equipment circuits in California.  \n\n**Recommendati"
+      ],
+      "cec_tools_used": [
+        "cec_search",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "647.4",
+        "210.6",
+        "210.19"
+      ],
+      "avg_duration_seconds": 23.3,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-009",
+      "tier": "inspection",
+      "category": "derating_calculation",
+      "ca_specific": false,
+      "question": "A conduit in an attic contains six 12 AWG TW (Type TW, 60°C rated) copper conductors, all current-carrying. The attic ambient temperature reaches 110°F (43°C). Calculate the adjusted ampacity of these conductors after applying both temperature correction and bundling adjustment factors. Show all steps.",
+      "expected_answer": "Step 1: Base ampacity of 12 AWG TW copper at 60°C = 20 amperes (Table 310.16). Step 2: Temperature correction for 43°C ambient with 60°C conductor from Table 310.15(B)(1)(1): Correction factor = 0.71 (for 41-45°C range in 60°C column). Step 3: Bundling adjustment for 6 conductors from Table 310.15(C)(1): Adjustment factor = 0.80 (for 4-6 conductors). Step 4: Calculate adjusted ampacity: 20A × 0.71 × 0.80 = 11.36 amperes. Conclusion: The adjusted ampacity is 11.36 amperes (approximately 11.4A), which represents a 43% reduction from the base 20A rating.",
+      "cec_reference": "",
+      "nec_reference": "Table 310.16, Table 310.15(B)(1), Table 310.15(C)(1), 310.15(B), 310.15(C)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Final Adjusted Ampacity Calculation (CEC 2022)\n\n1. **Base Ampacity**:  \n   12 AWG TW copper at 60°C → **20A** (CEC Table 310.16)\n\n2. **Temperature Correction**:  \n   43°C ambient → **0.71** (CEC Table 310.15(B)(1))\n\n3. **Bundling Adjustment**:  \n   6 conductors → **0.50** (CEC Table 310.15(C)(1))\n\n4. **Final Calculation**:  \n   ```\n   Adjusted = 20A × 0.71 × 0.50 = 7.1A\n   ```\n\n**Final Answer**: **7.1 amperes** after applying both corrections.\n\n---\n## Key Exceptions Verified\n- **No direct exceptions** apply to this calculation (cec_exception_search found no overriding rules)\n- **Critical exception** from 310.15(B): Temperature correction factors must not result in ampacity exceeding termination ratings (60°C in this case). Our result (7.1A) is well below the original 20A rating.\n\n---\n## NEC 2023 Reference  \nNo difference from NEC 2023 tables and correction factors.\n\n✓ Sources: CEC 2022 (primary), NEC 2023 (comparison)",
+      "all_answers": [
+        "## Adjusted Ampacity Calculation (CEC 2022)\n\n1. **Base Ampacity**:  \n   12 AWG TW copper at 60°C = **20A** (CEC Table 310.16)  \n   *California amendment applies to temperature ratings and conductor types.*\n\n2. **Temperature Correction**:  \n   Ambient = 43°C → **0.71 factor** (Table 310.15(B)(1))  \n   20A × 0.71 = **14.2A**  \n   *Exception 310.15 confirms correction factors apply to conductor temperature rating.*\n\n3. **Bundling Adjustment**:  \n   6 conductors → **0.50 factor** (Table 310.15(C)(1)",
+        "## Final Adjusted Ampacity Calculation (CEC 2022)\n\n1. **Base Ampacity**:  \n   12 AWG TW copper at 60°C → **20A** (CEC Table 310.16)\n\n2. **Temperature Correction**:  \n   43°C ambient → **0.71** (CEC Table 310.15(B)(1))\n\n3. **Bundling Adjustment**:  \n   6 conductors → **0.50** (CEC Table 310.15(C)(1))\n\n4. **Final Calculation**:  \n   ```\n   Adjusted = 20A × 0.71 × 0.50 = 7.1A\n   ```\n\n**Final Answer**: **7.1 amperes** after applying both corrections.\n\n---\n## Key Exceptions Verified\n- **No direct exc",
+        "## Adjusted Ampacity Calculation (CEC 2022)\n\n1. **Base Ampacity**:  \n   12 AWG TW copper at 60°C → **20A** (CEC Table 310.16)\n\n2. **Temperature Correction**:  \n   Ambient 43°C → **0.71 factor** (CEC Table 310.15(B)(1))\n\n3. **Bundling Adjustment**:  \n   6 conductors → **0.50 factor** (CEC Table 310.15(C)(1))\n\n4. **Final Calculation**:  \n   $$\n   20A \\times 0.71 \\times 0.50 = 7.1A\n   $$\n\n**Final Adjusted Ampacity: 7.1 amperes**\n\n---\n## Exceptions Review\n- **Exception 310.15(B)(2)**: Does not apply"
+      ],
+      "cec_tools_used": [
+        "cec_exception_search",
+        "cec_lookup_conductor_ampacity",
+        "cec_lookup_ampacity_adjustment"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "310.16",
+        "110.14",
+        "310.15"
+      ],
+      "avg_duration_seconds": 13.1,
+      "cec_primary": true
+    },
+    {
+      "id": "inspection-010",
+      "tier": "inspection",
+      "category": "grounding_electrode_conductor",
+      "ca_specific": false,
+      "question": "A commercial data center has a main service with four parallel sets of 250 kcmil copper conductors per phase (total equivalent: 4 × 250 kcmil = 1000 kcmil per phase). Using NEC Table 250.66, determine the minimum size copper grounding electrode conductor (GEC) required for this installation.",
+      "expected_answer": "Per Table 250.66: For service entrance conductors 1000 kcmil copper (4 × 250 kcmil in parallel), locate the row for 'Over 600 kcmil through 1100 kcmil'. The minimum grounding electrode conductor size is 2/0 AWG copper or 4/0 AWG aluminum. Answer: Minimum 2/0 AWG copper GEC required. Note: If this GEC connects solely to a ground rod electrode per 250.66(A), the GEC would not be required to be larger than 6 AWG copper.",
+      "cec_reference": "",
+      "nec_reference": "Table 250.66, 250.66(A)",
+      "aggregated_status": "PASS",
+      "consistency": 100.0,
+      "status_breakdown": {
+        "PASS": 3
+      },
+      "answer": "## Grounding Electrode Conductor Sizing (CEC 2022)\n\n**Final Answer:**  \nFor **1000 kcmil copper service conductors** (4 × 250 kcmil parallel conductors), the minimum **copper grounding electrode conductor (GEC)** required is **125 kcmil** per **CEC Table 250.66**.\n\n---\n\n### Key Analysis:\n1. **Total Service Conductor Area**:  \n   4 × 250 kcmil = **1000 kcmil equivalent** (per NEC/CEC rules for parallel conductors).\n\n2. **Table 250.66 Application**:  \n   - 1000 kcmil service conductors → **125 kcmil copper GEC** (next larger size in the table).\n\n3. **Exception Search Results**:  \n   - No exceptions in **CEC 250.66** or related sections modify this requirement for parallel conductors.  \n   - Exceptions found (e.g., 250.54, 250.86) pertain to equipment grounding conductors (EGCs), auxiliary electrodes, or raceway enclosures—not GEC sizing for parallel service conductors.\n\n---\n\n### NEC 2023 Reference  \nNo difference from NEC 2023 Table 250.66. Parallel conductors are sized based on total equivalent area, with no exceptions reducing GEC size.\n\n✓ **Sources**: CEC 2022 Table 250.66 (primary), NEC 2023 Table 250.66 (comparison)  \n✓ **Exception Check**: No applicable exceptions found for this scenario.",
+      "all_answers": [
+        "## Grounding Electrode Conductor Size (CEC 2022)\n\nFor a service with **1000 kcmil copper conductors**, **CEC 250.66(B)** applies when the service conductor size exceeds the largest listed in Table 250.66 (600 kcmil). This rule mandates using the **next larger size in the table** for GEC sizing.\n\n- **Largest listed size in Table 250.66**: 600 kcmil → GEC: **2/0 AWG**\n- **Next size up for 1000 kcmil**: **4/0 AWG copper** (per interpolation in 250.66(B))\n\n**Exceptions Checked**:\n- No exceptions ove",
+        "## Grounding Electrode Conductor Sizing (CEC 2022)\n\n**Final Answer:**  \nFor **1000 kcmil copper service conductors** (4 × 250 kcmil parallel conductors), the minimum **copper grounding electrode conductor (GEC)** required is **125 kcmil** per **CEC Table 250.66**.\n\n---\n\n### Key Analysis:\n1. **Total Service Conductor Area**:  \n   4 × 250 kcmil = **1000 kcmil equivalent** (per NEC/CEC rules for parallel conductors).\n\n2. **Table 250.66 Application**:  \n   - 1000 kcmil service conductors → **125 kcm",
+        "## Grounding Electrode Conductor Sizing (CEC 2022)\n\nAfter reviewing exceptions for **CEC 250.66**, none of the returned exceptions modify the grounding electrode conductor (GEC) sizing requirements for parallel service conductors. The key rule remains:\n\n**CEC 250.66** requires the GEC size to match the **total circular mil area** of the service conductors. For **1000 kcmil** service conductors (4 × 250 kcmil), Table 250.66 shows:\n- 600 kcmil → 3/0 AWG\n- 1100 kcmil → 4/0 AWG\n\n**Interpolation Rule"
+      ],
+      "cec_tools_used": [
+        "cec_lookup_grounding_conductor",
+        "cec_exception_search"
+      ],
+      "nec_tools_used": [],
+      "citations": [
+        "250.66",
+        "250.121",
+        "250.54",
+        "250.86"
+      ],
+      "avg_duration_seconds": 17.6,
+      "cec_primary": true
+    }
+  ]
+}

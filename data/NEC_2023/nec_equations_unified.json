@@ -1,0 +1,282 @@
+[
+  {
+    "section": "310.14(B)",
+    "formula_latex": "I = \\sqrt{\\frac{T_c - T_a}{R_{dc}(1+Y_r)R_{ca}}} \\times 10^3",
+    "formula_python": "math.sqrt((Tc - Ta) / (Rdc * (1 + Yr) * Rca)) * 1000",
+    "required_vars": ["Tc", "Ta", "Rdc", "Yr", "Rca"],
+    "formula_description": "Current calculation with thermal resistance for conductors",
+    "variables": [
+      {
+        "symbol": "I",
+        "description": "current",
+        "units": "amperes"
+      },
+      {
+        "symbol": "T_c",
+        "description": "conductor temperature",
+        "units": "°C"
+      },
+      {
+        "symbol": "T_a",
+        "description": "ambient temperature",
+        "units": "°C"
+      },
+      {
+        "symbol": "R_{dc}",
+        "description": "dc resistance of 305 mm (1 ft) of conductor in micro-ohms at temperature T_c",
+        "units": "micro-ohms"
+      },
+      {
+        "symbol": "Y_r",
+        "description": "component ac resistance resulting from skin effect and proximity effect",
+        "units": "dimensionless"
+      },
+      {
+        "symbol": "R_{ca}",
+        "description": "effective thermal resistance between conductor and surrounding ambient",
+        "units": "thermal resistance"
+      }
+    ],
+    "output_unit": "amperes",
+    "related_tables": [],
+    "conditions": [
+      "For conductors with specified thermal properties",
+      "Accounts for skin effect and proximity effect",
+      "Uses dc resistance at conductor temperature"
+    ],
+    "chapter": 3,
+    "article": "Conductors for General Wiring"
+  },
+  {
+    "section": "310.15(B)(1)",
+    "formula_latex": "I' = I \\sqrt{\\frac{T_c - T_a'}{T_c - T_a}}",
+    "formula_python": "I * math.sqrt((Tc - Ta_prime) / (Tc - Ta))",
+    "required_vars": ["I", "Tc", "Ta_prime", "Ta"],
+    "formula_description": "Ampacity temperature correction factor",
+    "variables": [
+      {
+        "symbol": "I'",
+        "description": "ampacity corrected for ambient temperature",
+        "units": "amperes"
+      },
+      {
+        "symbol": "I",
+        "description": "ampacity shown in the tables",
+        "units": "amperes"
+      },
+      {
+        "symbol": "T_c",
+        "description": "temperature rating of conductor",
+        "units": "°C"
+      },
+      {
+        "symbol": "T_a'",
+        "description": "new ambient temperature",
+        "units": "°C"
+      },
+      {
+        "symbol": "T_a",
+        "description": "ambient temperature used in the table",
+        "units": "°C"
+      }
+    ],
+    "output_unit": "amperes",
+    "related_tables": [
+      "310.15(B) ampacity tables"
+    ],
+    "conditions": [
+      "Used when ambient temperature differs from table assumptions",
+      "Corrects tabulated ampacity values"
+    ],
+    "chapter": 3,
+    "article": "Conductors for General Wiring"
+  },
+  {
+    "section": "315.60(B)",
+    "formula_latex": "I = \\sqrt{\\frac{T_c - (T_a + \\Delta T_d)}{R_{dc}(1+Y_r)R_{ca}}} \\times 10^3",
+    "formula_python": "math.sqrt((Tc - (Ta + Delta_Td)) / (Rdc * (1 + Yr) * Rca)) * 1000",
+    "required_vars": ["Tc", "Ta", "Delta_Td", "Rdc", "Yr", "Rca"],
+    "formula_description": "Current calculation accounting for dielectric loss temperature rise",
+    "variables": [
+      {
+        "symbol": "I",
+        "description": "current",
+        "units": "amperes"
+      },
+      {
+        "symbol": "T_c",
+        "description": "conductor temperature",
+        "units": "°C"
+      },
+      {
+        "symbol": "T_a",
+        "description": "ambient temperature",
+        "units": "°C"
+      },
+      {
+        "symbol": "\\Delta T_d",
+        "description": "dielectric loss temperature rise",
+        "units": "°C"
+      },
+      {
+        "symbol": "R_{dc}",
+        "description": "dc resistance of conductor at temperature T_c",
+        "units": "micro-ohms"
+      },
+      {
+        "symbol": "Y_r",
+        "description": "component of resistance resulting from skin effect and proximity effect",
+        "units": "dimensionless"
+      },
+      {
+        "symbol": "R_{ca}",
+        "description": "effective thermal resistance between conductor and surrounding ambient",
+        "units": "thermal resistance"
+      }
+    ],
+    "output_unit": "amperes",
+    "related_tables": [],
+    "conditions": [
+      "For medium voltage cables",
+      "Accounts for dielectric loss heating",
+      "Includes skin and proximity effects"
+    ],
+    "chapter": 3,
+    "article": "Medium Voltage Cable"
+  },
+  {
+    "section": "315.60(D)(4)",
+    "formula_latex": "I' = I \\sqrt{\\frac{T_c - T_a'}{T_c - T_a}}",
+    "formula_python": "I * math.sqrt((Tc - Ta_prime) / (Tc - Ta))",
+    "required_vars": ["I", "Tc", "Ta_prime", "Ta"],
+    "formula_description": "Ampacity temperature correction for medium voltage cables",
+    "variables": [
+      {
+        "symbol": "I'",
+        "description": "ampacity corrected for ambient temperature",
+        "units": "amperes"
+      },
+      {
+        "symbol": "I",
+        "description": "ampacity shown in the table for T_c and T_a",
+        "units": "amperes"
+      },
+      {
+        "symbol": "T_c",
+        "description": "temperature rating of conductor",
+        "units": "°C"
+      },
+      {
+        "symbol": "T_a'",
+        "description": "new ambient temperature",
+        "units": "°C"
+      },
+      {
+        "symbol": "T_a",
+        "description": "ambient temperature used in the table",
+        "units": "°C"
+      }
+    ],
+    "output_unit": "amperes",
+    "related_tables": [
+      "315.60 ampacity tables"
+    ],
+    "conditions": [
+      "For medium voltage cables",
+      "Corrects for ambient temperature differences",
+      "See 110.40 for ambient temperature adjustments for terminals"
+    ],
+    "chapter": 3,
+    "article": "Medium Voltage Cable"
+  },
+  {
+    "section": "430.110(C)(1)a",
+    "formula_latex": "\\text{locked-rotor amperes} = \\left(\\frac{kVA}{hp}\\right) \\times \\frac{1000 \\times \\text{HP}_{\\text{rated}}}{\\text{V}_{\\text{rated}} \\times \\sqrt{3}}",
+    "formula_python": "(kVA_per_hp * 1000 * HP_rated) / (V_rated * math.sqrt(3))",
+    "required_vars": ["kVA_per_hp", "HP_rated", "V_rated"],
+    "formula_description": "Calculate locked-rotor amperes from kVA/hp ratio",
+    "variables": [
+      {
+        "symbol": "\\text{locked-rotor amperes}",
+        "description": "locked-rotor current of motor",
+        "units": "amperes"
+      },
+      {
+        "symbol": "kVA/hp",
+        "description": "maximum range value of kilovolt-amperes per horsepower with locked rotor from Table 430.7(B)",
+        "units": "kVA/hp"
+      },
+      {
+        "symbol": "\\text{HP}_{\\text{rated}}",
+        "description": "motor's marked value of rated horsepower",
+        "units": "horsepower"
+      },
+      {
+        "symbol": "\\text{V}_{\\text{rated}}",
+        "description": "motor's marked value of rated volts",
+        "units": "volts"
+      },
+      {
+        "symbol": "\\sqrt{3}",
+        "description": "square root of 3 for three-phase calculation",
+        "units": "dimensionless"
+      }
+    ],
+    "output_unit": "amperes",
+    "related_tables": [
+      "430.7(B)"
+    ],
+    "conditions": [
+      "Associated with motor's marked locked-rotor indicating code letter",
+      "Use maximum range value from Table 430.7(B)",
+      "For three-phase motors"
+    ],
+    "chapter": 4,
+    "article": "Motors, Motor Circuits, and Controllers"
+  },
+  {
+    "section": "430.110(C)(1)b",
+    "formula_latex": "\\frac{kVA}{hp} = \\frac{\\sqrt{3} \\times \\text{V}_{\\text{rated}} \\times \\text{I}_{\\text{LRA}}}{1000 \\times \\text{HP}_{\\text{rated}}}",
+    "formula_python": "(math.sqrt(3) * V_rated * I_LRA) / (1000 * HP_rated)",
+    "required_vars": ["V_rated", "I_LRA", "HP_rated"],
+    "formula_description": "Calculate kVA/hp ratio from locked-rotor amperes",
+    "variables": [
+      {
+        "symbol": "kVA/hp",
+        "description": "kilovolt-amperes per horsepower ratio",
+        "units": "kVA/hp"
+      },
+      {
+        "symbol": "\\sqrt{3}",
+        "description": "square root of 3 for three-phase calculation",
+        "units": "dimensionless"
+      },
+      {
+        "symbol": "\\text{V}_{\\text{rated}}",
+        "description": "motor's marked value of rated volts",
+        "units": "volts"
+      },
+      {
+        "symbol": "\\text{I}_{\\text{LRA}}",
+        "description": "locked-rotor amperes",
+        "units": "amperes"
+      },
+      {
+        "symbol": "\\text{HP}_{\\text{rated}}",
+        "description": "motor's marked value of rated horsepower",
+        "units": "horsepower"
+      }
+    ],
+    "output_unit": "kVA/hp",
+    "related_tables": [
+      "430.7(B)"
+    ],
+    "conditions": [
+      "Inverse calculation of formula 430.110(C)(1)a",
+      "For three-phase motors",
+      "Used to determine kVA/hp ratio when locked-rotor amperes are known"
+    ],
+    "chapter": 4,
+    "article": "Motors, Motor Circuits, and Controllers"
+  }
+]
