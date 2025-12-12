@@ -116,27 +116,34 @@ CEC Lang achieves **zero calculation errors** through deterministic table lookup
 ### Enforcement Flow (What Makes It Different)
 
 ```
-ITERATION 1: First Response
+ITERATION 1: Anti-Hallucination Check
 ├─ LLM tries: "The ampacity is 20 amperes"
 ├─ Check: No tool calls detected
 └─ REJECT → "ERROR: You MUST call search tools before answering"
 
 ITERATION 2: Forced Tool Usage
 ├─ LLM calls: cec_lookup_conductor_ampacity("12 AWG", "75°C", "copper")
-├─ Result: "25 amperes per Table 310.16"
-│           + Footnote: "See 240.4(D) for OCP limits"
+├─ Tool returns: "25 amperes per Table 310.16"
+│                + Footnote: "See 240.4(D) for OCP limits"
+├─ Hint extracted: "240.4(D)" → queued for follow-up
 └─ Continue...
 
-ITERATION 3: Cross-Reference Search
-├─ Hint extracted: "240.4(D)"
-├─ LLM calls: cec_search("240.4(D) overcurrent protection")
-├─ Result: "240.4(D) limits 12 AWG to 20A OCP maximum"
+ITERATION 3: Cross-Reference Lookup (from footnote)
+├─ LLM calls: cec_lookup_table("Table 240.4(D)")
+├─ Tool returns: "12 AWG copper → 20A max overcurrent protection"
+├─ Agent recognizes: Base ampacity (25A) vs OCP limit (20A)
 └─ Continue...
 
-ITERATION 4: Reflection Phase
+ITERATION 4: Synthesis
+├─ Agent reasoning: "Table 310.16 shows 25A ampacity, but Table 240.4(D)
+│                    limits overcurrent protection to 20A for 12 AWG.
+│                    The limiting rule (20A) governs."
+└─ Continue...
+
+ITERATION 5: Reflection Phase
 ├─ Self-check: "Did I answer completely? Are values cited?"
-├─ Verification: All required tools called ✓
-└─ Return final answer with citations
+├─ Verification: Required tools called ✓ Cross-references resolved ✓
+└─ Return: "25A ampacity per Table 310.16, limited to 20A OCP per 240.4(D)"
 ```
 
 ---
