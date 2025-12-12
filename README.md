@@ -231,6 +231,53 @@ Inspectors can verify **exactly which code section** was consulted for every val
 
 ---
 
+## Technical Deep Dive
+
+### Guardrails (Multi-Layer Anti-Hallucination)
+
+| Layer | What It Does | Problem It Solves |
+|-------|--------------|-------------------|
+| **Iteration 1 Block** | Rejects any answer without tool calls | Prevents "I think it's 20A" from memory |
+| **Cross-Reference Enforcement** | Extracts "See 240.4(D)" from footnotes, queues for follow-up | Prevents incomplete answers missing limiting rules |
+| **Hint Tracking** | Logs all cross-references, verifies each was searched | Catches "I'll skip that footnote" shortcuts |
+| **Value Verification** | Checks final answer contains exact numbers from tools | Catches "approximately 19.7A" when tool said 19.68A |
+| **Reflection Phase** | LLM self-verifies completeness before returning | Catches gaps the enforcement missed |
+
+### Tools (12 Specialized + Calculator)
+
+| Tool | Type | What Makes It Special |
+|------|------|----------------------|
+| `cec_lookup_conductor_ampacity` | Deterministic | Returns value + footnotes + cross-references in one call |
+| `cec_lookup_conductor_size` | Reverse lookup | Given ampacity, finds smallest valid conductor |
+| `cec_derated_ampacity` | Chained | Chains 5 lookups: insulation→base→temp→bundling→final |
+| `cec_lookup_conduit_fill` | Dual-table | Combines Chapter 9 Table 4 + Table 5 automatically |
+| `cec_lookup_grounding_conductor` | Deterministic | EGC (Table 250.122) and GEC (Table 250.66) sizing |
+| `cec_search` | Hybrid | 50/50 BM25 + vector, auto-injects referenced tables |
+| `cec_exception_search` | BM25-heavy | Optimized for "shall not apply", "exception" language |
+| `python_calculator` | REPL | All arithmetic verified in Python, not text-generated |
+
+### Prompt Engineering
+
+| Feature | Implementation | Why It Matters |
+|---------|----------------|----------------|
+| **6-Step Reasoning** | DECOMPOSE→PLAN→EXECUTE→VERIFY→SYNTHESIZE→CHECK | Forces structured thinking, not stream-of-consciousness |
+| **Rule Hierarchy** | L1 Base→L2 Adjustment→L3 Limiting→L4 Exception | Teaches that 240.4(D) overrides Table 310.16 |
+| **"More Restrictive Wins"** | Explicit instruction in system prompt | Prevents returning 25A when OCP limit is 20A |
+| **Multiple Valid Answers** | Format for "Option A vs Option B" with conditions | Prevents false confidence in single answers |
+| **Domain Heuristics** | "14/12/10 AWG → always check 240.4(D)" pre-loaded | Catches common cross-reference patterns |
+
+### Other Innovations
+
+| Feature | What It Does |
+|---------|--------------|
+| **Footnote Injection** | Table lookups auto-append footnotes + "You MUST search these sections" |
+| **202 Tables in JSON** | Zero-latency deterministic lookups, no embedding drift between runs |
+| **Execution Trace** | Every answer includes full tool call history for audit |
+| **California-First** | CEC 2022 primary, NEC for comparison only (no code confusion) |
+| **Retry with Backoff** | Handles Groq rate limits gracefully (30s→60s→120s) |
+
+---
+
 ## Evaluation Results
 
 ### Latest Run (Run 37 — December 2025)
