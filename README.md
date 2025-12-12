@@ -261,7 +261,7 @@ Inspectors can verify **exactly which code section** was consulted for every val
 
 | Component | Technology |
 |-----------|------------|
-| **LLM** | Google Gemini 2.5 Pro |
+| **LLM** | Qwen 3 32B (via Groq) |
 | **Framework** | LangChain 0.3+ |
 | **Vector Search** | OpenSearch k-NN |
 | **Embeddings** | Google text-embedding-004 |
@@ -277,7 +277,8 @@ Inspectors can verify **exactly which code section** was consulted for every val
 
 - Python 3.10+
 - OpenSearch instance with CEC/NEC indices
-- Google API key (Gemini + Embeddings)
+- Groq API key (for Qwen LLM)
+- Google API key (for embeddings)
 
 ### Installation
 
@@ -291,6 +292,7 @@ pip install -r requirements.txt
 
 Create `.env` file:
 ```env
+GROQ_API_KEY=your_groq_api_key
 GOOGLE_API_KEY=your_google_api_key
 OPENSEARCH_HOST=localhost
 OPENSEARCH_PORT=9200
