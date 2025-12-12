@@ -355,7 +355,7 @@ python eval/standardized_llm-as-judge/create_wrong_answers_report.py
 
 ## Roadmap
 
-- [ ] NEC-only mode toggle for non-California jurisdictions
+- [ ] Municipal/city code integration (LA, SF, Oakland amendments to CEC)
 - [ ] Voice interface for hands-free inspection assistance
 - [ ] Integration with permit management systems
 - [ ] Computer vision integration for panel photo analysis
