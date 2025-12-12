@@ -1,0 +1,170 @@
+{
+  "core-002": {
+    "question": "An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. What are the NEC requirements for the circuit breaker and neutral termination?",
+    "key_fact": "handle ties ARE permitted per 240.15(B)(1)",
+    "iterations": [
+      {
+        "iteration": 1,
+        "got_key_fact": true,
+        "answer_preview": "## Multiwire Branch Circuit Requirements (CEC 2022)\n\n### Circuit Breaker Requirements\n1. **Simultaneous Disconnection** (210.4(B)):  \n   - All ungrounded conductors must be disconnected simultaneously using:  \n     - A **double-pole circuit breaker**, or  \n     - **Single-pole breakers with identified handle ties** (per 240.15(B)(1)).  \n\n2. **Breaker Rating** (240.4(D)):  \n   - 12 AWG copper conductors require a **20A maximum overcurrent protection**.  \n\n### Neutral Termination Requirements\n1. *"
+      },
+      {
+        "iteration": 1,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 2,
+        "got_key_fact": false,
+        "answer_preview": "## Multiwire Branch Circuit Requirements (CEC 2022)\n\n### Circuit Breaker Requirements\n1. **Simultaneous Disconnection** (Section 210.4(B)):  \n   - The circuit must use a **2-pole circuit breaker** or **single-pole breakers with a listed handle tie** to ensure all ungrounded (hot) conductors are disconnected simultaneously.  \n   - This prevents the neutral from becoming a current-carrying conductor if one circuit is energized while the other is de-energized.  \n\n2. **Overcurrent Protection**:  \n  "
+      },
+      {
+        "iteration": 2,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2717' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 3,
+        "got_key_fact": false,
+        "answer_preview": "## Multiwire Branch Circuit Requirements (CEC 2022)\n\n### Circuit Breaker Requirements\n1. **Simultaneous Disconnection** (210.4(B)):  \n   - All ungrounded conductors must be disconnected simultaneously using a **2-pole breaker** or **handle-tied single-pole breakers**.  \n   - This prevents overloading the neutral conductor if one circuit is left energized.\n\n2. **Same Panel Origin** (210.4(A)):  \n   - All conductors must originate from the **same panelboard** to avoid creating parallel paths for n"
+      },
+      {
+        "iteration": 3,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2717' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 4,
+        "got_key_fact": false,
+        "answer_preview": "## Multiwire Branch Circuit Requirements (CEC 2022)\n\n### Circuit Breaker Requirements\n- **Breaker Type**: Double-pole circuit breaker with **identified handle ties** (Section 240.15(B)(1))  \n  - Ensures simultaneous disconnection of all ungrounded conductors  \n  - Required for single-phase line-to-neutral loads (kitchen receptacles)  \n- **Rating**: 20A (matches 12 AWG conductor size per 240.4(D))  \n\n### Neutral Conductor Requirements\n- **Size**: 12 AWG (same as ungrounded conductors in 12/3 cabl"
+      },
+      {
+        "iteration": 4,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2717' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 5,
+        "got_key_fact": true,
+        "answer_preview": "## Multiwire Branch Circuit Requirements (CEC 2022)\n\n### Circuit Breaker Requirements\n1. **Simultaneous Disconnection** (210.4(B)):  \n   - A **2-pole circuit breaker** or **single-pole breakers with identified handle ties** must be used to disconnect **all ungrounded conductors** simultaneously.  \n   - This prevents energizing the neutral conductor if only one hot leg is disconnected.  \n\n2. **Breaker Type** (240.15(B)(1)):  \n   - For single-phase line-to-neutral loads (e.g., kitchen receptacles)"
+      },
+      {
+        "iteration": 5,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      }
+    ]
+  },
+  "core-005": {
+    "question": "A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inches to the side. Does this meet NEC requirements?",
+    "key_fact": "240.24(D) prohibits overcurrent devices in clothes closets",
+    "iterations": [
+      {
+        "iteration": 1,
+        "got_key_fact": true,
+        "answer_preview": "## Panel Installation in Closet (CEC 2022)\n\n**1. Working Space Clearance (Front):**\n- **Required**: 36 inches (900 mm) per Table 110.26(A)(1) for 120V equipment (Condition 2).\n- **Actual**: 24 inches provided.\n- **Result**: ❌ **Fails** minimum clearance requirement.\n\n**2. Panel Location Restrictions:**\n- **240.24(D)**: Panels **prohibited in clothes closets**.\n- **240.24(E)**: Panels **prohibited in bathrooms** of dwelling units.\n- **Action Required**: Confirm if this is a **clothes closet** or "
+      },
+      {
+        "iteration": 1,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 2,
+        "got_key_fact": true,
+        "answer_preview": "## Panel Installation Compliance (CEC 2022)\n\n**1. Working Space Clearance (Front):**  \n- **Required**: 36 inches (3 ft) per Table 110.26(A)(1) for 120V equipment (Condition 1).  \n- **Provided**: 24 inches.  \n- **Conclusion**: ❌ **Fails** clearance requirement.  \n\n**2. Panel Location in Closet:**  \n- **Rule**: 240.24(D) prohibits panels in **clothes closets**.  \n- **Uncertainty**: Question doesn't specify if it's a *clothes* closet or another type (e.g., linen, utility).  \n- **Action**: If it's a"
+      },
+      {
+        "iteration": 2,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 3,
+        "got_key_fact": true,
+        "answer_preview": "## Panel Clearance and Location Compliance (CEC 2022)\n\n### 1. **Front Clearance Requirement**\n- **Measured**: 24 inches  \n- **Required**: **36 inches (3 ft)** per CEC Table 110.26(A)(1) for 120V equipment (Condition 1).  \n- **Conclusion**: **Fails** the minimum working space depth requirement.\n\n### 2. **Side Clearance with Water Heater**\n- **Measured**: 18 inches to the side of the panel.  \n- **Code Reference**:  \n  - **110.26(A)(4)** prohibits storage within the working space.  \n  - **110.26(B)"
+      },
+      {
+        "iteration": 3,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 4,
+        "got_key_fact": true,
+        "answer_preview": "## Panel Installation in Closet (CEC 2022)\n\n**1. Working Space Clearance Depth**  \n- **Required**: 36 inches (900 mm) per **CEC Table 110.26(A)(1)** for 120V equipment (Condition 1).  \n- **Provided**: 24 inches.  \n- **Conclusion**: **Fails** the minimum depth requirement.  \n\n**2. Side Clearance (Water Heater)**  \n- The 18-inch side clearance to the water heater is **not explicitly regulated** by working space rules (Table 110.26 only specifies front depth).  \n- However, **CEC 110.26(B)** require"
+      },
+      {
+        "iteration": 4,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 5,
+        "got_key_fact": true,
+        "answer_preview": "## Panel Installation in Closet (CEC 2022)\n\n**1. Working Space Clearance Depth**  \n- **Required**: 36 inches (3 ft) per Table 110.26(A)(1) for 120V equipment (Condition 1).  \n- **Provided**: 24 inches.  \n- **Conclusion**: **Fails** minimum depth requirement.  \n\n**2. Panel Location in Closet**  \n- **240.24(D)**: Panels **prohibited in clothes closets**.  \n- **Exception**: Permitted in **other types of closets** (e.g., utility closets) if working space requirements are met.  \n- **Action**: Verify "
+      },
+      {
+        "iteration": 5,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      }
+    ]
+  },
+  "inspection-001": {
+    "question": "Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A breaker, (2) 5.5kW dryer on 30A breaker, (3) two 20A small appliance circuits, (4) one 20A laundry circuit, (5) 3000 sq ft living space with general lighting, (6) 4-ton central AC (19.2A at 240V, approximately 4600W). Calculate the service load per NEC Article 220 and determine if the 200A panel is adequately sized.",
+    "key_fact": "Table 220.42: First 3000VA at 100%, remainder at 35%",
+    "iterations": [
+      {
+        "iteration": 1,
+        "got_key_fact": true,
+        "answer_preview": "## Service Load Calculation for Residential Panel (CEC 2022)\n\n### **Step 1: Apply Demand Factors per NEC 220.55 & 220.54**\n1. **Electric Range (12kW):**  \n   - **Demand Factor:** 8,000 VA (from Table 220.55 for single range)  \n   - **Source:** CEC 2022 Table 220.55  \n\n2. **Clothes Dryer (5.5kW):**  \n   - **Demand Factor:** 5,500 VA (100% for 1 dryer, Table 220.54)  \n   - **Source:** CEC 2022 Table 220.54  \n\n3. **Small Appliance Circuits (2 × 20A):**  \n   - **Load:** 2 × 1,500 VA = 3,000 VA  \n   "
+      },
+      {
+        "iteration": 1,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 2,
+        "got_key_fact": true,
+        "answer_preview": "## Service Load Calculation (CEC 2022)\n\n### Step 1: General Lighting and Small Appliance Load\n- **General lighting**: 3000 sq ft × 3 VA/ft² = **9000 VA**\n- **Small appliance circuits**: 2 × 1500 VA = **3000 VA**\n- **Laundry circuit**: 1 × 1500 VA = **1500 VA**\n- **Total**: 9000 + 3000 + 1500 = **13,500 VA**\n\n**Demand factor (Table 220.52):**\n- First 3000 VA at 100%: **3000 VA**\n- Remaining 10,500 VA at 35%: 10,500 × 0.35 = **3675 VA**\n- **Adjusted general lighting load**: 3000 + 3675 = **6675 VA"
+      },
+      {
+        "iteration": 2,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 3,
+        "got_key_fact": false,
+        "answer_preview": "## Service Load Calculation (CEC 2022)\n\n### **1. Electric Range (12 kW)**\n- **Demand Factor**: 8 kW (from Table 220.55 Column C for 1 appliance)  \n- **Source**: CEC 2022 Table 220.55\n\n### **2. Dryer (5.5 kW)**\n- **Demand Load**: 5 kW (per 220.54)  \n- **Source**: CEC 2022 220.54\n\n### **3. Small Appliance Circuits**\n- **2 circuits × 1.5 kW**: 3 kW  \n- **Source**: CEC 2022 220.52\n\n### **4. Laundry Circuit**\n- **1.5 kW**  \n- **Source**: CEC 2022 220.52\n\n### **5. General Lighting (3,000 sq ft)**\n- **"
+      },
+      {
+        "iteration": 3,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2717' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 4,
+        "got_key_fact": true,
+        "answer_preview": "## Service Load Calculation (CEC 2022)\n\n### 1. **General Lighting Load (with Demand Factors)**\n- **3 VA/sq ft × 3000 sq ft** = **9,000 VA**  \n  *(CEC 220.12)*  \n- **Apply demand factors from Table 220.42**:  \n  - First 3,000 VA at 100% = **3,000 VA**  \n  - Remaining 6,000 VA at 35% = **2,100 VA**  \n  **Total General Lighting Load**: **5,100 VA**  \n\n### 2. **Small Appliance and Laundry Circuits**  \n- **Included in general lighting load per 220.52(A)**  \n  - 2 small appliance circuits × 1,500 VA ="
+      },
+      {
+        "iteration": 4,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2713' in position 4: character maps to <undefined>"
+      },
+      {
+        "iteration": 5,
+        "got_key_fact": false,
+        "answer_preview": "## Residential Service Load Calculation (CEC 2022)\n\n### **Step 1: Apply NEC Article 220.82 Optional Method**\nFor one-family dwellings, the optional method (Part IV) is permitted. The calculated load is determined by:\n- **First 10,000 VA at 100%**\n- **Remaining load at 40%**\n\n---\n\n### **Step 2: Calculate Individual Loads**\n1. **Electric Range (12 kW)**  \n   - Demand factor (NEC 220.55): **80%**  \n   - Adjusted load: $ 12,000 \\, \\text{VA} \\times 0.8 = 9,600 \\, \\text{VA} $\n\n2. **Dryer (5.5 kW)**  \n"
+      },
+      {
+        "iteration": 5,
+        "got_key_fact": false,
+        "error": "'charmap' codec can't encode character '\\u2717' in position 4: character maps to <undefined>"
+      }
+    ]
+  }
+}

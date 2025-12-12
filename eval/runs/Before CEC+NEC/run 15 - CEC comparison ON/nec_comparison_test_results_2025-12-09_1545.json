@@ -1,0 +1,148 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-09_1545",
+    "model": "qwen/qwen3-32b",
+    "total_questions": 4,
+    "pass_count": 4,
+    "total_time_off_seconds": 37.9,
+    "total_time_on_seconds": 50.9,
+    "avg_time_difference_seconds": 3.2
+  },
+  "results": [
+    {
+      "id": "cec-001",
+      "question": "What are the panelboard space requirements for single-family dwellings in California? What appliances must have reserved circuit breaker spaces?",
+      "type": "CA policy",
+      "off": {
+        "answer": "## Panelboard Space Requirements for Single-Family Dwellings (CEC 2022)\n\n### **Panelboard Space Requirements**\nPer **CEC 2022 Section 408.2(A)**, single-family residential panelboards must provide **reserved circuit breaker spaces** for the following appliances:\n\n1. **Heat pump water heaters**  \n2. **Heat pump space heaters**  \n3. **Electric cooktops**  \n4. **Electric clothes dryers**  \n\nThis requirement is mandated by the **California Energy Code (CEC) Section 150.0(n), (t), (u), and (v)** to ensure future-ready electrical infrastructure for electrification and energy efficiency.\n\n---\n\n### **Exceptions Analysis**\nAfter checking exceptions to **Section 408.2(A)** using `cec_exception_search`, no exceptions directly modify the reserved space requirements for the listed appliances. The returned exceptions pertain to unrelated topics like wire-bending space (408.55), enclosure types (408.38), overcurrent protection (408.36), and heating leads (424.97), which do not affect the appliance-specific reserved space rule in 408.2(A).\n\n---\n\n### **Final Answer**\n- **Required reserved spaces**: Heat pump water heaters, heat pump space heaters, electric cooktops, and electric clothes dryers.  \n- **No exceptions apply** to this specific requirement.  \n\n✓ Source: CEC 2022",
+        "tool_names": [
+          "cec_search",
+          "cec_exception_search"
+        ],
+        "duration_seconds": 13.1,
+        "iterations": 4,
+        "has_nec_comparison": false
+      },
+      "on": {
+        "answer": "## Panelboard Space Requirements for Single-Family Dwellings (CEC 2022)\n\n### **California Requirements**\nPer **CEC 2022 Section 408.2(A)**, single-family residential buildings must have panelboards with **reserved circuit breaker spaces** for the following appliances:\n- Heat pump water heaters  \n- Heat pump space heaters  \n- Electric cooktops  \n- Electric clothes dryers  \n\nThis requirement is mandated by the **California Energy Code Section 150.0(n), (t), (u), and (v)** to ensure future-ready electrical infrastructure for electrification and energy efficiency.\n\n---\n\n### **NEC 2023 Comparison**\nThe **NEC 2023** does **not include appliance-specific reserved circuit breaker spaces** in its general panelboard requirements. Relevant NEC sections (e.g., 408.30, 424.19) focus on:\n- Minimum panelboard ratings based on load calculations  \n- Disconnecting means for fixed equipment  \n- General wiring methods  \n\n**Key Difference**:  \nCalifornia’s CEC explicitly mandates reserved spaces for specific appliances to support electrification goals (e.g., heat pumps, electric cooking). The NEC leaves such provisions to local jurisdictions or energy codes, making California’s requirements a **state-specific amendment**.\n\n---\n\n### **Citations**\n- **CEC 2022**: Section 408.2(A), California Energy Code Section 150.0  \n- **NEC 2023**: Sections 408.30, 424.19 (no appliance-specific reserved spaces)  \n\n✓ Source: CEC 2022 / NEC 2023",
+        "tool_names": [
+          "cec_search",
+          "cec_exception_search",
+          "compare_with_nec"
+        ],
+        "duration_seconds": 11.0,
+        "iterations": 4,
+        "has_nec_comparison": true
+      },
+      "analysis": {
+        "time_difference_seconds": -2.1,
+        "tools_added": [
+          "compare_with_nec"
+        ],
+        "nec_comparison_only_when_on": true
+      }
+    },
+    {
+      "id": "cec-011",
+      "question": "What is the ampacity of 4/0 AWG copper conductor at 75C according to California electrical code?",
+      "type": "Table lookup",
+      "off": {
+        "answer": "## Final Answer: Ampacity of 4/0 AWG Copper Conductor (CEC 2022)\n\n**Ampacity**: **230 amperes** at 75°C  \nPer CEC 2022 Table 310.16 (general use, 3 or fewer conductors, 30°C ambient).\n\n**Exceptions Found**:\n- **Section 440.6** applies specifically to **hermetic refrigerant motor-compressors** and **multimotor equipment**. These exceptions modify conductor sizing rules for specialized equipment but **do not affect general ampacity values** in Table 310.16.\n\n**Key Limiting Rules**:\n1. **Overcurrent Protection**: Per Section 240.4(D), 4/0 copper conductors **must be protected at 250A maximum** (not exceeding their 230A ampacity).\n2. **Temperature Correction**: If ambient temperature exceeds 30°C, apply correction factors from Table 310.15(B).\n3. **Bundling Adjustment**: For more than 3 conductors, apply derating per Table 310.15(C)(1).\n\n✓ Source: CEC 2022",
+        "tool_names": [
+          "cec_lookup_conductor_ampacity",
+          "cec_exception_search"
+        ],
+        "duration_seconds": 7.7,
+        "iterations": 4,
+        "has_nec_comparison": false
+      },
+      "on": {
+        "answer": "## Ampacity of 4/0 AWG Copper at 75°C (CEC 2022) – Final Answer\n\n**Base Rule:**  \n- **Ampacity:** 230 amperes (CEC Table 310.16, 75°C column for copper)  \n\n**Exceptions Checked:**  \n1. **Section 440.6 (HVAC Equipment):**  \n   - Applies to hermetic refrigerant motor-compressors and multimotor equipment.  \n   - Allows using \"branch-circuit selection current\" instead of rated-load current for conductor sizing.  \n   - **Not applicable** to general conductor ampacity unless specifically for HVAC equipment.  \n\n2. **Section 110.40 (Termination Temperature Limits):**  \n   - Permits using 90°C ampacity (Table 311.60) for conductors if terminations are rated for 90°C.  \n   - **Does not override** the 75°C value in Table 310.16 unless termination conditions apply.  \n\n**Final Answer:**  \nThe ampacity of 4/0 AWG copper conductor at 75°C is **230 amperes** under CEC 2022. Exceptions (440.6, 110.40) apply only to specific equipment/termination scenarios and do not affect this general case.  \n\n✓ Source: CEC 2022 Table 310.16 / Exceptions 440.6, 110.40",
+        "tool_names": [
+          "cec_lookup_conductor_ampacity",
+          "compare_with_nec",
+          "cec_exception_search"
+        ],
+        "duration_seconds": 9.5,
+        "iterations": 4,
+        "has_nec_comparison": true
+      },
+      "analysis": {
+        "time_difference_seconds": 1.8,
+        "tools_added": [
+          "compare_with_nec"
+        ],
+        "nec_comparison_only_when_on": true
+      }
+    },
+    {
+      "id": "cec-018",
+      "question": "What is the general lighting load in VA per square foot for office buildings according to California code?",
+      "type": "Table lookup",
+      "off": {
+        "answer": "## General Lighting Load for Office Buildings (CEC 2022)\n\nThe general lighting load for **office buildings** in California is **1.3 volt-amperes per square foot (VA/ft²)** per CEC 2022 Table 220.12.\n\n### Exceptions and Notes:\n1. **Energy Code Compliance Exception** (Section 220.12(B)):\n   - If the building complies with a local energy code, the lighting load may use energy code values **if**:\n     - A power monitoring system is installed.\n     - The system has alarm thresholds for load exceedance.\n     - Demand factors from Table 220.42 are **not applied**.\n     - The 125% continuous load multiplier is applied.\n\n2. **Footnote Context**:\n   - The 1.3 VA/ft² value assumes 100% power factor and minimum load conditions (Section 220.12 informational note).\n\n✓ Source: CEC 2022 Section 220.12 (Table 220.12)",
+        "tool_names": [
+          "cec_search",
+          "cec_exception_search"
+        ],
+        "duration_seconds": 8.5,
+        "iterations": 4,
+        "has_nec_comparison": false
+      },
+      "on": {
+        "answer": "## General Lighting Load for Office Buildings: CEC 2022 vs NEC 2023\n\n### **California Electrical Code (CEC 2022)**\n- **Base Value**: **1.3 VA/ft²** (Table 220.12)  \n- **Key Features**:  \n  - **125% continuous load multiplier already included** in the table value (per 210.20(A)).  \n  - **Exception 220.12(B)**: Permits substitution with local energy code values **if**:  \n    1. Power monitoring system installed.  \n    2. Alarms for load exceedances.  \n    3. Demand factors from 220.42 **not applied**.  \n  - **Informational Note**: Values assume 100% power factor; actual installations may need higher capacity.  \n\n### **National Electrical Code (NEC 2023)**\n- **Base Value**: **3.5 VA/ft²** (Table 220.42(A))  \n- **Key Features**:  \n  - **125% continuous load multiplier must be applied separately**, resulting in **4.38 VA/ft²**.  \n  - No exception for energy code substitution.  \n  - Demand factors from Table 220.42 apply to general lighting loads.  \n\n---\n\n### **Side-by-Side Comparison**\n| **Parameter**               | **CEC 2022**                          | **NEC 2023**                          |\n|-----------------------------|----------------------------------------|----------------------------------------|\n| **Base Table Value**        | 1.3 VA/ft² (with 125% included)        | 3.5 VA/ft²                             |\n| **Effective Value**         | 1.3 VA/ft² (pre-applied 125%)           | 4.38 VA/ft² (post-calculation)         |\n| **Energy Code Flexibility** | Permitted via 220.12(B) with monitoring | Not specified                          |\n| **Demand Factors**          | Excluded per 220.12(B)                 | Included per 220.42                    |\n\n---\n\n### **California-Specific Amendments [CEC]**\n- **Lower Base Load**: Reflects Title 24 energy efficiency standards.  \n- **Embedded 125% Factor**: Simplifies calculations by pre-including continuous load requirements.  \n- **Energy Code Path**: Allows reduced loads if monitoring systems are implemented (Exception 220.12(B)).  \n\n✓ **Source**: CEC 2022 Sections 220.12, 220.42; NEC 2023 Sections 220.42, 220.12",
+        "tool_names": [
+          "cec_search",
+          "cec_lookup_table",
+          "cec_exception_search",
+          "compare_with_nec"
+        ],
+        "duration_seconds": 19.3,
+        "iterations": 7,
+        "has_nec_comparison": true
+      },
+      "analysis": {
+        "time_difference_seconds": 10.8,
+        "tools_added": [
+          "cec_lookup_table",
+          "compare_with_nec"
+        ],
+        "nec_comparison_only_when_on": true
+      }
+    },
+    {
+      "id": "cec-021",
+      "question": "Calculate the adjusted ampacity for 8 AWG THWN copper conductors with 7 conductors in a raceway at 40C ambient temperature in California.",
+      "type": "Calculation",
+      "off": {
+        "answer": "## Adjusted Ampacity Calculation (CEC 2022) with Exceptions\n\n1. **Base Ampacity**:  \n   8 AWG THWN copper = **50A** @ 75°C (CEC Table 310.16)\n\n2. **Temperature Correction (40°C ambient)**:  \n   Factor = **0.88** (CEC Table 310.15(B)(1))\n\n3. **Bundling Adjustment (7 conductors)**:  \n   Factor = **0.70** (CEC Table 310.15(C)(1))\n\n4. **Final Calculation**:  \n   ```\n   50A × 0.88 × 0.70 = 30.8A\n   ```\n\n5. **Exception Check**:  \n   - **Section 310.15** confirms temperature correction and bundling adjustments are permitted **if the corrected ampacity does not exceed the termination temperature rating** (110.14(C)).  \n   - THWN conductors are rated for 75°C, but terminations (e.g., breakers) are often limited to 60°C or 75°C. If terminations are 60°C, further derating is required.  \n   - **No exceptions apply** to this specific calculation (HVAC/440.6 and motor control/427.45 exceptions are irrelevant here).\n\n6. **Limiting Rule Check**:  \n   - Section 240.4(D) allows 8 AWG copper up to **40A** OCP (no conflict with 30.8A adjusted ampacity).\n\n**Final Answer**: **30.8 amperes**  \n✓ Source: CEC 2022  \n✓ Exceptions reviewed: 310.15 (temperature/termination limits), 440.6 (HVAC), 427.45 (motor control)  \n✓ Calculated using:  \n  - Table 310.16 (base ampacity)  \n  - Table 310.15(B)(1) (temperature correction)  \n  - Table 310.15(C)(1) (bundling adjustment)  \n  - Section 240.4(D) (overcurrent protection)",
+        "tool_names": [
+          "cec_lookup_conductor_ampacity",
+          "cec_exception_search"
+        ],
+        "duration_seconds": 8.6,
+        "iterations": 4,
+        "has_nec_comparison": false
+      },
+      "on": {
+        "answer": "## Final Adjusted Ampacity with Exception Check (CEC 2022)\n\n### **Base Calculation**\n- **Base Ampacity**: 50A (Table 310.16, 8 AWG THWN @ 75°C)\n- **Temp Correction**: 0.88 (Table 310.15(B)(1), 40°C ambient)\n- **Bundling Factor**: 0.70 (Table 310.15(C)(1), 7 conductors)\n- **Final Calculation**:  \n  `50A × 0.88 × 0.70 = 30.8A`\n\n### **Exception Review**\n1. **Section 440.6 (HVAC equipment)**:  \n   - Applies only to **hermetic refrigerant motor-compressors** or **multimotor equipment**.  \n   - **Not applicable** here (general wiring, not HVAC-specific).\n\n2. **Section 427.45 (Conductor in ferromagnetic envelope)**:  \n   - Permits exceeding Table 310.16 ampacity for conductors **inside a ferromagnetic envelope**.  \n   - **Not applicable** here (standard THWN in raceway, no special insulation/environment).\n\n### **Conclusion**\nNo applicable exceptions modify the calculation.  \n\n**Final Answer**:  \nAdjusted ampacity is **30.8A** under CEC 2022.",
+        "tool_names": [
+          "cec_derated_ampacity",
+          "compare_with_nec",
+          "cec_exception_search"
+        ],
+        "duration_seconds": 11.1,
+        "iterations": 5,
+        "has_nec_comparison": true
+      },
+      "analysis": {
+        "time_difference_seconds": 2.5,
+        "tools_added": [
+          "compare_with_nec",
+          "cec_derated_ampacity"
+        ],
+        "nec_comparison_only_when_on": true
+      }
+    }
+  ]
+}

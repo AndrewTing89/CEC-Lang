@@ -1,0 +1,373 @@
+{
+  "model": "Gemini 2.5 Pro",
+  "source": "_Gemini - direct access to Google AI.html",
+  "judge": "Claude Code (Claude Opus 4.5)",
+  "judge_method": "LLM-as-Judge",
+  "timestamp": "2025-12-09T00:00:00Z",
+  "evaluations": [
+    {
+      "id": "baseline-001",
+      "matched_expected_id": "baseline-001",
+      "question": "What is the ampacity of 12 AWG copper conductor at 75°C termination?",
+      "accuracy": 3,
+      "completeness": 4,
+      "total": 7,
+      "accuracy_notes": "Model correctly states 25A from Table 310.16 (75°C column), which is technically accurate. However, the expected answer is '20 amperes' - this appears to reference the overcurrent protection limit per 240.4(D), not the raw ampacity. Model then correctly explains the 20A overcurrent protection rule, showing understanding of the distinction. Partial credit for giving technically correct ampacity while also explaining the practical limitation.",
+      "completeness_notes": "Very complete answer that explains both the ampacity (25A) and the overcurrent protection limit (20A). Goes beyond basic answer to explain the 'small conductor rule' NEC 240.4(D). Only minor deduction because the expected answer format was simpler.",
+      "errors": [
+        "Answer format mismatch: gave 25A (ampacity) vs expected 20A (overcurrent protection limit), though both values are technically correct in different contexts"
+      ]
+    },
+    {
+      "id": "baseline-002",
+      "matched_expected_id": "baseline-002",
+      "question": "What size copper conductor is required for a 60A circuit at 75°C?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly identifies 6 AWG copper (65A at 75°C) as the answer. Also correctly discusses the 4 AWG option for continuous loads (60A × 1.25 = 75A) and voltage drop considerations. Fully accurate.",
+      "completeness_notes": "Excellent answer that covers the basic requirement (6 AWG) plus important practical considerations (continuous load sizing, voltage drop). Very thorough.",
+      "errors": []
+    },
+    {
+      "id": "baseline-003",
+      "matched_expected_id": "baseline-003",
+      "question": "Where is GFCI protection required in a residential kitchen?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly identifies all countertop receptacles and dishwashers require GFCI. Also correctly notes the 2023 NEC expansion to ALL receptacles in kitchen (refrigerators, ranges, disposals, etc.). Matches expected answer.",
+      "completeness_notes": "Very complete. Covers both 2023 NEC (all receptacles) and older code (countertops + within 6 feet of sink). Mentions specific appliances. Excellent detail.",
+      "errors": []
+    },
+    {
+      "id": "baseline-004",
+      "matched_expected_id": "baseline-004",
+      "question": "Is AFCI protection required for bedroom circuits in new residential construction?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly answers 'Yes' and cites NEC 210.12 for 120V, 15A and 20A circuits in bedrooms. Also correctly notes the 2023 expansion to most habitable areas. Fully accurate.",
+      "completeness_notes": "Excellent completeness. Explains what AFCI covers (circuits for receptacles, lighting, hardwired devices), why it's needed (arc fault detection), and lists all 2023 locations. Very thorough.",
+      "errors": []
+    },
+    {
+      "id": "baseline-005",
+      "matched_expected_id": "baseline-005",
+      "question": "Can aluminum conductors be used for a 200A service? If yes, what size?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly answers 'Yes, 4/0 AWG aluminum'. Correctly explains the 83% rule (NEC 310.15(B)(7) / 310.12 in 2023) that allows 180A-rated wire for 200A service (200 × 0.83 = 166A). Fully accurate.",
+      "completeness_notes": "Exceptionally complete. Covers aluminum sizing, the 83% residential rule, comparison to copper (2/0), installation considerations (anti-oxidant paste, AL/CU marking), commercial vs residential differences, and voltage drop. Excellent.",
+      "errors": []
+    },
+    {
+      "id": "baseline-006",
+      "matched_expected_id": "baseline-006",
+      "question": "What is the minimum depth of working clearance required in front of a 120/240V residential electrical panel?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly states 36 inches (3 feet) per NEC 110.26. Fully accurate.",
+      "completeness_notes": "Complete answer. Also includes width (30 inches) and height (6.5 feet / 78 inches) requirements. Explains the working space must be kept clear. Very thorough.",
+      "errors": []
+    },
+    {
+      "id": "baseline-007",
+      "matched_expected_id": "baseline-007",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly answers 'minimum of two 20-ampere SABCs' per NEC 210.11(C)(1). Fully accurate.",
+      "completeness_notes": "Very complete. Explains where they serve (kitchen, pantry, breakfast room, dining room), what they can't serve (lighting, other outlets), and arrangement requirements. Excellent detail.",
+      "errors": []
+    },
+    {
+      "id": "baseline-008",
+      "matched_expected_id": "baseline-008",
+      "question": "Is surge protection required for a new 200A residential service according to 2023 NEC?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly answers 'Yes' per NEC 230.67 for all dwelling units. Fully accurate.",
+      "completeness_notes": "Very complete. Covers Type 1 or Type 2 SPD requirement, location options (integral or immediately adjacent), exception for downstream installation, 10kA minimum rating, and replacement requirement. Excellent.",
+      "errors": []
+    },
+    {
+      "id": "core-001",
+      "matched_expected_id": "core-001",
+      "question": "A homeowner wants to upgrade from 100A to 200A service. The house has 3,000 sq ft of living space, electric range (12kW), electric dryer (5.5kW), central AC (4 tons), and electric water heater (4.5kW). What size service conductors are required, and can they use aluminum?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly identifies 4/0 AWG aluminum (or 2/0 AWG copper) per Table 310.12 and the 83% rule. Matches expected answer exactly.",
+      "completeness_notes": "Exceptionally thorough. Provides complete Optional Method load calculation (NEC 220.82) showing general loads, demand factors, A/C load, arriving at 109.17A calculated load. Explains why 200A service is appropriate. Shows all work step-by-step. Outstanding detail.",
+      "errors": []
+    },
+    {
+      "id": "core-002",
+      "matched_expected_id": "core-002",
+      "question": "An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. What are the NEC requirements for the circuit breaker and neutral termination?",
+      "accuracy": 4,
+      "completeness": 5,
+      "total": 9,
+      "accuracy_notes": "Correctly identifies simultaneous disconnect requirement (NEC 210.4(B)) with 2-pole breaker or handle tie. Correctly explains neutral pigtail requirement per 300.13(B). Minor issue: the expected answer mentions 'common trip is required if circuit has both line-to-line and line-to-neutral loads' - this nuance is not explicitly addressed, though the model correctly recommends 2-pole AFCI/GFCI for kitchen MWBCs.",
+      "completeness_notes": "Very complete. Covers breaker requirements (2-pole or handle tie), neutral pigtailing, AFCI/GFCI protection needs, and safety reasoning. Excellent detail with clear explanation of why pigtailing is critical.",
+      "errors": [
+        "Minor: doesn't explicitly distinguish when common trip (vs handle tie) is mandatory for line-to-line loads"
+      ]
+    },
+    {
+      "id": "core-003",
+      "matched_expected_id": "core-003",
+      "question": "Where is GFCI protection now required in a residential dwelling according to 2023 NEC? List all locations.",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly lists all locations per 210.8(A): bathrooms, garages, outdoors, crawl spaces, basements, kitchens, laundry, sinks (within 6 feet), bathtubs/showers, boathouses. Fully accurate.",
+      "completeness_notes": "Exceptionally complete. Lists all dwelling unit locations from 210.8(A) and also covers 210.8(D) hardwired appliance requirements (dishwashers, ranges, ovens, dryers, etc.). Very thorough and well-organized.",
+      "errors": []
+    },
+    {
+      "id": "core-004",
+      "matched_expected_id": "core-004",
+      "question": "Is surge protection required for a new 200A residential service? If so, where can it be installed?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly answers 'Yes' per NEC 230.67. Correctly identifies Type 1 or Type 2 SPD, integral/immediately adjacent installation, and exception for downstream installation. Matches expected answer.",
+      "completeness_notes": "Very complete. Covers all installation location options, 10kA rating requirement, and provides practical examples of where SPD can be placed. Excellent detail.",
+      "errors": []
+    },
+    {
+      "id": "core-005",
+      "matched_expected_id": "core-005",
+      "question": "A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inches to the side. Does this meet NEC requirements?",
+      "accuracy": 4,
+      "completeness": 4,
+      "total": 8,
+      "accuracy_notes": "Correctly identifies violations: (1) 24 inches vs required 36 inches depth (110.26(A)(1)), (2) water heater within 30-inch width requirement. The expected answer also mentions 'panels prohibited in clothes closets per 240.24(D)' - the model addresses this but with appropriate caution ('if the space is primarily used for storing clothes'), which is reasonable since the question says 'closet with water heater' which could be utility closet. Also doesn't explicitly mention 110.26(B) storage prohibition as a separate violation.",
+      "completeness_notes": "Good completeness. Covers depth violation, width violation, mentions closet prohibition with qualification. Explains the 36×30×78 rule clearly. Minor deduction for not calling out 110.26(B) storage prohibition as explicit separate violation.",
+      "errors": [
+        "Minor: doesn't explicitly cite 110.26(B) as separate violation for storage/equipment in working space"
+      ]
+    },
+    {
+      "id": "core-006",
+      "matched_expected_id": "core-006",
+      "question": "During an inspection, I found two 12 AWG conductors landed on a single 20A breaker terminal. The breaker is not marked for two conductors. Is this a code violation?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly answers 'Yes, this is a code violation' per NEC 110.14(A). Also correctly cites 110.3(B) manufacturer instructions requirement. Matches expected answer.",
+      "completeness_notes": "Complete answer. Cites correct code sections (110.14(A), implied 110.3(B)), explains the safety risk (loose connection, heat, fire), and provides correct solutions (pigtail or separate breakers). Excellent.",
+      "errors": []
+    },
+    {
+      "id": "core-007",
+      "matched_expected_id": "core-007",
+      "question": "A detached garage is fed from the house panel with a 4-wire feeder. How should the grounding and bonding be configured in the garage subpanel?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly states grounds and neutrals must be SEPARATED in subpanel. Correctly explains: no MBJ in subpanel, neutral bar isolated, ground bar bonded to enclosure, grounding electrode required per 250.32. Matches expected answer.",
+      "completeness_notes": "Very complete. Explains the 4-wire feeder composition, neutral isolation requirement, ground bonding, grounding electrode system for detached structure, and provides clear table summarizing all connections. Excellent detail.",
+      "errors": []
+    },
+    {
+      "id": "core-008",
+      "matched_expected_id": "core-008",
+      "question": "What is the difference between a main bonding jumper and a system bonding jumper? When is each required?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly distinguishes: MBJ at service equipment (250.28), SBJ at separately derived systems (250.30). Both perform same function (connect neutral to EGC and enclosure). Matches expected answer.",
+      "completeness_notes": "Very complete. Explains both definitions clearly, when each is required, common forms, and sizing reference (Table 250.102(C)(1)). Includes helpful tables. Excellent.",
+      "errors": []
+    },
+    {
+      "id": "core-009",
+      "matched_expected_id": "core-009",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen, and can these circuits also serve the dining room receptacles?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly answers 'minimum of TWO 20-ampere circuits' per 210.11(C)(1). Correctly answers 'Yes, can serve dining room' per 210.52(B). Matches expected answer.",
+      "completeness_notes": "Very complete. Explains permitted areas (kitchen, pantry, breakfast room, dining room), 'no other outlets' rule with exceptions, what they cannot serve. Excellent detail.",
+      "errors": []
+    },
+    {
+      "id": "core-010",
+      "matched_expected_id": "core-010",
+      "question": "A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50°C ambient temperature location. What is the adjusted ampacity?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly calculates: Base 30A (90°C) × 0.82 (temp correction) × 0.80 (bundling) = 19.68A. Matches expected answer exactly.",
+      "completeness_notes": "Excellent completeness. Shows all calculation steps clearly: base ampacity from Table 310.16 (90°C column), temperature correction factor (Table 310.15(B)(1)), bundling adjustment (Table 310.15(C)(1)), final calculation. Also discusses overcurrent protection limit. Outstanding.",
+      "errors": []
+    },
+    {
+      "id": "core-011",
+      "matched_expected_id": "core-011",
+      "question": "Why does the NEC require AFCI protection for bedrooms and living areas? What electrical hazard does it prevent?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly identifies AFCI prevents electrical fires from arc faults. Correctly explains arcing conditions: series arcing, parallel arcing, loose connections, damaged insulation. References 210.12. Matches expected answer.",
+      "completeness_notes": "Very complete. Explains what arc faults are, why standard breakers can't detect them, common causes (damaged insulation, loose connections, frayed cords), and why bedrooms/living areas need protection. Excellent detail.",
+      "errors": []
+    },
+    {
+      "id": "core-012",
+      "matched_expected_id": "core-012",
+      "question": "Why are torque specifications important when terminating conductors in a panel, and where are the requirements found?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly explains torque prevents: (1) loose connections/high resistance/heat (under-torquing), (2) crushed conductors/damaged terminals (over-torquing). Correctly cites 110.14(D) and 110.3(B). Matches expected answer.",
+      "completeness_notes": "Very complete. Explains both under-torquing and over-torquing hazards, cites correct code sections (110.14(D), 110.3(B)), explains where to find values (equipment marking, manufacturer instructions, UL 486A-486B). Excellent.",
+      "errors": []
+    },
+    {
+      "id": "inspection-001",
+      "matched_expected_id": "inspection-001",
+      "question": "Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A breaker, (2) 5.5kW dryer on 30A breaker, (3) two 20A small appliance circuits, (4) one 20A laundry circuit, (5) 3000 sq ft living space with general lighting, (6) 4-ton central AC (19.2A at 240V, approximately 4600W). Calculate the service load per NEC Article 220 and determine if the 200A panel is adequately sized. Show your work.",
+      "accuracy": 3,
+      "completeness": 4,
+      "total": 7,
+      "accuracy_notes": "Calculation method is correct (Optional Method 220.82). However, there are significant errors: (1) Expected answer uses Table 220.55 for range (8000 VA demand), but model uses full 12,000 VA nameplate. This is a major error - Table 220.55 is mandatory for range demand. (2) Model gets 95.87A vs expected 103.2A due to range error. (3) Expected calculation: General lighting demand 6675 VA, Range 8000 VA (from table), Dryer 5500 VA, AC 4600 VA = 24,775 VA total = 103.2A. Model's approach is systematically correct but misses the critical Table 220.55 requirement.",
+      "completeness_notes": "Good completeness in showing work step-by-step. Shows general loads, demand factors, A/C comparison, final amperage. However, missing the Table 220.55 range demand factor is a significant omission. Deduction for not matching expected calculation structure.",
+      "errors": [
+        "Major: Used full 12kW range nameplate instead of 8kW from Table 220.55 (mandatory for ranges)",
+        "Result: Calculated 95.87A vs expected 103.2A (7.4A error)"
+      ]
+    },
+    {
+      "id": "inspection-002",
+      "matched_expected_id": "inspection-002",
+      "question": "Electrical panel inspection in residential garage: Panel has 30 inches width clearance, 28 inches depth clearance in front, and a water heater located 16 inches to the left side within the working space. Panel is surface-mounted on wall at 5 feet height. Identify ALL NEC violations.",
+      "accuracy": 3,
+      "completeness": 4,
+      "total": 7,
+      "accuracy_notes": "Correctly identifies depth violation (28\" vs 36\" required per 110.26(A)(1)) and water heater obstruction within working space. However, makes an error on panel height: the question states panel is at 5 feet height (likely meaning bottom of panel), and model incorrectly calculates this would place top breakers at 8'6\" (assuming 42\" panel height). This assumption creates a false violation - a panel bottom at 5 feet (60\") with typical 30-40\" height would have top breakers at 90-100\", which could still be under the 79\" (6'7\") maximum depending on actual panel size. Expected answer correctly identifies the actual violations without this speculation.",
+      "completeness_notes": "Good detail on depth and obstruction violations with correct NEC citations. However, includes speculative height violation based on assumed panel dimensions not given in question. Expected answer focuses on the two clear violations: insufficient depth and obstruction in working space.",
+      "errors": [
+        "Assumed panel dimensions not provided (42\" tall) to create height violation",
+        "Expected answer identifies 2 clear violations; model adds speculative 3rd violation"
+      ]
+    },
+    {
+      "id": "inspection-005",
+      "matched_expected_id": "inspection-005",
+      "question": "New residential construction, 2023 NEC. Kitchen installation has: (1) four countertop receptacles on two 20A circuits, (2) dishwasher on dedicated 15A circuit, (3) garbage disposal on dedicated 15A circuit, (4) refrigerator on dedicated 20A circuit. For each circuit, specify the required protection: standard breaker, GFCI, AFCI, or combination AFCI/GFCI. Provide NEC references.",
+      "accuracy": 4,
+      "completeness": 5,
+      "total": 9,
+      "accuracy_notes": "Mostly correct but with one notable difference: For garbage disposal, the expected answer states 'GFCI not specifically required for disposal, but AFCI required per 210.12(A)'. The model states disposal needs combination AFCI/GFCI because it's a receptacle in the kitchen per 210.8(A)(6). This is a reasonable interpretation difference - if disposal is on a receptacle (plug-in), model is correct; if hardwired, expected answer is more accurate. The expected answer is more nuanced. Otherwise all other circuits are correctly identified.",
+      "completeness_notes": "Very complete answer with detailed table showing each circuit, required protection, and NEC references. Explains both GFCI (210.8(A)(6) and 210.8(D)) and AFCI (210.12(B)(1)) requirements clearly. Excellent detail and organization.",
+      "errors": [
+        "Minor: Disposal protection - model says GFCI required (via 210.8(A)(6) receptacle rule), expected answer says GFCI not specifically required. Depends on plug-in vs hardwired configuration."
+      ]
+    },
+    {
+      "id": "inspection-006",
+      "matched_expected_id": "inspection-006",
+      "question": "Subpanel inspection in detached garage: 100A subpanel fed from main house panel with 4-wire feeder (#2 AWG aluminum: 2 hots, 1 neutral, 1 ground). Inspector notes: (1) neutral bar and ground bar are bonded together with main bonding jumper installed, (2) ground bar is bonded to metal enclosure, (3) neutral bar is bonded to metal enclosure, (4) feeder ground wire is connected to ground bar, (5) feeder neutral is connected to neutral bar. Identify all violations and explain correct configuration.",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly identifies violations: (1) neutral bar bonded to enclosure - violation per 250.24(A)(5) and 408.40, (2) main bonding jumper installed - violation per 250.28 (only at service). Correctly explains correct configuration: remove MBJ, isolate neutral bar, bond only ground bar to enclosure. Matches expected answer.",
+      "completeness_notes": "Very complete. Identifies both violations clearly, explains correct configuration with detailed table, mentions grounding electrode system requirement (250.32(A)). Excellent organization and clarity.",
+      "errors": []
+    },
+    {
+      "id": "inspection-007",
+      "matched_expected_id": "inspection-007",
+      "question": "A 1¼-inch rigid metal conduit (RMC) needs to accommodate multiple 10 AWG THHN conductors for a commercial installation. Using NEC Chapter 9 Tables, determine the maximum number of 10 AWG THHN conductors that can be installed in this conduit. Show your calculation.",
+      "accuracy": 2,
+      "completeness": 3,
+      "total": 5,
+      "accuracy_notes": "Model gives final answer of 18 conductors, but expected answer is 28-29 conductors. This is a significant error. The expected calculation shows: 1¼\" RMC has 0.610 in² at 40% fill (Table 4), 10 AWG THHN = 0.0211 in² (Table 5), resulting in 0.610/0.0211 = 28.91 → 29 conductors max (or conservatively 28). Model references Table C.8 which apparently shows 18, but this doesn't match the manual calculation. The model's calculation section is incomplete and doesn't show the actual division that would verify the answer.",
+      "completeness_notes": "Incomplete calculation. Model states it will show calculation but then primarily relies on direct Table C.8 lookup showing 18. The manual verification shown uses 0.607 in² and 0.0211 in² which should give ~28.77 (not 18). Model acknowledges discrepancy but defaults to Table C.8 value of 18 without explaining the large difference. Expected answer shows complete calculation arriving at 28-29.",
+      "errors": [
+        "Major: Wrong final answer - 18 vs expected 28-29 conductors",
+        "Calculation shown (0.607/0.0211 = 28.77) contradicts stated answer (18)",
+        "Significant 37% error in conductor capacity"
+      ]
+    },
+    {
+      "id": "inspection-008",
+      "matched_expected_id": "inspection-008",
+      "question": "A 120V single-phase branch circuit supplies a continuous load of 22 amperes. The circuit uses 12 AWG copper conductors with a resistance of 1.29 ohms per 1,000 feet. The one-way distance from the panel to the load is 50 feet. Calculate the voltage drop in volts and as a percentage. Does this meet NEC recommendations (3% maximum for branch circuits)?",
+      "accuracy": 4,
+      "completeness": 4,
+      "total": 8,
+      "accuracy_notes": "Model calculates 2.56V (2.13%) but then shows calculation arriving at 2.58V (2.15%). Expected answer is 2.84V (2.37%). The discrepancy is in the current used: Model uses 20A or 22A in different parts of answer, but then states 'We will use 22A for the calculation.' Expected formula: VD = (2 × 50 × 1.29 × 22) / 1000 = 2,838/1000 = 2.84V. Model's calculation: 22A × 0.129Ω = 2.58V. The model correctly calculates R_total = 100ft/1000 × 1.29 = 0.129Ω. Then 22A × 0.129Ω = 2.838V ≈ 2.84V. So model should get correct answer. The issue is model shows both 20A and 22A calculations and gets confused. The 2.58V appears to use ~20A.",
+      "completeness_notes": "Good completeness in showing formula, variables, resistance calculation, and final percentage. However, creates confusion by discussing both 22A and 27.5A (125% for continuous), then appears to use 20A in final calculation instead of stated 22A. Expected answer is clearer and uses correct 22A throughout.",
+      "errors": [
+        "Calculation inconsistency: States will use 22A but appears to calculate with ~20A",
+        "Result: 2.56-2.58V vs expected 2.84V (about 10% low)",
+        "Final percentage: 2.13-2.15% vs expected 2.37%"
+      ]
+    },
+    {
+      "id": "inspection-009",
+      "matched_expected_id": "inspection-009",
+      "question": "A conduit in an attic contains six 12 AWG TW (Type TW, 60°C rated) copper conductors, all current-carrying. The attic ambient temperature reaches 110°F (43°C). Calculate the adjusted ampacity of these conductors after applying both temperature correction and bundling adjustment factors. Show all steps.",
+      "accuracy": 4,
+      "completeness": 5,
+      "total": 9,
+      "accuracy_notes": "Model calculates 11.36A (then shows recalculation confirming 11.36A). Expected answer is 11.36A per the shown calculation (20A × 0.71 × 0.80 = 11.36A), but the expected answer summary states '11.36 amperes (approximately 11.4A)', and the question answer field shows 'adjusted ampacity is 11.36 amperes'. Model matches this exactly. However, model then discusses final overcurrent protection should be 10A breaker, while expected answer doesn't specify this level of detail. Minor: Model shows some confusion with '12.8 amperes' in the initial statement, then correctly calculates 11.36A in the step-by-step section.",
+      "completeness_notes": "Very complete. Shows all steps: base ampacity (20A at 60°C), temperature correction (0.71 for 43°C), bundling adjustment (0.80 for 6 conductors), final calculation. Also discusses overcurrent protection. Only minor issue is initial statement of 12.8A that contradicts the calculation.",
+      "errors": [
+        "Minor: Initial statement says 12.8A but calculation shows 11.36A (calculation is correct)"
+      ]
+    },
+    {
+      "id": "inspection-010",
+      "matched_expected_id": "inspection-010",
+      "question": "A commercial data center has a main service with four parallel sets of 250 kcmil copper conductors per phase (total equivalent: 4 × 250 kcmil = 1000 kcmil per phase). Using NEC Table 250.66, determine the minimum size copper grounding electrode conductor (GEC) required for this installation.",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly calculates 4 × 250 kcmil = 1000 kcmil total. Correctly finds 'Over 600 kcmil through 1100 kcmil' row in Table 250.66. Correctly identifies minimum 2/0 AWG copper GEC. Also correctly notes the 6 AWG exception for ground rod only (250.66(A)). Matches expected answer exactly.",
+      "completeness_notes": "Very complete. Shows parallel conductor calculation, Table 250.66 lookup, final answer, and the ground rod exception note. Excellent detail and accuracy.",
+      "errors": []
+    }
+  ],
+  "summary": {
+    "total_questions": 28,
+    "questions_matched": 28,
+    "total_accuracy": 127,
+    "total_completeness": 136,
+    "total_score": 263,
+    "max_possible": 280,
+    "avg_accuracy": 4.54,
+    "avg_completeness": 4.86,
+    "avg_total": 9.39,
+    "percentage": 93.93
+  },
+  "critical_errors": [
+    {
+      "id": "inspection-001",
+      "issue": "Used full 12kW range nameplate instead of mandatory 8kW from Table 220.55",
+      "impact": "Underestimated service load by 7.4A (95.87A vs 103.2A)",
+      "severity": "high"
+    },
+    {
+      "id": "inspection-007",
+      "issue": "Wrong conduit fill answer: 18 conductors vs correct 28-29",
+      "impact": "37% error in conductor capacity - could lead to code violation",
+      "severity": "high"
+    },
+    {
+      "id": "inspection-008",
+      "issue": "Voltage drop calculation inconsistency (used ~20A instead of stated 22A)",
+      "impact": "10% underestimation of voltage drop (2.58V vs 2.84V)",
+      "severity": "medium"
+    }
+  ]
+}

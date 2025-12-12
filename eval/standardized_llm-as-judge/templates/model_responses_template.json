@@ -1,0 +1,22 @@
+{
+  "model": "Model Name (e.g., GPT-4o, Claude Sonnet 4.5)",
+  "source": "Source file or URL",
+  "date": "2025-12-09",
+  "qa_pairs": [
+    {
+      "id": "baseline-001",
+      "question": "What is the ampacity of 12 AWG copper conductor at 75°C termination?",
+      "answer": "The ampacity of 12 AWG copper conductor at 75°C termination is 20 amperes per NEC Table 310.16..."
+    },
+    {
+      "id": "core-001",
+      "question": "A homeowner wants to upgrade from 100A to 200A service...",
+      "answer": "For a 200A service upgrade, you would need 2/0 AWG copper or 4/0 AWG aluminum conductors..."
+    },
+    {
+      "id": "inspection-001",
+      "question": "Residential panel inspection: 200A main breaker. Calculate the service load...",
+      "answer": "Step 1: General Lighting = 3000 sq ft × 3 VA = 9000 VA..."
+    }
+  ]
+}

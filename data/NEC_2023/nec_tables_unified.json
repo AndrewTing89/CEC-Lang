@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "total_tables": 149,
+    "total_tables": 150,
     "chapters": [
       1,
       2,
@@ -20764,6 +20764,227 @@
           "number": "3",
           "text": "For compact stranded conductors, use Chapter 9 Table 5A."
         }
+      ]
+    },
+    "Chapter 9 Table 8": {
+      "table_id": "Chapter 9 Table 8",
+      "caption": "Conductor Properties",
+      "description": "DC resistance at 75°C (167°F) in ohms per 1000 feet for uncoated copper and aluminum conductors. Used for voltage drop calculations per 210.19(A)(1) Informational Note No. 4. Values based on stranded conductors except for solid wire sizes 14-10 AWG.",
+      "section": "Chapter 9",
+      "keywords": [
+        "resistance",
+        "voltage drop",
+        "conductor",
+        "ohms",
+        "copper",
+        "aluminum",
+        "dc resistance"
+      ],
+      "chapter": "9",
+      "rows": [
+        {
+          "size": "18",
+          "stranding": "Solid",
+          "copper_resistance": 7.77,
+          "aluminum_resistance": 12.8
+        },
+        {
+          "size": "16",
+          "stranding": "Solid",
+          "copper_resistance": 4.89,
+          "aluminum_resistance": 8.05
+        },
+        {
+          "size": "14",
+          "stranding": "Solid",
+          "copper_resistance": 3.07,
+          "aluminum_resistance": 5.06
+        },
+        {
+          "size": "14",
+          "stranding": "Stranded",
+          "copper_resistance": 3.14,
+          "aluminum_resistance": 5.17
+        },
+        {
+          "size": "12",
+          "stranding": "Solid",
+          "copper_resistance": 1.93,
+          "aluminum_resistance": 3.18
+        },
+        {
+          "size": "12",
+          "stranding": "Stranded",
+          "copper_resistance": 1.98,
+          "aluminum_resistance": 3.25
+        },
+        {
+          "size": "10",
+          "stranding": "Solid",
+          "copper_resistance": 1.21,
+          "aluminum_resistance": 1.99
+        },
+        {
+          "size": "10",
+          "stranding": "Stranded",
+          "copper_resistance": 1.24,
+          "aluminum_resistance": 2.04
+        },
+        {
+          "size": "8",
+          "stranding": "Stranded",
+          "copper_resistance": 0.778,
+          "aluminum_resistance": 1.28
+        },
+        {
+          "size": "6",
+          "stranding": "Stranded",
+          "copper_resistance": 0.491,
+          "aluminum_resistance": 0.808
+        },
+        {
+          "size": "4",
+          "stranding": "Stranded",
+          "copper_resistance": 0.308,
+          "aluminum_resistance": 0.508
+        },
+        {
+          "size": "3",
+          "stranding": "Stranded",
+          "copper_resistance": 0.245,
+          "aluminum_resistance": 0.403
+        },
+        {
+          "size": "2",
+          "stranding": "Stranded",
+          "copper_resistance": 0.194,
+          "aluminum_resistance": 0.319
+        },
+        {
+          "size": "1",
+          "stranding": "Stranded",
+          "copper_resistance": 0.154,
+          "aluminum_resistance": 0.253
+        },
+        {
+          "size": "1/0",
+          "stranding": "Stranded",
+          "copper_resistance": 0.122,
+          "aluminum_resistance": 0.201
+        },
+        {
+          "size": "2/0",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0967,
+          "aluminum_resistance": 0.159
+        },
+        {
+          "size": "3/0",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0766,
+          "aluminum_resistance": 0.126
+        },
+        {
+          "size": "4/0",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0608,
+          "aluminum_resistance": 0.1
+        },
+        {
+          "size": "250",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0515,
+          "aluminum_resistance": 0.0847
+        },
+        {
+          "size": "300",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0429,
+          "aluminum_resistance": 0.0707
+        },
+        {
+          "size": "350",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0367,
+          "aluminum_resistance": 0.0605
+        },
+        {
+          "size": "400",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0321,
+          "aluminum_resistance": 0.0529
+        },
+        {
+          "size": "500",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0258,
+          "aluminum_resistance": 0.0424
+        },
+        {
+          "size": "600",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0214,
+          "aluminum_resistance": 0.0353
+        },
+        {
+          "size": "700",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0184,
+          "aluminum_resistance": 0.0303
+        },
+        {
+          "size": "750",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0171,
+          "aluminum_resistance": 0.0282
+        },
+        {
+          "size": "800",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0161,
+          "aluminum_resistance": 0.0265
+        },
+        {
+          "size": "900",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0143,
+          "aluminum_resistance": 0.0235
+        },
+        {
+          "size": "1000",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0129,
+          "aluminum_resistance": 0.0212
+        },
+        {
+          "size": "1250",
+          "stranding": "Stranded",
+          "copper_resistance": 0.0103,
+          "aluminum_resistance": 0.0169
+        },
+        {
+          "size": "1500",
+          "stranding": "Stranded",
+          "copper_resistance": 0.00858,
+          "aluminum_resistance": 0.0141
+        },
+        {
+          "size": "1750",
+          "stranding": "Stranded",
+          "copper_resistance": 0.00735,
+          "aluminum_resistance": 0.0121
+        },
+        {
+          "size": "2000",
+          "stranding": "Stranded",
+          "copper_resistance": 0.00643,
+          "aluminum_resistance": 0.0106
+        }
+      ],
+      "notes": [
+        "These resistance values are valid at 75°C (167°F). For other temperatures, resistance increases approximately 0.393% per degree C for copper and 0.403% per degree C for aluminum.",
+        "For voltage drop calculations, use the formula: VD = (2 × L × R × I) / 1000, where L = one-way length in feet, R = resistance per 1000 ft, I = current in amperes.",
+        "The 3% voltage drop limit for branch circuits and 5% total (branch + feeder) are recommendations per 210.19(A)(1) Informational Note No. 4."
       ]
     }
   }

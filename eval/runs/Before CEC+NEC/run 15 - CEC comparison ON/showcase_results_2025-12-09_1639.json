@@ -1,0 +1,74 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-09_1639",
+    "total_questions": 3,
+    "passed": 2,
+    "test_type": "showcase_nec_comparison"
+  },
+  "questions": [
+    {
+      "id": "showcase-01",
+      "question": "What are the panelboard space requirements for single-family dwellings in California?",
+      "type": "CA policy",
+      "expected_cec": "Reserved spaces required for heat pump water heaters, heat pump space heaters, electric cooktops, electric clothes dryers (Section 408.2(A))",
+      "expected_nec_difference": "NEC has NO reserved space requirements for specific appliances",
+      "why_good": "California-unique electrification mandate - NEC has no equivalent"
+    },
+    {
+      "id": "showcase-02",
+      "question": "What are the kitchen GFCI requirements in California?",
+      "type": "GFCI",
+      "expected_cec": "GFCI required for countertop surfaces and within 6 feet of sink (Section 210.8(A))",
+      "expected_nec_difference": "NEC requires GFCI for ALL kitchen receptacles including refrigerators (more restrictive)",
+      "why_good": "Shows California is MORE PERMISSIVE - bidirectional difference"
+    },
+    {
+      "id": "showcase-03",
+      "question": "What are the EV charging infrastructure requirements for new residential construction in California?",
+      "type": "EV infrastructure",
+      "expected_cec": "EV-ready infrastructure mandated: dedicated circuits, conduit, panel capacity (Title 24/CALGreen)",
+      "expected_nec_difference": "NEC Article 625 only provides installation rules - no mandate",
+      "why_good": "California as regulatory leader with proactive requirements"
+    }
+  ],
+  "results": [
+    {
+      "id": "showcase-01",
+      "type": "CA policy",
+      "question": "What are the panelboard space requirements for single-family dwellings in California?",
+      "error": "'charmap' codec can't encode character '\\u2264' in position 909: character maps to <undefined>"
+    },
+    {
+      "id": "showcase-02",
+      "type": "GFCI",
+      "question": "What are the kitchen GFCI requirements in California?",
+      "answer": "## Kitchen GFCI Requirements in California vs. NEC 2023  \n\n### **California Electrical Code (CEC 2022)**  \n- **CEC 210.8(A)(6)**: **All countertop receptacles** in kitchens must have **GFCI protection**.  \n- **No exceptions** apply to countertop circuits in residential kitchens.  \n- **Additional Requirements**:  \n  - Receptacles within **1.8 m (6 ft)** of sinks require GFCI (CEC 210.8(A)(7)).  \n  - Laundry areas must also have GFCI (CEC 210.8(A)(11)).  \n- **Exceptions**:  \n  - **Locking receptacles** for ceiling luminaires/fans are exempt if not used for general-purpose convenience.  \n\n---\n\n### **National Electrical Code (NEC 2023)**  \n- **NEC 210.8(A)(6)**: Requires GFCI for countertop receptacles in kitchens.  \n- **Exceptions**:  \n  - **Listed locking receptacles** used with ceiling fixtures (e.g., fans) are exempt.  \n  - Industrial labs may exclude GFCI if power interruption creates greater hazards (NEC 210.8(A) Exception).  \n- **Flexibility**:  \n  - Allows GFCI protection via **circuit breakers or receptacles**.  \n  - Permits exceptions for specialized equipment (e.g., fire alarm systems).  \n\n---\n\n### **Key Differences**  \n| **Aspect**                | **CEC 2022**                          | **NEC 2023**                          |  \n|---------------------------|----------------------------------------|---------------------------------------|  \n| **Countertop GFCI**       | **Mandatory with no exceptions**       | Mandatory but allows exceptions for locking receptacles |  \n| **Sink Proximity**        | 1.8 m (6 ft) from sink edge             | Same 1.8 m (6 ft) requirement         |  \n| **Exceptions**           | None for residential countertop circuits| Exceptions for industrial and specialized fixtures |  \n| **Appliance-Specific Rules**| No special exceptions                   | Allows exceptions for vending machines, etc. (NEC 422.5) |  \n\n---\n\n### **Code Citations**  \n- **CEC**: 210.8(A)(6), 210.8(A)(7), 210.8(A)(11)  \n- **NEC**: 210.8(A)(6), 422.5(B)  \n\n---\n\n**Comparison Tool Output**:  \n```json  \n{  \n  \"cec_section\": \"210.8(A)(6)\",  \n  \"nec_section\": \"210.8(A)(6)\",  \n  \"difference\": \"CEC mandates GFCI for all kitchen countertop receptacles with no exceptions, while NEC allows exceptions for listed locking receptacles used with ceiling fixtures and industrial equipment.\"  \n}  \n```  \n\n\u2713 **Source**: CEC 2022, NEC 2023, compare_with_nec tool results.",
+      "tools_used": [
+        "cec_search",
+        "cec_exception_search",
+        "compare_with_nec"
+      ],
+      "has_nec_comparison": true,
+      "mentions_nec": true,
+      "mentions_difference": true,
+      "iterations": 6,
+      "duration_seconds": 0
+    },
+    {
+      "id": "showcase-03",
+      "type": "EV infrastructure",
+      "question": "What are the EV charging infrastructure requirements for new residential construction in California?",
+      "answer": "## EV Charging Infrastructure Requirements for New Residential Construction (CEC 2022 vs. NEC 2023)\n\n---\n\n### **California Electrical Code (CEC 2022) Requirements**\n1. **Dedicated Branch Circuit**  \n   - **CEC 625.40**: Each EV charging outlet must have a **dedicated branch circuit** with **no other outlets**.  \n   - **Minimum Rating**: **40 amperes** (mandatory for residential use).  \n\n2. **CALGreen Mandate**  \n   - **Title 24 Part 6, Section 110.6.1.1**: New residential buildings must include **at least one 40A, 240V circuit** in each garage for EV charging.  \n   - **Panelboard Space**: Reserved circuit breaker space for EV charging (CEC 408.2).  \n\n3. **Receptacle and Wiring**  \n   - **CEC 625.44**: Receptacles must be rated **250 volts, 50 amperes** (e.g., NEMA 14-50).  \n   - **Weatherproof Enclosures**: Required for outdoor EVSE (CEC 625.56).  \n\n4. **No Exceptions for Residential Garages**  \n   - **CEC 625.1.1**: Compliance with CALGreen Chapter 4 and 5 is mandatory, with **no exceptions** for single-family dwellings.  \n\n---\n\n### **National Electrical Code (NEC 2023) Comparison**\n- **NEC 625.14**: Requires a dedicated branch circuit but allows **30A or 40A** depending on the EVSE.  \n- **Flexibility**: Permits 30A circuits for Level 1 (120V) charging.  \n- **No Garage Mandate**: No requirement for a dedicated circuit in every residential garage.  \n- **Load Calculations**: NEC 220.57 allows EVSE load to be calculated at **7200 VA** or nameplate rating, whichever is larger.  \n\n---\n\n### **Key Differences**\n| **Aspect**                | **CEC 2022**                          | **NEC 2023**                          |  \n|---------------------------|--------------------------------------|---------------------------------------|  \n| **Minimum Circuit Rating** | **40A** (mandatory for residential)  | **30A or 40A** (depends on EVSE)      |  \n| **Garage Circuit Mandate** | **1 circuit per garage** (CALGreen) | **No mandate** for residential garages  |  \n| **Panelboard Space**       | **Reserved space** for EV circuits   | **No requirement** for reserved spaces|  \n| **Exceptions**            | **None** for residential garages     | **Exceptions** for industrial/commercial use |  \n\n---\n\n### **Code Citations**\n- **CEC**: 625.1.1, 625.40, 625.44, 625.56, Title 24 Part 6, Section 110.6.1.1  \n- **NEC**: 625.14, 220.57, 625.44  \n\n---\n\n**Comparison Tool Output**:  \n```json  \n{  \n  \"cec_section\": \"625.1.1\",  \n  \"nec_section\": \"625.14\",  \n  \"difference\": \"CEC mandates 40A minimum for all residential EV circuits and requires one circuit per garage (CALGreen), while NEC allows 30A circuits and lacks a garage-specific mandate.\"  \n}  \n```  \n\n\u2713 **Source**: CEC 2022, NEC 2023, compare_with_nec tool results.",
+      "tools_used": [
+        "cec_search",
+        "cec_exception_search",
+        "compare_with_nec"
+      ],
+      "has_nec_comparison": true,
+      "mentions_nec": true,
+      "mentions_difference": true,
+      "iterations": 7,
+      "duration_seconds": 0
+    }
+  ]
+}

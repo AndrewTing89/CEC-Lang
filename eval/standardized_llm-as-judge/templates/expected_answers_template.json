@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "description": "Expected answers for NEC/CEC evaluation questions",
+    "version": "1.0",
+    "code_version": "NEC 2023 / CEC 2022"
+  },
+  "questions": [
+    {
+      "id": "baseline-001",
+      "tier": "baseline",
+      "category": "table_lookup",
+      "question": "What is the ampacity of 12 AWG copper conductor at 75°C termination?",
+      "expected_answer": "20 amperes",
+      "nec_reference": "Table 310.16",
+      "cec_reference": "",
+      "notes": "Basic table lookup question"
+    },
+    {
+      "id": "core-001",
+      "tier": "core",
+      "category": "multi_article",
+      "question": "A homeowner wants to upgrade from 100A to 200A service...",
+      "expected_answer": "2/0 AWG copper OR 4/0 AWG aluminum per Table 310.12",
+      "nec_reference": "Table 310.12, 310.12",
+      "cec_reference": "",
+      "notes": "Requires load calculation and conductor sizing"
+    },
+    {
+      "id": "inspection-001",
+      "tier": "inspection",
+      "category": "panel_load_calculation",
+      "question": "Residential panel inspection: 200A main breaker. Calculate the service load...",
+      "expected_answer": "General lighting: 9000 VA, Small appliance: 3000 VA, Laundry: 1500 VA...",
+      "nec_reference": "220.40, 220.42, Table 220.42, Table 220.55",
+      "cec_reference": "",
+      "notes": "Full Article 220 calculation required"
+    }
+  ]
+}

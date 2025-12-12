@@ -1,0 +1,315 @@
+{
+  "summary": {
+    "run_id": "core-run34",
+    "total_score": 0,
+    "max_score": 270,
+    "percentage": 0.0,
+    "perfect_scores": 0,
+    "high_scores": 0,
+    "medium_scores": 0,
+    "low_scores": 27,
+    "reflection_improved_count": 3,
+    "reflection_improved_avg_score": 0.0,
+    "hint_enforced_count": 2,
+    "hint_enforced_avg_score": 0.0
+  },
+  "results": [
+    {
+      "id": "baseline-002",
+      "question": "What size copper conductor is required for a 60A circuit at 75\u00b0C?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "baseline-003",
+      "question": "Where is GFCI protection required in a residential kitchen?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "baseline-004",
+      "question": "Is AFCI protection required for bedroom circuits in new residential construction?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "baseline-005",
+      "question": "Can aluminum conductors be used for a 200A service? If yes, what size?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "baseline-006",
+      "question": "What is the minimum depth of working clearance required in front of a 120/240V residential electrica...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": true
+    },
+    {
+      "id": "baseline-007",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "baseline-008",
+      "question": "Is surge protection required for a new 200A residential service according to 2023 NEC?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-001",
+      "question": "A homeowner wants to upgrade from 100A to 200A service. The house has 3,000 sq ft of living space, e...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-002",
+      "question": "An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. Wh...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-003",
+      "question": "Where is GFCI protection now required in a residential dwelling according to 2023 NEC? List all loca...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-004",
+      "question": "Is surge protection required for a new 200A residential service? If so, where can it be installed?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-005",
+      "question": "A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inch...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": true
+    },
+    {
+      "id": "core-006",
+      "question": "During an inspection, I found two 12 AWG conductors landed on a single 20A breaker terminal. The bre...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-007",
+      "question": "A detached garage is fed from the house panel with a 4-wire feeder. How should the grounding and bon...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-008",
+      "question": "What is the difference between a main bonding jumper and a system bonding jumper? When is each requi...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-009",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen, and can these circuit...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-010",
+      "question": "A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50\u00b0C ambient temper...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-011",
+      "question": "Why does the NEC require AFCI protection for bedrooms and living areas? What electrical hazard does ...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "core-012",
+      "question": "Why are torque specifications important when terminating conductors in a panel, and where are the re...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-001",
+      "question": "Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A bre...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-002",
+      "question": "Electrical panel inspection in residential garage: Panel has 30 inches width clearance, 28 inches de...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-005",
+      "question": "New residential construction, 2023 NEC. Kitchen installation has: (1) four countertop receptacles on...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-006",
+      "question": "Subpanel inspection in detached garage: 100A subpanel fed from main house panel with 4-wire feeder (...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-007",
+      "question": "A 1\u00bc-inch rigid metal conduit (RMC) needs to accommodate multiple 10 AWG THHN conductors for a comme...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-008",
+      "question": "A 120V single-phase branch circuit supplies a continuous load of 22 amperes. The circuit uses 12 AWG...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-009",
+      "question": "A conduit in an attic contains six 12 AWG TW (Type TW, 60\u00b0C rated) copper conductors, all current-ca...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    },
+    {
+      "id": "inspection-010",
+      "question": "A commercial data center has a main service with four parallel sets of 250 kcmil copper conductors p...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false
+    }
+  ]
+}

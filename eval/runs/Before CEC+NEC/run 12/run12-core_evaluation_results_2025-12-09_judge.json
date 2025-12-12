@@ -1,0 +1,496 @@
+{
+  "metadata": {
+    "source_file": "C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 12\\run12-core_evaluation_results_2025-12-09.json",
+    "model": "qwen/qwen3-32b",
+    "total_questions": 28,
+    "pass_count": 0,
+    "fail_count": 28,
+    "pass_rate": "0.0%",
+    "average_scores": {
+      "technical_accuracy": 0.0,
+      "completeness": 0.0,
+      "code_references": 0.0,
+      "reasoning_quality": 0.0,
+      "overall_score": 0.0
+    },
+    "original_pass_rate": "100.0%"
+  },
+  "judgments": [
+    {
+      "id": "baseline-001",
+      "question": "What is the ampacity of 12 AWG copper conductor at 75°C termination?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "baseline-002",
+      "question": "What size copper conductor is required for a 60A circuit at 75°C?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "baseline-003",
+      "question": "Where is GFCI protection required in a residential kitchen?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "baseline-004",
+      "question": "Is AFCI protection required for bedroom circuits in new residential construction?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "baseline-005",
+      "question": "Can aluminum conductors be used for a 200A service? If yes, what size?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "baseline-006",
+      "question": "What is the minimum depth of working clearance required in front of a 120/240V residential electrica...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "baseline-007",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "baseline-008",
+      "question": "Is surge protection required for a new 200A residential service according to 2023 NEC?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-001",
+      "question": "A homeowner wants to upgrade from 100A to 200A service. The house has 3,000 sq ft of living space, e...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-002",
+      "question": "An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. Wh...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-003",
+      "question": "Where is GFCI protection now required in a residential dwelling according to 2023 NEC? List all loca...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-004",
+      "question": "Is surge protection required for a new 200A residential service? If so, where can it be installed?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-005",
+      "question": "A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inch...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-006",
+      "question": "During an inspection, I found two 12 AWG conductors landed on a single 20A breaker terminal. The bre...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-007",
+      "question": "A detached garage is fed from the house panel with a 4-wire feeder. How should the grounding and bon...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-008",
+      "question": "What is the difference between a main bonding jumper and a system bonding jumper? When is each requi...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-009",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen, and can these circuit...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-010",
+      "question": "A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50°C ambient temper...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-011",
+      "question": "Why does the NEC require AFCI protection for bedrooms and living areas? What electrical hazard does ...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "core-012",
+      "question": "Why are torque specifications important when terminating conductors in a panel, and where are the re...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-001",
+      "question": "Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A bre...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-002",
+      "question": "Electrical panel inspection in residential garage: Panel has 30 inches width clearance, 28 inches de...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-005",
+      "question": "New residential construction, 2023 NEC. Kitchen installation has: (1) four countertop receptacles on...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-006",
+      "question": "Subpanel inspection in detached garage: 100A subpanel fed from main house panel with 4-wire feeder (...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-007",
+      "question": "A 1¼-inch rigid metal conduit (RMC) needs to accommodate multiple 10 AWG THHN conductors for a comme...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-008",
+      "question": "A 120V single-phase branch circuit supplies a continuous load of 22 amperes. The circuit uses 12 AWG...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-009",
+      "question": "A conduit in an attic contains six 12 AWG TW (Type TW, 60°C rated) copper conductors, all current-ca...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "inspection-010",
+      "question": "A commercial data center has a main service with four parallel sets of 250 kcmil copper conductors p...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    }
+  ]
+}

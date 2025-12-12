@@ -1,0 +1,53 @@
+{
+  "model": "Model Name",
+  "source": "Source file",
+  "judge": "Claude Code (Claude Opus 4.5)",
+  "judge_method": "LLM-as-Judge",
+  "timestamp": "2025-12-09T17:00:00.000000",
+  "evaluations": [
+    {
+      "id": "baseline-001",
+      "matched_expected_id": "baseline-001",
+      "question": "What is the ampacity of 12 AWG copper conductor at 75°C termination?",
+      "accuracy": 5,
+      "completeness": 5,
+      "total": 10,
+      "accuracy_notes": "Correctly states 20 amperes, correctly cites NEC Table 310.16",
+      "completeness_notes": "Includes helpful caveats about derating and termination ratings",
+      "errors": []
+    },
+    {
+      "id": "core-010",
+      "matched_expected_id": "core-010",
+      "question": "A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50°C ambient...",
+      "accuracy": 3,
+      "completeness": 4,
+      "total": 7,
+      "accuracy_notes": "Used wrong temperature correction factor (0.71 instead of 0.82 for 90°C THHN)",
+      "completeness_notes": "Shows calculation steps but with incorrect factor",
+      "errors": [
+        "Used 60°C column correction factor instead of 90°C column for THHN insulation"
+      ]
+    }
+  ],
+  "summary": {
+    "total_questions": 28,
+    "questions_matched": 28,
+    "total_accuracy": 123,
+    "total_completeness": 136,
+    "total_score": 259,
+    "max_possible": 280,
+    "avg_accuracy": 4.39,
+    "avg_completeness": 4.86,
+    "avg_total": 9.25,
+    "percentage": 92.5
+  },
+  "critical_errors": [
+    {
+      "id": "core-010",
+      "severity": "moderate",
+      "description": "Temperature correction factor confusion between 60°C and 90°C columns"
+    }
+  ],
+  "comparison_notes": "Optional notes about model performance patterns"
+}

@@ -1,0 +1,1295 @@
+"""
+CEC Lang Agent - LangChain-based California Electrical Code Assistant
+Uses Groq API for reasoning (Qwen3 32B / Llama 3.3 70B)
+Includes retry with backoff on rate limits/failures
+"""
+import os
+import re
+import time
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+from functools import wraps
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# LangChain imports
+from langchain_groq import ChatGroq
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, ToolMessage
+
+# Local imports
+from core.tools import get_all_tools
+
+
+# ============================================================================
+# RETRY DECORATOR (same model, with backoff)
+# ============================================================================
+
+def retry_with_backoff(max_retries: int = 5, initial_wait: float = 30.0, max_wait: float = 120.0):
+    """
+    Decorator that retries the same model with exponential backoff.
+
+    On rate limit (429/413) or overload (503), waits and retries.
+    Uses longer waits to respect Groq's TPM limits.
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(self, *args, **kwargs):
+            last_error = None
+
+            for attempt in range(max_retries):
+                try:
+                    return func(self, *args, **kwargs)
+
+                except Exception as e:
+                    last_error = e
+                    error_str = str(e).lower()
+
+                    # Rate limit or token limit - wait and retry
+                    if any(x in error_str for x in ["rate_limit", "429", "rate limit", "tokens", "413", "quota", "resourceexhausted", "resource_exhausted"]):
+                        # Exponential backoff: 30s, 60s, 120s, 120s, 120s
+                        wait_time = min(initial_wait * (2 ** attempt), max_wait)
+                        if self.verbose:
+                            print(f"    [Rate limit] Waiting {wait_time:.0f}s before retry {attempt + 1}/{max_retries}...")
+                        time.sleep(wait_time)
+                        continue
+
+                    # Model overloaded - wait and retry
+                    if "overloaded" in error_str or "503" in error_str or "service unavailable" in error_str:
+                        wait_time = min(initial_wait * (2 ** attempt), max_wait)
+                        if self.verbose:
+                            print(f"    [Overloaded] Waiting {wait_time:.0f}s before retry {attempt + 1}/{max_retries}...")
+                        time.sleep(wait_time)
+                        continue
+
+                    # Connection/timeout errors - shorter retry
+                    if "timeout" in error_str or "connection" in error_str:
+                        wait_time = 5 * (attempt + 1)
+                        if self.verbose:
+                            print(f"    [Connection error] Retrying in {wait_time:.0f}s...")
+                        time.sleep(wait_time)
+                        continue
+
+                    # Tool use failed (Groq bug: model outputs wrong format) - retry with short wait
+                    if "tool_use_failed" in error_str or "failed_generation" in error_str:
+                        wait_time = 2 * (attempt + 1)
+                        if self.verbose:
+                            print(f"    [Tool format error] Retrying in {wait_time:.0f}s ({attempt + 1}/{max_retries})...")
+                        time.sleep(wait_time)
+                        continue
+
+                    # Unknown error - don't retry, raise immediately
+                    raise
+
+            # All retries exhausted
+            if last_error:
+                raise last_error
+            raise RuntimeError("All retries exhausted")
+
+        return wrapper
+    return decorator
+
+
+# ============================================================================
+# SYSTEM PROMPT - Full version ported from Gemini Agent
+# ============================================================================
+
+SYSTEM_PROMPT = """# CALIFORNIA ELECTRICAL CODE AGENT
+
+You are a California Electrical Code Agent providing CEC-accurate, inspector-grade answers based on CEC 2022.
+
+## CRITICAL: TOOL SELECTION RULE
+
+**DEFAULT TO CEC TOOLS (cec_*) FOR ALL QUESTIONS.**
+
+- Use `cec_search`, `cec_lookup_*`, `cec_base_ampacity`, etc. for ALL questions
+- CEC 2022 is the authoritative source for California electrical work
+- This agent is configured for CEC-only mode (NEC tools disabled)
+
+---
+
+## CORE RULES (MANDATORY)
+
+1. **ALWAYS call tools** - Never answer from memory for code facts
+2. **CEC first** - Use cec_* tools for ALL questions (see TOOL SELECTION RULE above)
+3. **Exception check** - Call cec_exception_search when cross-references or footnotes indicate exceptions may apply
+4. **No mental math** - Use python_calculator for all arithmetic
+5. **Cite sources** - Every value needs a section/table citation
+6. **Use given values** - If the question provides a specific value (resistance, ampacity, length, etc.), USE THAT VALUE. Do not override it with table lookups. Tools are for finding MISSING information, not replacing GIVEN information.
+
+---
+
+## STRUCTURED REASONING PROTOCOL (MANDATORY)
+
+Before EVERY answer, complete this reasoning chain:
+
+### STEP 1: DECOMPOSE
+List ALL sub-questions in the user's question.
+```
+Example: "Size conductors, EGC, and GEC for 200A service"
+-> [1] Service conductor size
+-> [2] EGC size
+-> [3] GEC size
+```
+
+### STEP 2: SEARCH PLAN
+For each sub-question, identify which tool(s) to call:
+```
+-> [1] cec_lookup_conductor_size (conductor_application="service")
+-> [2] cec_lookup_egc_size(200)
+-> [3] cec_lookup_gec_size(service_conductor_size)
+```
+
+### STEP 3: EXECUTE
+Call tools in order. For each tool call, briefly state:
+- What you're looking for
+- Why this tool
+
+### STEP 4: VERIFY RESULTS (CRITICAL - DO NOT SKIP)
+After tool calls, for EACH numeric value you plan to use:
+- State: "Value X came from [tool_name] output: [quote the exact output]"
+- If you CANNOT cite a specific tool output for a value, you MUST call a tool to get it
+- NEVER use a value from memory - if in doubt, look it up again
+
+Check:
+- Did I get a result for EACH sub-question?
+- Can I trace EVERY number in my answer to a tool output?
+- If any missing, search again with different terms
+- For California-specific topics, also search "Title 24", "CALGreen", "California mandate"
+
+**FOR CALCULATIONS**: Before computing, list:
+```
+Values needed:
+- Base ampacity: [value] from [tool] ✓ or ✗
+- Temp correction factor: [value] from [tool] ✓ or ✗
+- Bundling factor: [value] from [tool] ✓ or ✗
+```
+If ANY shows ✗, STOP and call the appropriate tool.
+
+### STEP 5: SYNTHESIZE
+Combine all results into coherent answer with citations.
+
+### STEP 6: COMPLETENESS CHECK
+Before submitting, verify:
+□ Did I address ALL parts of the question?
+□ Does answer include SPECIFIC values (not "refer to table")?
+□ Are all values from tool results (not memory)?
+□ Did I cite section numbers for all requirements?
+□ For lists/enumeration: Did I use limit=15+ in searches, COUNT items, and state "There are X items: [list]"?
+□ For California topics: Did I check Title 24/CALGreen?
+□ For conductor sizes: Did I include BOTH copper AND aluminum options if table has both columns?
+□ For enclosure/equipment types: Did I list ALL types from the table (not just some)?
+□ Are there MULTIPLE valid answers? If yes, did I present ALL options with conditions?
+□ For SERVICE conductor sizing: Did I check if BOTH Table 310.12(A) AND Table 310.16 apply?
+□ For grounding conductors: Did I provide BOTH copper AND aluminum sizes?
+
+---
+
+## MULTIPLE VALID ANSWERS - RECOGNIZE AND PRESENT ALL
+
+Some code questions have multiple correct answers. Present ALL valid options when:
+
+### 1. Different Tables Apply
+- **Service/dwelling conductors**: Table 310.12(A) (dwelling-specific, permissive) vs Table 310.16 (general, conservative)
+- **Any "dwelling" vs "general" table distinction**: Always present both with conditions
+
+### 2. Material Options
+- **Grounding conductors (EGC/GEC)**: Always provide BOTH copper AND aluminum sizes
+- **Conductors in general**: If table has both columns and question doesn't specify, give both
+
+### 3. Multiple Equipment Types
+- **Enclosures**: Multiple types may meet same environmental requirement - list ALL valid types
+- **Disconnects, breakers**: Multiple ratings/types may be acceptable
+
+### 4. Calculation Methods
+- **Load calculations**: Standard method (Article 220 Part III) vs Optional method (Part IV)
+- **Voltage drop**: Multiple acceptable approaches for same result
+
+### Response Format for Multi-Answer Questions
+
+When multiple valid answers exist, structure response as:
+
+**MULTIPLE VALID OPTIONS:**
+
+**Option A: [Specific/Permissive]**
+- Value: [answer]
+- Source: [table/section]
+- Applies when: [conditions]
+
+**Option B: [General/Conservative]**
+- Value: [answer]
+- Source: [table/section]
+- Applies when: [conditions]
+
+**Inspector Note:** [Explain practical difference and when each is appropriate]
+
+---
+
+## RULE HIERARCHY (MANDATORY)
+
+Electrical code rules have a hierarchy. You MUST apply them in order:
+
+### Level 1: Base Rules
+- Primary tables and sections (e.g., Table 310.16 for ampacity)
+- These provide the starting value or method
+
+### Level 2: Adjustment Rules (Modify the base value)
+- Any rule that MODIFIES the base value with a factor or formula
+- Examples: temperature correction, bundling/fill adjustment, voltage drop
+- Apply ALL applicable adjustments to the base value
+- Look for phrases: "shall be multiplied by", "correction factor", "adjustment"
+
+### Level 3: Limiting Rules (Constrain or override)
+- SEPARATE sections that RESTRICT how you can use the base value
+- These are NOT in the same section as the base rule
+- Apply AFTER all adjustments
+- The MORE RESTRICTIVE rule always wins
+- Examples: OCP limits (240.4(D)), termination temp limits (110.14(C)), CA amendments
+- Look for phrases: "shall not exceed", "maximum", "limited to"
+
+### Level 4: Exceptions (Relax rules when conditions met)
+- Allow alternatives or relaxation of base rules
+- Only apply if ALL conditions in the exception are satisfied
+- Quote the exact exception text before applying
+
+### APPLICATION FLOW:
+1. Find base rule value (e.g., Table 310.16 ampacity)
+2. Apply ALL relevant adjustment factors (temp x bundling x etc.)
+3. CHECK for limiting rules that constrain application
+4. Check for exceptions
+5. Final answer must satisfy BOTH base rule AND all limiting rules
+
+### CROSS-REFERENCES ARE MANDATORY:
+When a table footnote or section says "See X.X" - this is NOT optional.
+ALWAYS search that section and determine: is it a limiting rule? adjustment? exception?
+
+---
+
+## OUTPUT FORMAT
+
+```markdown
+## [Answer Title - CEC 2022]
+
+[Direct answer to question with specific values]
+[All calculations with intermediate steps]
+[All citations: CEC 2022 Section X.X, Table X.X]
+
+[OK] Source: CEC 2022
+```
+
+---
+
+## EXAMPLES
+
+### Example 1: Multi-Part Decomposition
+
+**Question:** "Size the conductors, EGC, and GEC for a 200A residential service in California using copper."
+
+**Reasoning:**
+DECOMPOSE into sub-questions:
+→ [1] Service conductor size
+→ [2] EGC size
+→ [3] GEC size (depends on result of #1)
+
+TOOL PLAN:
+→ [1] cec_lookup_conductor_size(200, "75°C", "copper", "service")
+→ [2] cec_lookup_egc_size(200)
+→ [3] cec_lookup_gec_size([service conductor from #1])
+
+Note: #3 depends on #1 result - execute sequentially, not in parallel.
+
+**Answer:**
+## Service Sizing (CEC 2022)
+
+[OK] **Service conductor**: [size from tool] (CEC Table 310.12(A))
+[OK] **EGC**: [size from tool] (CEC Table 250.122 for 200A)
+[OK] **GEC**: [size from tool] (CEC Table 250.66 based on service conductor size)
+
+[OK] Source: CEC 2022
+
+---
+
+### Example 2: Calculation Workflow
+
+**Question:** "Calculate voltage drop for a 120V, 20A circuit at 100 feet using 12 AWG copper."
+
+**Reasoning:**
+IDENTIFY what's needed:
+→ [1] Conductor resistance (from table)
+→ [2] Apply voltage drop formula
+→ [3] Calculate percentage
+→ [4] Compare to code limits
+
+EXECUTE:
+→ cec_lookup_conductor_resistance("12 AWG", "copper") → get R value
+→ python_calculator: VD = (2 × 100 × R × 20) / 1000
+→ python_calculator: percentage = (VD / 120) × 100
+→ Compare to 3% branch circuit limit
+
+**Answer:**
+## Voltage Drop Calculation (CEC 2022)
+
+1. **Conductor resistance**: [R from Chapter 9 Table 8] ohms/1000ft
+2. **Voltage drop formula**: VD = (2 × L × R × I) / 1000
+3. **Calculation**:
+```
+VD = (2 × 100 × [R] × 20) / 1000 = [result] volts
+Percentage = ([VD] / 120) × 100 = [result]%
+```
+4. **Verification**: [result]% vs 3% branch circuit limit
+
+[OK] Source: CEC 2022
+
+---
+
+### Example 3: Limiting Rules (Rule Hierarchy)
+
+**Question:** "What overcurrent protection can I use for 12 AWG THHN copper?"
+
+**Reasoning:**
+RULE HIERARCHY CHECK - base rules can be constrained by limiting rules:
+
+→ Step 1 (Base Rule): cec_base_ampacity("12 AWG", "90°C", "copper")
+   Result: 30A per Table 310.16
+
+→ Step 2 (Limiting Rules): cec_find_limiting_rules("310.16", "12 AWG conductor")
+   Result: 240.4(D) limits 12 AWG to 20A overcurrent protection
+
+→ Step 3 (Apply More Restrictive):
+   Base says 30A ampacity, but 240.4(D) limits OCP to 20A
+   The MORE RESTRICTIVE rule wins.
+
+**Answer:**
+## Overcurrent Protection for 12 AWG (CEC 2022)
+
+- **Base ampacity**: 30A at 90°C (Table 310.16)
+- **OCP limit**: 240.4(D) limits 12 AWG to **20A maximum** overcurrent protection
+- **Final answer**: 20A maximum OCP
+
+CRITICAL: Always check for limiting rules - the more restrictive requirement governs.
+
+[OK] Source: CEC 2022
+
+---
+
+### Example 4: Exception Checking
+
+**Question:** "Can I use 14 AWG for a 20A circuit?"
+
+**Reasoning:**
+EXCEPTION WORKFLOW:
+
+→ Step 1 (Base Rule): cec_search("conductor size 20A circuit")
+   Result: 240.4(D) requires minimum 12 AWG for 20A circuits
+
+→ Step 2 (Exception Search): cec_exception_search("240.4(D)", "14 AWG")
+   Result: Exceptions allow 14 AWG for specific applications:
+   - Fixture wires per 240.5
+   - Motor/AC applications per 240.4(E)-(G)
+
+→ Step 3 (Evaluate Conditions):
+   Does the application meet exception conditions?
+   - If YES: Exception applies, 14 AWG permitted
+   - If NO: Base rule applies, 12 AWG minimum required
+
+ALWAYS quote the exact exception text before applying it.
+
+**Answer:**
+## 14 AWG on 20A Circuit (CEC 2022)
+
+**Base rule**: 240.4(D) requires minimum 12 AWG for 20A circuits.
+
+**Exceptions**: 14 AWG is permitted ONLY for:
+- [List specific exceptions from search with section citations]
+
+**Conclusion**: [State whether exception applies based on application context]
+
+[OK] Source: CEC 2022
+
+---
+
+### Example 5: Complex Search Strategy
+
+**Question:** "What are California's requirements for EV charging in new residential construction?"
+
+**Reasoning:**
+BROAD QUESTION - no single tool answers this completely.
+
+SEARCH STRATEGY (multiple targeted searches):
+→ [1] cec_search("Article 625 EV charging electrical", limit=10)
+→ [2] cec_search("CALGreen EV ready infrastructure", limit=10)
+→ [3] cec_search("408.2 panelboard spaces EV", limit=10)
+
+COMPLETENESS CHECK after searches:
+□ Electrical installation requirements covered? (Article 625)
+□ California-specific mandates covered? (CALGreen/Title 24)
+□ Panel/circuit requirements covered? (408.2)
+□ Any gaps identified? → Search again with different terms
+
+SYNTHESIZE results by category, cite each requirement with section number.
+
+**Answer:**
+## California EV Charging Requirements (CEC 2022)
+
+**1. Electrical Installation (Article 625)**
+- [Requirements from search with citations]
+
+**2. California Mandates (CALGreen/Title 24)**
+- [Requirements from search with citations]
+
+**3. Panel Requirements (408.2)**
+- [Requirements from search with citations]
+
+[OK] Source: CEC 2022
+
+---
+
+**Now begin. Follow this system prompt exactly for every question.**
+"""
+
+
+# ============================================================================
+# MAIN AGENT CLASS
+# ============================================================================
+
+class CECAgent:
+    """
+    LangGraph-based California Electrical Code Agent
+    Uses Groq API (Qwen3 32B / Llama 3.3 70B) for multi-step reasoning
+    """
+
+    def __init__(
+        self,
+        model_name: str = "qwen/qwen3-32b",
+        temperature: float = 0.0,
+        verbose: bool = True
+    ):
+        """
+        Initialize the CEC Agent
+
+        Args:
+            model_name: Groq model to use (qwen/qwen3-32b or llama-3.3-70b-versatile)
+            temperature: LLM temperature (0.0 for deterministic)
+            verbose: Whether to print debug info
+        """
+        self.model_name = model_name
+        self.temperature = temperature
+        self.verbose = verbose
+
+        # Get API key
+        self.groq_api_key = os.getenv("GROQ_API_KEY")
+        if not self.groq_api_key:
+            raise ValueError("GROQ_API_KEY environment variable not set")
+
+        # Initialize LLM
+        self.llm = ChatGroq(
+            model=model_name,
+            temperature=temperature,
+            api_key=self.groq_api_key
+        )
+
+        # Get tools
+        self.tools = get_all_tools()
+
+        # Build tool lookup for fast execution
+        self.tool_map = {tool.name: tool for tool in self.tools}
+
+        # Table tools for footnote augmentation (lazy-initialized)
+        self._cec_tables = None
+        self._nec_tables = None
+
+        # Bind tools to LLM for function calling
+        self.llm_with_tools = self.llm.bind_tools(self.tools)
+
+        # Conversation history (simple list)
+        self.chat_history: List[Any] = []
+
+        if verbose:
+            print(f"[OK] CEC Agent initialized with {model_name}")
+            print(f"[OK] Loaded {len(self.tools)} tools")
+            print(f"[OK] Custom iteration loop with enforcement checks")
+
+    @property
+    def cec_tables(self):
+        """Lazy-load CEC table tools on first access."""
+        if self._cec_tables is None:
+            from core.cec_table_tools import CECTableTools
+            self._cec_tables = CECTableTools()
+        return self._cec_tables
+
+    @property
+    def nec_tables(self):
+        """Lazy-load NEC table tools on first access."""
+        if self._nec_tables is None:
+            from core.nec_table_tools import NECTableTools
+            self._nec_tables = NECTableTools()
+        return self._nec_tables
+
+    def _execute_tool(self, tool_call: dict) -> str:
+        """
+        Execute a tool call and return result.
+
+        Args:
+            tool_call: Dict with 'name', 'args', and 'id'
+
+        Returns:
+            Tool execution result as string
+        """
+        tool_name = tool_call.get("name", "")
+        tool_args = tool_call.get("args", {})
+
+        if tool_name in self.tool_map:
+            try:
+                result = self.tool_map[tool_name].invoke(tool_args)
+                return str(result)
+            except Exception as e:
+                return f"Error executing {tool_name}: {str(e)}"
+        else:
+            return f"Error: Tool '{tool_name}' not found"
+
+    def _verify_required_tools(self, question: str, all_tool_calls: List,
+                               force_nec_comparison: bool = False) -> tuple:
+        """
+        Check if required tools were called - with specialized tool enforcement.
+
+        ALL questions require:
+        1. At least one search/lookup tool
+        2. Specialized tools based on question type (NEW - prevents hallucination)
+
+        Cross-reference handling (e.g., 240.4 for small conductors) is now handled
+        via table footnotes. The lookup tools return applicable_notes and cross_references
+        which the model is instructed to follow via the CROSS-REFERENCE RULE in the prompt.
+
+        Args:
+            question: The user's original question
+            all_tool_calls: List of all tool calls made during the conversation
+
+        Returns:
+            Tuple of (is_complete: bool, missing_info: str or None)
+        """
+        tools_called = {tc.get("name", "") for tc in all_tool_calls}
+
+        # ALL questions require at least one search/lookup
+        # Tool names must match actual tools in tools.py
+        # CEC-only mode: NEC tools disabled
+        search_tools = [
+            "cec_search",
+            "cec_lookup_conductor_ampacity",
+            "cec_lookup_ampacity_adjustment",
+            "cec_lookup_grounding_conductor",
+            "cec_lookup_working_space",
+            "cec_lookup_conductor_size",
+            "cec_lookup_conduit_fill",
+            "cec_lookup_table", "get_table_info", "search_tables"
+        ]
+        has_search = any(t in tools_called for t in search_tools)
+
+        if not has_search:
+            return (False, "search")
+
+        # DISABLED: Specialized tool enforcement removed in favor of smart table injection
+        # The cec_search() function now automatically injects table data when search
+        # results reference tables, eliminating the need to force specific lookup tools.
+        # This allows the LLM more flexibility while still providing accurate table values.
+        #
+        # required_specialized = self._detect_required_specialized_tools(question)
+        # missing_specialized = [t for t in required_specialized if t not in tools_called]
+        # if missing_specialized:
+        #     return (False, f"specialized_tool:{missing_specialized[0]}")
+
+        # Exception search is NO LONGER mandatory - the footnote augmentation system
+        # automatically injects cross-references (e.g., 240.4(D)) into table lookup results,
+        # telling the agent which specific sections to check. This is more targeted than
+        # forcing generic exception searches on every question.
+
+        # Check for NEC comparison if user requested it via checkbox
+        if force_nec_comparison:
+            has_nec_comparison = "compare_with_nec" in tools_called
+            if not has_nec_comparison:
+                return (False, "nec_comparison")
+
+        return (True, None)
+
+    def _get_tool_similarity(self, question: str, tool_keywords: dict) -> list:
+        """
+        Simple token-overlap fallback when keyword detection misses.
+        Only called if primary keyword detection returns empty.
+
+        Args:
+            question: The user's question
+            tool_keywords: Dict mapping tool names to lists of relevant keywords
+
+        Returns:
+            List containing the best-matching tool name, or empty list
+        """
+        q_tokens = set(question.lower().split())
+        scores = {}
+
+        for tool_name, keywords in tool_keywords.items():
+            kw_tokens = set(' '.join(keywords).lower().split())
+            overlap = len(q_tokens & kw_tokens)
+            if overlap >= 2:  # Need at least 2 matching tokens
+                scores[tool_name] = overlap
+
+        if scores:
+            top_tool = max(scores, key=scores.get)
+            if scores[top_tool] >= 3:  # High confidence threshold
+                return [top_tool]
+        return []
+
+    def _detect_required_specialized_tools(self, question: str) -> list:
+        """
+        Detect which specialized tools MUST be called based on question keywords.
+
+        This forces the agent to use deterministic table lookup tools instead of
+        generic search for specific question types, preventing LLM hallucination.
+
+        Returns:
+            List of tool names that MUST be called for this question
+        """
+        required = []
+        q_lower = question.lower()
+
+        # Working space / clearance questions -> force table lookup
+        if any(kw in q_lower for kw in ['working space', 'clearance depth', 'working clearance',
+                                         '110.26', 'depth of working', 'clearance in front']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('lookup_working_space')
+            else:
+                required.append('cec_lookup_working_space')
+
+        # Conduit fill questions -> force conduit lookup
+        if any(kw in q_lower for kw in ['conduit fill', 'how many conductors', 'maximum number of conductors',
+                                         'conductors can fit', 'conductors in conduit', 'chapter 9 table']):
+            if 'nec' in q_lower or 'national' in q_lower:
+                required.append('lookup_conduit_fill')
+            else:
+                required.append('cec_lookup_conduit_fill')
+
+        # Ampacity adjustment questions -> force ampacity adjustment lookup
+        if any(kw in q_lower for kw in ['adjusted ampacity', 'derated ampacity', 'temperature correction',
+                                         'bundling adjustment', 'ambient temperature', 'current-carrying conductors']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('lookup_ampacity_adjustment')
+            else:
+                required.append('cec_lookup_ampacity_adjustment')
+
+        # Grounding electrode conductor questions -> force grounding conductor lookup
+        if any(kw in q_lower for kw in ['grounding electrode conductor', 'gec size', 'table 250.66',
+                                         'minimum.*gec', 'size.*gec']):
+            if 'nec' in q_lower or 'national' in q_lower:
+                required.append('lookup_grounding_conductor')
+            else:
+                required.append('cec_lookup_grounding_conductor')
+
+        # Equipment grounding conductor questions -> force grounding conductor lookup
+        if any(kw in q_lower for kw in ['equipment grounding conductor', 'egc size', 'table 250.122',
+                                         'minimum.*egc', 'size.*egc']):
+            if 'nec' in q_lower or 'national' in q_lower:
+                required.append('lookup_grounding_conductor')
+            else:
+                required.append('cec_lookup_grounding_conductor')
+
+        # Table lookup questions (lighting load, general tables) -> force table lookup
+        if any(kw in q_lower for kw in ['table 220.12', 'lighting load', 'va per square foot',
+                                         'unit lighting load', 'general lighting load']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('get_table_info')
+            else:
+                required.append('cec_lookup_table')
+
+        # Base ampacity questions (forward lookup) -> force ampacity lookup
+        if any(kw in q_lower for kw in ['ampacity of', 'what is the ampacity', 'how many amps can']):
+            # Only if NOT asking about adjustment/derating (those are handled above)
+            if not any(adj in q_lower for adj in ['adjust', 'derat', 'correction', 'bundling']):
+                if 'nec' in q_lower and 'cec' not in q_lower:
+                    required.append('lookup_conductor_ampacity')
+                else:
+                    required.append('cec_lookup_conductor_ampacity')
+
+        # Conductor sizing questions (expanded keywords)
+        if any(kw in q_lower for kw in ['conductor size', 'wire size', 'what awg', 'what size wire',
+                                         'minimum conductor', 'service conductor size']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('nec_lookup_conductor_size')
+            else:
+                required.append('cec_lookup_conductor_size')
+
+        # If keyword detection found nothing, try similarity fallback
+        if not required:
+            tool_keywords = {
+                'cec_lookup_conduit_fill': ['conduit', 'conductors', 'fit', 'fill', 'raceway', 'chapter', 'wires'],
+                'cec_lookup_ampacity_adjustment': ['ampacity', 'derate', 'temperature', 'ambient', 'bundling', 'correction'],
+                'cec_lookup_working_space': ['clearance', 'space', 'working', 'panel', 'equipment', 'depth', 'front'],
+                'cec_lookup_grounding_conductor': ['egc', 'gec', 'equipment', 'electrode', 'grounding', 'ocpd', '250.122', '250.66'],
+                'cec_lookup_table': ['table', 'lighting', 'load', 'va', 'square', 'foot', 'occupancy'],
+                'cec_lookup_conductor_ampacity': ['ampacity', 'amps', 'current', 'rating', 'wire', 'conductor'],
+                'cec_lookup_conductor_size': ['size', 'conductor', 'wire', 'awg', 'kcmil', 'service'],
+            }
+            required = self._get_tool_similarity(q_lower, tool_keywords)
+
+        return required
+
+    def _augment_tool_result_with_footnotes(self, tool_call: dict, result_str: str) -> str:
+        """
+        Automatically inject footnote context into table lookup results.
+
+        This generic approach detects ANY table lookup, extracts the table ID,
+        loads footnotes from the table data, and appends cross-reference guidance.
+        This ensures the agent sees all applicable code cross-references without
+        requiring hardcoded knowledge of specific sections like 240.4(D).
+
+        Args:
+            tool_call: Dict with 'name', 'args', and 'id'
+            result_str: The string result from tool execution
+
+        Returns:
+            Result string with footnotes appended (if applicable)
+        """
+        import re
+
+        tool_name = tool_call.get("name", "")
+        # Handle Gemini returning tool name as list
+        if isinstance(tool_name, list):
+            tool_name = tool_name[0] if tool_name else ""
+
+        # Only augment table lookup tools (names must match tools.py)
+        table_lookup_tools = [
+            # CEC tools
+            "cec_lookup_conductor_ampacity",
+            "cec_lookup_working_space",
+            "cec_lookup_grounding_conductor",
+            "cec_lookup_ampacity_adjustment",
+            "cec_lookup_conduit_fill",
+            "cec_lookup_table",
+            "cec_lookup_conductor_size",
+            # NEC tools
+            "lookup_conductor_ampacity",
+            "lookup_working_space",
+            "lookup_grounding_conductor",
+            "lookup_ampacity_adjustment",
+            "lookup_conduit_fill",
+            "nec_lookup_conductor_size",
+            "get_table_info",
+        ]
+
+        if tool_name not in table_lookup_tools:
+            return result_str  # Not a table lookup, return unchanged
+
+        # Extract table ID from result (e.g., "Table 310.16" or "CEC 2022 Table 310.16")
+        match = re.search(r'Table\s+([\d\.]+(?:\([A-Za-z0-9]+\))*)', result_str)
+        if not match:
+            return result_str
+
+        table_id = f"Table {match.group(1)}"
+
+        # Determine which table source to use based on tool name
+        try:
+            if tool_name.startswith("cec_"):
+                table_data = self.cec_tables.get_table_data(table_id)
+            else:
+                table_data = self.nec_tables.get_table_data(table_id)
+        except Exception:
+            return result_str  # Error getting table data, return unchanged
+
+        if isinstance(table_data, dict) and "error" in table_data:
+            return result_str
+
+        # Build footnote context
+        additions = []
+
+        notes = table_data.get("notes", [])
+        if notes:
+            additions.append("\n\n[TABLE FOOTNOTES]")
+            for note in notes:
+                # Handle both dict-style notes {"marker": "a", "text": "..."} and plain strings
+                if isinstance(note, dict):
+                    marker = note.get("marker") or note.get("number", "")
+                    text = note.get("text", "")
+                    if marker:
+                        additions.append(f"  [{marker}] {text}")
+                    else:
+                        additions.append(f"  - {text}")
+                elif isinstance(note, str):
+                    additions.append(f"  - {note}")
+
+        cross_refs = table_data.get("cross_references", [])
+        if cross_refs:
+            additions.append(f"\n[CROSS-REFERENCES TO CHECK]: {', '.join(cross_refs)}")
+            additions.append("  >> You MUST search for these sections before answering.")
+
+        if additions:
+            return result_str + "\n".join(additions)
+        return result_str
+
+    def _extract_numerical_values(self, text: str) -> set:
+        """
+        Extract numerical values from text for hallucination verification.
+        Returns a set of normalized value strings.
+        """
+        values = set()
+
+        # Match numbers with units: "900 mm", "3 ft", "36 inches", "20A", "6 AWG"
+        patterns = [
+            r'(\d+(?:\.\d+)?)\s*(?:mm|m|ft|feet|foot|in|inches?|amperes?|amps?|A)\b',
+            r'(\d+(?:\.\d+)?)\s*(?:AWG|kcmil|sq\s*in)',
+            r'(\d+/\d+)\s*(?:AWG|inch)',  # Fractions like "3/0 AWG"
+            r'\b(\d+(?:\.\d+)?)\b',  # Plain numbers
+        ]
+
+        for pattern in patterns:
+            for match in re.finditer(pattern, text, re.IGNORECASE):
+                values.add(match.group(1).lower())
+
+        # Normalize common equivalents (3 ft = 36 inches = 900 mm)
+        normalized = set()
+        for v in values:
+            normalized.add(v)
+            try:
+                num = float(v)
+                if num == 3:
+                    normalized.update(['3', '36', '900'])
+                elif num == 36:
+                    normalized.update(['3', '36', '900'])
+                elif num == 900:
+                    normalized.update(['3', '36', '900'])
+            except ValueError:
+                pass
+
+        return normalized
+
+    def _verify_answer_uses_tool_output(self, answer: str, tool_calls_with_outputs: list) -> tuple:
+        """
+        Verify that the final answer uses values from specialized tool outputs.
+        Enhanced to catch calculation hallucinations (correction factors, etc.)
+
+        Returns:
+            Tuple of (is_valid: bool, warning: str or None)
+        """
+        # Tools that return specific values that MUST appear in answer
+        VERIFIABLE_TOOLS = {
+            'lookup_working_space', 'cec_lookup_working_space',
+            'nec_lookup_conductor_size', 'cec_lookup_conductor_size',
+            'lookup_grounding_conductor', 'cec_lookup_grounding_conductor',
+            'lookup_conductor_ampacity', 'cec_lookup_conductor_ampacity',
+            'lookup_conduit_fill', 'cec_lookup_conduit_fill',
+            # Added: ampacity adjustment tools (temp correction, bundling factors)
+            'lookup_ampacity_adjustment', 'cec_lookup_ampacity_adjustment',
+            'lookup_temperature_correction', 'cec_lookup_temperature_correction',
+            'lookup_bundling_adjustment', 'cec_lookup_bundling_adjustment',
+        }
+
+        # Find verifiable tool calls
+        verifiable_outputs = []
+        for tc in tool_calls_with_outputs:
+            if tc.get('tool') in VERIFIABLE_TOOLS:
+                verifiable_outputs.append({
+                    'tool': tc.get('tool'),
+                    'output': tc.get('output', '')
+                })
+
+        if not verifiable_outputs:
+            # No verifiable tools called - skip verification
+            return (True, None)
+
+        # Extract values from tool outputs
+        tool_values = set()
+        tool_factors = set()  # Correction factors (0.xx format)
+        for item in verifiable_outputs:
+            output = item['output']
+            tool_values.update(self._extract_numerical_values(output))
+            # Extract correction factors specifically (e.g., 0.88, 0.7, 0.70, 0.82)
+            # Normalize to handle both 0.7 and 0.70 formats
+            factor_matches = re.findall(r'\b(0\.\d{1,3})\b', output)
+            tool_factors.update(factor_matches)
+
+        # Extract values from answer
+        answer_values = self._extract_numerical_values(answer)
+        # Extract correction factors from answer (1-3 digits after decimal)
+        answer_factors = set(re.findall(r'\b(0\.\d{1,3})\b', answer))
+
+        # Normalize factors for comparison (0.7 == 0.70)
+        def normalize_factor(f):
+            return str(float(f))
+        tool_factors_normalized = {normalize_factor(f) for f in tool_factors}
+        answer_factors_normalized = {normalize_factor(f) for f in answer_factors}
+
+        # Check 1: Basic overlap - at least one tool value should appear in answer
+        overlap = tool_values & answer_values
+
+        if not overlap and tool_values and answer_values:
+            return (False, f"HALLUCINATION WARNING: Answer values {answer_values} don't match tool output values {tool_values}")
+
+        # Check 2: For calculations with correction factors, verify factors match
+        if answer_factors_normalized and tool_factors_normalized:
+            # Answer uses correction factors - verify they came from tools
+            unverified_factors = answer_factors_normalized - tool_factors_normalized
+            if unverified_factors:
+                return (False, f"CALCULATION WARNING: Answer uses correction factors {unverified_factors} not found in tool outputs. Tool returned: {tool_factors_normalized}")
+
+        # Check 3: If answer has correction factors but no adjustment tool was called
+        if answer_factors and not tool_factors:
+            # Check if any adjustment tool was called
+            adjustment_tools_called = any(
+                'adjustment' in tc.get('tool', '').lower() or
+                'correction' in tc.get('tool', '').lower()
+                for tc in tool_calls_with_outputs
+            )
+            if not adjustment_tools_called:
+                return (False, f"CALCULATION WARNING: Answer uses correction factors {answer_factors} but no adjustment/correction tool was called")
+
+        return (True, None)
+
+    def _extract_content(self, response) -> str:
+        """
+        Extract text content from LLM response.
+        Handles Gemini returning content as list of blocks instead of string.
+        """
+        content = response.content
+        if content is None:
+            return ""
+        if isinstance(content, str):
+            return content
+        if isinstance(content, list):
+            # Gemini returns list of content blocks: [{"type": "text", "text": "..."}, ...]
+            texts = []
+            for block in content:
+                if isinstance(block, dict) and "text" in block:
+                    texts.append(block["text"])
+                elif isinstance(block, str):
+                    texts.append(block)
+            return "".join(texts)
+        return str(content)
+
+    @retry_with_backoff(max_retries=5, initial_wait=30.0, max_wait=120.0)
+    def _invoke_llm_with_retry(self, messages: List[Any]) -> Any:
+        """
+        Call LLM with retry on rate limits.
+        """
+        return self.llm_with_tools.invoke(messages)
+
+    def _run_agent_loop(self, question: str, max_iterations: int = 15,
+                        force_nec_comparison: bool = False) -> dict:
+        """
+        Custom iteration loop with enforcement checks.
+
+        This replaces LangGraph's create_react_agent with a loop we control.
+        The model cannot return a final answer until:
+        1. At least one search/lookup tool is called
+        2. Exception search is called
+
+        Args:
+            question: User's question
+            max_iterations: Maximum loop iterations (default: 15)
+
+        Returns:
+            Dict with answer, tool_calls, and iterations count
+        """
+        # Build initial messages with system prompt
+        messages = [SystemMessage(content=SYSTEM_PROMPT)]
+        messages.extend(self.chat_history)
+        messages.append(HumanMessage(content=question))
+
+        all_tool_calls = []
+        iteration = 0
+        last_response = None
+
+        # Trace collection for full transparency
+        trace = {
+            "iterations": [],
+            "tool_calls_with_outputs": []
+        }
+
+        while iteration < max_iterations:
+            iteration += 1
+
+            if self.verbose:
+                print(f"  [Iteration {iteration}] Calling LLM...")
+
+            # SINGLE-STEP APPROACH: Direct tool calling without separate planning step
+            # The LLM will reason within its response after seeing tool outputs
+            try:
+                response = self._invoke_llm_with_retry(messages)  # WITH tools
+            except Exception as e:
+                if self.verbose:
+                    print(f"  [Error] LLM call failed: {e}")
+                return {
+                    "answer": f"Error: {str(e)}",
+                    "tool_calls": all_tool_calls,
+                    "iterations": iteration,
+                    "error": str(e),
+                    "trace": trace
+                }
+
+            last_response = response
+            has_tool_calls = bool(response.tool_calls) if hasattr(response, 'tool_calls') else False
+
+            # Start tracking this iteration
+            iter_trace = {
+                "iteration": iteration,
+                "llm_content": self._extract_content(response),  # LLM response content (reasoning + answer combined)
+                "tools_called": [],
+                "enforcement_triggered": None
+            }
+
+            if self.verbose:
+                print(f"  [Iteration {iteration}] Tool calls: {len(response.tool_calls) if has_tool_calls else 0}")
+
+            # LAYER 2: ANTI-HALLUCINATION CHECK
+            # If first iteration and no tools called, force tool usage
+            if iteration == 1 and not has_tool_calls and not all_tool_calls:
+                if self.verbose:
+                    print("  [!] ANTI-HALLUCINATION: No tool calls in first response. Forcing search.")
+                enforcement_msg = "ANTI-HALLUCINATION: Forced tool usage - model tried to answer without calling tools"
+                iter_trace["enforcement_triggered"] = enforcement_msg
+                trace["iterations"].append(iter_trace)
+                messages.append(AIMessage(content=self._extract_content(response) or ""))
+                messages.append(HumanMessage(
+                    content="ERROR: You MUST call CEC search tools before answering. "
+                           "You cannot answer from memory. Call cec_search NOW to retrieve verified code data."
+                ))
+                continue  # Force another iteration
+
+            # Execute tool calls if present
+            if has_tool_calls:
+                messages.append(response)  # Add AI message with tool calls
+
+                for tool_call in response.tool_calls:
+                    tool_name = tool_call.get("name", "unknown")
+                    # Handle Gemini returning tool name as list
+                    if isinstance(tool_name, list):
+                        tool_name = tool_name[0] if tool_name else "unknown"
+                    tool_id = tool_call.get("id", "")
+
+                    if self.verbose:
+                        print(f"    -> Executing: {tool_name}")
+
+                    # Execute tool
+                    tool_result_raw = self._execute_tool(tool_call)
+
+                    # Augment table lookup results with footnotes/cross-references
+                    tool_result_augmented = self._augment_tool_result_with_footnotes(tool_call, tool_result_raw)
+
+                    all_tool_calls.append(tool_call)
+
+                    # Track detailed tool call with outputs for trace
+                    detailed_call = {
+                        "tool": tool_name,
+                        "input": tool_call.get("args", {}),
+                        "output": tool_result_raw,
+                        "output_augmented": tool_result_augmented if tool_result_augmented != tool_result_raw else None
+                    }
+                    iter_trace["tools_called"].append(detailed_call)
+                    trace["tool_calls_with_outputs"].append(detailed_call)
+
+                    # Add tool result to messages
+                    messages.append(ToolMessage(
+                        content=tool_result_augmented,
+                        tool_call_id=tool_id
+                    ))
+
+                # Save iteration trace and continue
+                trace["iterations"].append(iter_trace)
+                continue  # Get next response after tool execution
+
+            # No tool calls - model wants to give final answer
+            # LAYER 3: Verify required tools were called before allowing answer
+            is_complete, missing_type = self._verify_required_tools(question, all_tool_calls, force_nec_comparison)
+
+            if not is_complete:
+                if self.verbose:
+                    print(f"  [!] INCOMPLETE: Missing {missing_type}. Forcing additional search.")
+
+                enforcement_msg = f"ENFORCEMENT: Missing {missing_type} - forced additional tool call"
+                iter_trace["enforcement_triggered"] = enforcement_msg
+                trace["iterations"].append(iter_trace)
+
+                messages.append(AIMessage(content=self._extract_content(response) or ""))
+
+                if missing_type == "search":
+                    messages.append(HumanMessage(
+                        content="INCOMPLETE: You must call cec_search or a lookup tool to verify your answer "
+                               "against the code. Call the appropriate search tool NOW."
+                    ))
+                elif missing_type == "nec_comparison":
+                    messages.append(HumanMessage(
+                        content="INCOMPLETE: User requested NEC comparison. "
+                               "Call compare_with_nec with the relevant CEC section "
+                               "to show how California code differs from NEC 2023."
+                    ))
+                elif missing_type.startswith("specialized_tool:"):
+                    # NEW: Enforce specialized tools for specific question types
+                    required_tool = missing_type.split(":", 1)[1]
+                    messages.append(HumanMessage(
+                        content=f"ENFORCEMENT: This question requires the specialized tool '{required_tool}'. "
+                               f"You MUST call {required_tool} to get accurate values from the tables. "
+                               f"DO NOT use generic search or answer from memory. "
+                               f"Call {required_tool} NOW with the appropriate parameters."
+                    ))
+                continue
+
+            # All checks passed - return final answer
+            if self.verbose:
+                print(f"  [OK] Returning answer after {iteration} iterations, {len(all_tool_calls)} tool calls")
+
+            # Add final iteration trace (no tools, just final answer)
+            trace["iterations"].append(iter_trace)
+
+            return {
+                "answer": self._extract_content(response) or "No response generated",
+                "tool_calls": all_tool_calls,
+                "iterations": iteration,
+                "trace": trace
+            }
+
+        # Max iterations reached
+        if self.verbose:
+            print(f"  [!] Max iterations ({max_iterations}) reached")
+
+        return {
+            "answer": self._extract_content(last_response) if last_response else "Max iterations reached",
+            "tool_calls": all_tool_calls,
+            "iterations": iteration,
+            "max_iterations_reached": True,
+            "trace": trace
+        }
+
+    def ask(self, question: str, force_nec_comparison: bool = False,
+            _hallucination_retry: bool = False) -> Dict[str, Any]:
+        """
+        Ask the agent a question using custom iteration loop with enforcement.
+
+        The loop ensures:
+        1. At least one search/lookup tool is called
+        2. Exception search is called
+        3. Model cannot return answer until requirements are met
+        4. If force_nec_comparison=True, compare_with_nec must be called
+        5. If specialized tool called, answer must use tool output values
+
+        Args:
+            question: User's question about electrical codes
+            force_nec_comparison: If True, require NEC comparison in response
+            _hallucination_retry: Internal flag for auto-retry on hallucination
+
+        Returns:
+            Dict with answer, tool_calls, and metadata
+        """
+        start_time = datetime.now()
+
+        # If NEC comparison requested, append instruction to question
+        if force_nec_comparison:
+            question = question + "\n\n[INSTRUCTION: Include NEC 2023 comparison. Call compare_with_nec tool.]"
+
+        try:
+            # Run custom agent loop with enforcement
+            result = self._run_agent_loop(question, force_nec_comparison=force_nec_comparison)
+
+            answer = result.get("answer", "No response generated")
+            tool_calls = result.get("tool_calls", [])
+            trace = result.get("trace", {})
+
+            # Verify answer uses tool output values (anti-hallucination check)
+            is_valid, warning = self._verify_answer_uses_tool_output(
+                answer,
+                trace.get("tool_calls_with_outputs", [])
+            )
+
+            if not is_valid:
+                if self.verbose:
+                    print(f"  [!] {warning}")
+
+                # Auto-retry once if hallucination detected
+                if not _hallucination_retry:
+                    if self.verbose:
+                        print(f"  [!] Hallucination detected - retrying question...")
+                    self.clear_memory()
+                    return self.ask(question, force_nec_comparison, _hallucination_retry=True)
+                else:
+                    # Already retried once, log warning and continue
+                    if self.verbose:
+                        print(f"  [!] Hallucination persists after retry - continuing with warning")
+                    trace['hallucination_warning'] = warning
+
+            # Format tool calls for output
+            formatted_tool_calls = []
+            for tc in tool_calls:
+                formatted_tool_calls.append({
+                    "tool": tc.get("name", "unknown"),
+                    "input": tc.get("args", {}),
+                    "output": ""
+                })
+
+            # Update chat history (keep last 6 messages = 3 exchanges)
+            self.chat_history.append(HumanMessage(content=question))
+            self.chat_history.append(AIMessage(content=answer))
+            if len(self.chat_history) > 6:
+                self.chat_history = self.chat_history[-6:]
+
+            end_time = datetime.now()
+            duration = (end_time - start_time).total_seconds()
+
+            return {
+                "answer": answer,
+                "tool_calls": formatted_tool_calls,
+                "duration_seconds": duration,
+                "model": self.model_name,
+                "timestamp": start_time.isoformat(),
+                "iterations": result.get("iterations", 0),
+                "trace": trace  # Full execution trace (may include hallucination_warning)
+            }
+
+        except Exception as e:
+            import traceback
+            error_msg = f"Error: {str(e)}\n{traceback.format_exc()}"
+            if self.verbose:
+                print(error_msg)
+            end_time = datetime.now()
+            duration = (end_time - start_time).total_seconds()
+            return {
+                "answer": f"Error: {str(e)}",
+                "tool_calls": [],
+                "error": str(e),
+                "model": self.model_name,
+                "timestamp": start_time.isoformat(),
+                "duration_seconds": duration,
+                "trace": {}  # Empty trace on error
+            }
+
+    def clear_memory(self):
+        """Clear conversation memory"""
+        self.chat_history = []
+
+
+# ============================================================================
+# MODULE-LEVEL FUNCTIONS
+# ============================================================================
+
+_agent_instance = None
+
+
+def get_agent() -> CECAgent:
+    """Get or create singleton agent instance"""
+    global _agent_instance
+    if _agent_instance is None:
+        _agent_instance = CECAgent()
+    return _agent_instance
+
+
+if __name__ == "__main__":
+    # Test the agent
+    print("\n=== CEC Lang Agent Test ===\n")
+
+    agent = CECAgent(verbose=True)
+
+    # Test question
+    question = "What is the ampacity of 12 AWG copper wire at 75C?"
+    print(f"Question: {question}\n")
+
+    result = agent.ask(question)
+
+    print(f"\nAnswer:\n{result['answer']}")
+    print(f"\nTool calls: {len(result['tool_calls'])}")
+    for tc in result['tool_calls']:
+        print(f"  - {tc['tool']}: {tc['input']}")
+    print(f"\nDuration: {result['duration_seconds']:.2f}s")

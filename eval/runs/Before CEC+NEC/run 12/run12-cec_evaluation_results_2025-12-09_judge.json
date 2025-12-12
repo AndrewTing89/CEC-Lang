@@ -1,0 +1,530 @@
+{
+  "metadata": {
+    "source_file": "C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\run 12\\run12-cec_evaluation_results_2025-12-09.json",
+    "model": "qwen/qwen3-32b",
+    "total_questions": 30,
+    "pass_count": 0,
+    "fail_count": 30,
+    "pass_rate": "0.0%",
+    "average_scores": {
+      "technical_accuracy": 0.0,
+      "completeness": 0.0,
+      "code_references": 0.0,
+      "reasoning_quality": 0.0,
+      "overall_score": 0.0
+    },
+    "original_pass_rate": "100.0%"
+  },
+  "judgments": [
+    {
+      "id": "cec-001",
+      "question": "What are the panelboard space requirements for single-family dwellings in California? What appliance...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-002",
+      "question": "What are California's electrical requirements for EV charging infrastructure in new residential cons...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-003",
+      "question": "What are the California-specific electrical requirements for solar PV systems on new residential con...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-004",
+      "question": "What circuit requirements does California have for heat pump water heaters in new dwelling units?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-005",
+      "question": "What is required for electric cooktop readiness in new California homes?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-006",
+      "question": "What are the panelboard requirements for electric clothes dryer circuits in California new construct...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-007",
+      "question": "What does CEC Table 240.4(G) specify that is unique to California?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-008",
+      "question": "What does CEC Table 242.3 specify for California installations?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-009",
+      "question": "What does CEC Table 430.72(B) specify for motor control circuit overcurrent protection?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-010",
+      "question": "What medium voltage cable tables does California have that are not in the NEC?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-011",
+      "question": "What is the ampacity of 4/0 AWG copper conductor at 75C according to California electrical code?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-012",
+      "question": "What size equipment grounding conductor is required for a 200A circuit in California?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-013",
+      "question": "What size grounding electrode conductor is required for a 3/0 AWG copper service conductor in Califo...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-014",
+      "question": "What is the temperature correction factor for a 75C rated conductor at 40C ambient temperature accor...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-015",
+      "question": "What is the ampacity adjustment factor for 7-9 current-carrying conductors in a raceway according to...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-016",
+      "question": "What is the minimum working space depth for a 480V panelboard under Condition 3 according to Califor...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-017",
+      "question": "What type of enclosure is suitable for outdoor use with rain, sleet, and ice according to California...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-018",
+      "question": "What is the general lighting load in VA per square foot for office buildings according to California...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-019",
+      "question": "What is the ampacity of a 12 AWG flexible cord (Column B thermoset) according to California code?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-020",
+      "question": "What is the maximum operating temperature for Type SF-2 silicone insulated fixture wire according to...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-021",
+      "question": "Calculate the adjusted ampacity for 8 AWG THWN copper conductors with 7 conductors in a raceway at 4...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-022",
+      "question": "Size the conductors, EGC, and GEC for a 200A residential service in California using copper conducto...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-023",
+      "question": "Calculate the general lighting load for a 5,000 square foot office building in California.",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-024",
+      "question": "What is the maximum overcurrent protection for a motor control circuit using 16 AWG copper conductor...",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-025",
+      "question": "Calculate the general lighting load for a 2,400 square foot dwelling unit in California.",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-026",
+      "question": "Compare the kitchen GFCI requirements between CEC 2022 and NEC 2023. Which code is more restrictive?",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-027",
+      "question": "Compare the panelboard space requirements between CEC 2022 and NEC 2023 for single-family dwellings.",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-028",
+      "question": "Compare California's EV charging infrastructure requirements with the NEC 2023 requirements.",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-029",
+      "question": "Compare the AFCI protection requirements between CEC 2022 and NEC 2023 for dwelling units.",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    },
+    {
+      "id": "cec-030",
+      "question": "Compare California's solar PV requirements with NEC 2023 Article 690.",
+      "original_status": "PASS",
+      "judge_verdict": "FAIL",
+      "scores": {
+        "technical_accuracy": 0,
+        "completeness": 0,
+        "code_references": 0,
+        "reasoning_quality": 0,
+        "overall": 0
+      },
+      "key_findings": "Failed to evaluate",
+      "errors": [
+        "Evaluation failed"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,323 @@
+CEC 2022 Unified Evaluation Questions
+================================================================================
+Total: 53 questions
+================================================================================
+
+cec2022-001	What is the ampacity of 12 AWG copper conductor at 75°C termination?
+
+EXPECTED ANSWER: 20 amperes
+
+--------------------------------------------------------------------------------
+
+cec2022-002	What size copper conductor is required for a 60A circuit at 75°C?
+
+EXPECTED ANSWER: 6 AWG copper
+
+--------------------------------------------------------------------------------
+
+cec2022-003	Where is GFCI protection required in a residential kitchen?
+
+EXPECTED ANSWER: All receptacles that serve the kitchen countertop surfaces shall have GFCI protection per 210.8(A)(6). Dishwashers are NOT explicitly required to have GFCI under 210.8(A)(6) in CEC 2022 (countertop surfaces only).
+
+--------------------------------------------------------------------------------
+
+cec2022-004	Is AFCI protection required for bedroom circuits in new residential construction?
+
+EXPECTED ANSWER: Yes, AFCI protection is required for all 120-volt, 15- and 20-ampere branch circuits supplying outlets in bedrooms.
+
+--------------------------------------------------------------------------------
+
+cec2022-005	Can aluminum conductors be used for a 200A service? If yes, what size?
+
+EXPECTED ANSWER: Yes, 4/0 AWG aluminum or copper-clad aluminum
+
+--------------------------------------------------------------------------------
+
+cec2022-006	What is the minimum depth of working clearance required in front of a 120/240V residential electrical panel?
+
+EXPECTED ANSWER: 36 inches (3 feet)
+
+--------------------------------------------------------------------------------
+
+cec2022-007	How many 20-ampere small appliance branch circuits are required for a kitchen?
+
+EXPECTED ANSWER: Minimum of two 20-ampere small appliance branch circuits
+
+--------------------------------------------------------------------------------
+
+cec2022-008	Is surge protection required for a new 200A residential service?
+
+EXPECTED ANSWER: Yes, all services supplying dwelling units shall be provided with a surge-protective device (SPD) per 230.67.
+
+--------------------------------------------------------------------------------
+
+cec2022-009	A homeowner wants to upgrade from 100A to 200A service. The house has 3,000 sq ft of living space, electric range (12kW), electric dryer (5.5kW), central AC (4 tons), and electric water heater (4.5kW). What size service conductors are required, and can they use aluminum?
+
+EXPECTED ANSWER: 2/0 AWG copper OR 4/0 AWG aluminum. Yes, aluminum is permitted for service conductors per Table 310.12.
+
+--------------------------------------------------------------------------------
+
+cec2022-010	An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. What are the requirements for the circuit breaker and neutral termination?
+
+EXPECTED ANSWER: Requires either a handle tie or common trip breaker to simultaneously disconnect all ungrounded conductors per 210.4(B). Common trip is required if the circuit has both line-to-line and line-to-neutral loads. Neutral must be continuous and not switched. Conductors must be grouped per 210.4(D). Circuit breaker: 20A maximum for 12 AWG copper.
+
+--------------------------------------------------------------------------------
+
+cec2022-011	Where is GFCI protection required in a residential dwelling? List all locations.
+
+EXPECTED ANSWER: Bathrooms, garages, outdoors, crawl spaces, unfinished basements, kitchens (countertop receptacles), laundry areas, boathouses, areas with bathtubs or shower stalls, and within 6 feet of sinks.
+
+--------------------------------------------------------------------------------
+
+cec2022-012	Is surge protection required for a new 200A residential service? If so, where can it be installed?
+
+EXPECTED ANSWER: Yes, per 230.67. Type 1 or Type 2 SPD required. Must be installed integral to the service equipment or immediately adjacent. Exception allows installation at the first downstream panelboard.
+
+--------------------------------------------------------------------------------
+
+cec2022-013	A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inches to the side. Does this meet code requirements?
+
+EXPECTED ANSWER: No, this violates multiple requirements: (1) Minimum 36 inches depth required per 110.26(A)(1), not 24 inches. (2) Panels are prohibited in clothes closets per 240.24(D). (3) Working space width must be 30 inches or equipment width, whichever is greater. (4) No storage allowed in working space per 110.26(B).
+
+--------------------------------------------------------------------------------
+
+cec2022-014	During an inspection, I found two 12 AWG conductors landed on a single 20A breaker terminal. The breaker is not marked for two conductors. Is this a code violation?
+
+EXPECTED ANSWER: Yes, this is a code violation per 110.14(A). Terminals shall accommodate only one conductor unless identified for more than one conductor. Per 110.3(B), equipment must be installed according to manufacturer instructions. If the breaker is not listed for two conductors, this is a violation.
+
+--------------------------------------------------------------------------------
+
+cec2022-015	A detached garage is fed from the house panel with a 4-wire feeder. How should the grounding and bonding be configured in the garage subpanel?
+
+EXPECTED ANSWER: Grounds and neutrals must be SEPARATED in the subpanel. The 4-wire feeder includes 2 hot, 1 neutral, and 1 equipment grounding conductor. NO main bonding jumper in subpanel (only at service). Neutral bar must be isolated (not bonded to enclosure). Equipment grounding conductor must be bonded to enclosure. A grounding electrode may be required per 250.32 for detached buildings.
+
+--------------------------------------------------------------------------------
+
+cec2022-016	What is the difference between a main bonding jumper and a system bonding jumper? When is each required?
+
+EXPECTED ANSWER: Main Bonding Jumper (MBJ): Located at SERVICE EQUIPMENT, connects grounded conductor (neutral) to equipment grounding conductor. Required at service disconnect per 250.28. System Bonding Jumper (SBJ): Located at SEPARATELY DERIVED SYSTEMS (transformers, generators), same function as MBJ but for SDS. Required per 250.30. Neither is used in subpanels.
+
+--------------------------------------------------------------------------------
+
+cec2022-017	How many 20-ampere small appliance branch circuits are required for a kitchen, and can these circuits also serve the dining room receptacles?
+
+EXPECTED ANSWER: Minimum of TWO 20-ampere circuits required per 210.11(C)(1). Yes, these circuits can and should serve dining room, pantry, and breakfast room receptacles. They cannot serve lighting outlets or receptacles outside these areas.
+
+--------------------------------------------------------------------------------
+
+cec2022-018	A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50°C ambient temperature location. What is the adjusted ampacity?
+
+EXPECTED ANSWER: Base ampacity: 30A at 90°C (Table 310.16). Temperature correction factor: 0.82 for 50°C (Table 310.15(B)(1)). Bundling adjustment: 0.80 for 6 conductors (Table 310.15(C)(1)). Adjusted ampacity = 30A × 0.82 × 0.80 = 19.68A, approximately 20A.
+
+--------------------------------------------------------------------------------
+
+cec2022-019	Why is AFCI protection required for bedrooms and living areas? What electrical hazard does it prevent?
+
+EXPECTED ANSWER: AFCI protection prevents electrical fires caused by arc faults. It detects arcing conditions that standard breakers cannot, including series arcing (broken/damaged wires), parallel arcing (line-to-line or line-to-ground), loose connections, damaged insulation, and deteriorated wire. Required per 210.12 for dwelling unit 120V, 15A and 20A branch circuits.
+
+--------------------------------------------------------------------------------
+
+cec2022-020	Why are torque specifications important when terminating conductors in a panel, and where are the requirements found?
+
+EXPECTED ANSWER: Torque specifications prevent: (1) loose connections causing high resistance and heat generation (fire hazard), (2) poor contact leading to arcing, (3) overtightening causing crushed conductors or damaged terminals. Requirements found in 110.14(D) - must follow manufacturer specifications or Table 110.14(D). Also per 110.3(B) - follow manufacturer instructions.
+
+--------------------------------------------------------------------------------
+
+cec2022-021	Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A breaker, (2) 5.5kW dryer on 30A breaker, (3) two 20A small appliance circuits, (4) one 20A laundry circuit, (5) 3000 sq ft living space with general lighting, (6) 4-ton central AC (19.2A at 240V, approximately 4600W). Calculate the service load per Article 220 and determine if the 200A panel is adequately sized. Show your work.
+
+EXPECTED ANSWER: General lighting: 3000 sq ft × 3 VA = 9000 VA. Small appliance: 2 circuits × 1500 VA = 3000 VA. Laundry: 1500 VA. Subtotal: 13,500 VA. Apply demand factor per Table 220.42: first 3000 VA at 100% = 3000 VA, remaining 10,500 VA at 35% = 3675 VA. Subtotal with demand: 6675 VA. Range: 8000 VA (per Table 220.55 for one range). Dryer: 5500 VA at 100%. AC: 4600 VA at 100% (largest motor). Total: 6675 + 8000 + 5500 + 4600 = 24,775 VA. Current: 24,775 VA ÷ 240V = 103.2A. Conclusion: 200A service is adequately sized with 48% safety margin.
+
+--------------------------------------------------------------------------------
+
+cec2022-022	Electrical panel inspection in residential garage: Panel has 30 inches width clearance, 28 inches depth clearance in front, and a water heater located 16 inches to the left side within the working space. Panel is surface-mounted on wall at 5 feet height. Identify ALL code violations.
+
+EXPECTED ANSWER: Violations: (1) Depth clearance is 28 inches but 110.26(A)(1) requires minimum 36 inches for 120/240V equipment - VIOLATION. (2) Water heater at 16 inches is within the 30-inch width working space - equipment not related to electrical installation is prohibited in working space per 110.26(B) - VIOLATION. Width of 30 inches meets minimum requirement. Height would need to verify if working space height of 6.5 feet (78 inches) is maintained above the panel.
+
+--------------------------------------------------------------------------------
+
+cec2022-023	New residential construction. Kitchen installation has: (1) four countertop receptacles on two 20A circuits, (2) dishwasher on dedicated 15A circuit, (3) garbage disposal on dedicated 15A circuit, (4) refrigerator on dedicated 20A circuit. For each circuit, specify the required protection: standard breaker, GFCI, AFCI, or combination AFCI/GFCI. Provide code references.
+
+EXPECTED ANSWER: Per CEC 2022: (1) Countertop receptacles: GFCI required per 210.8(A)(6), AFCI required per 210.12(A). Use combination AFCI/GFCI. (2) Dishwasher: GFCI required per 422.5, AFCI required per 210.12(A). Use combination AFCI/GFCI. (3) Disposal: GFCI required per 210.8(A)(6), AFCI required per 210.12(A). Use combination AFCI/GFCI. (4) Refrigerator: AFCI required per 210.12(A). GFCI may be exempt for dedicated appliance circuits. All 120V dwelling circuits require AFCI per 210.12(A).
+
+--------------------------------------------------------------------------------
+
+cec2022-024	Subpanel inspection in detached garage: 100A subpanel fed from main house panel with 4-wire feeder (#2 AWG aluminum: 2 hots, 1 neutral, 1 ground). Inspector notes: (1) neutral bar and ground bar are bonded together with main bonding jumper installed, (2) ground bar is bonded to metal enclosure, (3) neutral bar is bonded to metal enclosure, (4) feeder ground wire is connected to ground bar, (5) feeder neutral is connected to neutral bar. Identify all violations and explain correct configuration.
+
+EXPECTED ANSWER: VIOLATIONS: (1) Neutral bar bonded to enclosure - VIOLATION per 250.24(A)(5) and 408.40. In subpanels, neutral must be isolated from enclosure. (2) Main bonding jumper installed - VIOLATION. MBJ only permitted at service equipment per 250.28, not in subpanels. CORRECT configuration: Remove bond between neutral bar and enclosure. Remove main bonding jumper. Neutral bar must be isolated (floating). Only ground bar bonded to enclosure. Feeder EGC connects to ground bar. Feeder neutral connects to isolated neutral bar. Grounds and neutrals must be kept separate in subpanels.
+
+--------------------------------------------------------------------------------
+
+cec2022-025	A 1¼-inch rigid metal conduit (RMC) needs to accommodate multiple 10 AWG THHN conductors for a commercial installation. Using Chapter 9 Tables, determine the maximum number of 10 AWG THHN conductors that can be installed in this conduit. Show your calculation.
+
+EXPECTED ANSWER: Per Chapter 9 Table 1: Maximum 40% fill for more than two conductors. From Chapter 9 Table 4: Trade size 1¼" RMC has 40% fill area of 0.610 square inches. From Chapter 9 Table 5: 10 AWG THHN conductor area is 0.0211 square inches. Calculation: 0.610 in² ÷ 0.0211 in² per conductor = 28.91 conductors. Per Chapter 9 Note 7: When the decimal is 0.8 or larger, round up to the next whole number. Since 0.91 > 0.8, maximum is 29 conductors. However, conservative practice uses 28 conductors maximum.
+
+--------------------------------------------------------------------------------
+
+cec2022-026	A 120V single-phase branch circuit supplies a continuous load of 22 amperes. The circuit uses 12 AWG copper conductors with a resistance of 1.29 ohms per 1,000 feet. The one-way distance from the panel to the load is 50 feet. Calculate the voltage drop in volts and as a percentage. Does this meet the 3% maximum recommendation for branch circuits?
+
+EXPECTED ANSWER: Voltage drop formula: VD = (2 × L × R × I) / 1000. Where: L = 50 feet (one-way distance), R = 1.29 ohms/1000ft for 12 AWG copper (Chapter 9 Table 8), I = 22 amperes, multiply by 2 for round trip. Calculation: VD = (2 × 50 × 1.29 × 22) / 1000 = 2,838 / 1000 = 2.84 volts. Percentage: (2.84V / 120V) × 100 = 2.37%. Conclusion: YES, this meets recommendations. 2.37% is less than the 3% maximum recommended for branch circuits per 210.19(A)(1) Informational Note No. 4.
+
+--------------------------------------------------------------------------------
+
+cec2022-027	A conduit in an attic contains six 12 AWG TW (Type TW, 60°C rated) copper conductors, all current-carrying. The attic ambient temperature reaches 110°F (43°C). Calculate the adjusted ampacity of these conductors after applying both temperature correction and bundling adjustment factors. Show all steps.
+
+EXPECTED ANSWER: Step 1: Base ampacity of 12 AWG TW copper at 60°C = 20 amperes (Table 310.16). Step 2: Temperature correction for 43°C ambient with 60°C conductor from Table 310.15(B)(1)(1): Correction factor = 0.71 (for 41-45°C range in 60°C column). Step 3: Bundling adjustment for 6 conductors from Table 310.15(C)(1): Adjustment factor = 0.80 (for 4-6 conductors). Step 4: Calculate adjusted ampacity: 20A × 0.71 × 0.80 = 11.36 amperes. Conclusion: The adjusted ampacity is 11.36 amperes (approximately 11.4A), which represents a 43% reduction from the base 20A rating.
+
+--------------------------------------------------------------------------------
+
+cec2022-028	A commercial data center has a main service with four parallel sets of 250 kcmil copper conductors per phase (total equivalent: 4 × 250 kcmil = 1000 kcmil per phase). Using Table 250.66, determine the minimum size copper grounding electrode conductor (GEC) required for this installation.
+
+EXPECTED ANSWER: Per Table 250.66: For service entrance conductors 1000 kcmil copper (4 × 250 kcmil in parallel), locate the row for 'Over 600 kcmil through 1100 kcmil'. The minimum grounding electrode conductor size is 2/0 AWG copper or 4/0 AWG aluminum. Answer: Minimum 2/0 AWG copper GEC required. Note: If this GEC connects solely to a ground rod electrode per 250.66(A), the GEC would not be required to be larger than 6 AWG copper.
+
+--------------------------------------------------------------------------------
+
+cec2022-029	What are the panelboard space requirements for single-family dwellings? What appliances must have reserved circuit breaker spaces?
+
+EXPECTED ANSWER: CEC 408.2(A) requires panelboards in single-family dwellings to have reserved spaces for branch circuits for: (1) heat pump water heaters, (2) heat pump space heaters, (3) electric cooktops, and (4) electric clothes dryers, as specified in California Energy Code Section 150.0(n), (t), (u), and (v). This is a California-specific requirement for electrification readiness. Note: EV charging requirements are separate and found in CEC Article 625 and Title 24 CALGreen, not in CEC 408.2.
+
+--------------------------------------------------------------------------------
+
+cec2022-030	What are the electrical requirements for EV charging infrastructure in new residential construction?
+
+EXPECTED ANSWER: California requires EV-ready infrastructure in new construction including dedicated 40-amp minimum circuits, conduit to parking spaces, and panel capacity for EV loads. These requirements are found in CEC Article 625 and Title 24 CALGreen (not CEC 408.2). Title 24 CALGreen mandates EV charging readiness with specific requirements for EV Capable, EV Ready, and installed EVCS spaces.
+
+--------------------------------------------------------------------------------
+
+cec2022-031	What are the electrical requirements for solar PV systems on new residential construction?
+
+EXPECTED ANSWER: California mandates solar PV on new single-family homes (Title 24 Part 6). Electrical requirements include rapid shutdown per CEC 690.12, arc-fault protection per CEC 690.11, specific grounding requirements per 690.41-47, and multiple disconnecting means requirements.
+
+--------------------------------------------------------------------------------
+
+cec2022-032	What circuit requirements exist for heat pump water heaters in new dwelling units?
+
+EXPECTED ANSWER: Per CEC 408.2, panelboards must have a reserved space for a heat pump water heater branch circuit. This is part of California's decarbonization requirements to ensure electrical infrastructure can support heat pump water heaters as replacements for gas water heaters.
+
+--------------------------------------------------------------------------------
+
+cec2022-033	What is required for electric cooktop readiness in new homes?
+
+EXPECTED ANSWER: CEC 408.2 requires panelboards to have a reserved space for electric cooktop branch circuits. This ensures homes are ready for all-electric cooking appliances as part of California's building electrification requirements.
+
+--------------------------------------------------------------------------------
+
+cec2022-034	What are the panelboard requirements for electric clothes dryer circuits in new construction?
+
+EXPECTED ANSWER: CEC 408.2 requires panelboards to have a reserved space for electric clothes dryer branch circuits in single-family dwellings. This is a California-specific requirement for building electrification.
+
+--------------------------------------------------------------------------------
+
+cec2022-035	What does CEC Table 240.4(G) specify that is unique to California?
+
+EXPECTED ANSWER: CEC Table 240.4(G) provides overcurrent protection requirements for small conductors. Note: Table 240.4(G) exists in BOTH CEC 2022 and NEC 2023, but California has modified values. The table specifies maximum overcurrent protection for conductors including fixture wires and flexible cords.
+
+--------------------------------------------------------------------------------
+
+cec2022-036	What does CEC Table 242.3 specify for installations?
+
+EXPECTED ANSWER: CEC Table 242.3 is a California-only table related to surge protection requirements. This table does not exist in the base NEC 2023.
+
+--------------------------------------------------------------------------------
+
+cec2022-037	What does CEC Table 430.72(B) specify for motor control circuit overcurrent protection?
+
+EXPECTED ANSWER: CEC Table 430.72(B) specifies maximum ratings of overcurrent protective devices for motor control circuits based on conductor size and configuration. It includes columns for separate protection, conductors within enclosure, and conductors extending beyond enclosure for both copper and aluminum conductors.
+
+--------------------------------------------------------------------------------
+
+cec2022-038	What medium voltage cable tables exist that are California-specific?
+
+EXPECTED ANSWER: CEC has 20 medium voltage tables in the 311.60(C) series (Tables 311.60(C)(67) through 311.60(C)(86)) that are California-only. These provide ampacity information for medium voltage cables not found in the base NEC.
+
+--------------------------------------------------------------------------------
+
+cec2022-039	What is the ampacity of 4/0 AWG copper conductor at 75°C?
+
+EXPECTED ANSWER: 230 amperes per CEC 2022 Table 310.16
+
+--------------------------------------------------------------------------------
+
+cec2022-040	What size equipment grounding conductor is required for a 200A circuit?
+
+EXPECTED ANSWER: 6 AWG copper or 4 AWG aluminum per CEC 2022 Table 250.122
+
+--------------------------------------------------------------------------------
+
+cec2022-041	What size grounding electrode conductor is required for a 3/0 AWG copper service conductor?
+
+EXPECTED ANSWER: 4 AWG copper or 2 AWG aluminum GEC per CEC 2022 Table 250.66
+
+--------------------------------------------------------------------------------
+
+cec2022-042	What is the temperature correction factor for a 75°C rated conductor at 40°C ambient temperature?
+
+EXPECTED ANSWER: 0.88 per CEC 2022 Table 310.15(B)(1)(1)
+
+--------------------------------------------------------------------------------
+
+cec2022-043	What is the ampacity adjustment factor for 7-9 current-carrying conductors in a raceway?
+
+EXPECTED ANSWER: 70% (0.70) per CEC 2022 Table 310.15(C)(1)
+
+--------------------------------------------------------------------------------
+
+cec2022-044	What is the minimum working space depth for a 480V panelboard under Condition 3?
+
+EXPECTED ANSWER: 1.2 m (4 ft) per CEC 2022 Table 110.26(A)(1)
+
+--------------------------------------------------------------------------------
+
+cec2022-045	What type of enclosure is suitable for outdoor use with rain, sleet, and ice per Table 110.28?
+
+EXPECTED ANSWER: Type 3, 3R, 3S, 4, 4X, 6, or 6P enclosures are suitable for outdoor use with rain, sleet, and ice per CEC 2022 Table 110.28
+
+--------------------------------------------------------------------------------
+
+cec2022-046	What is the general lighting load in VA per square foot for office buildings?
+
+EXPECTED ANSWER: 1.3 VA per square foot per CEC 2022 Table 220.12 (updated from 3.5 VA in NEC 2020)
+
+--------------------------------------------------------------------------------
+
+cec2022-047	What is the ampacity of a 12 AWG flexible cord (Column B thermoset)?
+
+EXPECTED ANSWER: 25 amperes per CEC 2022 Table 400.5(A)(1). Column B represents 2 current-carrying conductors.
+
+--------------------------------------------------------------------------------
+
+cec2022-048	What is the maximum operating temperature for Type SF-2 silicone insulated fixture wire?
+
+EXPECTED ANSWER: 200°C (392°F) per CEC 2022 Table 402.3
+
+--------------------------------------------------------------------------------
+
+cec2022-049	Calculate the adjusted ampacity for 8 AWG THWN copper conductors with 7 conductors in a raceway at 40°C ambient temperature.
+
+EXPECTED ANSWER: Base ampacity: 50A (CEC Table 310.16, 75°C). Temperature correction: 0.88 (CEC Table 310.15(B)(1)(1) for 40°C). Bundling factor: 0.70 (CEC Table 310.15(C)(1) for 7-9 conductors). Adjusted ampacity = 50 x 0.88 x 0.70 = 30.8A
+
+--------------------------------------------------------------------------------
+
+cec2022-050	Size the conductors, EGC, and GEC for a 200A residential service using copper conductors.
+
+EXPECTED ANSWER: Service conductors: 3/0 AWG copper minimum (200A at 75°C per CEC Table 310.16). Equipment grounding conductor: 6 AWG copper (per CEC Table 250.122 for 200A). Grounding electrode conductor: 4 AWG copper (per CEC Table 250.66 for 3/0 service conductors).
+
+--------------------------------------------------------------------------------
+
+cec2022-051	Calculate the general lighting load for a 5,000 square foot office building.
+
+EXPECTED ANSWER: Per CEC Table 220.12, office buildings require 1.3 VA per square foot (updated from 3.5 VA in NEC 2017 and earlier). General lighting load = 5,000 sq ft x 1.3 VA/sq ft = 6,500 VA (6.5 kVA). Note: The 125% continuous load multiplier is already included in this table value.
+
+--------------------------------------------------------------------------------
+
+cec2022-052	What is the maximum overcurrent protection for a motor control circuit using 16 AWG copper conductors that extend beyond the enclosure?
+
+EXPECTED ANSWER: Per CEC Table 430.72(B), Column C for conductors extending beyond enclosure, 16 AWG copper has a maximum OCP rating of 10 amperes.
+
+--------------------------------------------------------------------------------
+
+cec2022-053	Calculate the general lighting load for a 2,400 square foot dwelling unit.
+
+EXPECTED ANSWER: Per CEC Table 220.12, dwelling units require 3 VA per square foot. General lighting load = 2,400 sq ft x 3 VA/sq ft = 7,200 VA (7.2 kVA).
+
+--------------------------------------------------------------------------------
+

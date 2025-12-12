@@ -4,9 +4,6 @@ langchain-google-genai>=2.0.0
 langchain-core>=0.3.0
 langchain-experimental>=0.3.0
 
-# Observability
-langsmith>=0.1.0
-
 # Vector Search
 opensearch-py>=2.4.0
 

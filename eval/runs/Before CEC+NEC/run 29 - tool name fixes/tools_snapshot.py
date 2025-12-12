@@ -1,0 +1,747 @@
+"""
+LangChain Tools for CEC Lang Agent
+All tools decorated with @tool for LangChain integration
+
+Now imports from separate NEC/CEC tool files matching NEC-Agent structure.
+"""
+from typing import Optional
+from langchain_core.tools import tool
+from langchain_experimental.tools import PythonREPLTool
+
+# Import from separate tool files (matching NEC-Agent structure)
+from core.opensearch_hybrid_client import get_hybrid_client, get_cec_hybrid_client
+from core.nec_table_tools import NECTableTools, nec_lookup_conductor_size_for_ampacity
+from core.cec_table_tools import CECTableTools, cec_lookup_conductor_size_for_ampacity
+from core.nec_knowledge_tools import get_knowledge_tools as get_nec_tools
+from core.cec_knowledge_tools import get_cec_knowledge_tools
+
+
+# ============================================================================
+# INITIALIZE SHARED RESOURCES
+# ============================================================================
+
+def _get_nec_search_client():
+    """Get the NEC hybrid search client"""
+    return get_hybrid_client()
+
+
+def _get_cec_search_client():
+    """Get the CEC hybrid search client"""
+    return get_cec_hybrid_client()
+
+
+def _get_nec_tables():
+    """Get NEC table tools"""
+    return NECTableTools()
+
+
+def _get_cec_tables():
+    """Get CEC table tools"""
+    return CECTableTools()
+
+
+# ============================================================================
+# CEC TOOLS (PRIMARY - California Electrical Code 2022)
+# ============================================================================
+
+@tool
+def cec_search(query: str, article_filter: Optional[str] = None, limit: int = 5) -> str:
+    """[PRIMARY] Search CEC 2022 California Electrical Code - USE THIS BY DEFAULT.
+
+    This is the DEFAULT search tool for ALL electrical code questions.
+    CEC 2022 is California's authoritative code (incorporates NEC with CA amendments).
+
+    USE THIS TOOL FOR:
+    - Any question about electrical code requirements
+    - Finding rules, requirements, and code language
+    - Any California electrical installation question
+
+    Args:
+        query: Natural language search query (e.g., "conductor ampacity derating")
+        article_filter: Optional CEC article number to filter results (e.g., "310", "240")
+        limit: Maximum number of results (default 5)
+
+    Returns:
+        Relevant CEC sections with citations and content
+    """
+    tools = get_cec_knowledge_tools()
+    return tools.cec_search(query, article_filter, limit)
+
+
+@tool
+def cec_exception_search(base_rule: str, context: Optional[str] = None, limit: int = 5) -> str:
+    """[PRIMARY] Find exceptions to CEC rules - USE THIS BY DEFAULT for exception searches.
+
+    Use this AFTER cec_search to find exceptions to the base rules.
+    This is the DEFAULT exception search tool for California.
+
+    Args:
+        base_rule: The CEC section number (e.g., "310.16", "240.4", "250.122")
+        context: Optional context to narrow the exception search (e.g., "small conductors")
+        limit: Maximum number of results
+
+    Returns:
+        Exception text with citations if found
+    """
+    tools = get_cec_knowledge_tools()
+    return tools.cec_exception_search(base_rule, context, limit)
+
+
+@tool
+def compare_with_nec(section: str, query: Optional[str] = None) -> str:
+    """Compare a CEC section with its NEC 2023 equivalent to show California amendments.
+
+    Use this AFTER searching CEC to show differences from national code.
+    MANDATORY for all California questions to show CEC vs NEC differences.
+
+    Args:
+        section: The section number to compare (e.g., "310.16", "408.2")
+        query: Optional context to refine the comparison
+
+    Returns:
+        Comparison showing California amendments vs NEC
+    """
+    tools = get_cec_knowledge_tools()
+    return tools.compare_with_nec(section, query, limit=3)
+
+
+# ============================================================================
+# NEC TOOLS (REFERENCE - National Electrical Code 2023)
+# ============================================================================
+
+@tool
+def nec_search(query: str, article_filter: Optional[str] = None, limit: int = 5) -> str:
+    """Search NEC 2023 National Electrical Code for rules and sections.
+
+    Use this for national code reference or when user specifically asks about NEC.
+
+    Args:
+        query: Natural language search query
+        article_filter: Optional NEC article number to filter (e.g., "310", "240")
+        limit: Maximum number of results
+
+    Returns:
+        Relevant NEC sections with citations
+    """
+    tools = get_nec_tools()
+    return tools.nec_search(query, article_filter, limit)
+
+
+@tool
+def nec_exception_search(base_rule: str, context: Optional[str] = None, limit: int = 5) -> str:
+    """Find exceptions and special conditions for NEC rules.
+
+    Args:
+        base_rule: The NEC section number (e.g., "310.16", "240.4")
+        context: Optional context to narrow the search
+        limit: Maximum number of results
+
+    Returns:
+        Exception text with citations if found
+    """
+    tools = get_nec_tools()
+    return tools.nec_exception_search(base_rule, context, limit)
+
+
+# ============================================================================
+# CEC TABLE LOOKUP TOOLS (PRIMARY - Use for California)
+# ============================================================================
+
+@tool
+def cec_lookup_conductor_ampacity(
+    conductor_size: str,
+    temperature_rating: str = "75°C",
+    conductor_material: str = "copper"
+) -> str:
+    """[PRIMARY] Look up conductor ampacity from CEC 2022 Table 310.16 - USE THIS BY DEFAULT.
+
+    This is the DEFAULT ampacity lookup for all questions.
+
+    Args:
+        conductor_size: Wire size (e.g., "12 AWG", "2/0 AWG", "250 kcmil")
+        temperature_rating: "60°C", "75°C", or "90°C" (default: 75°C)
+        conductor_material: "copper" or "aluminum" (default: copper)
+
+    Returns:
+        Ampacity value with CEC 2022 table reference
+    """
+    tables = _get_cec_tables()
+    result = tables.lookup_conductor_ampacity(conductor_size, temperature_rating, conductor_material)
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
+    return (f"Conductor ampacity for {result['conductor_size']} {result['conductor_type']} "
+            f"at {result['temperature_rating']}: {result['ampacity']} amperes "
+            f"per {result['table_reference']}{ca_note}. {result['description']}")
+
+
+@tool
+def cec_lookup_conductor_size(
+    required_ampacity: int,
+    temperature_rating: str = "75°C",
+    conductor_type: str = "copper",
+    conductor_application: str = "general"
+) -> str:
+    """[PRIMARY] Find conductor size for a required ampacity - USE THIS BY DEFAULT.
+
+    This is the DEFAULT conductor sizing tool for all questions asking "What size for X amps?"
+
+    Args:
+        required_ampacity: The minimum ampacity needed (e.g., 60 for a 60A circuit)
+        temperature_rating: "60°C", "75°C", or "90°C" (default: 75°C)
+        conductor_type: "copper" or "aluminum" (default: copper)
+        conductor_application: "general" (Table 310.16) or "service" (Table 310.12(A))
+
+    Returns:
+        Minimum conductor size with ampacity verification
+
+    Example:
+        cec_lookup_conductor_size(60, "75°C", "copper") → Returns "6 AWG" (65A at 75°C)
+    """
+    return cec_lookup_conductor_size_for_ampacity(required_ampacity, temperature_rating, conductor_type, conductor_application)
+
+
+@tool
+def nec_lookup_conductor_size(
+    required_ampacity: int,
+    temperature_rating: str = "75°C",
+    conductor_type: str = "copper",
+    conductor_application: str = "general"
+) -> str:
+    """Find the MINIMUM conductor size that can handle a required ampacity (REVERSE LOOKUP).
+
+    Use this for NEC comparison when the question asks "What size conductor for X amps?"
+    This finds the smallest conductor with ampacity >= required_ampacity.
+
+    Args:
+        required_ampacity: The minimum ampacity needed (e.g., 60 for a 60A circuit)
+        temperature_rating: "60°C", "75°C", or "90°C" (default: 75°C)
+        conductor_type: "copper" or "aluminum" (default: copper)
+        conductor_application: Application type determines which table to use:
+            - "general" (default): Table 310.16 for branch circuits, feeders, general wiring
+            - "service": Table 310.12(A) for single-phase dwelling services and feeders
+              Use "service" when question mentions: "service", "200A service", "service entrance",
+              "dwelling service", "service conductors", "main service"
+
+    Returns:
+        Minimum conductor size with ampacity verification per NEC 2023
+
+    Example:
+        nec_lookup_conductor_size(60, "75°C", "copper") → Returns "6 AWG" (65A at 75°C)
+        nec_lookup_conductor_size(150, "75°C", "aluminum", "service") → Returns "2/0 AWG" (Table 310.12(A))
+    """
+    return nec_lookup_conductor_size_for_ampacity(required_ampacity, temperature_rating, conductor_type, conductor_application)
+
+
+@tool
+def cec_lookup_ampacity_adjustment(
+    adjustment_type: str,
+    ambient_temperature: Optional[float] = None,
+    conductor_temp_rating: str = "75°C",
+    num_conductors: Optional[int] = None
+) -> str:
+    """Look up CEC 2022 ampacity adjustment factors for temperature or bundling.
+
+    Args:
+        adjustment_type: "temperature" or "bundling"
+        ambient_temperature: Ambient temperature in °C (for temperature adjustment)
+        conductor_temp_rating: "60°C", "75°C", or "90°C"
+        num_conductors: Number of current-carrying conductors (for bundling)
+
+    Returns:
+        Adjustment factor with CEC 2022 table reference
+    """
+    tables = _get_cec_tables()
+
+    if adjustment_type.lower() == "temperature" and ambient_temperature is not None:
+        result = tables.lookup_temperature_correction(
+            ambient_temperature,
+            conductor_temp_rating,
+            "30°C"
+        )
+        if "error" in result:
+            return f"Error: {result['error']}"
+        return (f"Temperature correction factor for {result['ambient_temp']}°C ambient, "
+                f"{result['conductor_rating']} conductor: {result['correction_factor']} "
+                f"per CEC 2022 {result['table_id']}")
+    elif adjustment_type.lower() == "bundling" and num_conductors is not None:
+        result = tables.lookup_bundling_adjustment(num_conductors)
+        if "error" in result:
+            return f"Error: {result['error']}"
+        ca_note = " [California Amendment]" if result.get("california_amendment") else ""
+        return (f"Bundling adjustment factor for {result['num_conductors']} conductors "
+                f"(range {result['conductor_range']}): {result['adjustment_factor']} ({result['percent']}%) "
+                f"per CEC 2022 {result['table_id']}{ca_note}")
+    else:
+        return f"Error: For '{adjustment_type}' adjustment, provide {'ambient_temperature' if adjustment_type == 'temperature' else 'num_conductors'}"
+
+
+@tool
+def cec_lookup_grounding_conductor(
+    lookup_type: str,
+    ampacity_or_size: str
+) -> str:
+    """Look up grounding conductor sizing from CEC 2022 tables.
+
+    Args:
+        lookup_type: "equipment" (Table 250.122) or "electrode" (Table 250.66)
+        ampacity_or_size: Overcurrent device rating or conductor size
+
+    Returns:
+        Required grounding conductor size with CEC 2022 table reference
+    """
+    tables = _get_cec_tables()
+
+    if lookup_type.lower() == "equipment":
+        try:
+            amperes = int(ampacity_or_size.replace("A", "").strip())
+            result = tables.lookup_egc_size(amperes)
+        except:
+            return f"Error: Could not parse amperage from '{ampacity_or_size}'"
+    elif lookup_type.lower() == "electrode":
+        result = tables.lookup_gec_size(ampacity_or_size, "copper")
+    else:
+        return f"Error: lookup_type must be 'equipment' or 'electrode', got '{lookup_type}'"
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
+    return f"{result}{ca_note}"
+
+
+@tool
+def cec_lookup_working_space(
+    voltage_to_ground: int,
+    condition: int
+) -> str:
+    """[PRIMARY] Look up working space clearances - USE THIS BY DEFAULT.
+
+    This is the DEFAULT working space lookup for all questions.
+
+    Args:
+        voltage_to_ground: Nominal voltage to ground in volts (e.g., 120, 277, 480)
+        condition: Working space condition (1, 2, or 3)
+
+    Returns:
+        Required working space depth with CEC 2022 table reference
+    """
+    tables = _get_cec_tables()
+    result = tables.lookup_working_space(voltage_to_ground, condition)
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
+    return (f"Working space requirement for {result['voltage_to_ground']}V "
+            f"(condition {result['condition']}): {result['working_space_depth']} "
+            f"per {result['table_reference']}{ca_note}. Voltage range: {result['voltage_range']}V.")
+
+
+@tool
+def cec_lookup_conduit_fill(
+    conduit_type: str,
+    conduit_size: str,
+    conductor_type: str,
+    conductor_size: str,
+    num_conductors: int = 3
+) -> str:
+    """Look up conduit fill data from CEC 2022 Chapter 9 tables.
+
+    Use this for conduit sizing and fill calculations in California.
+    Calculates maximum conductors and verifies if specified count fits.
+
+    Args:
+        conduit_type: Type of conduit (EMT, RMC, IMC, PVC-40, PVC-80, or PVC)
+        conduit_size: Trade size (1/2, 3/4, 1, 1-1/4, 1-1/2, 2, 2-1/2, 3, 3-1/2, 4)
+        conductor_type: Conductor insulation (THHN, THWN, TW, THW, XHHW, RHH, RHW)
+        conductor_size: AWG/kcmil size (14, 12, 10, 8, 6, 4, 3, 2, 1, 1/0, 2/0, 3/0, 4/0, 250, etc.)
+        num_conductors: Number of conductors to verify fit (default: 3)
+
+    Returns:
+        Conduit fill calculation with CEC 2022 Chapter 9 reference
+    """
+    tables = _get_cec_tables()
+    result = tables.lookup_conduit_fill(conduit_type, conduit_size, conductor_type, conductor_size, num_conductors)
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    fits_str = "YES - fits within 40% fill" if result['fits'] else "NO - exceeds 40% fill"
+
+    return (f"CEC 2022 Chapter 9 Conduit Fill Calculation:\n"
+            f"Conduit: {result['conduit_type']} {result['conduit_size']}\"\n"
+            f"  - Total area: {result['conduit_total_area']} sq in\n"
+            f"  - 40% fill area: {result['conduit_area_40pct']} sq in (Chapter 9 Table 4)\n\n"
+            f"Conductor: {result['conductor_size']} AWG {result['conductor_type']}\n"
+            f"  - Area per conductor: {result['conductor_area']} sq in (Chapter 9 Table 5)\n\n"
+            f"Maximum conductors at 40% fill: {result['max_conductors']}\n"
+            f"Calculation: {result['conduit_area_40pct']} / {result['conductor_area']} = {result['exact_calculation']}\n\n"
+            f"Requested {result['num_conductors_requested']} conductors: {fits_str}\n"
+            f"  - Total conductor area: {result['total_conductor_area']} sq in\n"
+            f"  - Fill percentage: {result['fill_percentage']}%\n\n"
+            f"Source: {result['source']}")
+
+
+# ============================================================================
+# NEC TABLE LOOKUP TOOLS (For comparison)
+# ============================================================================
+
+@tool
+def lookup_conductor_ampacity(
+    conductor_size: str,
+    temperature_rating: str = "75°C",
+    conductor_material: str = "copper"
+) -> str:
+    """Look up conductor ampacity from NEC 2023 Table 310.16.
+
+    Use this for NEC comparison values (not for California primary answer).
+
+    Args:
+        conductor_size: Wire size (e.g., "12 AWG", "2/0 AWG", "250 kcmil")
+        temperature_rating: "60°C", "75°C", or "90°C" (default: 75°C)
+        conductor_material: "copper" or "aluminum" (default: copper)
+
+    Returns:
+        Ampacity value with NEC 2023 table reference
+    """
+    tables = _get_nec_tables()
+    result = tables.lookup_conductor_ampacity(conductor_size, temperature_rating, conductor_material)
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    return (f"Conductor ampacity for {result['conductor_size']} {result['conductor_type']} "
+            f"at {result['temperature_rating']}: {result['ampacity']} amperes "
+            f"per {result['table_reference']}. {result['description']}")
+
+
+@tool
+def lookup_ampacity_adjustment(
+    adjustment_type: str,
+    ambient_temp: Optional[float] = None,
+    conductor_temp_rating: str = "75°C",
+    num_conductors: Optional[int] = None
+) -> str:
+    """Look up NEC 2023 ampacity adjustment factors for temperature or bundling.
+
+    Use for NEC comparison values.
+
+    Args:
+        adjustment_type: "temperature" or "bundling"
+        ambient_temp: Ambient temperature in °C (for temperature adjustment)
+        conductor_temp_rating: "60°C", "75°C", or "90°C"
+        num_conductors: Number of current-carrying conductors (for bundling)
+
+    Returns:
+        Adjustment factor with NEC 2023 table reference
+    """
+    tables = _get_nec_tables()
+
+    if adjustment_type.lower() == "temperature" and ambient_temp is not None:
+        result = tables.lookup_temperature_correction(
+            ambient_temp,
+            conductor_temp_rating,
+            "30°C"
+        )
+        if "error" in result:
+            return f"Error: {result['error']}"
+        return (f"Temperature correction factor for {result['ambient_temp']}°C ambient, "
+                f"{result['conductor_rating']} conductor: {result['correction_factor']} "
+                f"per NEC 2023 {result['table_id']}")
+    elif adjustment_type.lower() == "bundling" and num_conductors is not None:
+        return f"Bundling adjustment for {num_conductors} conductors - see NEC 2023 Table 310.15(C)(1)"
+    else:
+        return f"Error: For '{adjustment_type}' adjustment, provide {'ambient_temp' if adjustment_type == 'temperature' else 'num_conductors'}"
+
+
+@tool
+def lookup_grounding_conductor(
+    lookup_type: str,
+    ampacity_or_size: str
+) -> str:
+    """Look up grounding conductor sizing from NEC 2023 tables.
+
+    Args:
+        lookup_type: "equipment" (250.122), "electrode" (250.66), or "bonding" (250.102)
+        ampacity_or_size: Overcurrent device rating or conductor size
+
+    Returns:
+        Required grounding conductor size with NEC 2023 table reference
+    """
+    tables = _get_nec_tables()
+    table_info = tables.get_table_info(f"Table 250.{lookup_type[:3]}")
+    return str(table_info) if table_info else f"Table not found for {lookup_type}"
+
+
+@tool
+def lookup_working_space(
+    voltage_to_ground: int,
+    condition: int
+) -> str:
+    """Look up working space clearances from NEC 2023 Table 110.26(A)(1).
+
+    Args:
+        voltage_to_ground: Nominal voltage to ground in volts (e.g., 120, 277, 480)
+        condition: Working space condition (1, 2, or 3)
+
+    Returns:
+        Required working space depth with NEC 2023 table reference
+    """
+    tables = _get_nec_tables()
+    result = tables.lookup_working_space(voltage_to_ground, condition)
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    return (f"Working space requirement for {result['voltage_to_ground']}V "
+            f"(condition {result['condition']}): {result['working_space_depth']} "
+            f"per {result['table_reference']}. Voltage range: {result['voltage_range']}V.")
+
+
+@tool
+def lookup_conduit_fill(
+    conduit_type: str,
+    conduit_size: str,
+    conductor_type: str,
+    conductor_size: str,
+    num_conductors: int = 3
+) -> str:
+    """Look up conduit fill data from NEC 2023 Chapter 9 tables.
+
+    Use this for national code conduit sizing and fill calculations.
+    Calculates maximum conductors and verifies if specified count fits.
+
+    Args:
+        conduit_type: Type of conduit (EMT, RMC, IMC, PVC-40, PVC-80, or PVC)
+        conduit_size: Trade size (1/2, 3/4, 1, 1-1/4, 1-1/2, 2, 2-1/2, 3, 3-1/2, 4)
+        conductor_type: Conductor insulation (THHN, THWN, TW, THW, XHHW, RHH, RHW)
+        conductor_size: AWG/kcmil size (14, 12, 10, 8, 6, 4, 3, 2, 1, 1/0, 2/0, 3/0, 4/0, 250, etc.)
+        num_conductors: Number of conductors to verify fit (default: 3)
+
+    Returns:
+        Conduit fill calculation with NEC 2023 Chapter 9 reference
+    """
+    tables = _get_nec_tables()
+    result = tables.lookup_conduit_fill(conduit_type, conduit_size, conductor_type, conductor_size, num_conductors)
+
+    if "error" in result:
+        return f"Error: {result['error']}"
+
+    fits_str = "YES - fits within 40% fill" if result['fits'] else "NO - exceeds 40% fill"
+
+    return (f"NEC 2023 Chapter 9 Conduit Fill Calculation:\n"
+            f"Conduit: {result['conduit_type']} {result['conduit_size']}\"\n"
+            f"  - Total area: {result['conduit_total_area']} sq in\n"
+            f"  - 40% fill area: {result['conduit_area_40pct']} sq in (Chapter 9 Table 4)\n\n"
+            f"Conductor: {result['conductor_size']} AWG {result['conductor_type']}\n"
+            f"  - Area per conductor: {result['conductor_area']} sq in (Chapter 9 Table 5)\n\n"
+            f"Maximum conductors at 40% fill: {result['max_conductors']}\n"
+            f"Calculation: {result['conduit_area_40pct']} / {result['conductor_area']} = {result['exact_calculation']}\n\n"
+            f"Requested {result['num_conductors_requested']} conductors: {fits_str}\n"
+            f"  - Total conductor area: {result['total_conductor_area']} sq in\n"
+            f"  - Fill percentage: {result['fill_percentage']}%\n\n"
+            f"Source: {result['source']}")
+
+
+# ============================================================================
+# TABLE SEARCH TOOLS
+# ============================================================================
+
+@tool
+def search_tables(keyword: str, code: str = "CEC", limit: int = 5) -> str:
+    """Search for relevant NEC/CEC tables by keyword.
+
+    Args:
+        keyword: Search term (e.g., "ampacity", "grounding", "clearance")
+        code: "CEC" or "NEC" (default: CEC)
+        limit: Maximum results
+
+    Returns:
+        List of matching tables with descriptions
+    """
+    if code.upper() == "CEC":
+        tables = _get_cec_tables()
+        results = tables.search_tables_by_keyword(keyword, limit)
+        code_label = "CEC 2022"
+    else:
+        tables = _get_nec_tables()
+        results = tables.search_tables_by_keyword(keyword, limit)
+        code_label = "NEC 2023"
+
+    if not results:
+        return f"No {code_label} tables found matching keyword: {keyword}"
+
+    output = [f"{code_label} tables related to '{keyword}':"]
+    for table in results:
+        ca_marker = " [CA Amendment]" if table.get("california_amendment") else ""
+        output.append(f"- {table['table_id']} ({table.get('section', '')}): {table['caption']}{ca_marker}")
+
+    return "\n".join(output)
+
+
+@tool
+def get_table_info(table_id: str, code: str = "CEC") -> str:
+    """Get detailed information about a specific table.
+
+    Args:
+        table_id: Table identifier (e.g., "310.16", "Table 110.26(A)(1)")
+        code: "CEC" or "NEC" (default: CEC)
+
+    Returns:
+        Table metadata and structure
+    """
+    if code.upper() == "CEC":
+        tables = _get_cec_tables()
+        result = tables.get_table_info(table_id)
+        code_label = "CEC 2022"
+    else:
+        tables = _get_nec_tables()
+        result = tables.get_table_info(table_id)
+        code_label = "NEC 2023"
+
+    if not result:
+        return f"Table {table_id} not found in {code_label} database"
+
+    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
+    return (f"{result['table_id']} - {result['caption']}{ca_note}\n"
+            f"Section: {result['section']}\n"
+            f"Description: {result['description']}\n"
+            f"Keywords: {', '.join(result['keywords'][:10])}")
+
+
+# ============================================================================
+# GENERIC TABLE LOOKUP TOOL
+# ============================================================================
+
+@tool
+def cec_lookup_table(table_id: str) -> str:
+    """Look up any CEC 2022 table by table ID.
+
+    Use this for direct table lookups when you need specific table data.
+    Works for any CEC table (110.28, 220.12, 310.16, etc.)
+
+    Args:
+        table_id: Table number (e.g., "110.28", "220.12", "310.16")
+
+    Returns:
+        Full table contents with all rows, columns, and footnotes
+    """
+    tables = _get_cec_tables()
+
+    # Use existing get_table_data method which returns full table with rows/footnotes
+    table_data = tables.get_table_data(table_id)
+
+    if "error" in table_data:
+        return f"Table {table_id} not found in CEC 2022 database"
+
+    # Format output
+    output = [f"CEC 2022 {table_data['table_id']} - {table_data['caption']}"]
+    output.append(f"Section: {table_data['section']}")
+    output.append(f"Description: {table_data['description']}")
+    output.append("")
+
+    # Add headers
+    if table_data.get('headers'):
+        output.append("Headers: " + " | ".join(str(h) for h in table_data['headers']))
+        output.append("")
+
+    # Add table rows
+    for row in table_data.get('rows', []):
+        output.append(str(row))
+
+    # Add notes
+    if table_data.get('notes'):
+        output.append("\nNotes:")
+        for note in table_data['notes']:
+            if isinstance(note, dict):
+                output.append(f"  {note.get('text', str(note))}")
+            else:
+                output.append(f"  {note}")
+
+    # Add footnotes
+    if table_data.get('footnotes'):
+        output.append("\nFootnotes:")
+        for fn in table_data['footnotes']:
+            if isinstance(fn, dict):
+                output.append(f"  {fn.get('text', str(fn))}")
+            else:
+                output.append(f"  {fn}")
+
+    return "\n".join(output)
+
+
+# ============================================================================
+# CODE EXECUTION TOOL
+# ============================================================================
+
+python_calculator = PythonREPLTool(
+    name="python_calculator",
+    description="""Execute Python code for electrical calculations.
+
+Use this for ALL arithmetic and calculations - never do mental math.
+
+Use for:
+- Ampacity derating calculations (base ampacity x correction factors)
+- Load calculations (VA, watts, amperes)
+- Voltage drop calculations
+- Wire sizing verification
+- Any mathematical computation
+
+Example: To calculate derated ampacity:
+```python
+base_ampacity = 65  # From Table 310.16
+temp_factor = 0.82  # From Table 310.15(B)(1)(1)
+bundling_factor = 0.80  # From Table 310.15(C)(1)
+derated = base_ampacity * temp_factor * bundling_factor
+print(f"Derated ampacity: {derated:.1f} amperes")
+```
+"""
+)
+
+
+# ============================================================================
+# TOOL REGISTRY
+# ============================================================================
+
+ALL_TOOLS = [
+    # CEC Primary (use these first for California)
+    cec_search,
+    cec_exception_search,
+    compare_with_nec,
+
+    # NEC Reference
+    nec_search,
+    nec_exception_search,
+
+    # CEC Table Lookups (Primary for California)
+    cec_lookup_conductor_ampacity,
+    cec_lookup_conductor_size,  # NEW: Reverse lookup - ampacity → size
+    cec_lookup_ampacity_adjustment,
+    cec_lookup_grounding_conductor,
+    cec_lookup_working_space,
+    cec_lookup_conduit_fill,
+
+    # NEC Table Lookups (For comparison)
+    lookup_conductor_ampacity,
+    nec_lookup_conductor_size,  # NEW: Reverse lookup - ampacity → size
+    lookup_ampacity_adjustment,
+    lookup_grounding_conductor,
+    lookup_working_space,
+    lookup_conduit_fill,
+
+    # Table Search and Lookup
+    search_tables,
+    get_table_info,
+    cec_lookup_table,
+
+    # Code Execution (for calculations)
+    python_calculator,
+]
+
+
+def get_all_tools():
+    """Get all tools for the agent"""
+    return ALL_TOOLS

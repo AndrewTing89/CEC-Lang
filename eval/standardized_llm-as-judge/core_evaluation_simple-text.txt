@@ -1,0 +1,185 @@
+NEC 2023 Core Evaluation Questions
+================================================================================
+Total: 28 questions
+================================================================================
+
+baseline-001	What is the ampacity of 12 AWG copper conductor at 75°C termination?
+
+EXPECTED ANSWER: 20 amperes
+
+--------------------------------------------------------------------------------
+
+baseline-002	What size copper conductor is required for a 60A circuit at 75°C?
+
+EXPECTED ANSWER: 6 AWG copper
+
+--------------------------------------------------------------------------------
+
+baseline-003	Where is GFCI protection required in a residential kitchen?
+
+EXPECTED ANSWER:
+
+**CEC 2022:** All receptacles that serve the kitchen countertop surfaces shall have GFCI protection per 210.8(A)(6). Dishwashers are NOT explicitly required to have GFCI under 210.8(A)(6) in CEC 2022 (countertop surfaces only).
+
+**NEC 2023:** All kitchen receptacles require GFCI protection per expanded 210.8(A)(6), including countertop receptacles AND dedicated appliance circuits (dishwasher, disposal, refrigerator). NEC 2023 significantly expanded kitchen GFCI requirements beyond countertop surfaces.
+
+--------------------------------------------------------------------------------
+
+baseline-004	Is AFCI protection required for bedroom circuits in new residential construction?
+
+EXPECTED ANSWER: Yes, AFCI protection is required for all 120-volt, 15- and 20-ampere branch circuits supplying outlets in bedrooms.
+
+--------------------------------------------------------------------------------
+
+baseline-005	Can aluminum conductors be used for a 200A service? If yes, what size?
+
+EXPECTED ANSWER: Yes, 4/0 AWG aluminum or copper-clad aluminum
+
+--------------------------------------------------------------------------------
+
+baseline-006	What is the minimum depth of working clearance required in front of a 120/240V residential electrical panel?
+
+EXPECTED ANSWER: 36 inches (3 feet)
+
+--------------------------------------------------------------------------------
+
+baseline-007	How many 20-ampere small appliance branch circuits are required for a kitchen?
+
+EXPECTED ANSWER: Minimum of two 20-ampere small appliance branch circuits
+
+--------------------------------------------------------------------------------
+
+baseline-008	Is surge protection required for a new 200A residential service according to 2023 NEC?
+
+EXPECTED ANSWER: Yes, all services supplying dwelling units shall be provided with a surge-protective device (SPD).
+
+--------------------------------------------------------------------------------
+
+core-001	A homeowner wants to upgrade from 100A to 200A service. The house has 3,000 sq ft of living space, electric range (12kW), electric dryer (5.5kW), central AC (4 tons), and electric water heater (4.5kW). What size service conductors are required, and can they use aluminum?
+
+EXPECTED ANSWER: 2/0 AWG copper OR 4/0 AWG aluminum. Yes, aluminum is permitted for service conductors per Table 310.12.
+
+--------------------------------------------------------------------------------
+
+core-002	An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. What are the NEC requirements for the circuit breaker and neutral termination?
+
+EXPECTED ANSWER: Requires either a handle tie or common trip breaker to simultaneously disconnect all ungrounded conductors per 210.4(B). Common trip is required if the circuit has both line-to-line and line-to-neutral loads. Neutral must be continuous and not switched. Conductors must be grouped per 210.4(D). Circuit breaker: 20A maximum for 12 AWG copper.
+
+--------------------------------------------------------------------------------
+
+core-003	Where is GFCI protection now required in a residential dwelling according to 2023 NEC? List all locations.
+
+EXPECTED ANSWER:
+
+**CEC 2022:** Bathrooms, garages, outdoors, crawl spaces, unfinished basements, kitchens (countertop surfaces only per 210.8(A)(6)), laundry areas, boathouses, areas with bathtubs or shower stalls, within 6 feet of sinks, and indoor damp/wet locations.
+
+**NEC 2023:** Bathrooms, garages, outdoors, crawl spaces, unfinished basements, kitchens (ALL receptacles including countertop AND dedicated appliance circuits like dishwasher, disposal, refrigerator per expanded 210.8(A)(6)), laundry areas, utility rooms with sinks, boathouses, areas with bathtubs or shower stalls, and within 6 feet of sinks.
+
+--------------------------------------------------------------------------------
+
+core-004	Is surge protection required for a new 200A residential service? If so, where can it be installed?
+
+EXPECTED ANSWER: Yes, per 230.67. Type 1 or Type 2 SPD required. Must be installed integral to the service equipment or immediately adjacent. Exception allows installation at the first downstream panelboard.
+
+--------------------------------------------------------------------------------
+
+core-005	A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inches to the side. Does this meet NEC requirements?
+
+EXPECTED ANSWER: No, this violates multiple requirements: (1) Minimum 36 inches depth required per 110.26(A)(1), not 24 inches. (2) Panels are prohibited in clothes closets per 240.24(D). (3) Working space width must be 30 inches or equipment width, whichever is greater. (4) No storage allowed in working space per 110.26(B).
+
+--------------------------------------------------------------------------------
+
+core-006	During an inspection, I found two 12 AWG conductors landed on a single 20A breaker terminal. The breaker is not marked for two conductors. Is this a code violation?
+
+EXPECTED ANSWER: Yes, this is a code violation per 110.14(A). Terminals shall accommodate only one conductor unless identified for more than one conductor. Per 110.3(B), equipment must be installed according to manufacturer instructions. If the breaker is not listed for two conductors, this is a violation.
+
+--------------------------------------------------------------------------------
+
+core-007	A detached garage is fed from the house panel with a 4-wire feeder. How should the grounding and bonding be configured in the garage subpanel?
+
+EXPECTED ANSWER: Grounds and neutrals must be SEPARATED in the subpanel. The 4-wire feeder includes 2 hot, 1 neutral, and 1 equipment grounding conductor. NO main bonding jumper in subpanel (only at service). Neutral bar must be isolated (not bonded to enclosure). Equipment grounding conductor must be bonded to enclosure. A grounding electrode may be required per 250.32 for detached buildings.
+
+--------------------------------------------------------------------------------
+
+core-008	What is the difference between a main bonding jumper and a system bonding jumper? When is each required?
+
+EXPECTED ANSWER: Main Bonding Jumper (MBJ): Located at SERVICE EQUIPMENT, connects grounded conductor (neutral) to equipment grounding conductor. Required at service disconnect per 250.28. System Bonding Jumper (SBJ): Located at SEPARATELY DERIVED SYSTEMS (transformers, generators), same function as MBJ but for SDS. Required per 250.30. Neither is used in subpanels.
+
+--------------------------------------------------------------------------------
+
+core-009	How many 20-ampere small appliance branch circuits are required for a kitchen, and can these circuits also serve the dining room receptacles?
+
+EXPECTED ANSWER: Minimum of TWO 20-ampere circuits required per 210.11(C)(1). Yes, these circuits can and should serve dining room, pantry, and breakfast room receptacles. They cannot serve lighting outlets or receptacles outside these areas.
+
+--------------------------------------------------------------------------------
+
+core-010	A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50°C ambient temperature location. What is the adjusted ampacity?
+
+EXPECTED ANSWER: Base ampacity: 30A at 90°C (Table 310.16). Temperature correction factor: 0.82 for 50°C (Table 310.15(B)(1)). Bundling adjustment: 0.80 for 6 conductors (Table 310.15(C)(1)). Adjusted ampacity = 30A × 0.82 × 0.80 = 19.68A, approximately 20A.
+
+--------------------------------------------------------------------------------
+
+core-011	Why does the NEC require AFCI protection for bedrooms and living areas? What electrical hazard does it prevent?
+
+EXPECTED ANSWER: AFCI protection prevents electrical fires caused by arc faults. It detects arcing conditions that standard breakers cannot, including series arcing (broken/damaged wires), parallel arcing (line-to-line or line-to-ground), loose connections, damaged insulation, and deteriorated wire. Required per 210.12 for dwelling unit 120V, 15A and 20A branch circuits.
+
+--------------------------------------------------------------------------------
+
+core-012	Why are torque specifications important when terminating conductors in a panel, and where are the requirements found?
+
+EXPECTED ANSWER: Torque specifications prevent: (1) loose connections causing high resistance and heat generation (fire hazard), (2) poor contact leading to arcing, (3) overtightening causing crushed conductors or damaged terminals. Requirements found in 110.14(D) - must follow manufacturer specifications or Table 110.14(D). Also per 110.3(B) - follow manufacturer instructions.
+
+--------------------------------------------------------------------------------
+
+inspection-001	Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A breaker, (2) 5.5kW dryer on 30A breaker, (3) two 20A small appliance circuits, (4) one 20A laundry circuit, (5) 3000 sq ft living space with general lighting, (6) 4-ton central AC (19.2A at 240V, approximately 4600W). Calculate the service load per NEC Article 220 and determine if the 200A panel is adequately sized. Show your work.
+
+EXPECTED ANSWER: General lighting: 3000 sq ft × 3 VA = 9000 VA. Small appliance: 2 circuits × 1500 VA = 3000 VA. Laundry: 1500 VA. Subtotal: 13,500 VA. Apply demand factor per Table 220.42: first 3000 VA at 100% = 3000 VA, remaining 10,500 VA at 35% = 3675 VA. Subtotal with demand: 6675 VA. Range: 8000 VA (per Table 220.55 for one range). Dryer: 5500 VA at 100%. AC: 4600 VA at 100% (largest motor). Total: 6675 + 8000 + 5500 + 4600 = 24,775 VA. Current: 24,775 VA ÷ 240V = 103.2A. Conclusion: 200A service is adequately sized with 48% safety margin.
+
+--------------------------------------------------------------------------------
+
+inspection-002	Electrical panel inspection in residential garage: Panel has 30 inches width clearance, 28 inches depth clearance in front, and a water heater located 16 inches to the left side within the working space. Panel is surface-mounted on wall at 5 feet height. Identify ALL NEC violations.
+
+EXPECTED ANSWER: Violations: (1) Depth clearance is 28 inches but 110.26(A)(1) requires minimum 36 inches for 120/240V equipment - VIOLATION. (2) Water heater at 16 inches is within the 30-inch width working space - equipment not related to electrical installation is prohibited in working space per 110.26(B) - VIOLATION. Width of 30 inches meets minimum requirement. Height would need to verify if working space height of 6.5 feet (78 inches) is maintained above the panel.
+
+--------------------------------------------------------------------------------
+
+inspection-005	New residential construction, 2023 NEC. Kitchen installation has: (1) four countertop receptacles on two 20A circuits, (2) dishwasher on dedicated 15A circuit, (3) garbage disposal on dedicated 15A circuit, (4) refrigerator on dedicated 20A circuit. For each circuit, specify the required protection: standard breaker, GFCI, AFCI, or combination AFCI/GFCI. Provide NEC references.
+
+EXPECTED ANSWER:
+
+**CEC 2022:** (1) Countertop receptacles: GFCI+AFCI required. (2) Dishwasher: GFCI+AFCI required (per 422.5). (3) Disposal: GFCI+AFCI required. (4) Refrigerator: AFCI required; GFCI may be exempt per 210.8(A)(6) exception for dedicated appliance circuits in CEC 2022. All 120V dwelling circuits require AFCI per 210.12(A).
+
+**NEC 2023:** ALL four circuits require combination AFCI/GFCI breakers. (1) Countertop: GFCI per 210.8(A)(6), AFCI per 210.12(A). (2) Dishwasher: GFCI per expanded 210.8(A)(6), AFCI per 210.12(A). (3) Disposal: GFCI per 210.8(A)(6), AFCI per 210.12(A). (4) Refrigerator: GFCI per 210.8(A)(6), AFCI per 210.12(A). NOTE: NEC 2023 expanded 210.8(A)(6) to cover ALL kitchen receptacles including dedicated appliance circuits - no refrigerator exemption.
+
+--------------------------------------------------------------------------------
+
+inspection-006	Subpanel inspection in detached garage: 100A subpanel fed from main house panel with 4-wire feeder (#2 AWG aluminum: 2 hots, 1 neutral, 1 ground). Inspector notes: (1) neutral bar and ground bar are bonded together with main bonding jumper installed, (2) ground bar is bonded to metal enclosure, (3) neutral bar is bonded to metal enclosure, (4) feeder ground wire is connected to ground bar, (5) feeder neutral is connected to neutral bar. Identify all violations and explain correct configuration.
+
+EXPECTED ANSWER: VIOLATIONS: (1) Neutral bar bonded to enclosure - VIOLATION per 250.24(A)(5) and 408.40. In subpanels, neutral must be isolated from enclosure. (2) Main bonding jumper installed - VIOLATION. MBJ only permitted at service equipment per 250.28, not in subpanels. CORRECT configuration: Remove bond between neutral bar and enclosure. Remove main bonding jumper. Neutral bar must be isolated (floating). Only ground bar bonded to enclosure. Feeder EGC connects to ground bar. Feeder neutral connects to isolated neutral bar. Grounds and neutrals must be kept separate in subpanels.
+
+--------------------------------------------------------------------------------
+
+inspection-007	A 1¼-inch rigid metal conduit (RMC) needs to accommodate multiple 10 AWG THHN conductors for a commercial installation. Using NEC Chapter 9 Tables, determine the maximum number of 10 AWG THHN conductors that can be installed in this conduit. Show your calculation.
+
+EXPECTED ANSWER: Per Chapter 9 Table 1: Maximum 40% fill for more than two conductors. From Chapter 9 Table 4: Trade size 1¼" RMC has 40% fill area of 0.610 square inches. From Chapter 9 Table 5: 10 AWG THHN conductor area is 0.0211 square inches. Calculation: 0.610 in² ÷ 0.0211 in² per conductor = 28.91 conductors. Per Chapter 9 Note 7: When the decimal is 0.8 or larger, round up to the next whole number. Since 0.91 > 0.8, maximum is 29 conductors. However, conservative practice uses 28 conductors maximum.
+
+--------------------------------------------------------------------------------
+
+inspection-008	A 120V single-phase branch circuit supplies a continuous load of 22 amperes. The circuit uses 12 AWG copper conductors with a resistance of 1.29 ohms per 1,000 feet. The one-way distance from the panel to the load is 50 feet. Calculate the voltage drop in volts and as a percentage. Does this meet NEC recommendations (3% maximum for branch circuits)?
+
+EXPECTED ANSWER: Voltage drop formula: VD = (2 × L × R × I) / 1000. Where: L = 50 feet (one-way distance), R = 1.29 ohms/1000ft for 12 AWG copper (Chapter 9 Table 8), I = 22 amperes, multiply by 2 for round trip. Calculation: VD = (2 × 50 × 1.29 × 22) / 1000 = 2,838 / 1000 = 2.84 volts. Percentage: (2.84V / 120V) × 100 = 2.37%. Conclusion: YES, this meets NEC recommendations. 2.37% is less than the 3% maximum recommended for branch circuits per 210.19(A)(1) Informational Note No. 4.
+
+--------------------------------------------------------------------------------
+
+inspection-009	A conduit in an attic contains six 12 AWG TW (Type TW, 60°C rated) copper conductors, all current-carrying. The attic ambient temperature reaches 110°F (43°C). Calculate the adjusted ampacity of these conductors after applying both temperature correction and bundling adjustment factors. Show all steps.
+
+EXPECTED ANSWER: Step 1: Base ampacity of 12 AWG TW copper at 60°C = 20 amperes (Table 310.16). Step 2: Temperature correction for 43°C ambient with 60°C conductor from Table 310.15(B)(1)(1): Correction factor = 0.71 (for 41-45°C range in 60°C column). Step 3: Bundling adjustment for 6 conductors from Table 310.15(C)(1): Adjustment factor = 0.80 (for 4-6 conductors). Step 4: Calculate adjusted ampacity: 20A × 0.71 × 0.80 = 11.36 amperes. Conclusion: The adjusted ampacity is 11.36 amperes (approximately 11.4A), which represents a 43% reduction from the base 20A rating.
+
+--------------------------------------------------------------------------------
+
+inspection-010	A commercial data center has a main service with four parallel sets of 250 kcmil copper conductors per phase (total equivalent: 4 × 250 kcmil = 1000 kcmil per phase). Using NEC Table 250.66, determine the minimum size copper grounding electrode conductor (GEC) required for this installation.
+
+EXPECTED ANSWER: Per Table 250.66: For service entrance conductors 1000 kcmil copper (4 × 250 kcmil in parallel), locate the row for 'Over 600 kcmil through 1100 kcmil'. The minimum grounding electrode conductor size is 2/0 AWG copper or 4/0 AWG aluminum. Answer: Minimum 2/0 AWG copper GEC required. Note: If this GEC connects solely to a ground rod electrode per 250.66(A), the GEC would not be required to be larger than 6 AWG copper.
+
+--------------------------------------------------------------------------------
+

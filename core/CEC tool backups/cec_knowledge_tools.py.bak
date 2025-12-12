@@ -1,0 +1,849 @@
+"""
+CEC Unified Tools - California Electrical Code Search
+Provides CEC 2022 lookups for the unified agent (California-first architecture)
+
+Tools:
+1. cec_search - General rule and section search for CEC 2022
+2. cec_exception_search - Targeted exception finding within CEC
+3. compare_with_nec - Cross-reference CEC with NEC to identify differences
+"""
+import json
+import sys
+from pathlib import Path
+from typing import Dict, List, Any, Optional
+
+# Add project root to path for imports
+current_dir = Path(__file__).parent
+project_root = current_dir.parent
+sys.path.insert(0, str(project_root))
+
+# Load environment variables from .env file BEFORE importing opensearch client
+from dotenv import load_dotenv
+load_dotenv()
+
+# Import our components
+from core.opensearch_hybrid_client import get_cec_hybrid_client, get_hybrid_client
+
+
+class CECKnowledgeTools:
+    """
+    Unified tool system for CEC (California Electrical Code)
+    Provides hybrid search for CEC 2022 content
+    """
+
+    def __init__(self):
+        """Initialize CEC tools with search component"""
+        self.search_client = get_cec_hybrid_client()
+        self.nec_search_client = get_hybrid_client()  # For NEC comparison
+
+        # Check availability
+        self.search_available = self.search_client.is_available
+        print(f"CEC Search available: {self.search_available}")
+
+    def _inject_table_data(self, search_results: str) -> str:
+        """
+        When search results reference tables, inject the actual table data.
+        This prevents LLM from having to make a second tool call and
+        reduces hallucination of table values.
+
+        Args:
+            search_results: The formatted search results string
+
+        Returns:
+            Search results with referenced table data appended
+        """
+        import re
+        from core.cec_table_tools import CECTableTools
+
+        # Find all table references (e.g., "Table 310.16", "Table 400.5(A)(1)")
+        table_refs = re.findall(r'Table\s+([\d\.]+(?:\([A-Za-z0-9]+\))*)', search_results)
+
+        if not table_refs:
+            return search_results
+
+        # Get unique table IDs (preserve order, max 3 tables)
+        unique_tables = list(dict.fromkeys(table_refs))[:3]
+
+        # Fetch and format table data
+        try:
+            tables = CECTableTools()
+        except Exception as e:
+            # If table tools fail to load, just return original results
+            return search_results
+
+        injected_sections = []
+
+        for table_id in unique_tables:
+            try:
+                table_data = tables.get_table_data(table_id)
+                if table_data and isinstance(table_data, dict) and "error" not in table_data:
+                    formatted = self._format_table_for_injection(table_id, table_data)
+                    if formatted:
+                        injected_sections.append(formatted)
+            except Exception:
+                # Skip tables that fail to load
+                continue
+
+        if injected_sections:
+            search_results += "\n\n" + "=" * 60
+            search_results += "\n[REFERENCED TABLE DATA - Use these exact values]\n"
+            search_results += "=" * 60 + "\n"
+            search_results += "\n\n".join(injected_sections)
+
+        return search_results
+
+    def _format_table_for_injection(self, table_id: str, table_data: dict) -> str:
+        """
+        Format table data compactly for injection into search results.
+
+        Args:
+            table_id: The table identifier (e.g., "310.16")
+            table_data: The full table data dict from CECTableTools
+
+        Returns:
+            Formatted string representation of the table
+        """
+        lines = []
+        caption = table_data.get('caption', '')[:100]
+        lines.append(f"### Table {table_id}: {caption}")
+
+        # Get rows (limit to prevent context explosion)
+        rows = table_data.get("rows", [])[:15]
+
+        if not rows:
+            return ""
+
+        # Try to format as a simple table
+        if rows and isinstance(rows[0], dict):
+            # Get column headers from first row keys (exclude 'note' marker)
+            all_headers = [k for k in rows[0].keys() if k != "note"]
+
+            # Prioritize important columns (temperature, ampacity, size come first)
+            priority_keywords = ['temp', 'ampacity', 'size', 'awg', 'type', 'copper', 'aluminum']
+            priority_headers = []
+            other_headers = []
+            for h in all_headers:
+                if any(kw in h.lower() for kw in priority_keywords):
+                    priority_headers.append(h)
+                else:
+                    other_headers.append(h)
+
+            # Combine: priority first, then others, max 8 columns
+            headers = (priority_headers + other_headers)[:8]
+
+            if headers:
+                # Header row
+                lines.append(" | ".join(str(h) for h in headers))
+                lines.append(" | ".join("---" for _ in headers))
+
+                # Data rows
+                for row in rows:
+                    values = [str(row.get(h, ""))[:20] for h in headers]
+                    lines.append(" | ".join(values))
+
+        # Add footnotes if present (important for cross-references like 240.4(D))
+        notes = table_data.get("notes", []) + table_data.get("footnotes", [])
+        if notes:
+            lines.append("")
+            lines.append("**Footnotes:**")
+            for i, note in enumerate(notes[:5], 1):  # Max 5 footnotes
+                # Handle both dict and string formats
+                if isinstance(note, dict):
+                    marker = note.get("marker", note.get("number", str(i)))
+                    text = note.get("text", "")[:200]
+                else:
+                    # Note is a plain string
+                    marker = str(i)
+                    text = str(note)[:200]
+                lines.append(f"  [{marker}] {text}")
+
+        return "\n".join(lines)
+
+    def cec_search(self,
+                   query: str,
+                   article_filter: Optional[str] = None,
+                   limit: int = 5) -> str:
+        """
+        Search CEC 2022 for rules, sections, and requirements
+
+        This tool performs hybrid search (BM25 + vector) to find relevant
+        CEC content based on your query. Use this for finding:
+        - California-specific electrical requirements
+        - CEC section text and interpretations
+        - Rule applicability in California
+        - Code requirements for California scenarios
+
+        Args:
+            query: Search query describing what you're looking for
+            article_filter: Optional article number to filter results (e.g., "310", "240")
+            limit: Maximum number of results to return (default: 5)
+
+        Returns:
+            Formatted string with CEC sections and their content
+        """
+        # Build filters
+        filters = {}
+        if article_filter:
+            filters["article"] = article_filter
+
+        # Execute hybrid search
+        results = self.search_client.hybrid_search(
+            query=query,
+            filters=filters if filters else None,
+            limit=limit
+        )
+
+        # Handle errors - retry without article filter if no results
+        if not results and article_filter:
+            # Retry without article filter - wrong article guess
+            results = self.search_client.hybrid_search(
+                query=query,
+                filters=None,
+                limit=limit
+            )
+            if results and len(results) > 0 and "error" not in results[0]:
+                # Found results without filter - add note about fallback
+                output = [f"CEC 2022 search results for: '{query}'"]
+                output.append(f"(Note: Article {article_filter} filter returned no results, showing unfiltered results)")
+                output.append("")
+                for i, result in enumerate(results, 1):
+                    section = result.get('section', 'Unknown')
+                    content = result.get('content', '')
+                    score = result.get('score', 0)
+                    citation = f"CEC 2022 Section {section}" if section != 'Unknown' else "CEC 2022"
+                    output.append(f"Result {i} [{citation}] (relevance: {score:.2f})")
+                    output.append(content[:800] + "..." if len(content) > 800 else content)
+                    output.append("")
+                # Inject referenced table data before returning
+                output_str = "\n".join(output)
+                return self._inject_table_data(output_str)
+
+        if not results:
+            return f"No CEC content found for query: {query}"
+
+        if len(results) == 1 and "error" in results[0]:
+            return f"Search error: {results[0]['error']}"
+
+        # Format results
+        output = [f"CEC 2022 search results for: '{query}'"]
+        if article_filter:
+            output.append(f"(Filtered to Article {article_filter})")
+
+        output.append("")
+
+        for i, result in enumerate(results, 1):
+            section = result.get('section', 'Unknown')
+            article = result.get('article', '')
+            chapter = result.get('chapter', '')
+            content = result.get('content', '')
+            score = result.get('score', 0)
+
+            # Create citation
+            if section and section != 'Unknown':
+                citation = f"CEC 2022 Section {section}"
+            elif article:
+                citation = f"CEC 2022 Article {article}"
+            else:
+                citation = "CEC 2022"
+
+            output.append(f"Result {i} [{citation}] (relevance: {score:.2f})")
+            output.append(f"{content}")
+            output.append("")
+
+        # Inject referenced table data before returning
+        output_str = "\n".join(output)
+        return self._inject_table_data(output_str)
+
+    def cec_exception_search(self,
+                            base_rule: str,
+                            context: Optional[str] = None,
+                            limit: int = 5) -> str:
+        """
+        Search for CEC exceptions related to a base rule
+
+        This tool specifically searches for exceptions, overrides, and
+        alternative methods that may modify or supersede a base CEC rule.
+        Use this whenever you:
+        - Find a base rule and need to check for exceptions
+        - Need to verify if alternative methods are permitted
+        - Want to find "shall not apply" or "not required" conditions
+
+        Args:
+            base_rule: The base CEC rule/section (e.g., "310.16", "240.4", "250.32")
+            context: Optional context to narrow search (e.g., "small conductors", "AFCI")
+            limit: Maximum number of results (default: 5)
+
+        Returns:
+            Formatted string with exception information
+        """
+        # Execute exception search
+        results = self.search_client.exception_search(
+            base_rule=base_rule,
+            context=context,
+            limit=limit
+        )
+
+        # Handle errors
+        if results is None:
+            return f"Search error: Unable to search for exceptions to {base_rule} (connection issue or search failure)"
+
+        if not results:
+            return f"No exceptions found for base rule: {base_rule}"
+
+        if len(results) == 1 and "error" in results[0]:
+            return f"Exception search error: {results[0]['error']}"
+
+        # Format results
+        output = [f"CEC 2022 exceptions for base rule: {base_rule}"]
+        if context:
+            output.append(f"Context: {context}")
+        output.append("")
+
+        exception_found = False
+        for i, result in enumerate(results, 1):
+            content = result.get('content', '')
+            section = result.get('section', 'Unknown')
+            score = result.get('score', 0)
+
+            # Check if this actually contains exception language
+            exception_keywords = ['exception', 'Exception', 'shall not apply', 'not required',
+                                'alternative', 'in lieu of', 'permitted']
+
+            has_exception = any(keyword in content for keyword in exception_keywords)
+
+            if has_exception:
+                exception_found = True
+                output.append(f"Exception {i} [CEC 2022 Section {section}] (relevance: {score:.2f})")
+                output.append(f"{content}")
+                output.append("")
+
+        if not exception_found:
+            output.append(f"No explicit exceptions found for {base_rule}.")
+            output.append("The base rule likely applies without modification.")
+
+        return "\n".join(output)
+
+    def find_limiting_rules(self,
+                           base_rule: str,
+                           subject: str,
+                           limit: int = 5) -> str:
+        """
+        Find rules that LIMIT or OVERRIDE application of a base rule.
+
+        Unlike exceptions (which relax rules), limiting rules CONSTRAIN how
+        you can apply a base value. These are separate sections that impose
+        additional restrictions.
+
+        Examples:
+        - Table 310.16 gives 12 AWG = 30A @ 90°C
+        - But 240.4(D) LIMITS overcurrent protection to 20A for 12 AWG
+        - The MORE RESTRICTIVE rule (20A) wins
+
+        IMPORTANT: 240.4(D) ONLY applies to small conductors:
+        - 18 AWG, 16 AWG, 14 AWG, 12 AWG, 10 AWG
+        - Does NOT apply to 8 AWG, 6 AWG, 4 AWG or larger
+
+        Args:
+            base_rule: The base rule/table being applied (e.g., "310.16", "250.66")
+            subject: What you're sizing/calculating (e.g., "12 AWG conductor", "GEC")
+            limit: Maximum search results (default: 5)
+
+        Returns:
+            Formatted string with limiting rules and their constraints
+        """
+        # Parse subject to check for conductor sizes
+        # 240.4(D) ONLY applies to these sizes
+        SMALL_CONDUCTOR_SIZES = {"18", "16", "14", "12", "10"}
+
+        # Check if subject mentions a conductor size that is NOT covered by 240.4(D)
+        subject_upper = subject.upper()
+        is_large_conductor = False
+        conductor_size_in_subject = None
+
+        # Check for AWG sizes in subject (e.g., "6 AWG", "4 AWG conductor")
+        import re
+        awg_match = re.search(r'(\d+(?:/\d+)?)\s*AWG', subject_upper)
+        if awg_match:
+            conductor_size_in_subject = awg_match.group(1)
+            # Sizes like 8, 6, 4, 3, 2, 1, 1/0, 2/0, 3/0, 4/0 are NOT small conductors
+            if conductor_size_in_subject not in SMALL_CONDUCTOR_SIZES:
+                is_large_conductor = True
+
+        # Also check for kcmil sizes - these are never small conductors
+        if "KCMIL" in subject_upper:
+            is_large_conductor = True
+
+        # Known limiting rule mappings (most common cases)
+        # NOTE: 240.4(D) entries are filtered based on conductor size below
+        LIMITING_RULE_MAPPINGS = {
+            # Conductor ampacity limiting rules
+            "310.16": {
+                "small conductor": ["240.4(D) - OCP limits for small conductors (10 AWG and smaller only)"],
+                "18 AWG": ["240.4(D)(1) - Maximum 7A overcurrent protection"],
+                "16 AWG": ["240.4(D)(2) - Maximum 10A overcurrent protection"],
+                "14 AWG": ["240.4(D)(3) - Maximum 15A overcurrent protection"],
+                "12 AWG": ["240.4(D)(4) - Maximum 20A overcurrent protection"],
+                "10 AWG": ["240.4(D)(5) - Maximum 30A overcurrent protection"],
+                "termination": ["110.14(C) - Termination temperature limits"],
+            },
+            # Grounding electrode conductor limiting rules
+            "250.66": {
+                "GEC": ["250.66(A) - Connections to rod/pipe/plate electrodes",
+                        "250.66(B) - Connections to concrete-encased electrodes",
+                        "250.66(C) - Connections to ground rings"],
+                "grounding": ["250.66(A)(B)(C) - Size limits for specific electrode types"],
+            },
+            # Service conductor limiting rules
+            "310.12": {
+                "dwelling": ["310.12(A) - 83% rule for dwelling service/feeder"],
+                "service": ["230.42 - Minimum service conductor size"],
+            },
+            # General - CEC amendments may be more restrictive than NEC
+            "NEC": {
+                "california": ["CEC amendments may impose additional restrictions"],
+            },
+        }
+
+        output = [f"Limiting rules for base rule: {base_rule}"]
+        output.append(f"Subject: {subject}")
+        output.append("")
+
+        # If this is a large conductor, note that 240.4(D) does NOT apply
+        if is_large_conductor:
+            output.append(f"**NOTE: 240.4(D) does NOT apply to {conductor_size_in_subject or subject}**")
+            output.append("240.4(D) only covers small conductors: 18, 16, 14, 12, 10 AWG")
+            output.append("For larger conductors, use Table 310.16 ampacity without 240.4(D) OCP limits.")
+            output.append("")
+
+        found_mappings = []
+
+        # Step 1: Check known mappings
+        base_key = base_rule.replace("Table ", "").strip()
+        if base_key in LIMITING_RULE_MAPPINGS:
+            mappings = LIMITING_RULE_MAPPINGS[base_key]
+            subject_lower = subject.lower()
+
+            for key, rules in mappings.items():
+                if key.lower() in subject_lower or subject_lower in key.lower():
+                    # FILTER: Skip 240.4(D) rules for large conductors
+                    if is_large_conductor:
+                        filtered_rules = [r for r in rules if "240.4(D)" not in r]
+                        found_mappings.extend(filtered_rules)
+                    else:
+                        found_mappings.extend(rules)
+
+        if found_mappings:
+            output.append("**Known Limiting Rules (from mapping):**")
+            for rule in found_mappings:
+                output.append(f"  • {rule}")
+            output.append("")
+
+        # Step 2: Semantic search for additional limiting rules
+        search_queries = [
+            f"{base_rule} shall not exceed {subject}",
+            f"{base_rule} maximum {subject}",
+            f"{subject} limited to",
+            f"{subject} overcurrent protection limit",
+        ]
+
+        # Build combined query
+        combined_query = f"{base_rule} {subject} maximum limit shall not exceed"
+
+        # Execute search
+        results = self.search_client.hybrid_search(
+            query=combined_query,
+            limit=limit
+        )
+
+        # Filter for limiting language
+        limiting_keywords = [
+            'shall not exceed', 'maximum', 'limited to', 'not greater than',
+            'shall be limited', 'shall not be greater', 'restrict', 'cap',
+            'no larger than', 'does not permit', 'shall not be more'
+        ]
+
+        limiting_results = []
+        if results and not (len(results) == 1 and "error" in results[0]):
+            for result in results:
+                content = result.get('content', '').lower()
+                if any(keyword in content for keyword in limiting_keywords):
+                    limiting_results.append(result)
+
+        if limiting_results:
+            output.append("**Additional Limiting Rules (from search):**")
+            for i, result in enumerate(limiting_results, 1):
+                section = result.get('section', 'Unknown')
+                content = result.get('content', '')
+                score = result.get('score', 0)
+                output.append(f"\n{i}. [CEC Section {section}] (relevance: {score:.2f})")
+                # Truncate long content
+                if len(content) > 400:
+                    content = content[:400] + "..."
+                output.append(f"   {content}")
+            output.append("")
+
+        # Step 3: Provide guidance
+        output.append("**APPLICATION GUIDANCE:**")
+        if found_mappings or limiting_results:
+            output.append("• Apply base rule value first")
+            output.append("• Then check EACH limiting rule above")
+            output.append("• The MORE RESTRICTIVE value always wins")
+            output.append("• If base rule says 30A but limit says 20A → use 20A")
+        else:
+            output.append("• No known limiting rules found for this combination")
+            output.append("• Base rule may apply without additional constraints")
+            output.append("• Always verify by checking cross-references in the code")
+
+        return "\n".join(output)
+
+    def compare_with_nec(self,
+                         section: str,
+                         query: Optional[str] = None,
+                         limit: int = 3) -> str:
+        """
+        Compare CEC content with NEC to identify differences
+
+        This tool searches both CEC 2022 and NEC 2023 for the same topic
+        and highlights any differences. Use this when:
+        - User asks about national vs California requirements
+        - You want to note that CEC differs from base NEC
+        - Checking if a CA-specific amendment applies
+
+        Args:
+            section: The section number to compare (e.g., "408.2", "210.12")
+            query: Optional query to refine the comparison context
+            limit: Maximum results from each index (default: 3)
+
+        Returns:
+            Formatted comparison showing CEC vs NEC content
+        """
+        import re
+        from core.cec_table_tools import CECTableTools
+        from core.nec_table_tools import NECTableTools
+
+        # Build search query
+        search_query = section
+        if query:
+            search_query = f"{section} {query}"
+
+        # Format comparison
+        output = [f"CEC vs NEC Comparison for: {section}"]
+        if query:
+            output.append(f"Context: {query}")
+        output.append("")
+
+        # Check if this looks like a table reference (e.g., "220.12", "Table 220.42(A)")
+        table_pattern = r'^(?:Table\s+)?(\d+\.\d+(?:\([A-Za-z0-9]+\))?)$'
+        table_match = re.match(table_pattern, section.strip())
+
+        if table_match:
+            # Try to get structured table data for accurate comparison
+            table_id = table_match.group(1)
+            output.append("=" * 60)
+            output.append("**STRUCTURED TABLE COMPARISON**")
+            output.append("=" * 60)
+
+            try:
+                cec_tables = CECTableTools()
+                nec_tables = NECTableTools()
+
+                # Known table renumberings between CEC (based on NEC 2020) and NEC 2023
+                # CEC uses older numbering, NEC 2023 renumbered some tables
+                nec_table_mappings = {
+                    "220.12": "220.42(A)",   # General lighting loads
+                    "220.3": "220.41",        # General lighting by dwelling
+                }
+
+                # Try various table ID formats for CEC
+                cec_ids_to_try = [
+                    f"Table {table_id}",
+                    table_id,
+                    f"Table {table_id}(A)",
+                ]
+
+                # For NEC, also try mapped table IDs
+                nec_ids_to_try = [
+                    f"Table {table_id}",
+                    table_id,
+                    f"Table {table_id}(A)",
+                ]
+                # Add mapped NEC table IDs if they exist
+                if table_id in nec_table_mappings:
+                    mapped_id = nec_table_mappings[table_id]
+                    nec_ids_to_try.insert(0, f"Table {mapped_id}")  # Try mapped first
+                    nec_ids_to_try.insert(1, mapped_id)
+
+                cec_table = None
+                nec_table = None
+
+                for tid in cec_ids_to_try:
+                    if not cec_table:
+                        cec_result = cec_tables.get_table_data(tid)
+                        if isinstance(cec_result, dict) and "error" not in cec_result:
+                            cec_table = cec_result
+
+                for tid in nec_ids_to_try:
+                    if not nec_table:
+                        nec_result = nec_tables.get_table_data(tid)
+                        if isinstance(nec_result, dict) and "error" not in nec_result:
+                            nec_table = nec_result
+
+                if cec_table or nec_table:
+                    # Helper to filter rows based on query keywords
+                    def filter_rows(rows, query_text):
+                        if not query_text:
+                            return rows[:15]  # Default: first 15 rows
+
+                        query_lower = query_text.lower()
+                        keywords = query_lower.replace(',', ' ').split()
+
+                        # Find matching rows
+                        matching = []
+                        for row in rows:
+                            if isinstance(row, dict):
+                                # Check row_label or type_of_occupancy
+                                label = row.get('row_label', '') or row.get('type_of_occupancy', '')
+                                label_lower = label.lower() if label else ''
+
+                                # Check if any keyword matches
+                                for keyword in keywords:
+                                    if len(keyword) > 3 and keyword in label_lower:
+                                        matching.append(row)
+                                        break
+
+                        # If matches found, return them; otherwise return first 15
+                        if matching:
+                            return matching
+                        return rows[:15]
+
+                    # Show CEC table data
+                    output.append("")
+                    output.append("**CEC 2022 Table Data:**")
+                    if cec_table:
+                        output.append(f"  Table: {cec_table.get('table_id', 'Unknown')}")
+                        output.append(f"  Caption: {cec_table.get('caption', 'N/A')}")
+                        # Filter rows based on query
+                        all_rows = cec_table.get('rows', [])
+                        filtered_rows = filter_rows(all_rows, query)
+
+                        if filtered_rows != all_rows[:15] and filtered_rows:
+                            output.append(f"  (Showing rows matching '{query}')")
+
+                        for row in filtered_rows:
+                            if isinstance(row, dict):
+                                label = row.get('row_label', '') or row.get('type_of_occupancy', str(row))
+                                values = row.get('values', {})
+                                # Also check for flat value fields
+                                if not values:
+                                    va_ft2 = row.get('volt_amperes_per_ft2')
+                                    va_m2 = row.get('volt_amperes_per_m2')
+                                    if va_ft2 is not None:
+                                        values = {'ft²': va_ft2, 'm²': va_m2}
+
+                                if values:
+                                    val_str = ", ".join(f"{k}: {v}" for k, v in values.items())
+                                    output.append(f"    >> {label}: {val_str}")
+                                else:
+                                    output.append(f"    {label}")
+                    else:
+                        output.append("  (Table not found in CEC database)")
+
+                    # Show NEC table data
+                    output.append("")
+                    output.append("**NEC 2023 Table Data:**")
+                    if nec_table:
+                        output.append(f"  Table: {nec_table.get('table_id', 'Unknown')}")
+                        output.append(f"  Caption: {nec_table.get('caption', 'N/A')}")
+                        # Filter rows based on query
+                        all_rows = nec_table.get('rows', [])
+                        filtered_rows = filter_rows(all_rows, query)
+
+                        if filtered_rows != all_rows[:15] and filtered_rows:
+                            output.append(f"  (Showing rows matching '{query}')")
+
+                        for row in filtered_rows:
+                            if isinstance(row, dict):
+                                label = row.get('row_label', '') or row.get('type_of_occupancy', str(row))
+                                values = row.get('values', {})
+                                # Also check for flat value fields
+                                if not values:
+                                    va_ft2 = row.get('volt_amperes_per_ft2')
+                                    va_m2 = row.get('volt_amperes_per_m2')
+                                    if va_ft2 is not None:
+                                        values = {'ft²': va_ft2, 'm²': va_m2}
+
+                                if values:
+                                    val_str = ", ".join(f"{k}: {v}" for k, v in values.items())
+                                    output.append(f"    >> {label}: {val_str}")
+                                else:
+                                    output.append(f"    {label}")
+                    else:
+                        output.append("  (Table not found in NEC database)")
+
+                    output.append("")
+                    output.append("-" * 60)
+                    output.append("**IMPORTANT**: Use the structured values above for accurate comparison.")
+                    output.append("Do NOT use values from training data - use ONLY values shown here.")
+                    output.append("-" * 60)
+
+            except Exception as e:
+                output.append(f"  (Could not load table data: {str(e)})")
+
+        # Also do semantic search for additional context
+        output.append("")
+        output.append("=" * 60)
+        output.append("**SEMANTIC SEARCH RESULTS**")
+        output.append("=" * 60)
+
+        # Search CEC
+        cec_results = self.search_client.hybrid_search(
+            query=search_query,
+            limit=limit
+        )
+
+        # Search NEC
+        nec_results = self.nec_search_client.hybrid_search(
+            query=search_query,
+            limit=limit
+        )
+
+        # CEC Results
+        output.append("")
+        output.append("**California Electrical Code (CEC 2022):**")
+        if cec_results and not (len(cec_results) == 1 and "error" in cec_results[0]):
+            for i, result in enumerate(cec_results, 1):
+                sec = result.get('section', 'Unknown')
+                content = result.get('content', '')[:500]
+                output.append(f"\n[CEC Section {sec}]")
+                output.append(f"{content}...")
+        else:
+            output.append("No CEC content found for this section.")
+
+        output.append("")
+        output.append("-" * 60)
+
+        # NEC Results
+        output.append("**National Electrical Code (NEC 2023):**")
+        if nec_results and not (len(nec_results) == 1 and "error" in nec_results[0]):
+            for i, result in enumerate(nec_results, 1):
+                sec = result.get('section', 'Unknown')
+                content = result.get('content', '')[:500]
+                output.append(f"\n[NEC Section {sec}]")
+                output.append(f"{content}...")
+        else:
+            output.append("No NEC content found for this section.")
+
+        output.append("")
+        output.append("=" * 60)
+
+        # Add interpretation note
+        output.append("")
+        output.append("**Note:** For table values, use the STRUCTURED TABLE DATA above.")
+        output.append("Semantic search provides context but may not have exact values.")
+
+        return "\n".join(output)
+
+
+# Singleton instance
+_tools_instance = None
+
+def get_cec_knowledge_tools() -> CECKnowledgeTools:
+    """Get or create singleton CEC unified tools instance"""
+    global _tools_instance
+    if _tools_instance is None:
+        _tools_instance = CECKnowledgeTools()
+    return _tools_instance
+
+
+# Standalone function wrappers for Gemini function calling
+def cec_search(query: str, article_filter: Optional[str] = None, limit: int = 5) -> str:
+    """
+    Search CEC 2022 for rules, sections, and requirements
+
+    Args:
+        query: What you're searching for
+        article_filter: Optional article number to filter (e.g., "310")
+        limit: Max results (default: 5)
+
+    Returns:
+        CEC search results with citations
+    """
+    tools = get_cec_knowledge_tools()
+    return tools.cec_search(query, article_filter, limit)
+
+
+def cec_exception_search(base_rule: str, context: Optional[str] = None, limit: int = 5) -> str:
+    """
+    Search for exceptions to a base CEC rule
+
+    Args:
+        base_rule: Base CEC section (e.g., "240.4", "310.16")
+        context: Optional context (e.g., "small conductors")
+        limit: Max results (default: 5)
+
+    Returns:
+        Exception information with citations
+    """
+    tools = get_cec_knowledge_tools()
+    return tools.cec_exception_search(base_rule, context, limit)
+
+
+def compare_with_nec(section: str, query: Optional[str] = None, limit: int = 3) -> str:
+    """
+    Compare CEC with NEC to identify differences
+
+    Args:
+        section: Section number to compare (e.g., "408.2")
+        query: Optional context to refine comparison
+        limit: Max results from each index (default: 3)
+
+    Returns:
+        Comparison showing CEC vs NEC content
+    """
+    tools = get_cec_knowledge_tools()
+    return tools.compare_with_nec(section, query, limit)
+
+
+def cec_find_limiting_rules(base_rule: str, subject: str, limit: int = 5) -> str:
+    """
+    Find rules that LIMIT or OVERRIDE a base rule.
+
+    Unlike exceptions (which relax rules), limiting rules constrain how
+    you can apply a base value. Use this AFTER table lookup to find
+    additional restrictions.
+
+    Example: Table 310.16 says 12 AWG = 30A @ 90°C, but 240.4(D) limits
+    overcurrent protection to 20A. The more restrictive rule (20A) wins.
+
+    Args:
+        base_rule: Base rule/table (e.g., "310.16", "250.66")
+        subject: What you're sizing (e.g., "12 AWG conductor", "GEC")
+        limit: Max search results (default: 5)
+
+    Returns:
+        Limiting rules with their constraints
+    """
+    tools = get_cec_knowledge_tools()
+    return tools.find_limiting_rules(base_rule, subject, limit)
+
+
+if __name__ == "__main__":
+    # Test the CEC unified tools
+    print("=== Testing CEC Unified Tools ===\n")
+
+    tools = CECKnowledgeTools()
+
+    # Test 1: CEC search
+    print("1. Testing cec_search:")
+    print(cec_search("GFCI requirements kitchen", limit=3))
+    print("\n" + "="*80 + "\n")
+
+    # Test 2: Exception search
+    print("2. Testing cec_exception_search:")
+    print(cec_exception_search("210.8", "kitchen", limit=3))
+    print("\n" + "="*80 + "\n")
+
+    # Test 3: Compare with NEC
+    print("3. Testing compare_with_nec:")
+    print(compare_with_nec("408.2", "panelboard spaces", limit=2))
+    print("\n" + "="*80 + "\n")
