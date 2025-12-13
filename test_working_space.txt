@@ -1,0 +1,26 @@
+## Panel Installation in Closet - Code Compliance (CEC 2022) **(Revised)**
+
+**1. Working Space Clearance Violation**  
+- **Required**: 36 inches (3 ft) minimum clearance in front of panel per **CEC Table 110.26(A)(1)** (Condition 1 for 0-150V).  
+- **Actual**: 24 inches provided → **Fails requirement**.  
+
+**2. Panel Location Prohibition**  
+- **CEC 240.24(D)** explicitly prohibits overcurrent devices (panels) from being located in clothes closets due to fire hazard risks from ignitable materials.  
+- **Violation**: Panel installed in a closet → **Non-compliant**.  
+
+**3. 110.26(B) Vertical Clearance**  
+- **CEC 110.26(B)** requires **6.5 ft (78 in.) vertical clearance** above the floor in the working space.  
+- **Unclear compliance**: The question does not specify the panel's mounting height. If the panel is mounted at 5 ft, the vertical clearance is satisfied (assuming no obstructions).  
+
+**4. Water Heater Proximity**  
+- No specific code governs lateral clearance to water heaters. However, **240.24(D)** prohibits panels near ignitable materials. A water heater (if gas-fired) could pose a fire risk if located too close. Maintain **at least 3 ft clearance** from ignitable materials per general safety practices.  
+
+---
+
+### Corrective Actions Required  
+1. **Relocate the panel** entirely outside the closet to comply with **240.24(D)**.  
+2. **Increase front clearance** to **36 inches (3 ft)** minimum per **Table 110.26(A)(1)**.  
+3. Ensure **no ignitable materials** (clothing, paper, etc.) are stored within 3 ft of the panel.  
+4. Verify **vertical clearance** meets 6.5 ft (78 in.) per **110.26(B)**.  
+
+[OK] Source: CEC 2022 Sections 110.26, 240.24(D)

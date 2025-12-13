@@ -1,45 +1,192 @@
 """
-CEC Table Lookup Tools
-Provides deterministic access to CEC 2022 (California Electrical Code) tables for electrical calculations and specifications
-
-The CEC 2022 is based on NEC 2020 with California-specific amendments.
-Tables marked with California amendments have been updated from the base NEC tables.
+NEC Table Lookup Tools
+Provides deterministic access to NEC 2023 tables for electrical calculations and specifications
 """
 import json
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Union
-
-# Import shared utilities from NEC table tools
-from core.nec_table_tools import (
-    safe_get_numeric_value,
-    parse_range_value,
-    normalize_separator
-)
 import re
 
 
-class CECTableTools:
-    """Class to handle CEC 2022 table lookups and calculations"""
+# ============================================================================
+# GLOBAL UTILITY FUNCTIONS FOR NEC TABLE DATA HANDLING
+# ============================================================================
+
+def safe_get_numeric_value(value: Any, field_name: str = "value") -> Optional[float]:
+    """
+    Safely convert table value to float, handling None and string "None" globally.
+
+    This utility handles the 29+ NEC tables that contain None values for
+    not-applicable or out-of-range conditions.
+
+    Args:
+        value: Value from table (could be int, float, str, None)
+        field_name: Name of field for error messages
+
+    Returns:
+        Float value if valid number, None if not applicable
+
+    Examples:
+        >>> safe_get_numeric_value(25.5)
+        25.5
+        >>> safe_get_numeric_value("25.5")
+        25.5
+        >>> safe_get_numeric_value(None)
+        None
+        >>> safe_get_numeric_value("None")
+        None
+    """
+    if value is None:
+        return None
+
+    # Handle string "None" (some tables may have this)
+    if isinstance(value, str) and value.strip().lower() == "none":
+        return None
+
+    # Convert to float
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        # If we can't convert, treat as None
+        return None
+
+
+def parse_range_value(range_str: str, test_value: Union[int, float]) -> tuple:
+    """
+    Parse ANY NEC table range format and test if value matches.
+
+    Handles all non-standard range formats found in 29+ tables:
+    - Standard ranges: "11-15", "11–15" (hyphen or en-dash)
+    - Lower bounds: "10 or less", "under 10", "not over 10"
+    - Upper bounds: "41 and above", "over 100", "61 and over"
+    - Through ranges: "Over 3/0 through 350", "Over 600 through 1100"
+    - Open-ended: "Over 1100"
+
+    Args:
+        range_str: Range string from table
+        test_value: Numeric value to test
+
+    Returns:
+        Tuple of (matched: bool, range_description: str)
+
+    Examples:
+        >>> parse_range_value("11–15", 12)
+        (True, "11–15")
+        >>> parse_range_value("10 or less", 8)
+        (True, "10 or less")
+        >>> parse_range_value("41 and above", 50)
+        (True, "41 and above")
+        >>> parse_range_value("Over 3/0 through 350", 250)
+        (True, "Over 3/0 through 350")
+    """
+    range_str = range_str.strip()
+
+    # Pattern 1: "X or less", "X or under", "not over X"
+    lower_bound_patterns = [
+        r'(\d+(?:\.\d+)?)\s+or\s+less',
+        r'(\d+(?:\.\d+)?)\s+or\s+under',
+        r'not\s+over\s+(\d+(?:\.\d+)?)',
+        r'under\s+(\d+(?:\.\d+)?)'
+    ]
+
+    for pattern in lower_bound_patterns:
+        match = re.search(pattern, range_str, re.IGNORECASE)
+        if match:
+            max_val = float(match.group(1))
+            return (test_value <= max_val, range_str)
+
+    # Pattern 2a: "X and above", "X and over" (inclusive)
+    inclusive_upper_patterns = [
+        r'(\d+(?:\.\d+)?)\s+and\s+above',
+        r'(\d+(?:\.\d+)?)\s+and\s+over'
+    ]
+
+    for pattern in inclusive_upper_patterns:
+        match = re.search(pattern, range_str, re.IGNORECASE)
+        if match:
+            min_val = float(match.group(1))
+            return (test_value >= min_val, range_str)
+
+    # Pattern 2b: "over X" (exclusive, not "over X through Y")
+    over_match = re.search(r'over\s+(\d+(?:\.\d+)?)\s*$', range_str, re.IGNORECASE)
+    if over_match:
+        min_val = float(over_match.group(1))
+        return (test_value > min_val, range_str)
+
+    # Pattern 3: "Over X through Y"
+    through_match = re.search(r'over\s+(\d+(?:\.\d+)?)\s+through\s+(\d+(?:\.\d+)?)', range_str, re.IGNORECASE)
+    if through_match:
+        min_val = float(through_match.group(1))
+        max_val = float(through_match.group(2))
+        return (min_val < test_value <= max_val, range_str)
+
+    # Pattern 4: Standard range "X-Y" or "X–Y" (hyphen or en-dash)
+    # Handle both en-dash (–) and hyphen (-)
+    if '–' in range_str or '-' in range_str:
+        separator = '–' if '–' in range_str else '-'
+        parts = range_str.split(separator)
+        if len(parts) == 2:
+            try:
+                low = float(parts[0].strip())
+                high = float(parts[1].strip())
+                return (low <= test_value <= high, range_str)
+            except ValueError:
+                # Not numeric, fall through
+                pass
+
+    # No pattern matched
+    return (False, range_str)
+
+
+def normalize_separator(text: str) -> str:
+    """
+    Normalize all separator characters to standard hyphen.
+
+    Handles character encoding variations:
+    - En-dash (–, Unicode U+2013)
+    - Em-dash (—, Unicode U+2014)
+    - Hyphen (-, ASCII)
+
+    Args:
+        text: Text containing separators
+
+    Returns:
+        Text with all separators normalized to hyphen
+
+    Examples:
+        >>> normalize_separator("11–15")
+        "11-15"
+        >>> normalize_separator("11—15")
+        "11-15"
+    """
+    # Replace en-dash and em-dash with hyphen
+    text = text.replace('–', '-')  # En-dash U+2013
+    text = text.replace('—', '-')  # Em-dash U+2014
+    return text
+
+
+class NECTableTools:
+    """Class to handle NEC table lookups and calculations"""
 
     def __init__(self, tables_file_path: str = None):
-        """Initialize with CEC tables data"""
+        """Initialize with NEC tables data"""
         if tables_file_path is None:
             # Default path relative to this file
             current_dir = Path(__file__).parent
-            tables_file_path = current_dir.parent / "data" / "CEC_2022" / "cec_tables_unified.json"
+            tables_file_path = current_dir.parent / "data" / "NEC_2023" / "nec_tables_unified.json"
 
         self.tables_file = Path(tables_file_path)
         self.tables_data = self._load_tables()
 
     def _load_tables(self) -> Dict[str, Any]:
-        """Load CEC tables from JSON file"""
+        """Load NEC tables from JSON file"""
         try:
             with open(self.tables_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            print(f"Loaded {data['metadata']['total_tables']} CEC tables")
+            print(f"Loaded {data['metadata']['total_tables']} NEC tables")
             return data
         except Exception as e:
-            print(f"Error loading CEC tables: {e}")
+            print(f"Error loading NEC tables: {e}")
             return {"metadata": {"total_tables": 0}, "tables": {}}
 
     def _extract_cross_refs(self, notes: List[str]) -> List[str]:
@@ -67,7 +214,7 @@ class CECTableTools:
             table_matches = re.findall(r'Table\s+(\d+\.\d+(?:\([A-Za-z0-9]+\))*)', note)
             refs.extend(table_matches)
 
-            # Match "See X.X(Y)" patterns (common in NEC/CEC)
+            # Match "See X.X(Y)" patterns (common in NEC)
             see_matches = re.findall(r'See\s+(\d+\.\d+(?:\([A-Za-z0-9]+\))*)', note)
             refs.extend(see_matches)
 
@@ -131,6 +278,12 @@ class CECTableTools:
 
         Returns:
             Normalized table ID (e.g., "Table 310.16")
+
+        Examples:
+            >>> _normalize_table_id("310.16")
+            "Table 310.16"
+            >>> _normalize_table_id("Table 310.16")
+            "Table 310.16"
         """
         table_id = table_id.strip()
         # Don't add "Table " if it's already there or if it's a Chapter 9 table
@@ -143,24 +296,19 @@ class CECTableTools:
         table_id = self._normalize_table_id(table_id)
         if table_id in self.tables_data["tables"]:
             table = self.tables_data["tables"][table_id]
-            result = {
+            return {
                 "table_id": table["table_id"],
                 "caption": table["caption"],
                 "description": table["description"],
                 "section": table["section"],
                 "keywords": table["keywords"]
             }
-            # Include California amendment info if present
-            if table.get("california_amendment"):
-                result["california_amendment"] = True
-                result["amendment_type"] = table.get("amendment_type", "delta")
-            return result
         return None
 
     def lookup_conductor_ampacity(self, conductor_size: str, temperature_rating: str = "75°C",
                                  conductor_type: str = "copper") -> Dict[str, Any]:
         """
-        Look up conductor ampacity from CEC 2022 Table 310.16
+        Look up conductor ampacity from NEC Table 310.16
 
         Args:
             conductor_size: Wire size (e.g., "12 AWG", "2/0 AWG", "250 kcmil")
@@ -168,8 +316,7 @@ class CECTableTools:
             conductor_type: "copper" or "aluminum"
 
         Returns:
-            Dict with ampacity value, table reference, adjacent values for verification,
-            and applicable footnotes/cross-references
+            Dict with ampacity value, table reference, and applicable footnotes/cross-references
         """
         table_310_16 = self.tables_data["tables"].get("Table 310.16")
         if not table_310_16:
@@ -187,9 +334,8 @@ class CECTableTools:
         material_prefix = "copper" if conductor_type.lower() == "copper" else "aluminum"
         ampacity_key = f"{material_prefix}_{temp_suffix}"
 
-        # Find matching row with index for adjacent value lookup
-        rows = table_310_16["rows"]
-        for idx, row in enumerate(rows):
+        # Find matching row
+        for row in table_310_16["rows"]:
             row_size = row.get("size", "").strip()
             if row_size == size_normalized:
                 ampacity_raw = row.get(ampacity_key)
@@ -201,58 +347,29 @@ class CECTableTools:
                     # Get applicable notes and cross-references for this row
                     notes_info = self._get_applicable_notes(table_310_16, row)
 
-                    result = {
+                    return {
                         "ampacity": int(ampacity) if ampacity == int(ampacity) else ampacity,
                         "conductor_size": conductor_size,
                         "temperature_rating": temperature_rating,
                         "conductor_type": conductor_type,
-                        "table_reference": "CEC 2022 Table 310.16",
+                        "table_reference": "NEC 2023 Table 310.16",
                         "description": table_310_16["description"],
                         "applicable_notes": notes_info["applicable_notes"],
                         "cross_references": notes_info["cross_references"]
                     }
 
-                    # Add adjacent values for sanity checking
-                    adjacent_values = {}
-                    if idx > 0:
-                        prev_row = rows[idx - 1]
-                        prev_size = prev_row.get("size", "")
-                        prev_ampacity = safe_get_numeric_value(prev_row.get(ampacity_key), ampacity_key)
-                        if prev_ampacity is not None:
-                            adjacent_values["smaller_size"] = {
-                                "size": prev_size,
-                                "ampacity": int(prev_ampacity) if prev_ampacity == int(prev_ampacity) else prev_ampacity
-                            }
-                    if idx < len(rows) - 1:
-                        next_row = rows[idx + 1]
-                        next_size = next_row.get("size", "")
-                        next_ampacity = safe_get_numeric_value(next_row.get(ampacity_key), ampacity_key)
-                        if next_ampacity is not None:
-                            adjacent_values["larger_size"] = {
-                                "size": next_size,
-                                "ampacity": int(next_ampacity) if next_ampacity == int(next_ampacity) else next_ampacity
-                            }
-
-                    if adjacent_values:
-                        result["adjacent_values"] = adjacent_values
-
-                    # Note if this is a California amendment
-                    if table_310_16.get("california_amendment"):
-                        result["california_amendment"] = True
-                    return result
-
         return {"error": f"Conductor size {conductor_size} ({size_normalized}) not found in Table 310.16 or no ampacity for {conductor_type} at {temperature_rating}"}
 
     def lookup_working_space(self, voltage_to_ground: int, condition: int) -> Dict[str, Any]:
         """
-        Look up working space requirements from CEC 2022 Table 110.26(A)(1)
+        Look up working space requirements from Table 110.26(A)(1)
 
         Args:
             voltage_to_ground: Voltage in volts (e.g., 120, 277, 480)
             condition: Condition number 1, 2, or 3
 
         Returns:
-            Dict with working space depth, table reference, and applicable notes/cross-references
+            Dict with working space depth, table reference, and applicable footnotes/cross-references
         """
         table_110_26 = self.tables_data["tables"].get("Table 110.26(A)(1)")
         if not table_110_26:
@@ -263,6 +380,7 @@ class CECTableTools:
             voltage_range = row.get("voltage_range", "")
 
             # Use global utility to parse ANY range format
+            # Handles standard ranges with hyphen/en-dash and special formats
             matches, _ = parse_range_value(voltage_range, voltage_to_ground)
 
             if matches:
@@ -276,27 +394,25 @@ class CECTableTools:
                 # Get applicable notes and cross-references for this row
                 notes_info = self._get_applicable_notes(table_110_26, row)
 
-                # Also get condition descriptions from table notes if available
-                condition_descriptions = []
+                # Also include condition descriptions from table notes if available
+                condition_notes = []
                 for note in table_110_26.get("notes", []):
-                    note_text = note.get("text", "")
-                    if f"Condition {condition}" in note_text or f"condition {condition}" in note_text.lower():
-                        condition_descriptions.append(note_text)
+                    # Check for condition descriptions (e.g., "Condition 1", "Condition 2")
+                    condition_label = note.get("condition", "")
+                    if condition_label == f"Condition {condition}":
+                        condition_notes.append(note.get("text", ""))
 
-                result = {
+                return {
                     "working_space_depth": clearance,
                     "voltage_to_ground": voltage_to_ground,
                     "condition": condition,
+                    "condition_description": condition_notes[0] if condition_notes else "",
                     "voltage_range": voltage_range,
-                    "table_reference": "CEC 2022 Table 110.26(A)(1)",
+                    "table_reference": "NEC 2023 Table 110.26(A)(1)",
                     "description": table_110_26["description"],
-                    "applicable_notes": notes_info["applicable_notes"],
-                    "cross_references": notes_info["cross_references"],
-                    "condition_descriptions": condition_descriptions
+                    "applicable_notes": notes_info["applicable_notes"] + condition_notes,
+                    "cross_references": notes_info["cross_references"]
                 }
-                if table_110_26.get("california_amendment"):
-                    result["california_amendment"] = True
-                return result
 
         return {"error": f"Voltage {voltage_to_ground}V not found in working space table"}
 
@@ -323,15 +439,12 @@ class CECTableTools:
             ]
 
             if any(keyword_lower in field.lower() for field in search_fields):
-                result = {
+                matches.append({
                     "table_id": table_id,
                     "caption": table_data.get("caption", ""),
                     "section": table_data.get("section", ""),
-                    "keywords": table_data.get("keywords", [])[:5]
-                }
-                if table_data.get("california_amendment"):
-                    result["california_amendment"] = True
-                matches.append(result)
+                    "keywords": table_data.get("keywords", [])[:5]  # First 5 keywords
+                })
 
                 if len(matches) >= limit:
                     break
@@ -343,11 +456,11 @@ class CECTableTools:
         Get complete table data with optional row filtering
 
         Args:
-            table_id: CEC table identifier
+            table_id: NEC table identifier
             row_filter: Optional dict to filter rows (e.g., {"voltage_range": "151-600"})
 
         Returns:
-            Complete table data or filtered subset, including notes and footnotes
+            Complete table data or filtered subset
         """
         # Normalize table ID to standard format
         table_id = self._normalize_table_id(table_id)
@@ -356,6 +469,7 @@ class CECTableTools:
         table = self.tables_data["tables"].get(table_id)
 
         # Tier 2: If no exact match, try fuzzy/prefix matching
+        # Example: "Table 310.12" matches "Table 310.12(A)"
         if not table:
             matching_tables = [
                 tid for tid in self.tables_data["tables"].keys()
@@ -363,9 +477,12 @@ class CECTableTools:
             ]
 
             if matching_tables:
+                # Found prefix matches - use first one alphabetically
+                # But include info about all matches in description
                 matched_id = sorted(matching_tables)[0]
                 table = self.tables_data["tables"][matched_id]
 
+                # Add note about other matches if multiple found
                 fuzzy_match_note = ""
                 if len(matching_tables) > 1:
                     other_tables = [t for t in sorted(matching_tables) if t != matched_id]
@@ -382,23 +499,10 @@ class CECTableTools:
             "section": table["section"],
             "headers": table.get("headers", []),
             "rows": table.get("rows", []),
-            "sections": table.get("sections", []),
             # Include notes and footnotes - these often contain critical cross-references
             "notes": table.get("notes", []),
             "footnotes": table.get("footnotes", [])
         }
-
-        # Handle tables with sections structure (like Table 110.28)
-        # If table has sections but no top-level rows, flatten sections into rows
-        if result["sections"] and not result["rows"]:
-            flattened_rows = []
-            for section in result["sections"]:
-                section_name = section.get("section_name", "")
-                for row in section.get("rows", []):
-                    row_with_section = dict(row)
-                    row_with_section["_section"] = section_name
-                    flattened_rows.append(row_with_section)
-            result["rows"] = flattened_rows
 
         # Extract all cross-references from notes and footnotes
         all_note_texts = []
@@ -414,11 +518,6 @@ class CECTableTools:
                 all_note_texts.append(footnote)
 
         result["cross_references"] = self._extract_cross_refs(all_note_texts)
-
-        # Include California amendment info
-        if table.get("california_amendment"):
-            result["california_amendment"] = True
-            result["amendment_type"] = table.get("amendment_type", "delta")
 
         # Apply row filtering if specified
         if row_filter and result["rows"]:
@@ -466,6 +565,7 @@ class CECTableTools:
             temp_range = row.get('temp_c', '')
 
             # Use global utility to parse ANY range format
+            # Handles standard ranges (11-15, 11–15) and special formats (10 or less, 41 and above)
             matches, _ = parse_range_value(temp_range, ambient_temp)
 
             if matches:
@@ -486,7 +586,11 @@ class CECTableTools:
                 if correction_factor is None:
                     return {"error": f"Temperature correction factor is not available for {temp_range} at {conductor_temp_rating}"}
 
-                result = {
+                # Get the full table for notes
+                full_table = self.tables_data["tables"].get(table_id, {})
+                notes_info = self._get_applicable_notes(full_table, row)
+
+                return {
                     "success": True,
                     "table_id": table_id,
                     "correction_factor": correction_factor,
@@ -494,15 +598,15 @@ class CECTableTools:
                     "temp_range": temp_range,
                     "conductor_rating": conductor_temp_rating,
                     "base_temp": base_temp,
-                    "code_reference": "CEC 2022"
+                    "applicable_notes": notes_info["applicable_notes"],
+                    "cross_references": notes_info["cross_references"]
                 }
-                return result
 
         return {"error": f"No temperature correction found for {ambient_temp}°C"}
 
     def lookup_bundling_adjustment(self, num_conductors: int) -> Dict[str, Any]:
         """
-        Look up bundling adjustment factor from CEC 2022 Table 310.15(C)(1).
+        Look up bundling adjustment factor from NEC 2023 Table 310.15(C)(1).
 
         Args:
             num_conductors: Number of current-carrying conductors in raceway/cable
@@ -520,7 +624,7 @@ class CECTableTools:
                 "percent": "100",
                 "conductor_range": "1-3",
                 "note": "No adjustment required for 3 or fewer current-carrying conductors",
-                "code_reference": "CEC 2022"
+                "code_reference": "NEC 2023"
             }
 
         # Get table data
@@ -550,16 +654,106 @@ class CECTableTools:
                     "adjustment_factor": adjustment_factor,
                     "percent": percent_str,
                     "conductor_range": conductor_range,
-                    "code_reference": "CEC 2022"
+                    "code_reference": "NEC 2023"
                 }
-
-                # Check for California amendment
-                if table_data.get("california_amendment"):
-                    result["california_amendment"] = True
 
                 return result
 
         return {"error": f"No bundling adjustment found for {num_conductors} conductors"}
+
+    def lookup_egc_size(self, overcurrent_device_amperes: int) -> Dict[str, Any]:
+        """
+        Look up equipment grounding conductor size from NEC 2023 Table 250.122
+
+        Args:
+            overcurrent_device_amperes: Rating of overcurrent device in amperes
+
+        Returns:
+            Dict with copper and aluminum EGC sizes
+        """
+        table_250_122 = self.tables_data["tables"].get("Table 250.122")
+        if not table_250_122:
+            return {"error": "Table 250.122 not found"}
+
+        # Find the row where overcurrent device rating does not exceed the table value
+        for row in table_250_122["rows"]:
+            row_amperes = int(row.get("amperes", 0))
+            if overcurrent_device_amperes <= row_amperes:
+                result = {
+                    "overcurrent_device_amperes": overcurrent_device_amperes,
+                    "table_amperes": row_amperes,
+                    "copper_egc": row.get("copper"),
+                    "aluminum_egc": row.get("aluminum"),
+                    "table_reference": "NEC 2023 Table 250.122",
+                    "description": table_250_122.get("description", "")
+                }
+                return result
+
+        return {"error": f"Overcurrent device rating {overcurrent_device_amperes}A exceeds Table 250.122 maximum"}
+
+    def lookup_gec_size(self, service_conductor_size: str, conductor_type: str = "copper") -> Dict[str, Any]:
+        """
+        Look up grounding electrode conductor size from NEC 2023 Table 250.66
+
+        Args:
+            service_conductor_size: Size of largest service conductor (e.g., "2/0", "250")
+            conductor_type: "copper" or "aluminum"
+
+        Returns:
+            Dict with GEC sizes for copper and aluminum
+        """
+        table_250_66 = self.tables_data["tables"].get("Table 250.66")
+        if not table_250_66:
+            return {"error": "Table 250.66 not found"}
+
+        # Normalize input
+        size_normalized = service_conductor_size.upper().strip()
+        size_normalized = size_normalized.replace(" AWG", "").replace(" KCMIL", "")
+
+        # Convert to numeric for range comparisons (kcmil sizes only)
+        size_numeric = None
+        try:
+            size_numeric = float(size_normalized.replace("/", ""))
+            if "/" in size_normalized:
+                size_numeric = None
+        except (ValueError, AttributeError):
+            size_numeric = None
+
+        # Determine which column to search based on conductor type
+        search_column = "largest_conductor_copper" if conductor_type.lower() == "copper" else "largest_conductor_aluminum"
+
+        for row in table_250_66["rows"]:
+            row_value = row.get(search_column, "")
+
+            # Strategy 1: Check for exact string match
+            if size_normalized in row_value or row_value == size_normalized:
+                result = {
+                    "service_conductor_size": service_conductor_size,
+                    "conductor_type": conductor_type,
+                    "service_conductor_range": row_value,
+                    "gec_copper": row.get("grounding_conductor_copper"),
+                    "gec_aluminum": row.get("grounding_conductor_aluminum"),
+                    "table_reference": "NEC 2023 Table 250.66",
+                    "description": table_250_66.get("description", "")
+                }
+                return result
+
+            # Strategy 2: For numeric values (kcmil sizes), use range parsing
+            if size_numeric is not None:
+                matches, _ = parse_range_value(row_value, size_numeric)
+                if matches:
+                    result = {
+                        "service_conductor_size": service_conductor_size,
+                        "conductor_type": conductor_type,
+                        "service_conductor_range": row_value,
+                        "gec_copper": row.get("grounding_conductor_copper"),
+                        "gec_aluminum": row.get("grounding_conductor_aluminum"),
+                        "table_reference": "NEC 2023 Table 250.66",
+                        "description": table_250_66.get("description", "")
+                    }
+                    return result
+
+        return {"error": f"Service conductor size {service_conductor_size} not found in Table 250.66"}
 
     def calculate_derated_ampacity(
         self,
@@ -572,7 +766,7 @@ class CECTableTools:
         """
         Complete ampacity decision tree - calculates derated ampacity with all factors applied.
 
-        This is a ONE-STOP tool that chains:
+        This chains:
         1. Insulation type → temperature rating lookup
         2. Base ampacity from correct Table 310.16 column
         3. Temperature correction factor (if ambient ≠ 30°C)
@@ -614,7 +808,7 @@ class CECTableTools:
                          f"Known types: {', '.join(sorted(INSULATION_TEMP_RATINGS.keys()))}"
             }
 
-        # Step 2: Get base ampacity from Table 310.16 using the insulation's temp rating
+        # Step 2: Get base ampacity from Table 310.16
         base_result = self.lookup_conductor_ampacity(
             conductor_size, temperature_rating, conductor_type
         )
@@ -674,7 +868,7 @@ class CECTableTools:
             "calculation": f"{base_ampacity}A × {temp_factor} × {bundling_factor} = {derated_ampacity_rounded}A",
 
             # References
-            "code_reference": "CEC 2022",
+            "code_reference": "NEC 2023",
             "tables_used": ["Table 310.16"],
             "cross_references": base_result.get("cross_references", []),
             "applicable_notes": base_result.get("applicable_notes", [])
@@ -695,124 +889,11 @@ class CECTableTools:
 
         return result
 
-    def lookup_egc_size(self, overcurrent_device_amperes: int) -> Dict[str, Any]:
-        """
-        Look up equipment grounding conductor size from CEC 2022 Table 250.122
-
-        Args:
-            overcurrent_device_amperes: Rating of overcurrent device in amperes
-
-        Returns:
-            Dict with copper and aluminum EGC sizes
-        """
-        table_250_122 = self.tables_data["tables"].get("Table 250.122")
-        if not table_250_122:
-            return {"error": "Table 250.122 not found"}
-
-        # Find the row where overcurrent device rating does not exceed the table value
-        for row in table_250_122["rows"]:
-            row_amperes = int(row.get("amperes", 0))
-            if overcurrent_device_amperes <= row_amperes:
-                result = {
-                    "overcurrent_device_amperes": overcurrent_device_amperes,
-                    "table_amperes": row_amperes,
-                    "copper_egc": row.get("copper"),
-                    "aluminum_egc": row.get("aluminum"),
-                    "table_reference": "CEC 2022 Table 250.122",
-                    "description": table_250_122.get("description", "")
-                }
-                if table_250_122.get("california_amendment"):
-                    result["california_amendment"] = True
-                return result
-
-        return {"error": f"Overcurrent device rating {overcurrent_device_amperes}A exceeds Table 250.122 maximum"}
-
-    def lookup_gec_size(self, service_conductor_size: str, conductor_type: str = "copper") -> Dict[str, Any]:
-        """
-        Look up grounding electrode conductor size from CEC 2022 Table 250.66
-
-        Args:
-            service_conductor_size: Size of largest service conductor (e.g., "2/0", "250")
-            conductor_type: "copper" or "aluminum"
-
-        Returns:
-            Dict with GEC sizes for copper and aluminum
-        """
-        table_250_66 = self.tables_data["tables"].get("Table 250.66")
-        if not table_250_66:
-            return {"error": "Table 250.66 not found"}
-
-        # Normalize input
-        size_normalized = service_conductor_size.upper().strip()
-        size_normalized = size_normalized.replace(" AWG", "").replace(" KCMIL", "")
-
-        # Convert to numeric for range comparisons (kcmil sizes only)
-        # AWG sizes like "2/0" cannot be converted to numbers
-        size_numeric = None
-        try:
-            size_numeric = float(size_normalized.replace("/", ""))  # Try simple conversion
-            # If it has a slash (like 2/0), it's not a simple number
-            if "/" in size_normalized:
-                size_numeric = None
-        except (ValueError, AttributeError):
-            size_numeric = None
-
-        # Determine which column to search based on conductor type
-        search_column = "largest_conductor_copper" if conductor_type.lower() == "copper" else "largest_conductor_aluminum"
-
-        for row in table_250_66["rows"]:
-            row_value = row.get(search_column, "")
-
-            # Strategy 1: Check for exact string match (handles "1 or 1/0", "2/0 or 3/0")
-            if size_normalized in row_value or row_value == size_normalized:
-                result = {
-                    "service_conductor_size": service_conductor_size,
-                    "conductor_type": conductor_type,
-                    "service_conductor_range": row_value,
-                    "gec_copper": row.get("grounding_conductor_copper"),
-                    "gec_aluminum": row.get("grounding_conductor_aluminum"),
-                    "table_reference": "CEC 2022 Table 250.66",
-                    "description": table_250_66.get("description", ""),
-                    # Add 250.66(A) and 250.66(B) exceptions
-                    "electrode_exceptions": {
-                        "250.66(A)": "Ground rod, pipe, or plate electrode: GEC not required to be larger than 6 AWG copper or 4 AWG aluminum",
-                        "250.66(B)": "Concrete-encased electrode: GEC not required to be larger than 4 AWG copper"
-                    }
-                }
-                if table_250_66.get("california_amendment"):
-                    result["california_amendment"] = True
-                return result
-
-            # Strategy 2: For numeric values (kcmil sizes), use range parsing
-            # This handles "Over 600 through 1100", "Over 350 through 600", etc.
-            if size_numeric is not None:
-                matches, _ = parse_range_value(row_value, size_numeric)
-                if matches:
-                    result = {
-                        "service_conductor_size": service_conductor_size,
-                        "conductor_type": conductor_type,
-                        "service_conductor_range": row_value,
-                        "gec_copper": row.get("grounding_conductor_copper"),
-                        "gec_aluminum": row.get("grounding_conductor_aluminum"),
-                        "table_reference": "CEC 2022 Table 250.66",
-                        "description": table_250_66.get("description", ""),
-                        # Add 250.66(A) and 250.66(B) exceptions
-                        "electrode_exceptions": {
-                            "250.66(A)": "Ground rod, pipe, or plate electrode: GEC not required to be larger than 6 AWG copper or 4 AWG aluminum",
-                            "250.66(B)": "Concrete-encased electrode: GEC not required to be larger than 4 AWG copper"
-                        }
-                    }
-                    if table_250_66.get("california_amendment"):
-                        result["california_amendment"] = True
-                    return result
-
-        return {"error": f"Service conductor size {service_conductor_size} not found in Table 250.66"}
-
     def lookup_conduit_fill(self, conduit_type: str, conduit_size: str,
                            conductor_type: str, conductor_size: str,
                            num_conductors: int = 3) -> Dict[str, Any]:
         """
-        Look up conduit fill data from CEC 2022 Chapter 9 tables.
+        Look up conduit fill data from NEC 2023 Chapter 9 tables.
 
         Uses Chapter 9 Table 4 (conduit dimensions) and Table 5 (conductor dimensions)
         to calculate maximum number of conductors that fit in a conduit.
@@ -917,15 +998,15 @@ class CECTableTools:
             "total_conductor_area": round(total_conductor_area, 4),
             "fits": fits,
             "fill_percentage": round((total_conductor_area / total_area) * 100, 1) if total_area else None,
-            "table_reference": "CEC 2022 Chapter 9 Tables 4 & 5",
-            "source": "CEC 2022 Chapter 9"
+            "table_reference": "NEC 2023 Chapter 9 Tables 4 & 5",
+            "source": "NEC 2023 Chapter 9"
         }
 
     def lookup_conductor_resistance(self, conductor_size: str, conductor_type: str = "copper") -> Dict[str, Any]:
         """
-        Look up conductor DC resistance from CEC 2022 Chapter 9 Table 8.
+        Look up conductor DC resistance from NEC 2023 Chapter 9 Table 8.
 
-        Used for voltage drop calculations per CEC 210.19(A)(1) Informational Note No. 4.
+        Used for voltage drop calculations per 210.19(A)(1) Informational Note No. 4.
         Returns resistance in ohms per 1000 feet at 75°C (167°F).
 
         Args:
@@ -1003,72 +1084,20 @@ class CECTableTools:
             "conductor_type": cond_type.capitalize(),
             "stranding": row.get("stranding", "Unknown"),
             "table_id": "Chapter 9 Table 8",
-            "code_reference": "CEC 2022 Chapter 9 Table 8",
+            "code_reference": "NEC 2023 Chapter 9 Table 8",
             "notes": [
-                "Use for voltage drop calculations per CEC 210.19(A)(1) Informational Note No. 4.",
+                "Use for voltage drop calculations per 210.19(A)(1) Informational Note No. 4.",
                 "Formula: VD = (2 × L × R × I) / 1000, where L = one-way length in feet, R = resistance per 1000 ft, I = current.",
                 "Branch circuits: 3% max recommended. Branch + feeder combined: 5% max recommended."
             ]
         }
 
-    def lookup_fixture_wire(self, wire_type: str) -> Dict[str, Any]:
-        """
-        Look up fixture wire specifications from CEC 2022 Table 402.3.
-
-        Args:
-            wire_type: Fixture wire type letter (e.g., "SF-2", "PF", "TFN", "TFFN")
-
-        Returns:
-            Dict with max_operating_temp, insulation, AWG sizes, application provisions
-        """
-        table_402_3 = self.tables_data["tables"].get("Table 402.3")
-        if not table_402_3:
-            return {"error": "Table 402.3 not found"}
-
-        # Normalize input - remove spaces, convert to uppercase
-        wire_type_normalized = wire_type.upper().strip().replace(" ", "")
-
-        # Search for matching wire type
-        for row in table_402_3.get("rows", []):
-            row_type = row.get("type_letter", "").upper().strip()
-            # Handle asterisk suffix (e.g., "TF*" should match "TF")
-            row_type_base = row_type.rstrip("*")
-
-            if row_type == wire_type_normalized or row_type_base == wire_type_normalized:
-                result = {
-                    "wire_type": row.get("type_letter", wire_type),
-                    "name": row.get("name", ""),
-                    "insulation": row.get("insulation", ""),
-                    "max_operating_temp": row.get("max_operating_temp", ""),
-                    "awg_sizes": row.get("awg", ""),
-                    "insulation_thickness_mm": row.get("insulation_thickness_mm", ""),
-                    "insulation_thickness_mils": row.get("insulation_thickness_mils", ""),
-                    "outer_covering": row.get("outer_covering", ""),
-                    "application_provisions": row.get("application_provisions", ""),
-                    "table_reference": "CEC 2022 Table 402.3",
-                    "description": table_402_3.get("description", "")
-                }
-                if table_402_3.get("california_amendment"):
-                    result["california_amendment"] = True
-                return result
-
-        # If not found, list available types for user reference
-        available_types = sorted(set(
-            row.get("type_letter", "").rstrip("*")
-            for row in table_402_3.get("rows", [])
-            if row.get("type_letter")
-        ))
-        return {
-            "error": f"Fixture wire type '{wire_type}' not found in Table 402.3",
-            "available_types": available_types[:20]  # Show first 20 for reference
-        }
-
 
 # Function definitions for Gemini function calling
-def cec_lookup_conductor_ampacity(conductor_size: str, temperature_rating: str = "75°C",
-                                  conductor_type: str = "copper") -> str:
+def lookup_conductor_ampacity(conductor_size: str, temperature_rating: str = "75°C",
+                             conductor_type: str = "copper") -> str:
     """
-    Look up conductor ampacity from CEC 2022 Table 310.16
+    Look up conductor ampacity from NEC Table 310.16
 
     Args:
         conductor_size: Wire size like "12 AWG", "2/0 AWG", "250 kcmil"
@@ -1076,16 +1105,15 @@ def cec_lookup_conductor_ampacity(conductor_size: str, temperature_rating: str =
         conductor_type: Conductor material - "copper" or "aluminum"
 
     Returns:
-        String with ampacity information, CEC reference, and cross-references
+        String with ampacity information, NEC reference, and cross-references
     """
-    tools = CECTableTools()
+    tools = NECTableTools()
     result = tools.lookup_conductor_ampacity(conductor_size, temperature_rating, conductor_type)
 
     if "error" in result:
         return f"Error: {result['error']}"
 
-    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
-    output = f"Conductor ampacity for {result['conductor_size']} {result['conductor_type']} at {result['temperature_rating']}: {result['ampacity']} amperes per {result['table_reference']}{ca_note}. {result['description']}"
+    output = f"Conductor ampacity for {result['conductor_size']} {result['conductor_type']} at {result['temperature_rating']}: {result['ampacity']} amperes per {result['table_reference']}. {result['description']}"
 
     # Include applicable notes if present
     if result.get("applicable_notes"):
@@ -1098,30 +1126,43 @@ def cec_lookup_conductor_ampacity(conductor_size: str, temperature_rating: str =
     return output
 
 
-def cec_lookup_working_space_clearance(voltage_to_ground: int, condition: int) -> str:
+def lookup_working_space_clearance(voltage_to_ground: int, condition: int) -> str:
     """
-    Look up required working space clearances from CEC 2022 Table 110.26(A)(1)
+    Look up required working space clearances from NEC Table 110.26(A)(1)
 
     Args:
         voltage_to_ground: Nominal voltage to ground in volts (e.g. 120, 277, 480)
         condition: Working space condition number (1, 2, or 3)
 
     Returns:
-        String with working space requirements and CEC reference
+        String with working space requirements, NEC reference, and cross-references
     """
-    tools = CECTableTools()
+    tools = NECTableTools()
     result = tools.lookup_working_space(voltage_to_ground, condition)
 
     if "error" in result:
         return f"Error: {result['error']}"
 
-    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
-    return f"Working space requirement for {result['voltage_to_ground']}V (condition {result['condition']}): {result['working_space_depth']} per {result['table_reference']}{ca_note}. Voltage range: {result['voltage_range']}V."
+    output = f"Working space requirement for {result['voltage_to_ground']}V (condition {result['condition']}): {result['working_space_depth']} per {result['table_reference']}. Voltage range: {result['voltage_range']}V."
+
+    # Include condition description if available
+    if result.get("condition_description"):
+        output += f"\n\nCondition {result['condition']} Definition: {result['condition_description']}"
+
+    # Include applicable notes if present
+    if result.get("applicable_notes"):
+        output += f"\n\nApplicable Notes: {' '.join(result['applicable_notes'])}"
+
+    # Include cross-references if present
+    if result.get("cross_references"):
+        output += f"\n\nCross-References (MUST be consulted): {', '.join(result['cross_references'])}"
+
+    return output
 
 
-def cec_search_tables(keyword: str, limit: int = 5) -> str:
+def search_nec_tables(keyword: str, limit: int = 5) -> str:
     """
-    Search CEC 2022 tables by keyword to find relevant tables
+    Search NEC tables by keyword to find relevant tables
 
     Args:
         keyword: Search term (e.g. "ampacity", "clearance", "AFCI")
@@ -1130,84 +1171,41 @@ def cec_search_tables(keyword: str, limit: int = 5) -> str:
     Returns:
         String with list of matching tables and their purposes
     """
-    tools = CECTableTools()
+    tools = NECTableTools()
     results = tools.search_tables_by_keyword(keyword, limit)
 
     if not results:
-        return f"No CEC tables found matching keyword: {keyword}"
+        return f"No NEC tables found matching keyword: {keyword}"
 
-    output = [f"CEC 2022 tables related to '{keyword}':"]
+    output = [f"NEC tables related to '{keyword}':"]
     for table in results:
-        ca_marker = " [CA Amendment]" if table.get("california_amendment") else ""
-        output.append(f"- {table['table_id']} ({table['section']}): {table['caption']}{ca_marker}")
+        output.append(f"- {table['table_id']} ({table['section']}): {table['caption']}")
         if table['keywords']:
             output.append(f"  Keywords: {', '.join(table['keywords'])}")
 
     return "\n".join(output)
 
 
-def cec_get_table_information(table_id: str) -> str:
+def get_table_information(table_id: str) -> str:
     """
-    Get detailed information about a specific CEC 2022 table
+    Get detailed information about a specific NEC table
 
     Args:
-        table_id: CEC table identifier (e.g. "Table 310.16", "Table 110.26(A)(1)")
+        table_id: NEC table identifier (e.g. "Table 310.16", "Table 110.26(A)(1)")
 
     Returns:
         String with table description and purpose
     """
-    tools = CECTableTools()
+    tools = NECTableTools()
     result = tools.get_table_info(table_id)
 
     if not result:
-        return f"Table {table_id} not found in CEC database"
+        return f"Table {table_id} not found in NEC database"
 
-    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
-    return f"{result['table_id']} - {result['caption']}{ca_note}\nSection: {result['section']}\nDescription: {result['description']}\nKeywords: {', '.join(result['keywords'][:10])}"
-
-
-def cec_lookup_egc_size(overcurrent_device_amperes: int) -> str:
-    """
-    Look up equipment grounding conductor size from CEC 2022 Table 250.122
-
-    Args:
-        overcurrent_device_amperes: Rating of overcurrent device in amperes
-
-    Returns:
-        String with EGC sizes and CEC reference
-    """
-    tools = CECTableTools()
-    result = tools.lookup_egc_size(overcurrent_device_amperes)
-
-    if "error" in result:
-        return f"Error: {result['error']}"
-
-    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
-    return f"Equipment grounding conductor for {result['overcurrent_device_amperes']}A overcurrent device: Copper: {result['copper_egc']} AWG, Aluminum: {result['aluminum_egc']} AWG per {result['table_reference']}{ca_note}."
+    return f"{result['table_id']} - {result['caption']}\nSection: {result['section']}\nDescription: {result['description']}\nKeywords: {', '.join(result['keywords'][:10])}"
 
 
-def cec_lookup_gec_size(service_conductor_size: str, conductor_type: str = "copper") -> str:
-    """
-    Look up grounding electrode conductor size from CEC 2022 Table 250.66
-
-    Args:
-        service_conductor_size: Size of largest service conductor (e.g., "2/0", "250")
-        conductor_type: "copper" or "aluminum"
-
-    Returns:
-        String with GEC sizes and CEC reference
-    """
-    tools = CECTableTools()
-    result = tools.lookup_gec_size(service_conductor_size, conductor_type)
-
-    if "error" in result:
-        return f"Error: {result['error']}"
-
-    ca_note = " [California Amendment]" if result.get("california_amendment") else ""
-    return f"Grounding electrode conductor for {result['service_conductor_size']} {result['conductor_type']} service conductor: Copper GEC: {result['gec_copper']} AWG, Aluminum GEC: {result['gec_aluminum']} AWG per {result['table_reference']}{ca_note}."
-
-
-def cec_lookup_conductor_size_for_ampacity(
+def nec_lookup_conductor_size_for_ampacity(
     required_ampacity: int,
     temperature_rating: str = "75°C",
     conductor_type: str = "copper",
@@ -1234,13 +1232,13 @@ def cec_lookup_conductor_size_for_ampacity(
         String with the minimum conductor size and verification context
 
     Example:
-        cec_lookup_conductor_size_for_ampacity(60, "75°C", "copper", "general")
+        nec_lookup_conductor_size_for_ampacity(60, "75°C", "copper", "general")
         → Returns "6 AWG" (which has 65A at 75°C per Table 310.16)
 
-        cec_lookup_conductor_size_for_ampacity(150, "75°C", "aluminum", "service")
+        nec_lookup_conductor_size_for_ampacity(150, "75°C", "aluminum", "service")
         → Returns "2/0 AWG" (per Table 310.12(A) for dwelling services)
     """
-    tools = CECTableTools()
+    tools = NECTableTools()
 
     # Select appropriate table based on application
     if conductor_application.lower() == "service":
@@ -1282,7 +1280,7 @@ def cec_lookup_conductor_size_for_ampacity(
         # Build result
         result = f"DWELLING SERVICE/FEEDER conductor size for {required_ampacity}A: **{size_formatted} {conductor_type}**\n"
         result += f"- Service/Feeder Rating: {matching_amperes}A\n"
-        result += f"- Table reference: CEC 2022 Table 310.12(A) (Single-Phase Dwelling Services and Feeders)\n"
+        result += f"- Table reference: NEC 2023 Table 310.12(A) (Single-Phase Dwelling Services and Feeders)\n"
         result += f"\nNote: Table 310.12(A) applies when:\n"
         result += f"  (1) No temperature correction or adjustment factors required\n"
         result += f"  (2) Conductors supply entire load of dwelling unit\n"
@@ -1348,7 +1346,7 @@ def cec_lookup_conductor_size_for_ampacity(
         # Build result with context
         result = f"MINIMUM conductor size for {required_ampacity}A at {temperature_rating}: **{size_formatted} {conductor_type}**\n"
         result += f"- Ampacity: {matching_ampacity}A (meets {required_ampacity}A requirement)\n"
-        result += f"- Table reference: CEC 2022 {table_ref}\n"
+        result += f"- Table reference: NEC 2023 {table_ref}\n"
 
         # Add context about why this size was selected
         if smaller_conductor:
@@ -1361,125 +1359,31 @@ def cec_lookup_conductor_size_for_ampacity(
         # Add cross-references if 14, 12, or 10 AWG (240.4(D) limitation)
         if matching_conductor in ["14", "12", "10"]:
             result += f"\n\n⚠️ IMPORTANT: Section 240.4(D) limits overcurrent protection for {matching_conductor} AWG conductors."
-            result += f"\nYou MUST also call cec_exception_search(base_rule='240.4(D)', context='overcurrent protection {matching_conductor} AWG')"
+            result += f"\nYou MUST also call nec_exception_search(base_rule='240.4(D)', context='overcurrent protection {matching_conductor} AWG')"
 
         return result
 
 
-def cec_calculate_derated_ampacity(
-    conductor_size: str,
-    insulation_type: str,
-    ambient_temperature: float = 30.0,
-    num_conductors: int = 3,
-    conductor_type: str = "copper"
-) -> str:
-    """
-    Calculate derated ampacity with ALL adjustment factors applied in one step.
-
-    This is the DECISION TREE tool - use it when you need to calculate adjusted ampacity
-    with temperature correction and/or bundling adjustment. It automatically:
-    1. Determines the correct temperature column based on insulation type
-    2. Looks up base ampacity from Table 310.16
-    3. Applies temperature correction if ambient ≠ 30°C
-    4. Applies bundling adjustment if > 3 conductors
-    5. Returns the final derated ampacity with full calculation breakdown
-
-    Args:
-        conductor_size: Wire size (e.g., "12 AWG", "2/0 AWG", "250 kcmil")
-        insulation_type: Conductor insulation type (THHN, TW, THWN, XHHW, etc.)
-                        This determines which Table 310.16 column to use:
-                        - THHN, THWN-2, XHHW-2, RHH = 90°C column
-                        - THW, THWN, XHHW, RHW = 75°C column
-                        - TW, UF = 60°C column
-        ambient_temperature: Ambient temperature in °C (default: 30.0 = no correction)
-        num_conductors: Number of current-carrying conductors (default: 3 = no bundling adjustment)
-        conductor_type: "copper" or "aluminum"
-
-    Returns:
-        String with step-by-step calculation and final derated ampacity
-
-    Example:
-        cec_calculate_derated_ampacity("12 AWG", "THHN", 50.0, 6)
-        → Uses 90°C column (THHN), applies temp factor for 50°C, applies bundling for 6 conductors
-    """
-    tools = CECTableTools()
-    result = tools.calculate_derated_ampacity(
-        conductor_size, insulation_type, ambient_temperature, num_conductors, conductor_type
-    )
-
-    if "error" in result:
-        return f"Error: {result['error']}"
-
-    # Build formatted output
-    output = f"## Derated Ampacity Calculation (CEC 2022)\n\n"
-    output += f"**Conductor**: {result['conductor_size']} {result['conductor_type']}\n"
-    output += f"**Insulation**: {result['insulation_type']} ({result['insulation_temperature_rating']})\n\n"
-
-    output += f"### Step 1: Base Ampacity\n"
-    output += f"- {result['step_1_table']}, {result['step_1_column']}\n"
-    output += f"- Base ampacity: **{result['step_1_base_ampacity']}A**\n\n"
-
-    output += f"### Step 2: Temperature Correction\n"
-    if result['step_2_applied']:
-        output += f"- Ambient temperature: {result['step_2_ambient_temperature']}°C\n"
-        output += f"- Correction factor: **{result['step_2_temp_correction_factor']}**\n\n"
-    else:
-        output += f"- Ambient temperature: {result['step_2_ambient_temperature']}°C (no correction needed)\n"
-        output += f"- Correction factor: **1.0**\n\n"
-
-    output += f"### Step 3: Bundling Adjustment\n"
-    if result['step_3_applied']:
-        output += f"- Conductors in raceway: {result['step_3_num_conductors']}\n"
-        output += f"- Bundling factor: **{result['step_3_bundling_factor']}**\n\n"
-    else:
-        output += f"- Conductors in raceway: {result['step_3_num_conductors']} (≤3, no adjustment needed)\n"
-        output += f"- Bundling factor: **1.0**\n\n"
-
-    output += f"### Final Calculation\n"
-    output += f"```\n{result['calculation']}\n```\n\n"
-    output += f"**Final Derated Ampacity: {result['final_derated_ampacity']}A**\n\n"
-
-    output += f"Tables used: {', '.join(result['tables_used'])}\n"
-
-    # Add limiting rule warning if present
-    if result.get("limiting_rule_warning"):
-        output += f"\n{result['limiting_rule_warning']}\n"
-
-    # Add cross-references if present
-    if result.get("cross_references"):
-        output += f"\nCross-references to check: {', '.join(result['cross_references'])}\n"
-
-    return output
-
-
 if __name__ == "__main__":
     # Test the tools
-    tools = CECTableTools()
+    tools = NECTableTools()
 
-    print("Testing CEC conductor ampacity lookup:")
-    result = cec_lookup_conductor_ampacity("12 AWG", "75°C", "copper")
+    print("Testing conductor ampacity lookup:")
+    result = lookup_conductor_ampacity("12 AWG", "75°C", "copper")
     print(result)
 
-    print("\nTesting CEC working space lookup:")
-    result = cec_lookup_working_space_clearance(120, 1)
+    print("\nTesting working space lookup:")
+    result = lookup_working_space_clearance(120, 1)
     print(result)
 
-    print("\nTesting CEC table search:")
-    result = cec_search_tables("grounding")
+    print("\nTesting table search:")
+    result = search_nec_tables("ampacity")
     print(result)
 
-    print("\nTesting CEC EGC lookup:")
-    result = cec_lookup_egc_size(100)
+    print("\nTesting NEC reverse conductor size lookup (60A at 75°C):")
+    result = nec_lookup_conductor_size_for_ampacity(60, "75°C", "copper")
     print(result)
 
-    print("\nTesting CEC GEC lookup:")
-    result = cec_lookup_gec_size("2/0", "copper")
-    print(result)
-
-    print("\nTesting CEC reverse conductor size lookup (60A at 75°C):")
-    result = cec_lookup_conductor_size_for_ampacity(60, "75°C", "copper")
-    print(result)
-
-    print("\nTesting CEC reverse conductor size lookup (200A at 75°C aluminum):")
-    result = cec_lookup_conductor_size_for_ampacity(200, "75°C", "aluminum")
+    print("\nTesting NEC reverse conductor size lookup (200A at 75°C aluminum):")
+    result = nec_lookup_conductor_size_for_ampacity(200, "75°C", "aluminum")
     print(result)

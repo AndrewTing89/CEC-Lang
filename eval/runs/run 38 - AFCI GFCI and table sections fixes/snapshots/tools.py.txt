@@ -739,45 +739,17 @@ def cec_lookup_table(table_id: str) -> str:
                 output.append(f"\n=== {row_section} ===")
                 current_section = row_section
 
-            # Check for dual-unit tables (have both m² and ft² columns)
-            has_metric = any('m2' in k or 'per_m2' in k for k in row.keys())
-            has_imperial = any('ft2' in k or 'per_ft2' in k for k in row.keys())
-            is_dual_unit = has_metric and has_imperial
-
-            if is_dual_unit:
-                # Special formatting for dual-unit tables (e.g., Table 220.12)
-                # Makes metric vs imperial distinction visually obvious
-                occupancy = row.get('type_of_occupancy', row.get('occupancy', 'Unknown'))
-                metric_val = None
-                imperial_val = None
-                footnote = row.get('footnote', '')
-
-                for key, value in row.items():
-                    if 'm2' in key and 'ft' not in key:
-                        metric_val = value
-                    elif 'ft2' in key:
-                        imperial_val = value
-
-                output.append(f"\nOccupancy: {occupancy}")
-                if metric_val is not None:
-                    output.append(f"  METRIC (per square meter):   {metric_val} VA/m²")
-                if imperial_val is not None:
-                    output.append(f"  IMPERIAL (per square foot):  {imperial_val} VA/ft²")
-                if footnote:
-                    output.append(f"  Footnote: {footnote}")
-                output.append(f"  [For 'square feet' questions → use IMPERIAL value ({imperial_val} VA/ft²)]")
-            else:
-                # Standard formatting for non-dual-unit tables
-                row_parts = []
-                for key, value in row.items():
-                    # Skip internal section marker
-                    if key == '_section':
-                        continue
-                    # Format key: replace underscores with spaces, handle unit suffixes
-                    key_formatted = key.replace('_', ' ').replace('m2', 'm²').replace('ft2', 'ft²')
-                    key_formatted = key_formatted.replace(' per ', '/').title()
-                    row_parts.append(f"{key_formatted}: {value}")
-                output.append(" | ".join(row_parts))
+            # Format each key-value pair with clear labels
+            row_parts = []
+            for key, value in row.items():
+                # Skip internal section marker
+                if key == '_section':
+                    continue
+                # Format key: replace underscores with spaces, handle unit suffixes
+                key_formatted = key.replace('_', ' ').replace('m2', 'm²').replace('ft2', 'ft²')
+                key_formatted = key_formatted.replace(' per ', '/').title()
+                row_parts.append(f"{key_formatted}: {value}")
+            output.append(" | ".join(row_parts))
         else:
             output.append(str(row))
 
@@ -798,24 +770,6 @@ def cec_lookup_table(table_id: str) -> str:
                 output.append(f"  {fn.get('text', str(fn))}")
             else:
                 output.append(f"  {fn}")
-
-    # Special interpretation guidance for commonly confused tables
-    if "110.28" in table_id:
-        output.append("\n" + "="*60)
-        output.append("[INTERPRETATION GUIDE for Table 110.28]")
-        output.append("This table has TWO different rows related to sleet/ice:")
-        output.append("")
-        output.append("1. 'Rain, snow, and sleet' row:")
-        output.append("   → Use for GENERAL outdoor weather protection (rain, sleet, ice, snow)")
-        output.append("   → Enclosures: 3, 3R, 3S, 3X, 3RX, 3SX, 4, 4X, 6, 6P")
-        output.append("")
-        output.append("2. 'Sleet*' row (with asterisk):")
-        output.append("   → ONLY for special requirement: mechanism must remain OPERABLE when ice-covered")
-        output.append("   → Enclosures: 3S, 3SX only")
-        output.append("")
-        output.append("For questions about outdoor enclosures with rain/sleet/ice protection,")
-        output.append("use the 'Rain, snow, and sleet' row (lists ALL suitable outdoor enclosures).")
-        output.append("="*60)
 
     return "\n".join(output)
 

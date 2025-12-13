@@ -1,0 +1,100 @@
+  [Iteration 4] Calling LLM...
+  [Iteration 4] Tool calls: 0
+  [REFLECTION] Running self-verification check...
+  [OK] Answer VERIFIED by reflection (5 iterations)
+Run 2: CORRECT - AFCI for fridge: True, "not required" present: False
+
+===== RUN 3/7 =====
+  [Iteration 1] Calling LLM...
+  [Iteration 1] Tool calls: 1
+    -> Executing: cec_search
+  [Iteration 2] Calling LLM...
+  [Iteration 2] Tool calls: 0
+  [!] INCOMPLETE: Missing protection_type:afci. Forcing additional search.
+  [Iteration 3] Calling LLM...
+  [Iteration 3] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 4] Calling LLM...
+  [Iteration 4] Tool calls: 0
+  [REFLECTION] Running self-verification check...
+  [OK] Answer VERIFIED by reflection (5 iterations)
+Run 3: WRONG - AFCI for fridge: True, "not required" present: True
+
+===== RUN 4/7 =====
+  [Iteration 1] Calling LLM...
+  [Iteration 1] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 2] Calling LLM...
+  [Iteration 2] Tool calls: 0
+  [!] INCOMPLETE: Missing protection_type:afci. Forcing additional search.
+  [Iteration 3] Calling LLM...
+  [Iteration 3] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 4] Calling LLM...
+  [Iteration 4] Tool calls: 0
+  [REFLECTION] Running self-verification check...
+  [OK] Answer VERIFIED by reflection (5 iterations)
+Run 4: WRONG - AFCI for fridge: True, "not required" present: True
+
+===== RUN 5/7 =====
+  [Iteration 1] Calling LLM...
+  [Iteration 1] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 2] Calling LLM...
+  [Iteration 2] Tool calls: 0
+  [!] INCOMPLETE: Missing protection_type:afci. Forcing additional search.
+  [Iteration 3] Calling LLM...
+  [Iteration 3] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 4] Calling LLM...
+  [Iteration 4] Tool calls: 0
+  [REFLECTION] Running self-verification check...
+  [OK] Answer VERIFIED by reflection (5 iterations)
+Run 5: WRONG - AFCI for fridge: True, "not required" present: True
+
+===== RUN 6/7 =====
+  [Iteration 1] Calling LLM...
+  [Iteration 1] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 2] Calling LLM...
+  [Iteration 2] Tool calls: 0
+  [!] INCOMPLETE: Missing protection_type:afci. Forcing additional search.
+  [Iteration 3] Calling LLM...
+  [Iteration 3] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 4] Calling LLM...
+  [Iteration 4] Tool calls: 0
+  [REFLECTION] Running self-verification check...
+  [OK] Answer VERIFIED by reflection (5 iterations)
+Run 6: CORRECT - AFCI for fridge: True, "not required" present: False
+
+===== RUN 7/7 =====
+  [Iteration 1] Calling LLM...
+  [Iteration 1] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 2] Calling LLM...
+  [Iteration 2] Tool calls: 0
+  [!] INCOMPLETE: Missing protection_type:afci. Forcing additional search.
+  [Iteration 3] Calling LLM...
+  [Iteration 3] Tool calls: 1
+    -> Executing: cec_search
+Loaded 202 CEC tables
+  [Iteration 4] Calling LLM...
+  [Iteration 4] Tool calls: 0
+  [REFLECTION] Running self-verification check...
+  [OK] Answer VERIFIED by reflection (5 iterations)
+Run 7: CORRECT - AFCI for fridge: True, "not required" present: False
+
+
+===== FINAL SUMMARY =====
+Summary: 4/7 correct
+
+Detailed Results:

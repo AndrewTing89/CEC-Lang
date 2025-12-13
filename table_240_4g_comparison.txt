@@ -1,0 +1,40 @@
+COMPARISON: CEC Table 240.4(G) vs NEC Table 240.4(G)
+====================================================
+
+DIFFERENCES FOUND:
+
+1. **Air-conditioning and refrigeration equipment circuit conductors**
+   - NEC 2023: Article "440, Parts III, IV, VI"
+   - CEC 2022: Article "440, Parts III, VI"
+   - DIFFERENCE: CEC REMOVES Part IV reference
+
+2. **Control and instrumentation circuit conductors (Type ITC)**
+   - NEC 2023: Article "335", Section "335.9"
+   - CEC 2022: Article "727", Section "727.9"
+   - DIFFERENCE: CEC changes article from 335 to 727
+
+3. **Remote-control, signaling, and power-limited circuit conductors**
+   - NEC 2023: Article "725", Section "724.43, 724.45, 725.60, and Chapter 9, Tables 11(A) and 11(B)"
+   - CEC 2022: Article "725", Section "725.43, 725.45, 725.121, and Chapter 9, Tables 11(A) and 11(B)"
+   - DIFFERENCE: CEC uses "725.43, 725.45, 725.121" vs NEC's "724.43, 724.45, 725.60"
+   - NOTE: NEC appears to have typo "724.43" instead of "725.43"
+
+METADATA DIFFERENCES:
+
+CEC 2022:
+- Has "california_amendment": true
+- Has "amendment_type": "delta"
+- Description explicitly mentions "California amendment (delta) indicates modifications from the base NEC"
+
+NEC 2023:
+- No california_amendment field
+- Description is generic NEC description
+
+SUMMARY:
+========
+Table 240.4(G) exists in BOTH codes but California has modified:
+1. Article reference for HVAC (removed Part IV)
+2. Article reference for ITC conductors (335 → 727)
+3. Section references for remote-control/signaling circuits (different sections)
+
+These are the "unique to California" aspects that the agent should identify.

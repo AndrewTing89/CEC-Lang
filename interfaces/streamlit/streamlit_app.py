@@ -7,6 +7,12 @@ import sys
 from pathlib import Path
 import json
 from datetime import datetime
+import os
+from io import BytesIO
+
+# Voice input
+from audio_recorder_streamlit import audio_recorder
+from groq import Groq
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -28,6 +34,12 @@ if 'force_nec_comparison' not in st.session_state:
 
 if 'conversation_messages' not in st.session_state:
     st.session_state.conversation_messages = []
+
+if 'last_audio_bytes' not in st.session_state:
+    st.session_state.last_audio_bytes = None
+
+if 'voice_transcription' not in st.session_state:
+    st.session_state.voice_transcription = ""
 
 
 # Page configuration
@@ -381,6 +393,32 @@ st.markdown("""
 def get_inspection_system(version: str = AGENT_VERSION):
     """Initialize and cache CEC agent"""
     return CECAgent(verbose=False)
+
+
+def transcribe_audio(audio_bytes: bytes) -> str:
+    """
+    Transcribe audio bytes to text using Groq's Whisper API.
+
+    Args:
+        audio_bytes: Raw audio data from the recorder
+
+    Returns:
+        Transcribed text string
+    """
+    client = Groq()  # Uses GROQ_API_KEY from environment
+
+    # Create a file-like object from the bytes
+    audio_file = BytesIO(audio_bytes)
+    audio_file.name = "recording.wav"
+
+    transcription = client.audio.transcriptions.create(
+        file=audio_file,
+        model="whisper-large-v3-turbo",
+        response_format="text",
+        language="en"
+    )
+
+    return transcription.strip()
 
 
 def adapt_agent_result(cec_result):
@@ -926,8 +964,72 @@ def render_chatbot_page():
                     </div>
                     """, unsafe_allow_html=True)
 
-    # Native chat input (auto-clears after submit)
-    if prompt := st.chat_input("   Ask about CEC 2022 or NEC 2023 electrical codes..."):
+    # Unified input row: [mic] [text input] [send]
+    st.markdown("""
+    <style>
+    /* Style the audio recorder button - white background, red icon */
+    iframe[title="audio_recorder_streamlit.audio_recorder"] {
+        background-color: white !important;
+        border-radius: 8px !important;
+    }
+    /* Target the recorder container */
+    [data-testid="column"]:first-child {
+        background-color: white !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Handle voice transcription first (before rendering input)
+    prompt = None
+
+    # Create the input container
+    with st.container():
+        input_col1, input_col2, input_col3 = st.columns([0.5, 10, 1.2])
+
+        # Mic button (small, red theme)
+        with input_col1:
+            audio_bytes = audio_recorder(
+                text="",
+                recording_color="#ff4444",
+                neutral_color="#8B0000",
+                icon_size="lg",
+                pause_threshold=2.0,
+                key="voice_recorder"
+            )
+
+        # Text input field - use session state key directly for dynamic updates
+        with input_col2:
+            if "user_question_input" not in st.session_state:
+                st.session_state.user_question_input = ""
+            user_input = st.text_input(
+                "Question",
+                placeholder="Ask about CEC 2022 or NEC 2023 electrical codes...",
+                label_visibility="collapsed",
+                key="user_question_input"
+            )
+
+        # Send button
+        with input_col3:
+            send_clicked = st.button("Ask", type="primary", use_container_width=True)
+
+    # Handle new voice recording
+    if audio_bytes and audio_bytes != st.session_state.last_audio_bytes:
+        st.session_state.last_audio_bytes = audio_bytes
+        with st.spinner("Transcribing..."):
+            try:
+                transcribed_text = transcribe_audio(audio_bytes)
+                if transcribed_text:
+                    st.session_state.user_question_input = transcribed_text  # Populate text field directly
+                    st.rerun()
+            except Exception as e:
+                st.error(f"Transcription error: {str(e)}")
+
+    # Process input when send is clicked
+    if send_clicked and user_input.strip():
+        prompt = user_input.strip()
+        st.session_state.user_question_input = ""  # Clear input after sending
+
+    if prompt:
         # Add user message to conversation
         st.session_state.conversation_messages.append({
             "role": "user",

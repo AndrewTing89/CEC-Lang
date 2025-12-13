@@ -1,0 +1,393 @@
+"""
+OpenSearch Hybrid Search Client for CEC Lang Agent
+True hybrid search combining BM25 (keyword) + k-NN (vector) using neural-search plugin
+- General search: 50/50 BM25/vector weighting
+- Exception search: BM25-heavy for exact keyword matching ("shall not apply", etc.)
+"""
+import json
+import os
+from typing import Dict, List, Any, Optional
+from pathlib import Path
+
+# OpenSearch imports
+try:
+    from opensearchpy import OpenSearch
+    from opensearchpy.exceptions import RequestError
+    OPENSEARCH_AVAILABLE = True
+except ImportError:
+    print("Warning: OpenSearch not installed. Run: pip install opensearch-py")
+    OPENSEARCH_AVAILABLE = False
+
+# Google AI for embeddings (new SDK)
+try:
+    from google import genai
+    EMBEDDINGS_AVAILABLE = True
+except ImportError:
+    print("Warning: Google GenerativeAI not installed. Run: pip install google-genai")
+    EMBEDDINGS_AVAILABLE = False
+
+# k-NN search configuration
+KNN_CANDIDATE_MULTIPLIER = 5  # Retrieve 5x more candidates than limit for better result quality
+
+
+class OpenSearchHybridClient:
+    """
+    True hybrid search client combining BM25 (keyword) and k-NN (vector) search.
+    Uses OpenSearch neural-search plugin's hybrid query for optimal results.
+
+    - hybrid_search(): 50/50 BM25/vector for general queries
+    - exception_search(): BM25-heavy for exact exception keywords
+    """
+
+    def __init__(self,
+                 opensearch_host: str = None,
+                 opensearch_port: int = None,
+                 index_name: str = "nec_2023_chunks",
+                 embedding_model: str = "models/text-embedding-004"):
+        """
+        Initialize hybrid search client
+
+        Args:
+            opensearch_host: OpenSearch host (default: from env or localhost)
+            opensearch_port: OpenSearch port (default: from env or 9200)
+            index_name: NEC chunks index name
+            embedding_model: Google embedding model name
+        """
+        # Get configuration from environment or defaults
+        self.opensearch_host = opensearch_host or os.getenv('OPENSEARCH_HOST', 'localhost')
+        self.opensearch_port = opensearch_port or int(os.getenv('OPENSEARCH_PORT', 9200))
+        self.index_name = index_name
+        self.embedding_model_name = embedding_model
+        self.google_api_key = os.getenv('GOOGLE_API_KEY')
+
+        # Initialize components
+        self.client = None
+        self.embedding_client = None
+        self.embedding_configured = False
+        self.is_available = False
+
+        if OPENSEARCH_AVAILABLE:
+            self.client = self._init_opensearch()
+
+        if EMBEDDINGS_AVAILABLE and self.google_api_key:
+            self._init_embedding_api()
+            self.embedding_configured = True
+
+        self.is_available = bool(self.client and self.embedding_configured)
+
+    def _init_opensearch(self) -> Optional[OpenSearch]:
+        """Initialize OpenSearch client with connection test"""
+        try:
+            client = OpenSearch(
+                hosts=[{'host': self.opensearch_host, 'port': self.opensearch_port}],
+                http_auth=None,  # Add credentials if needed
+                use_ssl=False,
+                verify_certs=False,
+                timeout=30
+            )
+
+            # Test connection
+            if client.ping():
+                print(f"[OK] Connected to OpenSearch at {self.opensearch_host}:{self.opensearch_port}")
+                return client
+            else:
+                print(f"[ERROR] OpenSearch ping failed")
+                return None
+
+        except Exception as e:
+            print(f"[ERROR] OpenSearch connection error: {e}")
+            return None
+
+    def _init_embedding_api(self) -> None:
+        """Initialize Google Generative AI API for embeddings (new SDK)"""
+        try:
+            self.embedding_client = genai.Client(api_key=self.google_api_key)
+            print(f"[OK] Configured Google embedding API: {self.embedding_model_name}")
+        except Exception as e:
+            print(f"[ERROR] Embedding API error: {e}")
+
+    def hybrid_search(self,
+                     query: str,
+                     filters: Optional[Dict[str, Any]] = None,
+                     limit: int = 10,
+                     min_score: float = 0.1) -> List[Dict[str, Any]]:
+        """
+        Execute hybrid search combining BM25 and vector similarity
+
+        Args:
+            query: Search query string
+            filters: Optional filters (e.g., {"article": "310"})
+            limit: Maximum results to return
+            min_score: Minimum relevance score threshold
+
+        Returns:
+            List of relevant NEC content chunks with scores
+        """
+        if not self.is_available:
+            print("OpenSearch not available. Please check OpenSearch service.")
+            return []
+
+        try:
+            # Generate query embedding using Google API (new SDK)
+            result = self.embedding_client.models.embed_content(
+                model=self.embedding_model_name,
+                contents=query
+            )
+            query_embedding = result.embeddings[0].values
+
+            # Build true hybrid search query combining BM25 + k-NN
+            # Uses OpenSearch neural-search plugin with 50/50 weighting
+
+            # Build filter clauses if provided
+            filter_clauses = []
+            if filters:
+                for field, value in filters.items():
+                    filter_clauses.append({"term": {field: value}})
+
+            # Hybrid query: BM25 (keyword) + k-NN (vector) with normalization
+            hybrid_query = {
+                "hybrid": {
+                    "queries": [
+                        # BM25 keyword search - good for exact terms like "310.16", "AWG", "GFCI"
+                        {
+                            "multi_match": {
+                                "query": query,
+                                "fields": ["content^2", "section^3", "article"],
+                                "type": "best_fields"
+                            }
+                        },
+                        # k-NN vector search - good for semantic similarity
+                        {
+                            "knn": {
+                                "embedding": {
+                                    "vector": query_embedding,
+                                    "k": limit * KNN_CANDIDATE_MULTIPLIER
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+
+            # Wrap in bool query if filters are provided
+            if filter_clauses:
+                query_body = {
+                    "bool": {
+                        "must": [hybrid_query],
+                        "filter": filter_clauses
+                    }
+                }
+            else:
+                query_body = hybrid_query
+
+            search_body = {
+                "size": limit,
+                "query": query_body,
+                "_source": ["content", "section", "chapter", "article", "metadata"],
+                "highlight": {
+                    "fields": {
+                        "content": {
+                            "fragment_size": 200,
+                            "number_of_fragments": 1
+                        }
+                    },
+                    "pre_tags": ["<mark>"],
+                    "post_tags": ["</mark>"]
+                }
+            }
+
+            # Execute hybrid search with normalization pipeline
+            # Uses 'hybrid_search_pipeline' for 50/50 BM25/k-NN score combination
+            response = self.client.search(
+                index=self.index_name,
+                body=search_body,
+                params={"search_pipeline": "hybrid_search_pipeline"}
+            )
+
+            # Process and return results
+            return self._process_search_results(response)
+
+        except Exception as e:
+            print(f"Hybrid search error: {e}")
+            print(f"  Returning empty results. Check OpenSearch service status.")
+            return []
+
+    def exception_search(self,
+                        base_rule: str,
+                        context: Optional[str] = None,
+                        limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        Specialized search for NEC exceptions related to a base rule
+
+        Args:
+            base_rule: Base NEC rule/section (e.g., "310.16", "240.4")
+            context: Optional context to narrow exception search
+            limit: Maximum results
+
+        Returns:
+            List of exception-related content chunks
+        """
+        if not self.is_available:
+            print("OpenSearch not available. Please check OpenSearch service.")
+            return []
+
+        try:
+            # Exception keywords - these benefit from exact BM25 matching
+            exception_keywords = [
+                "exception",
+                "Exception",
+                "Exception No.",
+                "shall not apply",
+                "not required",
+                "alternative",
+                "in lieu of",
+                "permitted"
+            ]
+
+            # Build embedding query string for semantic search
+            embed_query = f"{base_rule} exception"
+            if context:
+                embed_query = f"{embed_query} {context}"
+
+            # Generate embedding using Google API (new SDK)
+            result = self.embedding_client.models.embed_content(
+                model=self.embedding_model_name,
+                contents=embed_query
+            )
+            query_embedding = result.embeddings[0].values
+
+            # Build BM25 query for exact exception keyword matching
+            # This is more effective for legal/code language like "shall not apply"
+            should_clauses = [{"match_phrase": {"content": kw}} for kw in exception_keywords]
+
+            # Hybrid query: BM25 (keyword) + k-NN (vector)
+            # Exception search uses BM25-heavy approach since keywords are specific
+            search_body = {
+                "size": limit,
+                "query": {
+                    "hybrid": {
+                        "queries": [
+                            # BM25 for exact exception keywords
+                            {
+                                "bool": {
+                                    "must": {"match": {"content": base_rule}},
+                                    "should": should_clauses,
+                                    "minimum_should_match": 1
+                                }
+                            },
+                            # k-NN for semantic context
+                            {
+                                "knn": {
+                                    "embedding": {
+                                        "vector": query_embedding,
+                                        "k": limit * KNN_CANDIDATE_MULTIPLIER
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "_source": ["content", "section", "chapter", "article", "metadata"],
+                "highlight": {
+                    "fields": {
+                        "content": {
+                            "fragment_size": 300,
+                            "number_of_fragments": 2
+                        }
+                    },
+                    "require_field_match": False
+                }
+            }
+
+            # Execute hybrid search with normalization pipeline
+            response = self.client.search(
+                index=self.index_name,
+                body=search_body,
+                params={"search_pipeline": "hybrid_search_pipeline"}
+            )
+            return self._process_search_results(response)
+
+        except Exception as e:
+            print(f"Exception search error: {e}")
+            print(f"  Returning empty results. Check OpenSearch service status.")
+            return []
+
+    def _process_search_results(self, response: Dict) -> List[Dict[str, Any]]:
+        """Process OpenSearch response into standardized format"""
+        results = []
+
+        for hit in response.get('hits', {}).get('hits', []):
+            source = hit['_source']
+            result = {
+                "content": source.get('content', ''),
+                "section": source.get('section', ''),
+                "chapter": source.get('chapter', ''),
+                "article": source.get('article', ''),
+                "score": hit['_score'],
+                "highlights": hit.get('highlight', {}).get('content', []),
+                "metadata": source.get('metadata', {}),
+                "search_type": "hybrid"
+            }
+            results.append(result)
+
+        return results
+
+    def check_health(self) -> Dict[str, Any]:
+        """Check system health and availability"""
+        return {
+            "opensearch_available": bool(self.client),
+            "embeddings_available": bool(self.embedding_client),
+            "hybrid_search_available": self.is_available,
+            "search_mode": "hybrid_bm25_knn",
+            "hybrid_weights": "50/50 BM25/vector (general), BM25-heavy (exceptions)",
+            "index_name": self.index_name,
+            "host": self.opensearch_host,
+            "port": self.opensearch_port
+        }
+
+
+# Singleton instance for reuse
+_client_instance = None
+
+def get_hybrid_client() -> OpenSearchHybridClient:
+    """Get or create singleton hybrid search client"""
+    global _client_instance
+    if _client_instance is None:
+        _client_instance = OpenSearchHybridClient()
+    return _client_instance
+
+
+# CEC Singleton instance for reuse
+_cec_client_instance = None
+
+def get_cec_hybrid_client() -> OpenSearchHybridClient:
+    """Get or create singleton CEC hybrid search client for CEC 2022 index"""
+    global _cec_client_instance
+    if _cec_client_instance is None:
+        _cec_client_instance = OpenSearchHybridClient(index_name="cec_2022_chunks")
+    return _cec_client_instance
+
+
+if __name__ == "__main__":
+    # Test the hybrid client
+    client = OpenSearchHybridClient()
+
+    print("\n=== System Health Check ===")
+    print(json.dumps(client.check_health(), indent=2))
+
+    if client.is_available:
+        print("\n=== Test Hybrid Search ===")
+        results = client.hybrid_search("conductor ampacity", limit=3)
+        for i, r in enumerate(results, 1):
+            print(f"\n{i}. Section: {r['section']}")
+            print(f"   Score: {r['score']:.3f}")
+            print(f"   Content: {r['content'][:150]}...")
+
+        print("\n=== Test Exception Search ===")
+        exceptions = client.exception_search("240.4", context="small conductors", limit=3)
+        for i, e in enumerate(exceptions, 1):
+            print(f"\n{i}. Section: {e['section']}")
+            print(f"   Score: {e['score']:.3f}")
+            print(f"   Content: {e['content'][:150]}...")
+    else:
+        print("\n[ERROR] Hybrid search not available - check OpenSearch setup")

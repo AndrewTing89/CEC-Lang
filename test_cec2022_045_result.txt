@@ -1,0 +1,33 @@
+ANSWER:
+================================================================================
+## Suitable Enclosure Types for Outdoor Use with Rain, Sleet, and Ice (CEC 2022)
+
+**Answer:**  
+For outdoor use with exposure to rain, sleet, and ice, the suitable enclosure types per **Table 110.28** are:
+
+- **Type 3S**  
+- **Type 3SX**  
+- **Type 3X**  
+- **Type 4**  
+- **Type 4X**  
+- **Type 6**  
+- **Type 6P**  
+
+### Key Requirements:
+1. **Raintight/Watertight Protection**:  
+   - These types are designated as *raintight* or *watertight* (per **Informational Note 1** of Table 110.28), ensuring protection against rain, sleet, and ice accumulation.  
+   - **Type 4** and **Type 4X** provide *watertight* protection, making them suitable for the harshest outdoor conditions.  
+
+2. **Ice Coverage Operability**:  
+   - The footnote [*] in Table 110.28 specifies that the enclosure mechanism must remain operable even when ice-covered.  
+
+3. **Application Context**:  
+   - **Type 3S/3SX/3X**: Suitable for rain, sleet, and ice, but not fully submersible.  
+   - **Type 4/4X/6/6P**: Provide additional protection against water ingress (e.g., hose-directed water, temporary submersion for Type 4X/6).  
+
+### Inspector Note:  
+- **Type 4X** or **Type 6** is recommended for areas with heavy ice or prolonged water exposure.  
+- Verify the specific environmental conditions (e.g., chemical exposure, temperature extremes) to ensure the enclosure material is compatible.  
+
+[OK] Source: CEC 2022 Section 110.28, Table 110.28
+================================================================================

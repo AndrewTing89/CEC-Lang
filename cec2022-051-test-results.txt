@@ -1,0 +1,91 @@
+================================================================================
+TEST CEC2022-051: Office Lighting Load Calculation (Unit Conversion Test)
+================================================================================
+Date: 2025-12-12
+Test Purpose: Verify agent uses California imperial units (1.3 VA/ft²) instead
+              of metric units (14 VA/m²) for office lighting load calculations
+
+QUESTION:
+"Calculate the general lighting load in volt-amperes for a 5,000 square foot
+office building per CEC 2022 Table 220.12."
+
+================================================================================
+EXPECTED BEHAVIOR:
+================================================================================
+✓ CORRECT: Use 1.3 VA/ft² → 5,000 × 1.3 = 6,500 VA
+✗ WRONG:   Use 14 VA/m²  → (would get ~70,000 VA if misapplied)
+
+================================================================================
+ACTUAL RESULT:
+================================================================================
+
+FULL ANSWER FROM AGENT:
+---
+## General Lighting Load Calculation (CEC 2022)
+
+**Calculation:**
+- **Building area**: 5,000 sq ft (given)
+- **Unit load** (Table 220.12, Office): **1.3 VA/ft²**
+- **Total lighting load**: 5,000 ft² × 1.3 VA/ft² = **6,500 VA**
+
+**Key Notes:**
+- Table 220.12 already includes the 125% continuous load multiplier from 210.20(A)
+- No additional multipliers required per table instructions
+- California amendments do not modify office lighting load requirements in this table
+
+[OK] Source: CEC 2022 Table 220.12
+---
+
+================================================================================
+ANALYSIS:
+================================================================================
+
+1. UNIT USED: 1.3 VA/ft² ✓ CORRECT (California imperial units)
+   - Answer explicitly states "1.3 VA/ft²"
+   - No mention of metric units (14 VA/m²)
+
+2. CALCULATION RESULT: 6,500 VA ✓ CORRECT
+   - Shows proper multiplication: 5,000 × 1.3 = 6,500
+   - Does NOT show wrong result (70,000 VA)
+
+3. CODE REFERENCE: CEC 2022 Table 220.12 ✓ CORRECT
+   - Properly cites California code
+   - Notes that 125% multiplier already included
+
+4. TOOL USAGE:
+   - Used: cec_lookup_table (correct tool for deterministic table lookup)
+   - Did NOT rely on search/knowledge base
+   - Reflection layer verified answer
+
+================================================================================
+VERDICT: ✓✓✓ CORRECT
+================================================================================
+
+The CECAgent correctly:
+✓ Used California-specific imperial units (1.3 VA/ft²)
+✓ Calculated proper result (6,500 VA)
+✓ Applied deterministic table lookup (cec_lookup_table tool)
+✓ Avoided hallucination/wrong metric conversion
+✓ Passed reflection verification
+
+This test confirms the agent properly handles the California-specific unit
+conversion requirement for CEC Table 220.12 office lighting loads.
+
+================================================================================
+TECHNICAL NOTES:
+================================================================================
+
+The underlying table data (cec_tables_unified.json) contains BOTH unit systems:
+- Imperial: 1.3 VA/ft² (what California uses for square footage)
+- Metric: 14 VA/m² (reference value, should NOT be applied to ft² inputs)
+
+The cec_lookup_table tool correctly extracts the imperial value when the
+question specifies "square foot" as the unit, demonstrating proper unit-aware
+table lookup logic.
+
+This is a critical test because:
+1. Wrong unit selection (14 instead of 1.3) causes 10.77x overcalculation
+2. Common LLM error: confusing metric/imperial values in code tables
+3. Real-world impact: Massively oversized electrical systems, cost overruns
+
+================================================================================

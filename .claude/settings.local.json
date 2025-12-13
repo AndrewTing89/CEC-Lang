@@ -80,7 +80,13 @@
       "SlashCommand(/run-eval)",
       "SlashCommand(/judge-eval:*)",
       "SlashCommand(/solutions:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(copy \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\runs\\run 41 - tool-level fixes for 045 and 051\\run_eval.py\" \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\runs\\run 42 - regression fixes for 009 and 015\\run_eval.py\")",
+      "Bash(cmd /c copy:*)",
+      "Bash(dir \"C:\\Users\\Andrews Razer Laptop\\Desktop\\CEC Lang\\eval\\standardized_llm-as-judge\\CEC2022_eval_simple-text.txt\")",
+      "Bash(call stop_react_frontend.bat)",
+      "SlashCommand(/judge-eval 44)",
+      "Bash(git reset:*)"
     ],
     "deny": [],
     "ask": []

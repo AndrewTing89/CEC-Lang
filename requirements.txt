@@ -12,6 +12,10 @@ google-generativeai>=0.8.0
 
 # Web Interface
 streamlit>=1.40.0
+audio-recorder-streamlit>=0.0.10
+
+# Groq API (LLM + Whisper Speech-to-Text)
+groq>=0.11.0
 
 # Utilities
 python-dotenv>=1.0.0

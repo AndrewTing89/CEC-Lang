@@ -1,0 +1,661 @@
+{
+  "summary": {
+    "run_id": "run41",
+    "description": "Tool-level fixes for cec2022-045 and cec2022-051",
+    "total_score": 0,
+    "max_score": 530,
+    "percentage": 0.0,
+    "perfect_scores": 0,
+    "high_scores": 0,
+    "medium_scores": 0,
+    "low_scores": 53,
+    "reflection_improved_count": 5,
+    "reflection_improved_avg_score": 0.0,
+    "hint_enforced_count": 4,
+    "hint_enforced_avg_score": 0.0,
+    "protection_enforced_count": 5,
+    "protection_enforced_avg_score": 0.0,
+    "target_questions": {
+      "cec2022-045": 0,
+      "cec2022-051": 0
+    }
+  },
+  "results": [
+    {
+      "id": "cec2022-001",
+      "question": "What is the ampacity of 12 AWG copper conductor at 75\u00b0C termination?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-002",
+      "question": "What size copper conductor is required for a 60A circuit at 75\u00b0C?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-003",
+      "question": "Where is GFCI protection required in a residential kitchen?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": true
+    },
+    {
+      "id": "cec2022-004",
+      "question": "Is AFCI protection required for bedroom circuits in new residential construction?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": true
+    },
+    {
+      "id": "cec2022-005",
+      "question": "Can aluminum conductors be used for a 200A service? If yes, what size?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-006",
+      "question": "What is the minimum depth of working clearance required in front of a 120/240V residential electrica...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": true,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-007",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-008",
+      "question": "Is surge protection required for a new 200A residential service?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-009",
+      "question": "A homeowner wants to upgrade from 100A to 200A service. The house has 3,000 sq ft of living space, e...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-010",
+      "question": "An electrician installed a multiwire branch circuit feeding kitchen receptacles using 12/3 cable. Wh...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-011",
+      "question": "Where is GFCI protection required in a residential dwelling? List all locations....",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": true
+    },
+    {
+      "id": "cec2022-012",
+      "question": "Is surge protection required for a new 200A residential service? If so, where can it be installed?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-013",
+      "question": "A panel is installed in a closet with 24 inches of clearance in front, and a water heater is 18 inch...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": true,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-014",
+      "question": "During an inspection, I found two 12 AWG conductors landed on a single 20A breaker terminal. The bre...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-015",
+      "question": "A detached garage is fed from the house panel with a 4-wire feeder. How should the grounding and bon...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-016",
+      "question": "What is the difference between a main bonding jumper and a system bonding jumper? When is each requi...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-017",
+      "question": "How many 20-ampere small appliance branch circuits are required for a kitchen, and can these circuit...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-018",
+      "question": "A panel has six 12 AWG THHN current-carrying conductors in a single conduit in a 50\u00b0C ambient temper...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-019",
+      "question": "Why is AFCI protection required for bedrooms and living areas? What electrical hazard does it preven...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": true
+    },
+    {
+      "id": "cec2022-020",
+      "question": "Why are torque specifications important when terminating conductors in a panel, and where are the re...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-021",
+      "question": "Residential panel inspection: 200A main breaker. Installed loads: (1) 12kW electric range on 40A bre...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-022",
+      "question": "Electrical panel inspection in residential garage: Panel has 30 inches width clearance, 28 inches de...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": true,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-023",
+      "question": "New residential construction. Kitchen installation has: (1) four countertop receptacles on two 20A c...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": true
+    },
+    {
+      "id": "cec2022-024",
+      "question": "Subpanel inspection in detached garage: 100A subpanel fed from main house panel with 4-wire feeder (...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-025",
+      "question": "A 1\u00bc-inch rigid metal conduit (RMC) needs to accommodate multiple 10 AWG THHN conductors for a comme...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-026",
+      "question": "A 120V single-phase branch circuit supplies a continuous load of 22 amperes. The circuit uses 12 AWG...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-027",
+      "question": "A conduit in an attic contains six 12 AWG TW (Type TW, 60\u00b0C rated) copper conductors, all current-ca...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-028",
+      "question": "A commercial data center has a main service with four parallel sets of 250 kcmil copper conductors p...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-029",
+      "question": "What are the panelboard space requirements for single-family dwellings? What appliances must have re...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-030",
+      "question": "What are the electrical requirements for EV charging infrastructure in new residential construction?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-031",
+      "question": "What are the electrical requirements for solar PV systems on new residential construction?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-032",
+      "question": "What circuit requirements exist for heat pump water heaters in new dwelling units?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-033",
+      "question": "What is required for electric cooktop readiness in new homes?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-034",
+      "question": "What are the panelboard requirements for electric clothes dryer circuits in new construction?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-035",
+      "question": "What does CEC Table 240.4(G) specify that is unique to California?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-036",
+      "question": "What does CEC Table 242.3 specify for installations?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-037",
+      "question": "What does CEC Table 430.72(B) specify for motor control circuit overcurrent protection?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-038",
+      "question": "What medium voltage cable tables exist that are California-specific?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-039",
+      "question": "What is the ampacity of 4/0 AWG copper conductor at 75\u00b0C?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-040",
+      "question": "What size equipment grounding conductor is required for a 200A circuit?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-041",
+      "question": "What size grounding electrode conductor is required for a 3/0 AWG copper service conductor?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-042",
+      "question": "What is the temperature correction factor for a 75\u00b0C rated conductor at 40\u00b0C ambient temperature?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-043",
+      "question": "What is the ampacity adjustment factor for 7-9 current-carrying conductors in a raceway?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-044",
+      "question": "What is the minimum working space depth for a 480V panelboard under Condition 3?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": true,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-045",
+      "question": "What type of enclosure is suitable for outdoor use with rain, sleet, and ice per Table 110.28?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-046",
+      "question": "What is the general lighting load in VA per square foot for office buildings?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-047",
+      "question": "What is the ampacity of a 12 AWG flexible cord (Column B thermoset)?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-048",
+      "question": "What is the maximum operating temperature for Type SF-2 silicone insulated fixture wire?...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-049",
+      "question": "Calculate the adjusted ampacity for 8 AWG THWN copper conductors with 7 conductors in a raceway at 4...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-050",
+      "question": "Size the conductors, EGC, and GEC for a 200A residential service using copper conductors....",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-051",
+      "question": "Calculate the general lighting load for a 5,000 square foot office building....",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-052",
+      "question": "What is the maximum overcurrent protection for a motor control circuit using 16 AWG copper conductor...",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": false,
+      "hint_enforced": false,
+      "protection_enforced": false
+    },
+    {
+      "id": "cec2022-053",
+      "question": "Calculate the general lighting load for a 2,400 square foot dwelling unit....",
+      "judgment": {
+        "error": "\"Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+        "total_score": 0
+      },
+      "reflection_used": true,
+      "reflection_improved": true,
+      "hint_enforced": false,
+      "protection_enforced": false
+    }
+  ]
+}

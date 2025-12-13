@@ -1,0 +1,51 @@
+[
+  {
+    "run": 1,
+    "correct": true,
+    "uses_1_3": true,
+    "uses_14": false,
+    "answer": "## General Lighting Load Calculation for Office Building (CEC 2022)\n\n**Calculation:**\n- **Area**: 5,000 sq ft  \n- **Unit Load (Table 220.12)**: 1.3 VA/ft² (for \"Office\")  \n- **Formula**:  \n  $$\n  \\text{General Lighting Load} = 5,000 \\, \\text{ft}^2 \\times 1.3 \\, \\text{VA/ft}^2 = 6,500 \\, \\text{VA}\n  $$\n\n**Result**:  \n**6,500 volt-amperes (VA)** is the required general lighting load for the 5,000 sq ft office building.\n\n**Citations**:  \n- CEC 2022 Table 220.12 (Unit Load: 1.3 VA/ft² for Office)  \n- CEC 2022 Section 220.12 (General lighting load calculation method)  \n\n[OK] Source: CEC 2022"
+  },
+  {
+    "run": 2,
+    "correct": false,
+    "uses_1_3": false,
+    "uses_14": true,
+    "answer": "## General Lighting Load Calculation for Office Building (CEC 2022)\n\n**Step 1: Determine Unit Load from Table 220.12**  \nFor **office** occupancy:  \n- **14 VA/ft²** (Table 220.12)\n\n**Step 2: Calculate Base Load**  \n5,000 ft² × 14 VA/ft² = **70,000 VA**\n\n**Step 3: Apply Continuous Load Multiplier (210.20(A))**  \nLighting is a continuous load → **125% multiplier**:  \n70,000 VA × 1.25 = **87,500 VA**\n\n**Final Answer:**  \n**87,500 volt-amperes** is the general lighting load for a 5,000 ft² office building.  \n\n[OK] Source: CEC 2022 Sections 220.12, 210.20(A)  \n[OK] Table 220.12: Office = 14 VA/ft²  \n[OK] 125% multiplier for continuous loads applied per 210.20(A)"
+  },
+  {
+    "run": 3,
+    "correct": true,
+    "uses_1_3": true,
+    "uses_14": false,
+    "answer": "## General Lighting Load Calculation for Office Building (CEC 2022)\n\n**Calculation Steps:**\n1. **Unit Load Value**: From Table 220.12, office occupancy = **1.3 VA/ft²** (already includes 125% continuous load factor)\n2. **Total Area**: 5,000 square feet\n3. **Formula**:  \n   $$\n   \\text{Lighting Load} = \\text{Area} \\times \\text{Unit Load} = 5,000 \\, \\text{ft}^2 \\times 1.3 \\, \\text{VA/ft}^2\n   $$\n4. **Result**:  \n   $$\n   5,000 \\times 1.3 = 6,500 \\, \\text{VA}\n   $$\n\n**Final Answer:**  \nThe general lighting load for a 5,000 sq ft office building is **6,500 volt-amperes** (VA).  \n\n**Code Reference:**  \nCEC 2022 Table 220.12 (General Lighting Loads by Non-Dwelling Occupancy)  \n\n[OK] Source: CEC 2022"
+  },
+  {
+    "run": 4,
+    "correct": false,
+    "uses_1_3": false,
+    "uses_14": true,
+    "answer": "## General Lighting Load Calculation for Office Building (CEC 2022)\n\n**Calculation:**\n- **Unit load for office**: 14 VA/ft² (from CEC Table 220.12)\n- **Building area**: 5,000 ft²\n- **Total lighting load**: 14 VA/ft² × 5,000 ft² = **70,000 VA**\n\n**Code Reference:**\n- CEC 2022 Table 220.12 (General Lighting Loads by Non-Dwelling Occupancy)\n- Note: The 125% continuous load factor from 210.20(A) is already included in this table's values.\n\n[OK] Source: CEC 2022"
+  },
+  {
+    "run": 5,
+    "correct": false,
+    "uses_1_3": false,
+    "uses_14": true,
+    "answer": "## General Lighting Load Calculation for Office Building (CEC 2022)\n\n**Calculation:**\n- **Building area**: 5,000 sq ft (given)\n- **Unit load for office**: 14 VA/ft² (from CEC Table 220.12)\n- **Formula**:  \n  $$\n  \\text{General Lighting Load} = 5,000 \\, \\text{ft}^2 \\times 14 \\, \\text{VA/ft}^2 = 70,000 \\, \\text{VA}\n  $$\n\n**Key Notes:**\n- The 125% continuous load factor from 210.20(A) is **already included** in Table 220.12 values.\n- This 70,000 VA load applies to branch circuit and feeder/service calculations per Article 220.\n\n[OK] Source: CEC 2022 Table 220.12"
+  },
+  {
+    "run": 6,
+    "correct": false,
+    "uses_1_3": false,
+    "uses_14": true,
+    "answer": "## General Lighting Load Calculation for Office Building (CEC 2022)\n\n**Step 1: Determine Unit Load from Table 220.12**  \nFor **office** buildings:  \n- **14 VA/ft²** (Table 220.12)  \n\n**Step 2: Calculate Total Lighting Load**  \n$$\n5,000 \\, \\text{ft}^2 \\times 14 \\, \\text{VA/ft}^2 = 70,000 \\, \\text{VA}\n$$\n\n**Step 3: Apply Demand Factor from Table 220.42**  \nFor **\"All others\"** (office falls under this category):  \n- **Demand factor = 100%** (no reduction)  \n\n**Final General Lighting Load**:  \n$$\n70,000 \\, \\text{VA} \\times 100\\% = 70,000 \\, \\text{VA}\n$$\n\n**Note**: The 125% continuous load multiplier from 210.20(A) is **already included** in Table 220.12's unit load values. No further adjustments are required for demand factors in this case.\n\n[OK] Source: CEC 2022 Tables 220.12 and 220.42"
+  },
+  {
+    "run": 7,
+    "correct": true,
+    "uses_1_3": true,
+    "uses_14": false,
+    "answer": "## General Lighting Load Calculation for Office Building (CEC 2022)\n\n**Calculation:**\n- **Building area**: 5,000 sq ft\n- **Unit load for office**: 1.3 VA/ft² (from CEC Table 220.12)\n- **Total lighting load**:  \n  $ 5,000 \\, \\text{ft}^2 \\times 1.3 \\, \\text{VA/ft}^2 = 6,500 \\, \\text{VA} $\n\n**Key Notes:**\n- The 1.3 VA/ft² value already includes the **125% continuous load multiplier** required by CEC 210.20(A) (per Table 220.12 note).\n- No additional demand factors apply for general lighting loads in this calculation.\n\n**Citations:**\n- CEC 2022 Table 220.12 (Type of Occupancy: Office)\n- CEC 210.20(A) (Continuous load requirement)\n\n[OK] Source: CEC 2022"
+  }
+]

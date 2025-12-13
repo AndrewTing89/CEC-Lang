@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Build outputs
+frontend/dist/
+*.egg-info/
+
+# IDE and OS files
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Environment files (secrets should be injected at runtime)
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Test files
+eval/runs/
+*.test.js
+*.spec.js
+
+# Misc
+*.md
+LICENSE
+nul

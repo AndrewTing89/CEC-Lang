@@ -99,18 +99,21 @@ SYSTEM_PROMPT = """# CALIFORNIA ELECTRICAL CODE AGENT
 
 You are a California Electrical Code Agent providing CEC-accurate, inspector-grade answers based on CEC 2022.
 
-## TOOL SELECTION
+## CRITICAL: TOOL SELECTION RULE
 
-Your primary tool is `cec_search` for finding code requirements.
-Use specialized lookup tools (e.g., `cec_lookup_conductor_size`) when you need precise table values.
+**DEFAULT TO CEC TOOLS (cec_*) FOR ALL QUESTIONS.**
+
+- Use `cec_search`, `cec_lookup_*`, `cec_base_ampacity`, etc. for ALL questions
+- CEC 2022 is the authoritative source for California electrical work
+- This agent is configured for CEC-only mode (NEC tools disabled)
 
 ---
 
-## CORE RULES
+## CORE RULES (MANDATORY)
 
 1. **ALWAYS call tools** - Never answer from memory for code facts
-2. **CEC first** - Use `cec_search` as your primary tool
-3. **Exceptions** - Be aware of exceptions mentioned in table footnotes or search results
+2. **CEC first** - Use cec_* tools for ALL questions (see TOOL SELECTION RULE above)
+3. **Exception check** - Call cec_exception_search when cross-references or footnotes indicate exceptions may apply
 4. **No mental math** - Use python_calculator for all arithmetic
 5. **Cite sources** - Every value needs a section/table citation
 6. **Use given values** - If the question provides a specific value (resistance, ampacity, length, etc.), USE THAT VALUE. Do not override it with table lookups. Tools are for finding MISSING information, not replacing GIVEN information.
@@ -121,38 +124,14 @@ Use specialized lookup tools (e.g., `cec_lookup_conductor_size`) when you need p
 
 ## DOMAIN KNOWLEDGE (Code Relationships)
 
+### Circuit Protection
+When a question mentions GFCI, AFCI, or CAFCI - search for ALL THREE together.
+
 ### Small Conductor OCP Limits
 When sizing 14, 12, or 10 AWG conductors - always check 240.4(D) for OCP limits.
 
 ### Termination Temperature
 When using 90°C ampacity values - check 110.14(C) for termination derating.
-
-### Unit Selection (Dual-Unit Tables)
-Tables like 220.12 have both metric (VA/m²) and imperial (VA/ft²) values.
-- Question mentions "square foot" or "sq ft" → use the VA/ft² column
-- Question mentions "square meter" or "m²" → use the VA/m² column
-- When in doubt, USE IMPERIAL (VA/ft²) - California uses imperial units
-
-### Service Conductor Sizing (Table 310.12(A) vs 310.16)
-For DWELLING service or feeder conductors, use Table 310.12(A) which has SMALLER sizes:
-- 200A dwelling service: 2/0 AWG copper OR 4/0 AWG aluminum
-- Do NOT use Table 310.16 sizes (3/0 Cu, 250 Al) for dwelling services
-Table 310.12(A) applies when: (1) no derating needed, (2) supplies entire dwelling load
-
-### Detached Buildings/Structures (250.32)
-When questions involve feeders to detached garages, sheds, or separate buildings:
-- 250.32(A): Detached buildings with FEEDERS require their own grounding electrode
-- Exception: Single branch circuit (including multiwire) = no local electrode required
-- 4-wire feeder to detached building = grounding electrode IS required
-- Neutral and ground must still be separated in subpanel (250.24(D))
-
-### Surge Protection for Dwelling Services (230.67)
-For questions about surge protection on residential services:
-- 230.67(A): ALL services supplying dwelling units REQUIRE a surge-protective device (SPD)
-- Type 1 or Type 2 SPD required
-- Installation: Must be integral to service equipment OR immediately adjacent
-- Exception: SPD can be at first downstream panelboard if service equipment lacks space
-- This is MANDATORY for new construction - not optional
 
 ---
 
@@ -491,7 +470,7 @@ SYNTHESIZE results by category, cite each requirement with section number.
 
 REFLECTION_PROMPT = """## SELF-VERIFICATION CHECK
 
-Review your answer for completeness and accuracy:
+Review your answer for completeness:
 
 1. **All Parts Answered**: Did you address every part of the question?
 
@@ -501,15 +480,8 @@ Review your answer for completeness and accuracy:
 
 4. **Show Work**: If the question asked to "show your work," did you include formulas and step-by-step calculations?
 
-5. **Table Data Accuracy**: If you cited a table value:
-   - Re-read the table output and verify you selected the CORRECT ROW for the question
-   - Example: "rain, sleet, ice" → use "Rain, snow, and sleet" row, NOT "Sleet*" row
-   - Verify you used the correct column/units (ft² not m², etc.)
-
-6. **Fact Check**: Is each specific value you stated actually in the tool output?
-
-If you identify ANY gaps or doubts:
-- Call additional tools to check for exceptions or verify values
+If you identify ANY gaps:
+- Call additional tools to check for exceptions or missing information
 - Then provide a REVISED, COMPLETE answer
 
 If your answer is complete, respond with: "[VERIFIED] Answer is complete."
@@ -652,11 +624,28 @@ class CECAgent:
                                force_nec_comparison: bool = False,
                                tool_output_hints: list = None) -> tuple:
         """
-        Simple verification: Ensure at least one search/lookup tool was called.
+        Check if required tools were called - with specialized tool enforcement.
+
+        ALL questions require:
+        1. At least one search/lookup tool
+        2. Specialized tools based on question type (NEW - prevents hallucination)
+
+        Cross-reference handling (e.g., 240.4 for small conductors) is now handled
+        via table footnotes. The lookup tools return applicable_notes and cross_references
+        which the model is instructed to follow via the CROSS-REFERENCE RULE in the prompt.
+
+        Args:
+            question: The user's original question
+            all_tool_calls: List of all tool calls made during the conversation
+
+        Returns:
+            Tuple of (is_complete: bool, missing_info: str or None)
         """
         tools_called = {tc.get("name", "") for tc in all_tool_calls}
-        
-        # Valid search tools (CEC and NEC)
+
+        # ALL questions require at least one search/lookup
+        # Tool names must match actual tools in tools.py
+        # CEC-only mode: NEC tools disabled
         search_tools = [
             "cec_search",
             "cec_lookup_conductor_ampacity",
@@ -665,16 +654,49 @@ class CECAgent:
             "cec_lookup_working_space",
             "cec_lookup_conductor_size",
             "cec_lookup_conduit_fill",
-            "cec_lookup_table", "get_table_info", "search_tables",
-            "nec_search", "lookup_conductor_ampacity"
+            "cec_lookup_table", "get_table_info", "search_tables"
         ]
-        
         has_search = any(t in tools_called for t in search_tools)
 
         if not has_search:
             return (False, "search")
 
-        # Basic comparison check if explicitly requested
+        # DISABLED: Specialized tool enforcement removed in favor of smart table injection
+        # The cec_search() function now automatically injects table data when search
+        # results reference tables, eliminating the need to force specific lookup tools.
+        # This allows the LLM more flexibility while still providing accurate table values.
+        #
+        # required_specialized = self._detect_required_specialized_tools(question)
+        # missing_specialized = [t for t in required_specialized if t not in tools_called]
+        # if missing_specialized:
+        #     return (False, f"specialized_tool:{missing_specialized[0]}")
+
+        # Exception search is NO LONGER mandatory - the footnote augmentation system
+        # automatically injects cross-references (e.g., 240.4(D)) into table lookup results,
+        # telling the agent which specific sections to check. This is more targeted than
+        # forcing generic exception searches on every question.
+
+        # NEW: Check if tool output hints were addressed
+        # If tool outputs contained "also check X" hints, verify those sections were searched
+        if tool_output_hints:
+            # Get all search queries from cec_search calls
+            search_queries = []
+            for tc in all_tool_calls:
+                if tc.get("name") == "cec_search":
+                    query = tc.get("args", {}).get("query", "")
+                    search_queries.append(query.lower())
+
+            # Check if each hint section was searched
+            for hint in tool_output_hints:
+                hint_searched = any(hint.lower() in q or hint.split('(')[0] in q for q in search_queries)
+                if not hint_searched:
+                    # Only enforce if the hint is a location-related section (panel location questions)
+                    # to avoid over-enforcement on every question
+                    location_hints = ['240.24', '110.26']
+                    if any(loc in hint for loc in location_hints):
+                        return (False, f"hint:{hint}")
+
+        # Check for NEC comparison if user requested it via checkbox
         if force_nec_comparison:
             has_nec_comparison = "compare_with_nec" in tools_called
             if not has_nec_comparison:
@@ -682,6 +704,125 @@ class CECAgent:
 
         return (True, None)
 
+    def _get_tool_similarity(self, question: str, tool_keywords: dict) -> list:
+        """
+        Simple token-overlap fallback when keyword detection misses.
+        Only called if primary keyword detection returns empty.
+
+        Args:
+            question: The user's question
+            tool_keywords: Dict mapping tool names to lists of relevant keywords
+
+        Returns:
+            List containing the best-matching tool name, or empty list
+        """
+        q_tokens = set(question.lower().split())
+        scores = {}
+
+        for tool_name, keywords in tool_keywords.items():
+            kw_tokens = set(' '.join(keywords).lower().split())
+            overlap = len(q_tokens & kw_tokens)
+            if overlap >= 2:  # Need at least 2 matching tokens
+                scores[tool_name] = overlap
+
+        if scores:
+            top_tool = max(scores, key=scores.get)
+            if scores[top_tool] >= 3:  # High confidence threshold
+                return [top_tool]
+        return []
+
+    def _detect_required_specialized_tools(self, question: str) -> list:
+        """
+        Detect which specialized tools MUST be called based on question keywords.
+
+        This forces the agent to use deterministic table lookup tools instead of
+        generic search for specific question types, preventing LLM hallucination.
+
+        Returns:
+            List of tool names that MUST be called for this question
+        """
+        required = []
+        q_lower = question.lower()
+
+        # Working space / clearance questions -> force table lookup
+        if any(kw in q_lower for kw in ['working space', 'clearance depth', 'working clearance',
+                                         '110.26', 'depth of working', 'clearance in front']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('lookup_working_space')
+            else:
+                required.append('cec_lookup_working_space')
+
+        # Conduit fill questions -> force conduit lookup
+        if any(kw in q_lower for kw in ['conduit fill', 'how many conductors', 'maximum number of conductors',
+                                         'conductors can fit', 'conductors in conduit', 'chapter 9 table']):
+            if 'nec' in q_lower or 'national' in q_lower:
+                required.append('lookup_conduit_fill')
+            else:
+                required.append('cec_lookup_conduit_fill')
+
+        # Ampacity adjustment questions -> force ampacity adjustment lookup
+        if any(kw in q_lower for kw in ['adjusted ampacity', 'derated ampacity', 'temperature correction',
+                                         'bundling adjustment', 'ambient temperature', 'current-carrying conductors']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('lookup_ampacity_adjustment')
+            else:
+                required.append('cec_lookup_ampacity_adjustment')
+
+        # Grounding electrode conductor questions -> force grounding conductor lookup
+        if any(kw in q_lower for kw in ['grounding electrode conductor', 'gec size', 'table 250.66',
+                                         'minimum.*gec', 'size.*gec']):
+            if 'nec' in q_lower or 'national' in q_lower:
+                required.append('lookup_grounding_conductor')
+            else:
+                required.append('cec_lookup_grounding_conductor')
+
+        # Equipment grounding conductor questions -> force grounding conductor lookup
+        if any(kw in q_lower for kw in ['equipment grounding conductor', 'egc size', 'table 250.122',
+                                         'minimum.*egc', 'size.*egc']):
+            if 'nec' in q_lower or 'national' in q_lower:
+                required.append('lookup_grounding_conductor')
+            else:
+                required.append('cec_lookup_grounding_conductor')
+
+        # Table lookup questions (lighting load, general tables) -> force table lookup
+        if any(kw in q_lower for kw in ['table 220.12', 'lighting load', 'va per square foot',
+                                         'unit lighting load', 'general lighting load']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('get_table_info')
+            else:
+                required.append('cec_lookup_table')
+
+        # Base ampacity questions (forward lookup) -> force ampacity lookup
+        if any(kw in q_lower for kw in ['ampacity of', 'what is the ampacity', 'how many amps can']):
+            # Only if NOT asking about adjustment/derating (those are handled above)
+            if not any(adj in q_lower for adj in ['adjust', 'derat', 'correction', 'bundling']):
+                if 'nec' in q_lower and 'cec' not in q_lower:
+                    required.append('lookup_conductor_ampacity')
+                else:
+                    required.append('cec_lookup_conductor_ampacity')
+
+        # Conductor sizing questions (expanded keywords)
+        if any(kw in q_lower for kw in ['conductor size', 'wire size', 'what awg', 'what size wire',
+                                         'minimum conductor', 'service conductor size']):
+            if 'nec' in q_lower and 'cec' not in q_lower:
+                required.append('nec_lookup_conductor_size')
+            else:
+                required.append('cec_lookup_conductor_size')
+
+        # If keyword detection found nothing, try similarity fallback
+        if not required:
+            tool_keywords = {
+                'cec_lookup_conduit_fill': ['conduit', 'conductors', 'fit', 'fill', 'raceway', 'chapter', 'wires'],
+                'cec_lookup_ampacity_adjustment': ['ampacity', 'derate', 'temperature', 'ambient', 'bundling', 'correction'],
+                'cec_lookup_working_space': ['clearance', 'space', 'working', 'panel', 'equipment', 'depth', 'front'],
+                'cec_lookup_grounding_conductor': ['egc', 'gec', 'equipment', 'electrode', 'grounding', 'ocpd', '250.122', '250.66'],
+                'cec_lookup_table': ['table', 'lighting', 'load', 'va', 'square', 'foot', 'occupancy'],
+                'cec_lookup_conductor_ampacity': ['ampacity', 'amps', 'current', 'rating', 'wire', 'conductor'],
+                'cec_lookup_conductor_size': ['size', 'conductor', 'wire', 'awg', 'kcmil', 'service'],
+            }
+            required = self._get_tool_similarity(q_lower, tool_keywords)
+
+        return required
 
     def _augment_tool_result_with_footnotes(self, tool_call: dict, result_str: str) -> str:
         """
@@ -1098,26 +1239,6 @@ class CECAgent:
                                f"This section may contain important location restrictions or requirements. "
                                f"Call cec_search('{hint_section}') NOW to verify this requirement."
                     ))
-                elif missing_type.startswith("protection_type:"):
-                    # GFCI/AFCI cross-enforcement for dwelling circuits
-                    missing_protection = missing_type.split(":", 1)[1].upper()
-                    section = "210.12" if missing_protection == "AFCI" else "210.8"
-                    messages.append(HumanMessage(
-                        content=f"INCOMPLETE: This is a dwelling circuit protection question. "
-                               f"You searched for one protection type but NOT {missing_protection}. "
-                               f"CEC 2022 Section {section} covers {missing_protection} requirements. "
-                               f"Call cec_search('{section} {missing_protection}') NOW to check if {missing_protection} is also required. "
-                               f"Remember: CEC 210.12(A) requires AFCI for ALL 120V dwelling circuits."
-                    ))
-                elif missing_type == "service_conductor_tool":
-                    # Service conductor enforcement - require Table 310.12(A) lookup
-                    messages.append(HumanMessage(
-                        content="ENFORCEMENT: This question asks about SERVICE CONDUCTORS for a dwelling. "
-                               "You MUST call cec_lookup_conductor_size(required_ampacity=200, conductor_application='service') "
-                               "to get dwelling service sizes from Table 310.12(A). "
-                               "Do NOT use Table 310.16 values - dwelling services use the SMALLER sizes from 310.12(A). "
-                               "200A dwelling: 2/0 Cu or 4/0 Al (NOT 3/0 Cu or 250 Al)."
-                    ))
                 continue
 
             # All checks passed - run reflection phase if enabled
@@ -1343,12 +1464,10 @@ class CECAgent:
 
                 # Auto-retry once if hallucination detected
                 if not _hallucination_retry:
-                    # CHANGED: Do NOT auto-retry based on hallucination warning
-                    # Just log it and proceed to return the answer
-                    # The warning is likely pedantic or formatting-related
                     if self.verbose:
-                         print(f"  [!] Hallucination warning logged: {warning}")
-                    trace['hallucination_warning'] = warning
+                        print(f"  [!] Hallucination detected - retrying question...")
+                    self.clear_memory()
+                    return self.ask(question, force_nec_comparison, _hallucination_retry=True)
                 else:
                     # Already retried once, log warning and continue
                     if self.verbose:

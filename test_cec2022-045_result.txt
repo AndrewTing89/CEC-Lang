@@ -1,0 +1,57 @@
+TEST: cec2022-045
+QUESTION: What type of enclosure is suitable for outdoor use with rain, sleet, and ice per Table 110.28?
+
+================================================================================
+AGENT ANSWER:
+================================================================================
+
+## Suitable Enclosures for Outdoor Use with Rain, Sleet, and Ice (CEC 2022)
+
+**Answer:**
+The following enclosure types from **Table 110.28** are suitable for outdoor use with protection against rain, sleet, and ice:
+
+- **Type 3**
+- **Type 3R**
+- **Type 3S**
+- **Type 3X**
+- **Type 3RX**
+- **Type 3SX**
+- **Type 4**
+- **Type 4X**
+- **Type 6**
+- **Type 6P**
+
+### Key Notes:
+1. **General Protection**: All listed types provide protection against rain, snow, and sleet (per the "Rain, snow, and sleet" row in the table).
+2. **Operability in Ice**: If the enclosure mechanism must remain operable when ice-covered (e.g., switches, breakers), only **Type 3S, 3SX, 4, 4X, 6, or 6P** are required (see the "Sleet*" footnote).
+3. **Corrosion Resistance**: For environments with corrosive agents (e.g., coastal areas), select **Type 3X, 3RX, 3SX, 4X, 6P** (marked with "X" in their designation).
+
+[OK] Source: CEC 2022 Table 110.28
+
+================================================================================
+EVALUATION:
+================================================================================
+
+ENCLOSURE TYPES LISTED:
+✓ Type 3
+✓ Type 3R
+✓ Type 3S
+✓ Type 3X
+✓ Type 3RX
+✓ Type 3SX
+✓ Type 4
+✓ Type 4X
+✓ Type 6
+✓ Type 6P
+
+EXPECTED FULL LIST: 3, 3R, 3S, 3X, 3RX, 3SX, 4, 4X, 6, 6P
+AGENT PROVIDED: All 10 types (COMPLETE LIST)
+
+RESULT: ✅ CORRECT
+
+The agent provided the FULL list of all 10 enclosure types suitable for outdoor use with rain, sleet, and ice protection. This is the correct answer - not the partial list (3S, 3SX only) that was a concern in previous tests.
+
+ADDITIONAL QUALITY:
+- Properly distinguished between general protection vs. operability during ice
+- Added helpful notes about corrosion resistance variants
+- Cited correct source (CEC 2022 Table 110.28)
